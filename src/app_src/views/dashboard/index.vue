@@ -15,7 +15,7 @@
                       <h3>平台需求</h3> 
                       <p>服务器: {{CSharpPlatformInfo.server}}</p>
                       <p>运行环境：{{CSharpPlatformInfo.OperatingEnvironment}}</p>
-                      <el-button type="primary" round @click="download">平台下载</el-button>
+                      <el-button @click="download" type="primary" round >平台下载</el-button>
                     </div>
                 </el-col>
 
@@ -100,21 +100,21 @@ export default {
           { name: "UIDP开发平台V3.5.5(测试版)", id: 5 }
         ]
       },
-      CSharpradio: "",
-      GOradio:''
-    };
-  },
-  method: {
-    download() {
-      if (this.radio != null) {
-        alter("开始下载");
-      }
+      CSharpradio:null,
+      GOradio:null
     }
   },
-  computed: {
-    ...mapGetters(["name", "roles"])
+  methods:{
+    download(){
+      if(this.CSharpradio!=null){
+        alert("开始下载"+this.CSharpradio+"号文件，文件名为"+this.GOPlatformInfo.Edition[this.CSharpradio-1].name)
+      }
+      else{
+        alert('请选择下载的文件')
+      }
+    }
   }
-};
+}
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>

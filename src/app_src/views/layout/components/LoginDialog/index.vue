@@ -1,6 +1,5 @@
 <template>
     <div id="logindialog">
-        <el-button type="text" @click="dialogFormVisible = true">打开嵌套表单的 Dialog</el-button>
             <el-dialog title="收货地址" :visible.sync="dialogFormVisible">
             <el-form :model="form">
                 <el-form-item label="活动名称" :label-width="formLabelWidth">
@@ -26,7 +25,12 @@
 export default {
     data(){
         return{
-
+            dialogFormVisible:false,
+            form:{
+                name:'',
+                regin:''
+            },
+            formLabelWidth:''
         }
     }
 }
