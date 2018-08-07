@@ -13,9 +13,15 @@
       </el-col>
     </div>
     <el-col :span="24">
+
       <div class="main-container">
+      <div>
         <topbar></topbar>
-        <app-main></app-main>
+      </div>
+      <div>
+          <app-main></app-main>
+      </div>
+        
       </div>
     </el-col>
 

@@ -4,7 +4,9 @@
         <el-row :gutter="20" type="flex">
           <el-col :span="24">
             <div class="grid-content bg-purple">
-              <img src="../../../app_src/imgs/GO.png"> 
+              <div class="logo">
+                <img src="../../../app_src/imgs/C.png"> 
+              </div>
             </div>
             </el-col>         
         </el-row>
@@ -12,6 +14,9 @@
         <el-row :gutter="20">
           <el-col :span="24">
             <div class="grid-content bg-purple">
+             <div class="logo">
+                <img src="../../../app_src/imgs/GO.png"> 
+              </div>
             </div>
             </el-col>          
         </el-row>
@@ -21,17 +26,14 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters } from "vuex";
 
 export default {
-  name: 'dashboard',
+  name: "dashboard",
   computed: {
-    ...mapGetters([
-      'name',
-      'roles'
-    ])
+    ...mapGetters(["name", "roles"])
   }
-}
+};
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
@@ -44,8 +46,8 @@ export default {
     line-height: 46px;
   }
 }
-.platform{
-   .el-row {
+.platform {
+  .el-row {
     margin-bottom: 20px;
     &:last-child {
       margin-bottom: 0;
@@ -65,11 +67,17 @@ export default {
   }
   .grid-content {
     border-radius: 4px;
-    min-height: 350px;
+    min-height: 250px;
   }
   .row-bg {
     padding: 1000px 0;
     background-color: #f9fafc;
+  }
+  .logo {
+    img{
+      border-radius: 4em;
+      padding: 30px 40px;
+    }
   }
 }
 </style>
