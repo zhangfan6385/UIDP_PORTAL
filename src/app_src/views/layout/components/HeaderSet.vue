@@ -21,7 +21,10 @@
       </el-tooltip>
       -->
       
-      <img class='message' src="../../../../app_src/imgs/message.png" v-bind:title="total" @click="getcontent">
+      <el-badge value="new" :max="99" class="item">
+        <img class='message' src="../../../../app_src/imgs/message.png" v-bind:title="total" @click="getcontent">
+      </el-badge>
+      
       
       <el-dropdown class="avatar-container right-menu-item" trigger="click">
         <div class="avatar-wrapper">

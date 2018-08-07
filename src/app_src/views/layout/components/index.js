@@ -4,3 +4,4 @@
 export { default as HeaderSet } from './HeaderSet'
 export { default as AppMain } from './AppMain'
 export { default as Topbar} from './Topbar' 
+export {default as LoginDialog} from './LoginDialog'

@@ -16,9 +16,11 @@
 
       <div class="main-container">
       <div>
+        
         <topbar></topbar>
       </div>
       <div>
+        <login-dialog></login-dialog>
           <app-main></app-main>
       </div>
         
@@ -29,7 +31,7 @@
 </template>
 
 <script>
-import { AppMain,HeaderSet,Topbar } from './components'
+import { AppMain,HeaderSet,Topbar,LoginDialog } from './components'
 import ResizeMixin from './mixin/ResizeHandler'
 
 export default {
@@ -37,9 +39,10 @@ export default {
   components: {
     //Navbar,
     //Sidebar,
+    //TagsView,
     AppMain,
     Topbar,
-    //TagsView,
+    LoginDialog,
     HeaderSet
   },
   mixins: [ResizeMixin],
