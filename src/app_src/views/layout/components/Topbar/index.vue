@@ -15,13 +15,7 @@
                 <el-menu-item index="4">社区</el-menu-item>
             </el-col>
             </el-menu>
-        </el-cow>
-       
-            
-            
-            
-            
-        
+        </el-cow>       
         <div class="copyright">
             版权所有：©大港油田集团责任有限公司信息中心
         </div>

@@ -34,7 +34,40 @@ export const constantRouterMap = [
       component: _import('app_src/views/dashboard/index')
     }]
   },
-
+  {
+    path: '/',
+    component: Layout,
+    redirect: '/community',
+    name: 'Community',
+    hidden: true,
+    children: [{
+      path: 'community',
+      component: _import('app_src/views/community/index')
+    }]
+  },
+  {
+    path: '/',
+    component: Layout,
+    redirect: '/sever',
+    name: 'Sever',
+    hidden: true,
+    children: [{
+      path: 'sever',
+      component: _import('app_src/views/sever/index')
+    }]
+  },
+  {
+    path: '/',
+    component: Layout,
+    redirect: '/severcomponent',
+    name: 'Severcomponent',
+    hidden: true,
+    children: [{
+      path: 'severcomponent',
+      component: _import('app_src/views/severcomponent/index')
+    }]
+  },
+/*
   {
     path: '/example',
     component: Layout,
@@ -50,6 +83,7 @@ export const constantRouterMap = [
       }
     ]
   },
+*/  
 
   { path: '*', redirect: 'app_src/views/404', hidden: true }
 ]
