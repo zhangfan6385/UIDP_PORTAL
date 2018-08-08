@@ -21,7 +21,7 @@
 
                 <el-col :span="4">
                     <div class="waitlogo">
-                       <img src="../../../app_src/imgs/time.png" title="历史版本">
+                       <img src="../../../app_src/imgs/time.png" title="历史版本" @click="histiory">
                     </div>
                 </el-col>
 
@@ -67,7 +67,19 @@
             </el-col>          
         </el-row>
     </div>
+    <el-button type="text" @click="dialogTableVisible = true">打开嵌套表格的 Dialog</el-button>
 
+    <el-dialog title="历史版本" :visible.sync="dialogTableVisible">
+      <el-table :data="histioryList">
+        <el-table-column property="time" label="日期" width="150" align="center"></el-table-column>
+        <el-table-column property="name" label="版本" width="300" align="center"></el-table-column>
+        <el-table-column  label="操作" align="center">
+          <template slot-scope="scope">
+            <el-button>点击下载</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </el-dialog>
   </div>
 </template>
 
@@ -100,8 +112,15 @@ export default {
           { name: "UIDP开发平台V3.5.5(测试版)", id: 5 }
         ]
       },
+      histioryList:[
+        {time:'2018-8-7',name: "UIDP开发平台V3.5.1(测试版)",id:1},
+        {time:'2018-8-8',name: "UIDP开发平台V3.5.2(测试版)",id:2},
+        {time:'2018-8-9',name: "UIDP开发平台V3.5.3(测试版)",id:3},
+        {time:'2018-8-10',name: "UIDP开发平台V3.5.4(测试版)",id:4},
+      ],
       CSharpradio:null,
-      GOradio:null
+      GOradio:null,
+      dialogTableVisible:false
     }
   },
   methods:{
@@ -112,6 +131,9 @@ export default {
       else{
         alert('请选择下载的文件')
       }
+    },
+    histiory(){
+      this.dialogTableVisible=true;
     }
   }
 }
