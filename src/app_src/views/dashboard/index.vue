@@ -2,7 +2,8 @@
   <div class="dashboard-container">
     <div class="platform">
         <el-row :gutter="20" type="flex">
-          <el-col :span="24">
+          <el-col :span="2"> </el-col>
+          <el-col :span="20">
             <div class="grid-content bg-purple">
               
                 <el-col :span="4">
@@ -19,13 +20,13 @@
                     </div>
                 </el-col>
 
-                <el-col :span="4">
+                <el-col :span="6">
                     <div class="waitlogo">
                        <img src="../../../app_src/imgs/time.png" title="历史版本" @click="histiory">
                     </div>
                 </el-col>
 
-                <el-col :span="8">
+                <el-col :span="6">
                   <div  class="histiory" v-for="(item,key) in CSharpPlatformInfo.Edition" :key=key>
                       <el-radio v-model="CSharpradio" :label="item.id">{{item.name}}</el-radio>
                   </div>
@@ -35,8 +36,9 @@
             </el-col>       
         </el-row>
 
-        <el-row :gutter="20">
-          <el-col :span="24">
+        <el-row :gutter="20" type="flex">
+          <el-col :span="2"> </el-col>
+          <el-col :span="20">
             <div class="grid-content bg-purple">
                 <el-col :span="4">
                     <div class="logo">

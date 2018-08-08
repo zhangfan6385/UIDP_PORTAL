@@ -23,21 +23,27 @@
                                 <img src="../../../app_src/imgs/coin.png">
                             </div>
                         </el-col>
-                        <el-col :span="16">
-                            <div class="title">
-                                {{news.title}}
-                                <div class="content">
-                                    {{news.content}}
+                        <el-row>
+                            <el-col :span="16">
+                                <div class="title">
+                                    {{news.title}}
+                                    <div class="content">
+                                        {{news.content}}
+                                    </div>
                                 </div>
-                            </div>
-                        </el-col>
-                        <el-col :span="5">
-                             <div class="info">
-                                发表日期：{{news.upTime}}
-                                <br>
-                                求助金额：<img src="../../../app_src/imgs/coin.png" >{{news.offer}}
-                            </div>
-                        </el-col>
+                            </el-col>
+                        </el-row>
+                        <el-row>
+                            <el-col :span="5">
+                                <div class="info">
+                                    发表日期：{{news.upTime}}
+                                    <br>
+                                    求助金额：<img src="../../../app_src/imgs/coin.png" >{{news.offer}}
+                                </div>
+                            </el-col>
+                        </el-row>
+
+                        
 
                     </el-card>
                 </div>
