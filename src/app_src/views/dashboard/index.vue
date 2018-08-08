@@ -20,13 +20,13 @@
                     </div>
                 </el-col>
 
-                <el-col :span="6">
+                <el-col :span="5">
                     <div class="waitlogo">
                        <img src="../../../app_src/imgs/time.png" title="历史版本" @click="histiory">
                     </div>
                 </el-col>
 
-                <el-col :span="6">
+                <el-col :span="7">
                   <div  class="histiory" v-for="(item,key) in CSharpPlatformInfo.Edition" :key=key>
                       <el-radio v-model="CSharpradio" :label="item.id">{{item.name}}</el-radio>
                   </div>
@@ -54,13 +54,13 @@
                     </div>
                 </el-col>
 
-                <el-col :span="4">
+                <el-col :span="5">
                     <div class="waitlogo">
                        <img src="../../../app_src/imgs/time.png" title="历史版本">
                     </div>
                 </el-col>
 
-                <el-col :span="8">
+                <el-col :span="7">
                   <div  class="histiory" v-for="(item,key) in GOPlatformInfo.Edition" :key=key>
                       <el-radio v-model="GOradio" :label="item.id">{{item.name}}</el-radio>
                   </div>

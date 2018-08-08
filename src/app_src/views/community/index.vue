@@ -1,51 +1,62 @@
 <template>
     <div id="community" class="community">
-        <el-row>
-            <el-col :span="24">
+        <el-row :gutter="20" type="flex">
+            <el-col :span="2"></el-col>
+            <el-col :span="20">
                 <div class="header">
                     <div class="headerItem">
                         <el-button type="primary" plain>我的积分{{score}}</el-button>
                         <el-button type="success" plain>我的帖子</el-button>
                         <el-button type="info" plain>我的收藏</el-button>
                         <el-button type="warning" plain>发布帖子</el-button>
-                    </div>
-                    
+                    </div>                  
                 </div>
             </el-col>
         </el-row>
 
-        <el-row :gutter="20">
-            <el-col :span="17">
+        <el-row :gutter="20" type="flex">
+            <el-col :span="2"></el-col>
+            <el-col :span="13">
                 <div class="LeftContainer">               
-                    <el-card v-for="(news,key) in newslist" :key="key" body-style="{padding:'0px'}" class="card">
+                    <el-card v-for="(news,key) in newslist" :key="key" body-style="{padding:'0px'}" class="card" @click.native="getcontent">
                         <el-col :span="3">
                             <div class="newslogo">
                                 <img src="../../../app_src/imgs/coin.png">
                             </div>
                         </el-col>
                         <el-row>
-                            <el-col :span="16">
+                            <el-col :span="17">
                                 <div class="title">
                                     {{news.title}}
-                                    <div class="content">
-                                        {{news.content}}
-                                    </div>
+                                </div>
+                                <div class="content">
+                                    {{news.content}}
                                 </div>
                             </el-col>
-                        </el-row>
-                        <el-row>
-                            <el-col :span="5">
+
+                            <el-col :span="4">
                                 <div class="info">
-                                    发表日期：{{news.upTime}}
+                                    发表日期：{{news.upTime}}  
                                     <br>
                                     求助金额：<img src="../../../app_src/imgs/coin.png" >{{news.offer}}
+                                    <br>
+                                    阅读量：{{news.readNumber}}
+                                    <br>
+                                    评论数：{{news.commentNumber}}
                                 </div>
                             </el-col>
                         </el-row>
-
-                        
-
                     </el-card>
+                    <div class="pageclass">
+                        <el-pagination
+                        @size-change="handleSizeChange"
+                        @current-change="handleCurrentChange"
+                        :current-page.sync="currentPage1"
+                        :page-size="10"
+                        layout="total, prev, pager, next"
+                        :total="100">
+                        </el-pagination>
+                    </div>
                 </div>
             </el-col>
 
@@ -65,7 +76,6 @@
                 </div>
             </el-col>
         </el-row>
-
     </div>
 </template>
 
@@ -76,39 +86,71 @@ export default {
     return {
       score: 1000,
       scoreList: [
-        { index: "1", name: "张三", score: 10000 },
+        { index: "1", name: "张1", score: 10000 },
         { index: "2", name: "张2", score: 10000 },
-        { index: "3", name: "张4", score: 10000 },
-        { index: "4", name: "张5", score: 10000 },
+        { index: "3", name: "张3", score: 10000 },
+        { index: "4", name: "张4", score: 10000 },
         { index: "5", name: "张5", score: 10000 },
-        { index: "6", name: "张5", score: 10000 }
+        { index: "6", name: "张6", score: 10000 },
+        { index: "7", name: "张7", score: 10000 },
+        { index: "8", name: "张8", score: 10000 }
       ],
       newslist: [
-        { title: "为祖国庆生", upTime: "2018-8-8", readNumber: 200, offer: 200,
-        content:'为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。' },
-        { title: "为祖国庆生", upTime: "2018-8-8", readNumber: 200, offer: 200,
-        content:'为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。' },
-        { title: "为祖国庆生", upTime: "2018-8-8", readNumber: 200, offer: 200,
-        content:'为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。' },
-        { title: "为祖国庆生", upTime: "2018-8-8", readNumber: 200, offer: 200,
-        content:'为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。' }
-      ]
+        {
+          title: "为祖国庆生",
+          upTime: "2018-8-8",
+          readNumber: 200,
+          offer: 200,
+          commentNumber: 200,
+          content:
+            "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
+        },
+        {
+          title: "为祖国庆生",
+          upTime: "2018-8-8",
+          readNumber: 200,
+          offer: 200,
+          commentNumber: 200,
+          content:
+            "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
+        },
+        {
+          title: "为祖国庆生",
+          upTime: "2018-8-8",
+          readNumber: 200,
+          offer: 200,
+          commentNumber: 200,
+          content:
+            "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
+        }
+      ],
+      currentPage1: 1
     };
   },
-  methods: {}
+  methods: {
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`);
+    },
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`);
+    },
+    getcontent() {
+      alert("显示新闻具体内容");
+    }
+  }
 };
 </script>
 
 
 <style lang="scss">
 .community {
-    .card{
-        max-height:150px; 
-    }
+  .card {
+    max-height: 150px;
+  }
   .header {
     border-radius: 0.5em;
     min-height: 65px;
-    background:rgb(194, 206, 195);
+    background: rgb(194, 206, 195);
     .headerItem {
       float: right;
       padding-top: 20px;
@@ -119,32 +161,46 @@ export default {
   .LeftContainer {
     border-radius: 0.5em;
     min-height: 100px;
-    background: rgb(145, 210, 214);
     min-height: 390px;
-    .newslogo{
-        img{
-            width: 100px;
-            height: 100px;
-        }
+    .newslogo {
+      img {
+        width: 100px;
+        height: 100px;
+      }
     }
-    .title{
-        margin-left: 12px;
-        font-weight: 200;
-        text-align: center;
+    .title {
+      margin-left: 15px;
+      font-weight: 200;
+      font-size: 20px;
+      font-weight: bold;
+      font-family: "SimHei";
+      text-align: center;
     }
-    .info{
-        margin-bottom: 20px;
-        color: gray;
-        font-size: 10px;
-        img{
-            width: 13px;
-            height: 13px;
-        }
+    .info {
+      line-height: 25px;
+      margin-bottom: 20px;
+      color: gray;
+      font-size: 10px;
+      img {
+        width: 13px;
+        height: 13px;
+      }
     }
-    .content{
-        font-size: 15px;
-        line-height: 20px;
-        color:rgb(53, 49, 49);
+    .content {
+      margin-top: 15px;
+      margin-left: 15px;
+      margin-right: 20px;
+      font-size: 15px;
+      line-height: 20px;
+      color: rgb(53, 49, 49);
+      text-overflow: ellipsis;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+    }
+    .pageclass {
+      text-align: center;
     }
   }
   .MainContainer {
