@@ -15,23 +15,27 @@
         </el-row>
 
         <el-row :gutter="20">
-            <el-col :span="15">
+            <el-col :span="17">
                 <div class="LeftContainer">               
-                    <el-card v-for="(news,key) in newslist" :key="key" body-style="{padding:'0px'}">
+                    <el-card v-for="(news,key) in newslist" :key="key" body-style="{padding:'0px'}" class="card">
                         <el-col :span="3">
                             <div class="newslogo">
                                 <img src="../../../app_src/imgs/coin.png">
                             </div>
                         </el-col>
-                        <el-col :span="21">
+                        <el-col :span="16">
                             <div class="title">
                                 {{news.title}}
-                                <br>
-                                {{news.content}}
-                                <div class="info">
-                                    {{news.upTime}}
-                                     <img src="../../../app_src/imgs/coin.png">{{news.offer}}
+                                <div class="content">
+                                    {{news.content}}
                                 </div>
+                            </div>
+                        </el-col>
+                        <el-col :span="5">
+                             <div class="info">
+                                发表日期：{{news.upTime}}
+                                <br>
+                                求助金额：<img src="../../../app_src/imgs/coin.png" >{{news.offer}}
                             </div>
                         </el-col>
 
@@ -39,7 +43,7 @@
                 </div>
             </el-col>
 
-            <el-col :span="9">
+            <el-col :span="7">
                 <div class="MainContainer">
                     <el-card>
                         <div>
@@ -74,7 +78,14 @@ export default {
         { index: "6", name: "张5", score: 10000 }
       ],
       newslist: [
-        { title: "新闻1", upTime: "2018-8-8", readNumber: 200, offer: 200,content:'1111111111111111111111111' }
+        { title: "为祖国庆生", upTime: "2018-8-8", readNumber: 200, offer: 200,
+        content:'为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。' },
+        { title: "为祖国庆生", upTime: "2018-8-8", readNumber: 200, offer: 200,
+        content:'为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。' },
+        { title: "为祖国庆生", upTime: "2018-8-8", readNumber: 200, offer: 200,
+        content:'为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。' },
+        { title: "为祖国庆生", upTime: "2018-8-8", readNumber: 200, offer: 200,
+        content:'为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。' }
       ]
     };
   },
@@ -85,10 +96,13 @@ export default {
 
 <style lang="scss">
 .community {
+    .card{
+        max-height:150px; 
+    }
   .header {
     border-radius: 0.5em;
     min-height: 65px;
-    background: rgb(210, 231, 15);
+    background:rgb(194, 206, 195);
     .headerItem {
       float: right;
       padding-top: 20px;
@@ -108,18 +122,23 @@ export default {
         }
     }
     .title{
-        margin-left: 100px;
+        margin-left: 12px;
         font-weight: 200;
+        text-align: center;
     }
     .info{
-        float: right;
-        margin-right: 20px;
+        margin-bottom: 20px;
         color: gray;
         font-size: 10px;
         img{
             width: 13px;
             height: 13px;
         }
+    }
+    .content{
+        font-size: 15px;
+        line-height: 20px;
+        color:rgb(53, 49, 49);
     }
   }
   .MainContainer {

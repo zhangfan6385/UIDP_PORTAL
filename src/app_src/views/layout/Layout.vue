@@ -31,11 +31,11 @@
 </template>
 
 <script>
-import { AppMain,HeaderSet,Topbar,LoginDialog } from './components'
-import ResizeMixin from './mixin/ResizeHandler'
+import { AppMain, HeaderSet, Topbar, LoginDialog } from "./components";
+import ResizeMixin from "./mixin/ResizeHandler";
 
 export default {
-  name: 'layout',
+  name: "layout",
   components: {
     //Navbar,
     //Sidebar,
@@ -48,23 +48,21 @@ export default {
   mixins: [ResizeMixin],
   computed: {
     sidebar() {
-      return this.$store.state.app.sidebar
+      return this.$store.state.app.sidebar;
     },
     device() {
-      return this.$store.state.app.device
+      return this.$store.state.app.device;
     },
     classObj() {
       return {
         hideSidebar: !this.sidebar.opened,
         withoutAnimation: this.sidebar.withoutAnimation,
-        mobile: this.device === 'mobile'
-      }
+        mobile: this.device === "mobile"
+      };
     }
   },
-  methods: {
-    
-  }
-}
+  methods: {}
+};
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
@@ -88,7 +86,7 @@ export default {
   position: fixed;
   z-index: 1999;
   min-width: 100%;
-  height: 55px;
+  height: 60px;
   // background:#3A71A8;
   margin: 0 auto;
   line-height: 55px; /*设置line-height与父级元素的height相等*/

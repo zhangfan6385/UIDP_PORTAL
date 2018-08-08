@@ -67,15 +67,13 @@
             </el-col>          
         </el-row>
     </div>
-    <el-button type="text" @click="dialogTableVisible = true">打开嵌套表格的 Dialog</el-button>
-
     <el-dialog title="历史版本" :visible.sync="dialogTableVisible">
       <el-table :data="histioryList">
         <el-table-column property="time" label="日期" width="150" align="center"></el-table-column>
         <el-table-column property="name" label="版本" width="300" align="center"></el-table-column>
         <el-table-column  label="操作" align="center">
           <template slot-scope="scope">
-            <el-button>点击下载</el-button>
+            <el-button @click="download(scope.row.id)" type="primary" size="mini">点击下载</el-button>
           </template>
         </el-table-column>
       </el-table>
