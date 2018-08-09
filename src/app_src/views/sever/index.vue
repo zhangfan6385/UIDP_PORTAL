@@ -30,14 +30,14 @@
                   </el-table-column>
                   <el-table-column
                   prop="name"
-                  label="组件名称"
+                  label="服务名称"
                   show-overflow-tooltip=true
                   width="200">
                   </el-table-column>
                   <el-table-column
                   prop="download"
                   width="80"
-                  label="下载次数">
+                  label="使用次数">
                   </el-table-column>
                   <el-table-column
                   prop="date"
@@ -45,10 +45,12 @@
                   width="120">
                   </el-table-column>
                   <el-table-column label="操作"
-                  width="240">
+                  width="260">
                   <template slot-scope="scope">
                     <el-button size="mini" type="success" @click="handleDetail(scope.$index, scope.row)">详情</el-button>
-                    <el-button size="mini" type="warning" @click="handleApply(scope.$index, scope.row)">申请</el-button>
+                    <el-button size="mini" type="warning" @click="handleApply(scope.$index, scope.row)" v-if="scope.row.status==0?true:false">申请</el-button>
+                    <el-button size="mini" type="info" @click="handleExamine(scope.$index, scope.row)" v-if="scope.row.status==1?true:false">审核</el-button>
+                    <el-button size="mini" type="danger" @click="handleDown(scope.$index, scope.row)" v-if="scope.row.status==2?true:false">下载</el-button>
                     <el-button size="mini" type="primary" @click="handleHistory(scope.$index, scope.row)">查看记录</el-button>
                   </template>
                   </el-table-column>
@@ -77,7 +79,7 @@
             <!-- <el-form-item label="组件名称">
               <div>{{componentName}}</div>
             </el-form-item> -->
-            <el-form-item label="组件说明">
+            <el-form-item label="服务说明">
             <div v-html="componentContent"></div>
             </el-form-item>
             </el-form>
@@ -124,33 +126,35 @@
       </el-row>
     </div>
 </template>
+
+
 <script>
 export default {
   data() {
     return {
       TopList: [
-        { name: '云组织同步服务', id: 1, download: '151次使用' },
-        { name: '获取用户服务', id: 2, download: '71次使用' },
-        { name: '自定义服务', id: 3, download: '71次使用' },
-        { name: 'UIDP开发平台接口服务(测试版)', id: 4, download: '53次使用' },
-        { name: 'UIDP开发平台接口服务(测试版)', id: 5, download: '47次使用' },
-        { name: 'UIDP开发平台接口服务(测试版)', id: 6, download: '32次使用' },
-        { name: 'UIDP开发平台接口服务(测试版)', id: 7, download: '27次使用' },
-        { name: 'UIDP开发平台接口服务(测试版)', id: 8, download: '25次使用' },
-        { name: 'UIDP开发平台接口服务(测试版)', id: 9, download: '22次使用' },
-        { name: 'UIDP开发平台接口服务(测试版)', id: 10, download: '19次使用' }
+        { name: '云组织推送服务', id: 1, download: '151次使用' },
+        { name: '生成服务码', id: 2, download: '71次使用' },
+        { name: '服务1', id: 3, download: '71次使用' },
+        { name: 'UIDP开发平台服务(测试版)', id: 4, download: '53次使用' },
+        { name: 'UIDP开发平台服务(测试版)', id: 5, download: '47次使用' },
+        { name: 'UIDP开发平台服务(测试版)', id: 6, download: '32次使用' },
+        { name: 'UIDP开发平台服务(测试版)', id: 7, download: '27次使用' },
+        { name: 'UIDP开发平台服务1(测试版)', id: 8, download: '25次使用' },
+        { name: 'UIDP开发平台服务(测试版)', id: 9, download: '22次使用' },
+        { name: 'UIDP开发平台服务(测试版)', id: 10, download: '19次使用' }
       ],
       tableData: [
-        { name: '云组织同步服务', id: 1, download: '151', date: '2018-08-08', status: 1, content: '<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">微软更新了.Net Framework，更新后版本号升至4.7，它也包含在这次的创意者更新里，开发者可以使用Visual Studio 2017进行.Net Framework 4.7项目的开发。Windows10</p><p><img class="large" src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=4069284240,3156467089&fm=170&s=F902E412ECB4F99054474CDC0300D0E2&w=600&h=230&img.JPG"/></p><p style="margin-top: 26px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">最新版的.Net Framework 4.7主要带来了以下方面的提升：</p><p style="margin-top: 22px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">为Win10上的WPF程序带来了触控支持;</p><p style="margin-top: 22px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">增强了加密支持；</p><p style="margin-top: 22px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">提升性能和稳定性。</p><p><br/></p>' },
-        { name: '获取用户服务', id: 2, download: '71', date: '2018-08-08', status: 0 },
-        { name: '自定义服务', id: 3, download: '71', date: '2018-08-08', status: 0, content: '' },
-        { name: 'UIDP开发平台接口服务(测试版)', id: 4, download: '53', date: '2018-08-08', status: 0, content: '' },
-        { name: 'UIDP开发平台接口服务(测试版)', id: 5, download: '47', date: '2018-08-07', status: 0, content: '' },
-        { name: 'UIDP开发平台接口服务(测试版)', id: 6, download: '32', date: '2018-08-06', status: 0, content: '' },
-        { name: 'UIDP开发平台接口服务(测试版)', id: 7, download: '27', date: '2018-08-05', status: 0, content: '' },
-        { name: 'UIDP开发平台接口服务(测试版)', id: 8, download: '25', date: '2018-08-04', status: 0, content: '' },
-        { name: 'UIDP开发平台接口服务(测试版)', id: 9, download: '22', date: '2018-08-03', status: 0, content: '' },
-        { name: 'UIDP开发平台接口服务(测试版)', id: 10, download: '19', date: '2018-08-02', status: 0, content: '' }
+        { name: '云组织推送服务', id: 1, download: '151', date: '2018-08-08', status: 0, content: '<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">微软更新了.Net Framework，更新后版本号升至4.7，它也包含在这次的创意者更新里，开发者可以使用Visual Studio 2017进行.Net Framework 4.7项目的开发。Windows10</p><p><img class="large" src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=4069284240,3156467089&fm=170&s=F902E412ECB4F99054474CDC0300D0E2&w=600&h=230&img.JPG"/></p><p style="margin-top: 26px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">最新版的.Net Framework 4.7主要带来了以下方面的提升：</p><p style="margin-top: 22px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">为Win10上的WPF程序带来了触控支持;</p><p style="margin-top: 22px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">增强了加密支持；</p><p style="margin-top: 22px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">提升性能和稳定性。</p><p><br/></p>' },
+        { name: '生成服务码', id: 2, download: '71', date: '2018-08-08', status: 1 },
+        { name: '服务1', id: 3, download: '71', date: '2018-08-08', status: 2, content: '' },
+        { name: 'UIDP开发平台服务(测试版))', id: 4, download: '53', date: '2018-08-08', status: 0, content: '' },
+        { name: 'UIDP开发平台服务(测试版))', id: 5, download: '47', date: '2018-08-07', status: 1, content: '' },
+        { name: 'UIDP开发平台服务(测试版)', id: 6, download: '32', date: '2018-08-06', status: 2, content: '' },
+        { name: 'UIDP开发平台服务(测试版)', id: 7, download: '27', date: '2018-08-05', status: 0, content: '' },
+        { name: 'UIDP开发平台服务(测试版)', id: 8, download: '25', date: '2018-08-04', status: 1, content: '' },
+        { name: 'UIDP开发平台服务(测试版)', id: 9, download: '22', date: '2018-08-03', status: 0, content: '' },
+        { name: 'UIDP开发平台服务(测试版)', id: 10, download: '19', date: '2018-08-02', status: 2, content: '' }
       ],
       currentPage: 1,
       gridData: [{
@@ -219,6 +223,12 @@ export default {
     handleHistory(index, row) {
       this.dialogTableVisible = true
       this.dialogTitle = '组件' + row.name + '申请记录'
+    },
+    handleExamine(index, row) {
+      console.log(index)
+    },
+    handleDown(index, row) {
+      alert('请选择下载的文件')
     }
   }
 }
@@ -226,3 +236,111 @@ export default {
 
 
 <style lang="scss">
+.top{
+  font-weight:bold;
+  color: white;
+  text-align: center;
+  width:25px;
+  line-height:25px;
+  background-color:#7F7F7F;
+  border-radius:5px;
+  display:-moz-inline-box; /* css注释：for ff2 */ 
+  display:inline-block; 
+}
+.top1{  
+  font-weight:bold;
+  color: white;
+  text-align: center;
+  width:25px;
+  line-height:25px;
+  background-color:#C00000;
+  border-radius:5px;
+  display:-moz-inline-box; /* css注释：for ff2 */ 
+  display:inline-block; 
+}
+
+.top2{  
+    font-weight:bold;
+  color: white;
+  text-align: center;
+  width:25px;
+  line-height:25px;
+  background-color:#00B050;
+  border-radius:5px;
+  display:-moz-inline-box; /* css注释：for ff2 */ 
+  display:inline-block; 
+}
+.top3{
+    font-weight:bold;
+  color: white;
+  text-align: center;
+  width:25px;
+  line-height:25px;
+  background-color:#FFC000;
+  border-radius:5px;
+  display:-moz-inline-box; /* css注释：for ff2 */ 
+  display:inline-block; 
+}
+
+.component {
+  // margin: 0 auto;
+  // width: 980px;
+  margin: 30px;
+  // background: #f3f3f3;
+}
+
+.el-row {
+  margin-bottom: 20px;
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+.el-col {
+  border-radius: 4px;
+}
+.bg-purple-dark {
+  background: #99a9bf;
+}
+.bg-purple {
+  background: #d3dce6;
+}
+.bg-purple-light {
+  background: #e5e9f2;
+}
+.grid-content {
+  border-radius: 4px;
+  min-height: 36px;
+}
+.row-bg {
+  padding: 10px 0;
+  background-color: #f9fafc;
+}
+ .text {
+    list-style-type: none;
+    font-size: 14px;
+    width: 100%;
+  }
+
+.name{ 
+  display:-moz-inline-box;
+  float:left;
+  width:100%; 
+  height:25px;
+  overflow:hidden; 
+  text-overflow:ellipsis; 
+  white-space:nowrap; 
+  word-break:keep-all; 
+  cursor: pointer;
+  } 
+.spandownload{
+width:30px;
+height:25px;
+margin-left:8px;
+color:#99a9bf;
+text-align:center;
+font-size:10px;
+}
+.pagination-container{
+  float:right;
+}
+</style>
