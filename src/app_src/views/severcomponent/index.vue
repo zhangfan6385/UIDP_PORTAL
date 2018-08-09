@@ -6,11 +6,11 @@
           <div class="grid-content bg-purple">
             <el-card class="box-card">
                <div style="text-align: center">TOP排行榜</div>
-               <ui v-for="(item,index) in TopList" :key="index" class="text">
+               <ul v-for="(item,index) in TopList" :key="index" class="text">
                  <li style="padding:7px 0;float:left;width:10%;line-height:30px;"><span :class="addclass(index+1)">{{index+1}}</span></li>
                  <li style="padding:7px 0;float:left;width:65%;line-height:30px;"><span class="name" :title="item.name">{{item.name }}</span></li>
                  <li style="padding:7px 0;float:left;width:25%;line-height:30px;"><span class="spandownload">{{item.download}}</span></li>
-                </ui>
+                </ul>
             </el-card>
           </div>
         </el-col>
@@ -20,36 +20,40 @@
                 <div class="filter-container">
                     <el-input style="width: 420px;" class="filter-item"  >
                     </el-input>
-                    <el-button class="filter-item" type="primary" v-waves icon="el-icon-search" >搜索</el-button>
+                    <el-button class="filter-item" type="primary" icon="el-icon-search" >搜索</el-button>
                 </div>
               <el-table :data="tableData" style="width: 100%">
                   <el-table-column
                   label="序号"
-                  type="index"
-                  :index="indexMethod">
+                  align="center"
+                  type="index">
                   </el-table-column>
                   <el-table-column
                   prop="name"
                   label="组件名称"
-                  show-overflow-tooltip=true
-                  width="200">
+                  align="center"
+                  show-overflow-tooltip
+                  width="180">
                   </el-table-column>
                   <el-table-column
                   prop="download"
                   width="80"
+                  align="center"
                   label="下载次数">
                   </el-table-column>
                   <el-table-column
                   prop="date"
                   label="更新时间"
-                  width="120">
+                  align="center"
+                  width="100">
                   </el-table-column>
                   <el-table-column label="操作"
+                  align="center"
                   width="260">
                   <template slot-scope="scope">
                     <el-button size="mini" type="success" @click="handleDetail(scope.$index, scope.row)">详情</el-button>
                     <el-button size="mini" type="warning" @click="handleApply(scope.$index, scope.row)" v-if="scope.row.status==0?true:false">申请</el-button>
-                    <el-button size="mini" type="info" @click="handleExamine(scope.$index, scope.row)" v-if="scope.row.status==1?true:false">审核</el-button>
+                    <el-button size="mini" type="info" @click="handleExamine(scope.$index, scope.row)" v-if="scope.row.status==1?true:false">待审核</el-button>
                     <el-button size="mini" type="danger" @click="handleDown(scope.$index, scope.row)" v-if="scope.row.status==2?true:false">下载</el-button>
                     <el-button size="mini" type="primary" @click="handleHistory(scope.$index, scope.row)">查看记录</el-button>
                   </template>
@@ -316,6 +320,8 @@ export default {
   background-color: #f9fafc;
 }
  .text {
+    margin: 0;
+    padding: 0;
     list-style-type: none;
     font-size: 14px;
     width: 100%;
