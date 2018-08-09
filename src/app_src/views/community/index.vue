@@ -1,31 +1,36 @@
 <template>
     <div id="community" class="community">
-        <el-row :gutter="20" type="flex">
+        <el-row :gutter="20" type="flex">  
             <el-col :span="2"></el-col>
+            
             <el-col :span="20">
-                <div class="header">
-                    <div class="headerItem">
-                        <el-button type="primary" plain>我的积分{{score}}</el-button>
-                        <el-button type="success" plain>我的帖子</el-button>
-                        <el-button type="info" plain>我的收藏</el-button>
-                        <el-button type="warning" plain>发布帖子</el-button>
-                    </div>                  
-                </div>
+              <el-card class="header">
+                  <div class="headerItem">
+                      <el-button type="primary" plain>我的积分{{score}}</el-button>
+                      <el-button type="success" plain>我的帖子</el-button>
+                      <el-button type="info" plain>我的收藏</el-button>
+                      <el-button type="warning" plain>发布帖子</el-button>
+                  </div>                  
+                 </el-card>
             </el-col>
+           
         </el-row>
+        
 
         <el-row :gutter="20" type="flex">
             <el-col :span="2"></el-col>
             <el-col :span="13">
                 <div class="LeftContainer">               
-                    <el-card v-for="(news,key) in newslist" :key="key" body-style="{padding:'0px'}" class="card" @click.native="getcontent">
+                    <el-card v-for="(news,key) in newslist" :key="key" body-style="{padding:'0px'}" class="card" @click.native="getcontent()" v-if="key<3">
                         <el-col :span="3">
                             <div class="newslogo">
-                                <img src="../../../app_src/imgs/coin.png">
+                                <img src="../../../app_src/imgs/shakehande.png" v-if="news.type===1" title="经验分享">
+                                <img src="../../../app_src/imgs/share.png" v-if="news.type===2" title="经验分享">
+                                 <img src="../../../app_src/imgs/help.png" v-if="news.type===3" title="求助">
                             </div>
                         </el-col>
                         <el-row>
-                            <el-col :span="17">
+                            <el-col :span="16">
                                 <div class="title">
                                     {{news.title}}
                                 </div>
@@ -34,15 +39,18 @@
                                 </div>
                             </el-col>
 
-                            <el-col :span="4">
+                            <el-col :span="5">
                                 <div class="info">
-                                    发表日期：{{news.upTime}}  
-                                    <br>
-                                    求助金额：<img src="../../../app_src/imgs/coin.png" >{{news.offer}}
-                                    <br>
-                                    阅读量：{{news.readNumber}}
-                                    <br>
-                                    评论数：{{news.commentNumber}}
+                                  作者：{{news.writter}}
+                                  <br>
+                                  发表日期：{{news.upTime}}  
+                                   <br>
+                                  求助金额：<img src="../../../app_src/imgs/coin.png" >{{news.offer}}
+                                   <br>
+                                   阅读量：{{news.readNumber}}
+                                   <br>
+                                  评论数：{{news.commentNumber}}
+                                   <br>
                                 </div>
                             </el-col>
                         </el-row>
@@ -63,7 +71,7 @@
             <el-col :span="7">
                 <div class="MainContainer">
                     <el-card>
-                        <div>
+                        <div class="rank">
                             <img src="../../../app_src/imgs/title.png">
                             <br>
                             <el-table :data="scoreList" stripe >
@@ -97,6 +105,8 @@ export default {
       ],
       newslist: [
         {
+          writter:'小李',
+          type:1,
           title: "为祖国庆生",
           upTime: "2018-8-8",
           readNumber: 200,
@@ -106,6 +116,8 @@ export default {
             "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
         },
         {
+          writter:'小张',
+          type:2,
           title: "为祖国庆生",
           upTime: "2018-8-8",
           readNumber: 200,
@@ -115,6 +127,8 @@ export default {
             "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
         },
         {
+          writter:'小王',
+          type:3,
           title: "为祖国庆生",
           upTime: "2018-8-8",
           readNumber: 200,
@@ -134,8 +148,8 @@ export default {
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`);
     },
-    getcontent() {
-      alert("显示新闻具体内容");
+    getcontent(id) {
+      alert("显示新闻具体内容"+id);
     }
   }
 };
@@ -150,12 +164,13 @@ export default {
   .header {
     border-radius: 0.5em;
     min-height: 65px;
-    background: rgb(194, 206, 195);
+    max-height: 80px;
+    //background: rgb(194, 206, 195);
     .headerItem {
       float: right;
-      padding-top: 20px;
       padding-right: 20px;
       margin-left: 40px;
+      margin-bottom: 20px;
     }
   }
   .LeftContainer {
@@ -166,6 +181,7 @@ export default {
       img {
         width: 100px;
         height: 100px;
+        border-radius: 1em;
       }
     }
     .title {
@@ -187,8 +203,9 @@ export default {
       }
     }
     .content {
+      padding-left: 20px;
       margin-top: 15px;
-      margin-left: 15px;
+      margin-left: 25px;
       margin-right: 20px;
       font-size: 15px;
       line-height: 20px;
@@ -208,6 +225,12 @@ export default {
     min-height: 100px;
     min-height: 390px;
     text-align: center;
+    .rank{
+      img{
+        width: 150px;
+        height: 30px;
+      }
+    }
   }
 }
 .el-row {

@@ -42,7 +42,7 @@ export const constantRouterMap = [
     hidden: true,
     children: [{
       path: 'community',
-      component: _import('app_src/views/community/index')
+      component: _import('app_src/views/community/index'),
     }]
   },
   {
