@@ -5,7 +5,7 @@
         <el-col :span="6">
           <div class="grid-content bg-purple">
             <el-card class="box-card">
-               <div style="text-align: center">TOP排行榜</div>
+               <div style="text-align: center"><img style="width:200px;height:45px;" src="../../../app_src/imgs/title.png"></div>                      
                <ul v-for="(item,index) in TopList" :key="index" class="text">
                  <li style="padding:7px 0;float:left;width:10%;line-height:30px;"><span :class="addclass(index+1)">{{index+1}}</span></li>
                  <li style="padding:7px 0;float:left;width:65%;line-height:30px;"><span class="name" :title="item.name">{{item.name }}</span></li>
@@ -229,10 +229,18 @@ export default {
       this.dialogTitle = '组件' + row.name + '申请记录'
     },
     handleExamine(index, row) {
-      console.log(index)
+      this.$alert('组件' + row.name + '信息审核中，请耐心等待！', '消息提示', {
+        confirmButtonText: '确定'
+        // callback: action => {
+        //   this.$message({
+        //     type: 'info',
+        //     message: `action:${action}`
+        //   })
+        // }
+      })
     },
     handleDown(index, row) {
-      alert('请选择下载的文件')
+      alert('正在下载rar文件')
     }
   }
 }
