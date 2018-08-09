@@ -51,11 +51,11 @@
                   align="center"
                   width="260">
                   <template slot-scope="scope">
-                    <el-button size="mini" type="success" @click="handleDetail(scope.$index, scope.row)">详情</el-button>
-                    <el-button size="mini" type="warning" @click="handleApply(scope.$index, scope.row)" v-if="scope.row.status==0?true:false">申请</el-button>
-                    <el-button size="mini" type="info" @click="handleExamine(scope.$index, scope.row)" v-if="scope.row.status==1?true:false">待审核</el-button>
-                    <el-button size="mini" type="danger" @click="handleDown(scope.$index, scope.row)" v-if="scope.row.status==2?true:false">下载</el-button>
-                    <el-button size="mini" type="primary" @click="handleHistory(scope.$index, scope.row)">查看记录</el-button>
+                    <el-button size="mini" type="success" @click="handleDetail(scope.$index, scope.row)">详&nbsp;&nbsp;&nbsp;&nbsp;情</el-button>
+                    <el-button size="mini" type="warning" @click="handleApply(scope.$index, scope.row)" v-if="scope.row.status==0?true:false">申&nbsp;&nbsp;&nbsp;&nbsp;请</el-button>
+                    <el-button size="mini" type="info" @click="handleExamine(scope.$index, scope.row)" v-if="scope.row.status==1?true:false">审核中</el-button>
+                    <el-button size="mini" type="danger" @click="handleDown(scope.$index, scope.row)" v-if="scope.row.status==2?true:false">下&nbsp;&nbsp;&nbsp;&nbsp;载</el-button>
+                    <el-button size="mini" type="primary" @click="handleHistory(scope.$index, scope.row)">记&nbsp;&nbsp;&nbsp;&nbsp;录</el-button>
                   </template>
                   </el-table-column>
               </el-table>
