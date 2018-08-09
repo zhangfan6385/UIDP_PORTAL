@@ -28,7 +28,7 @@
             <el-col :span="14">
                 <div class="rightcontainer">
                     <el-card>
-                    <el-card v-for="(news,key) in newslist" :key="key" body-style="{padding:'0px'}" class="card" @click.native="getcontent()" v-if="key<3">
+                    <el-card v-for="(news,key) in newslist" :key="key" body-style="{padding:'0px'}" class="card" v-if="key<3">
                         <el-col :span="3">
                             <div class="newslogo">
                                 <img src="../../../app_src/imgs/shakehande.png" v-if="news.type===1" title="经验分享">
@@ -123,8 +123,17 @@ export default {
           content:
             "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
         }
-      ]
+      ],
+      currentPage1: 1
     };
+  },
+  methods: {
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`);
+    },
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`);
+    }
   }
 };
 </script>

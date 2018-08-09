@@ -20,7 +20,7 @@
 
 <script>
 export default {
-  name: "main",
+  name: "communitymain",
   data(){
       return{
           score:'1000'
@@ -46,6 +46,7 @@ export default {
     max-height: 150px;
   }
   .header {
+    margin-top: 20px;
     border-radius: 0.5em;
     min-height: 65px;
     max-height: 80px;

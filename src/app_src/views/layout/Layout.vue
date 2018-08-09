@@ -9,7 +9,9 @@
         </div>
       </el-col>
       <el-col :span="14">
-        <header-set></header-set>
+        <div class="headerset">
+          <header-set></header-set>
+        </div>     
       </el-col>
     </div>
     <el-col :span="24">
@@ -73,6 +75,9 @@ export default {
   height: 100%;
   width: 100%;
 }
+.headerset{
+  margin-top: 8px;
+}
 .drawer-bg {
   background: #000;
   opacity: 0.3;
@@ -86,7 +91,7 @@ export default {
   position: fixed;
   z-index: 1999;
   min-width: 100%;
-  height: 60px;
+  height: 70px;
   // background:#3A71A8;
   margin: 0 auto;
   line-height: 55px; /*设置line-height与父级元素的height相等*/
@@ -94,7 +99,7 @@ export default {
 
   .logo {
     float: left;
-    margin: 0 20px;
+    margin: 8px 20px;
     span {
       margin-left: 8px;
       font-size: 18px;

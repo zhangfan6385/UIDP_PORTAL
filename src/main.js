@@ -15,6 +15,12 @@ import store from './app_src/store'
 import '@/app_src/icons' // 图标
 //  import '@/app_src/permission' // 权限控制
 
+import  VueQuillEditor from 'vue-quill-editor'
+// require styles 引入样式
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+
 Vue.use(ElementUI, { locale })
 
 Vue.config.productionTip = false

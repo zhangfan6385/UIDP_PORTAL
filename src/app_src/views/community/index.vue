@@ -21,12 +21,13 @@
         <el-row :gutter="20" type="flex">
             <el-col :span="2"></el-col>
             <el-col :span="13">
-                <div class="LeftContainer">               
+                <div class="LeftContainer">
+                  <el-card>               
                     <el-card v-for="(news,key) in newslist" :key="key" body-style="{padding:'0px'}" class="card" @click.native="getcontent()" v-if="key<3">
                         <el-col :span="3">
                             <div class="newslogo">
                                 <img src="../../../app_src/imgs/shakehande.png" v-if="news.type===1" title="经验分享">
-                                <img src="../../../app_src/imgs/share.png" v-if="news.type===2" title="经验分享">
+                                <img src="../../../app_src/imgs/feedback.png" v-if="news.type===2" title="问题反馈">
                                  <img src="../../../app_src/imgs/help.png" v-if="news.type===3" title="求助">
                             </div>
                         </el-col>
@@ -66,6 +67,7 @@
                         :total="100">
                         </el-pagination>
                     </div>
+                  </el-card>
                 </div>
             </el-col>
 

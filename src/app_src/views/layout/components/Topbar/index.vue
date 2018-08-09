@@ -1,5 +1,5 @@
 <template>
-    <div id="topbar">
+    <div id="topbar" class="headermenu">
              <el-menu  class="el-menu-demo" mode="horizontal" :default-active="this.$route.path" router>
             <el-col :span="6" v-for="(item,key) in menuList" :key="key">
                 <el-menu-item :index="item.path">{{item.name}}</el-menu-item>
@@ -29,6 +29,9 @@ export default {
 </script>
 
 <style lang="scss">
+.headermenu{
+    margin-top: 10px; 
+}
 .el-menu-item {
   text-align: center;
   
