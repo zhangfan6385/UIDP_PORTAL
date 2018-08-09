@@ -63,6 +63,10 @@ export const constantRouterMap = [
         {
           path: 'newcard',
           component: _import('app_src/views/community/newcard'),
+        },
+        {
+          path: 'newscontent/:id',
+          component: _import('app_src/views/community/newscontent'),
         }
       ]
     }]

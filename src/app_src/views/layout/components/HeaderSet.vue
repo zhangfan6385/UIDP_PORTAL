@@ -20,7 +20,8 @@
         <theme-picker class="right-menu-item noborder" style="vertical-align: middle;"></theme-picker>
       </el-tooltip>
       -->
-      
+        <img class='notice' src="../../../../app_src/imgs/notice.png" v-bind:title="total" @click="getcontent">
+
       <el-badge value="new" :max="99" class="item">
         <img class='message' src="../../../../app_src/imgs/message.png" v-bind:title="total" @click="getcontent">
       </el-badge>
@@ -162,8 +163,15 @@ export default {
       outline: none;
     }
     .message {
+      margin-left: 3px;
       width: 30px;
       height: 30px;
+      border-radius: 10px;
+      vertical-align: middle;
+    }
+    .notice{
+      width: 40px;
+      height: 35px;
       border-radius: 10px;
       vertical-align: middle;
     }

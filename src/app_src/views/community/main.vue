@@ -5,7 +5,8 @@
             <el-col :span="20">
               <el-card class="header">
                   <div class="headerItem">
-                      <el-button type="primary" plain >我的积分{{score}}</el-button>
+                      <el-button type="primary" plain >我的积分:{{score}}</el-button>
+                      <el-button @click="goIndex" plain >社区首页</el-button>
                       <el-button type="success" plain @click="goToMycard">我的帖子</el-button>
                       <el-button type="info" plain @click="goToCollection">我的收藏</el-button>
                       <el-button type="warning" plain @click="newCard">发布帖子</el-button>
@@ -27,6 +28,9 @@ export default {
       }
   },
   methods:{
+      goIndex(){
+          this.$router.push({path:'/community/main'})
+      },
       goToMycard(){
           this.$router.push({path:'/community/main/mycard'})
       },
@@ -46,7 +50,7 @@ export default {
     max-height: 150px;
   }
   .header {
-    margin-top: 20px;
+    margin-top: 10px;
     border-radius: 0.5em;
     min-height: 65px;
     max-height: 80px;

@@ -157,7 +157,7 @@ export default {
     }
     .info {
       font-size: 20px;
-      line-height: 25px;
+      line-height: 35px;
       font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
         "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
     }
@@ -165,7 +165,6 @@ export default {
   .rightcontainer {
     min-height: 350px;
     border-radius: 0.5em;
-    min-height: 390px;
     .newslogo {
       img {
         width: 100px;

@@ -1,5 +1,5 @@
 <template>
-    <div id="mycollection">
+    <div id="newscontent">
 
     </div>
 </template>

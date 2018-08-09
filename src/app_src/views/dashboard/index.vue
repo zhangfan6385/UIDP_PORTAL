@@ -4,8 +4,7 @@
         <el-row :gutter="20" type="flex">
           <el-col :span="2"> </el-col>
           <el-col :span="20">
-            <div class="grid-content bg-purple">
-          
+            <div class="grid-content bg-purple">         
                 <el-col :span="4">
                     <div class="logo">
                       <img src="../../../app_src/imgs/C.png"> 
@@ -31,10 +30,16 @@
                       <el-radio v-model="CSharpradio" :label="item.id">{{item.name}}</el-radio>
                   </div>
                 </el-col>
-                
+                <el-col>
+                 <div v-for="(item,key) in successhistory" :key="key" class="sucesshistory">
+                   <a :href="item.URL">{{item.name}}：{{item.content}}</a>
+                 </div>
+                </el-col>               
             </div>
-            </el-col>       
+            </el-col> 
         </el-row>
+        
+
 
         <el-row :gutter="20" type="flex">
           <el-col :span="2"> </el-col>
@@ -118,6 +123,9 @@ export default {
         {time:'2018-8-9',name: "UIDP开发平台V3.5.3(测试版)",id:3},
         {time:'2018-8-10',name: "UIDP开发平台V3.5.4(测试版)",id:4},
       ],
+      successhistory:[
+        {name:'成功案例1',URL:'https://www.baidu.com',content:'大港项目'},
+      ],
       CSharpradio:null,
       GOradio:null,
       dialogTableVisible:false
@@ -178,6 +186,8 @@ export default {
   }
   .logo {
     img {
+      height: 180px;
+      width: 200px;
       border-radius: 4em;
       padding: 30px 40px;
     }
@@ -188,6 +198,10 @@ export default {
       height: 200px;
       padding: 30px;
     }
+  }
+  .sucesshistory{
+    margin-left: 40px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
   }
   .platformInfo {
     color: rgb(13, 44, 102);

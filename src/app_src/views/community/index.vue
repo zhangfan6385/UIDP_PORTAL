@@ -77,7 +77,7 @@
                         <div class="rank">
                             <img src="../../../app_src/imgs/title.png">
                             <br>
-                            <el-table :data="scoreList" stripe >
+                            <el-table :data="scoreList"  >
                                 <el-table-column prop="index" label="排名" align="center"></el-table-column>
                                 <el-table-column prop="name" label="姓名" align="center"></el-table-column>
                                 <el-table-column prop="score" label="积分" align="center"></el-table-column>
