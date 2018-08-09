@@ -35,14 +35,36 @@ export const constantRouterMap = [
     }]
   },
   {
-    path: '/',
+    path: '/community',
     component: Layout,
-    redirect: '/community',
+    redirect: '/community/main/index',
     name: 'Community',
     hidden: true,
     children: [{
       path: 'community',
       component: _import('app_src/views/community/index'),
+    }, {
+      path: 'main',
+      redirect: '/community/main/index',
+      component: _import('app_src/views/community/main'),
+      children: [
+        {
+          path: 'index',
+          component: _import('app_src/views/community/index'),
+        },
+        {
+          path: 'mycard',
+          component: _import('app_src/views/community/mycard'),
+        },
+        {
+          path: 'mycollection',
+          component: _import('app_src/views/community/mycollection'),
+        },
+        {
+          path: 'newcard',
+          component: _import('app_src/views/community/newcard'),
+        }
+      ]
     }]
   },
   {
@@ -67,23 +89,23 @@ export const constantRouterMap = [
       component: _import('app_src/views/severcomponent/index')
     }]
   },
-/*
-  {
-    path: '/example',
-    component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: '样例', icon: 'example' },
-    children: [
-      {
-        path: 'table',
-        name: 'Table',
-        component: _import('app_src/views/table/index'),
-        meta: { title: '表格', icon: 'table' }
-      }
-    ]
-  },
-*/  
+  /*
+    {
+      path: '/example',
+      component: Layout,
+      redirect: '/example/table',
+      name: 'Example',
+      meta: { title: '样例', icon: 'example' },
+      children: [
+        {
+          path: 'table',
+          name: 'Table',
+          component: _import('app_src/views/table/index'),
+          meta: { title: '表格', icon: 'table' }
+        }
+      ]
+    },
+  */
 
   { path: '*', redirect: 'app_src/views/404', hidden: true }
 ]
