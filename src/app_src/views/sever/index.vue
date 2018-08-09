@@ -1,21 +1,237 @@
 <template>
-    <div id="sever">
-        sever
+    <div id="severcomponent" class="component">
+      <el-row :gutter="20">
+        <el-col :span="6">
+          <div class="grid-content bg-purple">
+            <el-card class="box-card">
+               <div style="text-align: center">TOP排行榜</div>
+               <ui v-for="(item,index) in TopList" :key="index" class="text">
+                 <li style="padding:7px 0;float:left;width:10%;line-height:30px;"><span :class="addclass(index+1)">{{index+1}}</span></li>
+                 <li style="padding:7px 0;float:left;width:65%;line-height:30px;"><span class="name" :title="item.name">{{item.name }}</span></li>
+                 <li style="padding:7px 0;float:left;width:25%;line-height:30px;"><span class="spandownload">{{item.download}}</span></li>
+                </ui>
+            </el-card>
+          </div>
+        </el-col>
+        <el-col :span="18">
+          <div class="grid-content bg-purple">
+            <el-card class="box-card">
+                <div class="filter-container">
+                    <el-input style="width: 420px;" class="filter-item"  >
+                    </el-input>
+                    <el-button class="filter-item" type="primary" v-waves icon="el-icon-search" >搜索</el-button>
+ 
+                </div>
+                <el-table :data="tableData" style="width: 100%">
+    <el-table-column
+      label="序号"
+      type="index"
+      :index="indexMethod">
+    </el-table-column>
+    <el-table-column
+      prop="name"
+      label="服务名称"
+      show-overflow-tooltip=true
+      width="200">
+    </el-table-column>
+    <el-table-column
+      prop="download"
+      label="使用次数">
+    </el-table-column>
+        <el-table-column
+      prop="date"
+      label="更新时间"
+      width="180">
+    </el-table-column>
+    <el-table-column label="操作">
+      <template slot-scope="scope">
+        <el-button
+          size="mini"
+          type="success"
+          @click="handleDetail(scope.$index, scope.row)">详情</el-button>
+        <el-button
+          size="mini"
+          type="warning"
+          @click="handleApply(scope.$index, scope.row)">申请</el-button>
+        <el-button
+          size="mini"
+          type="primary"
+          @click="handleHistory(scope.$index, scope.row)">查看记录</el-button>
+      </template>
+    </el-table-column>
+  </el-table>
+        <div class="pagination-container">
+          <el-pagination
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="currentPage"
+      :page-sizes="[10, 20, 30, 40]"
+      :page-size="10"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="100">
+    </el-pagination>
     </div>
+            </el-card>
+            <el-dialog :title="dialogTitle" :visible.sync="dialogTableVisible">
+  <el-table :data="gridData">
+    <el-table-column property="applaydate" label="申请日期" width="150"></el-table-column>
+    <el-table-column property="projectname" label="项目名称" width="200"></el-table-column>
+    <el-table-column property="purpose" label="用途类型"></el-table-column>
+  </el-table>
+</el-dialog>
+<el-dialog :title="dialogTitle" :visible.sync="dialogDetailVisible">
+  <el-form :model="form">
+    <!-- <el-form-item label="组件名称">
+      <div>{{componentName}}</div>
+    </el-form-item> -->
+    <el-form-item label="服务说明">
+      <div v-html="componentContent"></div>
+    </el-form-item>
+  </el-form>
+  <div slot="footer" class="dialog-footer">
+    <el-button @click="dialogDetailVisible = false">取 消</el-button>
+    <el-button type="primary" @click="dialogDetailVisible = false">确 定</el-button>
+  </div>
+</el-dialog>
+<el-dialog :title="dialogTitle" :visible.sync="dialogFormVisible">
+  <el-form :model="form">
+    <el-form-item label="公司名称" :label-width="formLabelWidth">
+      <el-input v-model="form.companyname" auto-complete="off"></el-input>
+    </el-form-item>
+    <el-form-item label="承担项目" :label-width="formLabelWidth">
+      <el-input v-model="form.projectname" auto-complete="off"></el-input>
+    </el-form-item>
+    <el-form-item label="用途" :label-width="formLabelWidth">
+      <el-input v-model="form.purpose" auto-complete="off"></el-input>
+    </el-form-item>
+    <el-form-item label="用途类型" :label-width="formLabelWidth">
+      <el-select v-model="form.type" placeholder="请选用途类型">
+        <el-option label="开发" value="kaifa"></el-option>
+        <el-option label="生产" value="shengchan"></el-option>
+      </el-select>
+    </el-form-item>
+        <el-form-item label="联系人" :label-width="formLabelWidth">
+      <el-input v-model="form.contact" auto-complete="off"></el-input>
+    </el-form-item>
+        <el-form-item label="联系电话" :label-width="formLabelWidth">
+      <el-input v-model="form.phone" auto-complete="off"></el-input>
+    </el-form-item>
+        <el-form-item label="邮箱" :label-width="formLabelWidth">
+      <el-input v-model="form.email" auto-complete="off"></el-input>
+    </el-form-item>
+  </el-form>
+  <div slot="footer" class="dialog-footer">
+    <el-button @click="dialogFormVisible = false">取 消</el-button>
+    <el-button type="primary" @click="dialogFormVisible = false">提 交</el-button>
+  </div>
+</el-dialog>
+          </div>
+        </el-col>
+      </el-row>
+    </div>
+    
 </template>
 
 
 <script>
 export default {
-    data(){
-        return{
-
-        }
+  data() {
+    return {
+      TopList: [
+        { name: '云组织同步服务', id: 1, download: '151次使用' },
+        { name: '获取用户服务', id: 2, download: '71次使用' },
+        { name: '自定义服务', id: 3, download: '71次使用' },
+        { name: 'UIDP开发平台接口服务(测试版)', id: 4, download: '53次使用' },
+        { name: 'UIDP开发平台接口服务(测试版)', id: 5, download: '47次使用' },
+        { name: 'UIDP开发平台接口服务(测试版)', id: 6, download: '32次使用' },
+        { name: 'UIDP开发平台接口服务(测试版)', id: 7, download: '27次使用' },
+        { name: 'UIDP开发平台接口服务(测试版)', id: 8, download: '25次使用' },
+        { name: 'UIDP开发平台接口服务(测试版)', id: 9, download: '22次使用' },
+        { name: 'UIDP开发平台接口服务(测试版)', id: 10, download: '19次使用' }
+      ],
+      tableData: [
+        { name: '云组织同步服务', id: 1, download: '151', date: '2018-08-08', status: 1, content: '<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">微软更新了.Net Framework，更新后版本号升至4.7，它也包含在这次的创意者更新里，开发者可以使用Visual Studio 2017进行.Net Framework 4.7项目的开发。Windows10</p><p><img class="large" src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=4069284240,3156467089&fm=170&s=F902E412ECB4F99054474CDC0300D0E2&w=600&h=230&img.JPG"/></p><p style="margin-top: 26px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">最新版的.Net Framework 4.7主要带来了以下方面的提升：</p><p style="margin-top: 22px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">为Win10上的WPF程序带来了触控支持;</p><p style="margin-top: 22px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">增强了加密支持；</p><p style="margin-top: 22px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">提升性能和稳定性。</p><p><br/></p>' },
+        { name: '获取用户服务', id: 2, download: '71', date: '2018-08-08', status: 0 },
+        { name: '自定义服务', id: 3, download: '71', date: '2018-08-08', status: 0, content: '' },
+        { name: 'UIDP开发平台接口服务(测试版)', id: 4, download: '53', date: '2018-08-08', status: 0, content: '' },
+        { name: 'UIDP开发平台接口服务(测试版)', id: 5, download: '47', date: '2018-08-07', status: 0, content: '' },
+        { name: 'UIDP开发平台接口服务(测试版)', id: 6, download: '32', date: '2018-08-06', status: 0, content: '' },
+        { name: 'UIDP开发平台接口服务(测试版)', id: 7, download: '27', date: '2018-08-05', status: 0, content: '' },
+        { name: 'UIDP开发平台接口服务(测试版)', id: 8, download: '25', date: '2018-08-04', status: 0, content: '' },
+        { name: 'UIDP开发平台接口服务(测试版)', id: 9, download: '22', date: '2018-08-03', status: 0, content: '' },
+        { name: 'UIDP开发平台接口服务(测试版)', id: 10, download: '19', date: '2018-08-02', status: 0, content: '' }
+      ],
+      currentPage: 1,
+      gridData: [{
+        projectname: 'xx管理系统',
+        applaydate: '2018-08-02',
+        purpose: '开发'
+      }, {
+        projectname: 'xx管理系统',
+        applaydate: '2018-07-04',
+        purpose: '生产'
+      }, {
+        projectname: 'xx管理系统',
+        applaydate: '2018-06-21',
+        purpose: '开发'
+      }, {
+        projectname: 'xx管理系统',
+        applaydate: '2018-05-04',
+        purpose: '生产'
+      }],
+      dialogTableVisible: false,
+      dialogDetailVisible: false,
+      dialogFormVisible: false,
+      componentName: '',
+      dialogTitle: '',
+      componentContent: '',
+      formLabelWidth: '120px',
+      form: {
+        companyname: 'XX公司',
+        projectname: 'xx项目',
+        purpose: '',
+        type: '',
+        contact: '',
+        phone: '',
+        email: ''
+      }
     }
+  },
+  methods: {
+    addclass(i) {
+      switch (i) {
+        case 1:
+          return 'top1'
+        case 2:
+          return 'top2'
+        case 3:
+          return 'top3'
+        default:
+          return 'top'
+      }
+    },
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`)
+    },
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`)
+    },
+    handleDetail(index, row) {
+      this.dialogDetailVisible = true
+      this.dialogTitle = '组件' + row.name + '详情'
+      this.componentContent = row.content
+    },
+    handleApply(index, row) {
+      this.dialogFormVisible = true
+      this.dialogTitle = '组件' + row.name + '申请记录'
+    },
+    handleHistory(index, row) {
+      this.dialogTableVisible = true
+      this.dialogTitle = '组件' + row.name + '申请记录'
+    }
+  }
 }
 </script>
 
 
 <style lang="scss">
-
-</style>
