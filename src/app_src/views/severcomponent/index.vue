@@ -49,7 +49,7 @@
                   </el-table-column>
                   <el-table-column label="操作"
                   align="center"
-                  width="260">
+                  width="300">
                   <template slot-scope="scope">
                     <el-button size="mini" type="success" @click="handleDetail(scope.$index, scope.row)">详&nbsp;&nbsp;&nbsp;&nbsp;情</el-button>
                     <el-button size="mini" type="warning" @click="handleApply(scope.$index, scope.row)" v-if="scope.row.status==0?true:false">申&nbsp;&nbsp;&nbsp;&nbsp;请</el-button>

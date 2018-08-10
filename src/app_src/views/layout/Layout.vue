@@ -1,6 +1,6 @@
 <template>
   <div class="app-wrapper" :class="classObj">
-    <div class="header el-button--primary  is-active">
+    <div class="header">
       <el-col :span="10">
         <div class="logo">
           <img src="../../../app_src/imgs/logo.png">
@@ -76,7 +76,7 @@ export default {
   width: 100%;
 }
 .headerset{
-  margin-top: 8px;
+  margin-top: 5px;
 }
 .drawer-bg {
   background: #000;
@@ -91,15 +91,16 @@ export default {
   position: fixed;
   z-index: 1999;
   min-width: 100%;
-  height: 70px;
+  height: 60px;
   // background:#3A71A8;
   margin: 0 auto;
   line-height: 55px; /*设置line-height与父级元素的height相等*/
   overflow: hidden; /*防止内容超出容器或者产生自动换行*/
+  background:#73b5e9;
 
   .logo {
     float: left;
-    margin: 8px 20px;
+    margin: 3px 10px;
     span {
       margin-left: 8px;
       font-size: 18px;

@@ -20,13 +20,6 @@
         <theme-picker class="right-menu-item noborder" style="vertical-align: middle;"></theme-picker>
       </el-tooltip>
       -->
-        <img class='notice' src="../../../../app_src/imgs/notice.png" v-bind:title="total" @click="getcontent">
-
-      <el-badge value="new" :max="99" class="item">
-        <img class='message' src="../../../../app_src/imgs/message.png" v-bind:title="total" @click="getcontent">
-      </el-badge>
-      
-      
       <el-dropdown class="avatar-container right-menu-item" trigger="click">
         <div class="avatar-wrapper">
             <img class='user-avatar' src="../../../../app_src/imgs/avatar.png">
