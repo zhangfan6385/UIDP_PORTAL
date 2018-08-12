@@ -28,7 +28,7 @@
                             <div class="newslogo">
                                 <img src="../../../app_src/imgs/shakehande.png" v-if="news.type===1" title="经验分享">
                                 <img src="../../../app_src/imgs/feedback.png" v-if="news.type===2" title="问题反馈">
-                                 <img src="../../../app_src/imgs/help.png" v-if="news.type===3" title="求助">
+                                <img src="../../../app_src/imgs/help.png" v-if="news.type===3" title="求助">
                             </div>
                         </el-col>
                         <el-row>

@@ -5,9 +5,21 @@
           <el-col :span="15">
               <div class="LeftContainer">
                 <el-card>
-                  <el-table :data="newslist" @row-click="getcontent()">
-                    <el-table-column prop="type" label="类型" width="80px" align="center">
-                      
+                  <el-table :data="newslist" @row-click="getcontent">
+                    <el-table-column  label="类型" width="80px" align="center">
+                      <template slot-scope="scope">
+                        <div class="newslogo">
+                           <span v-if="scope.row.type===1">
+                              <img src="../../../app_src/imgs/shakehande.png" title="经验分享">                           
+                            </span>
+                            <span v-else-if="scope.row.type===2">
+                              <img src="../../../app_src/imgs/feedback.png" title="问题反馈">
+                            </span>
+                            <span v-else-if="scope.row.type===3">
+                              <img src="../../../app_src/imgs/help.png" title="问题求助">
+                            </span>
+                        </div>
+                        </template> 
                     </el-table-column>
                     <el-table-column prop="title" width="200px" label="主题" align="center"></el-table-column>
                     <el-table-column prop="readNumber" label="阅读量" width="100px" align="center"></el-table-column>
@@ -91,6 +103,54 @@ export default {
           commentNumber: 200,
           content:
             "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
+        },
+        {
+          id:4,
+          writter:'小李',
+          type:1,
+          title: "为祖国庆生",
+          upTime: "2018-8-8",
+          readNumber: 200,
+          offer: 200,
+          commentNumber: 200,
+          content:
+            "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
+        },
+        {
+          id:5,
+          writter:'小李',
+          type:2,
+          title: "为祖国庆生",
+          upTime: "2018-8-8",
+          readNumber: 200,
+          offer: 200,
+          commentNumber: 200,
+          content:
+            "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
+        },
+        {
+          id:6,
+          writter:'小李',
+          type:3,
+          title: "为祖国庆生",
+          upTime: "2018-8-8",
+          readNumber: 200,
+          offer: 200,
+          commentNumber: 200,
+          content:
+            "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
+        },
+        {
+          id:7,
+          writter:'小李',
+          type:1,
+          title: "为祖国庆生",
+          upTime: "2018-8-8",
+          readNumber: 200,
+          offer: 200,
+          commentNumber: 200,
+          content:
+            "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
         }
       ],
       currentPage1: 1
@@ -103,10 +163,9 @@ export default {
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`);
     },
-    getcontent(data) {
-      console.log(data);
-      //let id =data.toString();
-      //this.$router.push({path:'/community/main/newscontent/'+id})
+    getcontent(row, event, column) {
+      let id =row.id.toString();
+      this.$router.push({path:'/community/main/newscontent/'+id})
     }
   }
 };
@@ -135,8 +194,8 @@ export default {
     min-height: 390px;
     .newslogo {
       img {
-        width: 100px;
-        height: 100px;
+        width: 30px;
+        height: 30px;
         border-radius: 1em;
       }
     }
