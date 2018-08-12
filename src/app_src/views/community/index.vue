@@ -1,91 +1,40 @@
 <template>
     <div id="community" class="community">
-        <!--
-        <el-row :gutter="20" type="flex">  
-            <el-col :span="2"></el-col>
-            
-            <el-col :span="20">
-              <el-card class="header">
-                  <div class="headerItem">
-                      <el-button type="primary" plain>我的积分{{score}}</el-button>
-                      <el-button type="success" plain>我的帖子</el-button>
-                      <el-button type="info" plain>我的收藏</el-button>
-                      <el-button type="warning" plain>发布帖子</el-button>
-                  </div>                  
-                 </el-card>
-            </el-col>      
-        </el-row>
-        -->
-        
-
         <el-row :gutter="20" type="flex">
-            <el-col :span="2"></el-col>
-            <el-col :span="13">
-                <div class="LeftContainer">
-                  <el-card>               
-                    <el-card v-for="(news,key) in newslist" :key="key" body-style="{padding:'0px'}" class="card" @click.native="getcontent(news.id)" v-if="key<3">
-                        <el-col :span="3">
-                            <div class="newslogo">
-                                <img src="../../../app_src/imgs/shakehande.png" v-if="news.type===1" title="经验分享">
-                                <img src="../../../app_src/imgs/feedback.png" v-if="news.type===2" title="问题反馈">
-                                 <img src="../../../app_src/imgs/help.png" v-if="news.type===3" title="求助">
-                            </div>
-                        </el-col>
-                        <el-row>
-                            <el-col :span="16">
-                                <div class="title">
-                                    {{news.title}}
-                                </div>
-                                <div class="content">
-                                    {{news.content}}
-                                </div>
-                            </el-col>
+          <el-col :span="2"></el-col>
+          <el-col :span="15">
+              <div class="LeftContainer">
+                <el-card>
+                  <el-table :data="newslist" @row-click="getcontent()">
+                    <el-table-column prop="type" label="类型" width="80px" align="center">
+                      
+                    </el-table-column>
+                    <el-table-column prop="title" width="200px" label="主题" align="center"></el-table-column>
+                    <el-table-column prop="readNumber" label="阅读量" width="100px" align="center"></el-table-column>
+                    <el-table-column prop="offer" label="悬赏金额" width="100px" align="center"></el-table-column>
+                    <el-table-column prop="commentNumber" label="评论人数" width="100px" align="center"></el-table-column>
+                    <el-table-column prop="writter" label="作者" width="100px" align="center"></el-table-column>
+                    <el-table-column prop="upTime" label="发表日期" width="100px" align="center"></el-table-column>
+                  </el-table>               
+                </el-card>
+              </div>
+          </el-col>
 
-                            <el-col :span="5">
-                                <div class="info">
-                                  作者：{{news.writter}}
-                                  <br>
-                                  发表日期：{{news.upTime}}  
-                                   <br>
-                                  求助金额：<img src="../../../app_src/imgs/coin.png" >{{news.offer}}
-                                   <br>
-                                   阅读量：{{news.readNumber}}
-                                   <br>
-                                  评论数：{{news.commentNumber}}
-                                   <br>
-                                </div>
-                            </el-col>
-                        </el-row>
-                    </el-card>
-                    <div class="pageclass">
-                        <el-pagination
-                        @size-change="handleSizeChange"
-                        @current-change="handleCurrentChange"
-                        :current-page.sync="currentPage1"
-                        :page-size="10"
-                        layout="total, prev, pager, next"
-                        :total="100">
-                        </el-pagination>
-                    </div>
+          <el-col :span="5">
+              <div class="MainContainer">
+                  <el-card>
+                      <div class="rank">
+                          <img src="../../../app_src/imgs/title.png">
+                          <br>
+                          <el-table :data="scoreList"  >
+                              <el-table-column prop="index" label="排名" align="center"></el-table-column>
+                              <el-table-column prop="name" label="姓名" align="center"></el-table-column>
+                              <el-table-column prop="score" label="积分" align="center"></el-table-column>
+                          </el-table>
+                      </div>
                   </el-card>
-                </div>
-            </el-col>
-
-            <el-col :span="7">
-                <div class="MainContainer">
-                    <el-card>
-                        <div class="rank">
-                            <img src="../../../app_src/imgs/title.png">
-                            <br>
-                            <el-table :data="scoreList"  >
-                                <el-table-column prop="index" label="排名" align="center"></el-table-column>
-                                <el-table-column prop="name" label="姓名" align="center"></el-table-column>
-                                <el-table-column prop="score" label="积分" align="center"></el-table-column>
-                            </el-table>
-                        </div>
-                    </el-card>
-                </div>
-            </el-col>
+              </div>
+          </el-col>
         </el-row>
     </div>
 </template>
@@ -155,8 +104,9 @@ export default {
       console.log(`当前页: ${val}`);
     },
     getcontent(data) {
-      let id =data.toString();
-      this.$router.push({path:'/community/main/newscontent/'+id})
+      console.log(data);
+      //let id =data.toString();
+      //this.$router.push({path:'/community/main/newscontent/'+id})
     }
   }
 };

@@ -96,7 +96,7 @@ export default {
   margin: 0 auto;
   line-height: 55px; /*设置line-height与父级元素的height相等*/
   overflow: hidden; /*防止内容超出容器或者产生自动换行*/
-  background:#73b5e9;
+  background:#75b8e3;
 
   .logo {
     float: left;

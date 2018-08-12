@@ -22,38 +22,34 @@
 <script>
 export default {
   name: "communitymain",
-  data(){
-      return{
-          score:'1000'
-      }
+  data() {
+    return {
+      score: "1000"
+    };
   },
-  methods:{
-      goIndex(){
-          this.$router.push({path:'/community/main'})
-      },
-      goToMycard(){
-          this.$router.push({path:'/community/main/mycard'})
-      },
-      goToCollection(){
-          this.$router.push({path:'/community/main/mycollection'})
-      },
-      newCard(){
-          this.$router.push({path:'/community/main/newcard'})
-      }
+  methods: {
+    goIndex() {
+      this.$router.push({ path: "/community/main" });
+    },
+    goToMycard() {
+      this.$router.push({ path: "/community/main/mycard" });
+    },
+    goToCollection() {
+      this.$router.push({ path: "/community/main/mycollection" });
+    },
+    newCard() {
+      this.$router.push({ path: "/community/main/newcard" });
+    }
   }
 };
 </script>
 
 <style lang="scss">
 .community {
-  .card {
-    max-height: 150px;
-  }
+    min-height: 200px;
   .header {
     margin-top: 10px;
     border-radius: 0.5em;
-    min-height: 65px;
-    max-height: 80px;
     //background: rgb(194, 206, 195);
     .headerItem {
       float: right;
