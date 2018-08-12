@@ -137,7 +137,7 @@ export default {
         },
         {
           cardinfo: {
-            id: 1,
+            id: 2,
             writter: "小李",
             type: 1,
             title: "为祖国庆生",
@@ -162,7 +162,7 @@ export default {
         },
         {
           cardinfo: {
-            id: 1,
+            id: 3,
             writter: "小李",
             type: 1,
             title: "为祖国庆生",
@@ -204,8 +204,6 @@ export default {
       } else {
         this.mainCardMsg = "回复";
       }
-
-      console.log(this.commitVisibility);
     },
     openCommit() {
       this.commitcontent = "";
