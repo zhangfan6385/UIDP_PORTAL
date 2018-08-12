@@ -61,7 +61,7 @@ export const constantRouterMap = [
       children: [
         {
           path: 'index',
-          component: _import('app_src/views/community/index备份'),
+          component: _import('app_src/views/community/index'),
         },
         {
           path: 'mycard',
