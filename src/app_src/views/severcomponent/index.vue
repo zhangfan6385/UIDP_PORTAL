@@ -22,43 +22,34 @@
                     </el-input>
                     <el-button class="filter-item" type="primary" icon="el-icon-search" >搜索</el-button>
                 </div>
-              <el-table :data="tableData" style="width: 100%">
-                  <el-table-column
-                  label="序号"
-                  align="center"
-                  type="index">
-                  </el-table-column>
-                  <el-table-column
-                  prop="name"
-                  label="组件名称"
-                  align="center"
-                  show-overflow-tooltip
-                  width="180">
-                  </el-table-column>
-                  <el-table-column
-                  prop="download"
-                  width="80"
-                  align="center"
-                  label="下载次数">
-                  </el-table-column>
-                  <el-table-column
-                  prop="date"
-                  label="更新时间"
-                  align="center"
-                  width="100">
-                  </el-table-column>
-                  <el-table-column label="操作"
-                  align="center"
-                  width="300">
-                  <template slot-scope="scope">
-                    <el-button size="mini" type="success" @click="handleDetail(scope.$index, scope.row)">详&nbsp;&nbsp;&nbsp;&nbsp;情</el-button>
-                    <el-button size="mini" type="warning" @click="handleApply(scope.$index, scope.row)" v-if="scope.row.status==0?true:false">申&nbsp;&nbsp;&nbsp;&nbsp;请</el-button>
-                    <el-button size="mini" type="info" @click="handleExamine(scope.$index, scope.row)" v-if="scope.row.status==1?true:false">审核中</el-button>
-                    <el-button size="mini" type="danger" @click="handleDown(scope.$index, scope.row)" v-if="scope.row.status==2?true:false">下&nbsp;&nbsp;&nbsp;&nbsp;载</el-button>
-                    <el-button size="mini" type="primary" @click="handleHistory(scope.$index, scope.row)">记&nbsp;&nbsp;&nbsp;&nbsp;录</el-button>
-                  </template>
-                  </el-table-column>
-              </el-table>
+              <el-card v-for="(component,key) in tableData" :key="key"  class="content" @click.native="getcontent(component.id)">
+                <ul>
+                  <li>
+                  <div class="left"><img style="width:140px;height:80px;" src="../../../app_src/imgs/feedback.png" alt=""></div>
+                  <div class="right">
+                    <div class="right_top">
+                        <h3>{{component.name}}</h3>
+                    </div>
+                    <div style="font-size:10px;width:140px;float:left;">
+                      <el-rate
+                        v-model="value5"
+                        disabled
+                        show-score
+                        text-color="#ff9900"
+                        score-template="{value}"> 
+                      </el-rate>
+                    </div>
+                <div style="font-size:10px;float:left;margin:4px;">大小：5.9MB 更新时间：2018-08-07 软件授权：免费软件</div>
+                    <div class="name">{{component.content}}</div>
+                    <div class="right_bottom">
+                        <div class="right_bottom_left">
+                            <span>发布单位：</span><span>微软公司</span>  <span>下载次数：</span><span>71</span>
+                        </div>
+                    </div>
+                  </div>
+                  </li>
+                </ul>
+              </el-card>
               <div class="pagination-container">
               <el-pagination
                 @size-change="handleSizeChange"
@@ -136,6 +127,7 @@
 export default {
   data() {
     return {
+       value5: 3.7,
       TopList: [
         { name: '.NET Framework 4.7', id: 1, download: '151次下载' },
         { name: 'NPOI 2.3', id: 2, download: '71次下载' },
@@ -149,7 +141,7 @@ export default {
         { name: 'UIDP开发平台V3.5.1(测试版)', id: 10, download: '19次下载' }
       ],
       tableData: [
-        { name: '.NET Framework 4.7', id: 1, download: '151', date: '2018-08-08', status: 0, content: '<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">微软更新了.Net Framework，更新后版本号升至4.7，它也包含在这次的创意者更新里，开发者可以使用Visual Studio 2017进行.Net Framework 4.7项目的开发。Windows10</p><p><img class="large" src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=4069284240,3156467089&fm=170&s=F902E412ECB4F99054474CDC0300D0E2&w=600&h=230&img.JPG"/></p><p style="margin-top: 26px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">最新版的.Net Framework 4.7主要带来了以下方面的提升：</p><p style="margin-top: 22px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">为Win10上的WPF程序带来了触控支持;</p><p style="margin-top: 22px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">增强了加密支持；</p><p style="margin-top: 22px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">提升性能和稳定性。</p><p><br/></p>' },
+        { name: '.NET Framework 4.7', id: 1, download: '151', date: '2018-08-08', status: 0, content: 'Microsoft .NET Framework是用于Windows的新托管代码编程模型。它将强大的功能与新技术结合起来，用于构建具有视觉上引人注目的用户体验的应用程序，实现跨技术边界的无缝通信，并且能支持各种业务流程。.NET Framework就提供了一个这样的安全模型。<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">微软更新了.Net Framework，更新后版本号升至4.7，它也包含在这次的创意者更新里，开发者可以使用Visual Studio 2017进行.Net Framework 4.7项目的开发。Windows10</p><p><img class="large" src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=4069284240,3156467089&fm=170&s=F902E412ECB4F99054474CDC0300D0E2&w=600&h=230&img.JPG"/></p><p style="margin-top: 26px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">最新版的.Net Framework 4.7主要带来了以下方面的提升：</p><p style="margin-top: 22px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">为Win10上的WPF程序带来了触控支持;</p><p style="margin-top: 22px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">增强了加密支持；</p><p style="margin-top: 22px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">提升性能和稳定性。</p><p><br/></p>' },
         { name: 'NPOI 2.3', id: 2, download: '71', date: '2018-08-08', status: 1 },
         { name: 'UIDP开发平台V3.5.1(测试版)', id: 3, download: '71', date: '2018-08-08', status: 2, content: '' },
         { name: 'UIDP开发平台V3.5.1(测试版)', id: 4, download: '53', date: '2018-08-08', status: 0, content: '' },
@@ -241,6 +233,11 @@ export default {
     },
     handleDown(index, row) {
       alert('正在下载rar文件')
+    },
+    getcontent(data) {
+      // alert("aaaa");
+       let id =data.toString();
+       this.$router.push({path:'/componentdetail/'+id})
     }
   }
 }
@@ -248,6 +245,61 @@ export default {
 
 
 <style lang="scss">
+.content{
+  margin-top: 15px;
+}
+.content ul,li{
+    margin: 0px;
+    padding: 0px;
+}
+.content ul li img:hover{
+    transform: scale(1.2);/*当鼠标移动到图片上时实现放大功能*/
+}
+ .content ul li{
+            // height: 100px;
+            overflow: hidden;
+            // border-bottom: 1px solid lavender;
+            background: white;
+            list-style-type: none;
+            transition-duration: 0.5s;
+             margin: 10px 10px 5px 0;
+ 
+        }
+
+  .content ul li:hover{
+            background-color: lavender;
+            transition-duration: 0.5s;
+        }
+        .content .left{
+            overflow: hidden;/*隐藏溢出图片内容*/
+            transition-duration: 0.5s;
+            width: 20%;
+            height:80px;
+            /*background: green;*/
+            float: left;
+            margin-right:20px;
+        }
+        .content .right{
+            // width:400px ;
+            width: 75%;
+            float: left;
+            /*background: pink;*/
+        }
+        .right_top h3{
+          margin: 0px;
+          padding: 0px;
+          text-align: center;
+            // height:60px;
+        }
+        .right_bottom{
+            margin-top:50px;
+            text-align: right;
+        }
+        .right_bottom_left span{
+
+            color: darkgray;
+            font-size: 12px;
+        }
 .top{
   font-weight:bold;
   color: white;
