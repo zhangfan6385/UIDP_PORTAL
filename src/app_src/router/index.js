@@ -61,7 +61,7 @@ export const constantRouterMap = [
       children: [
         {
           path: 'index',
-          component: _import('app_src/views/community/index'),
+          component: _import('app_src/views/community/index备份'),
         },
         {
           path: 'mycard',
@@ -102,6 +102,17 @@ export const constantRouterMap = [
     children: [{
       path: 'severcomponent',
       component: _import('app_src/views/severcomponent/index')
+    }]
+  },
+  {
+    path: '/',
+    component: Layout,
+    redirect: '/severcomponent',
+    name: 'Severcomponent',
+    hidden: true,
+    children: [{
+      path: 'componentdetail/:id',
+      component: _import('app_src/views/severcomponent/detail')
     }]
   },
   /*
