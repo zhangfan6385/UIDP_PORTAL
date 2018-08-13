@@ -96,6 +96,17 @@ export const constantRouterMap = [
   {
     path: '/',
     component: Layout,
+    redirect: '/sever',
+    name: 'Sever',
+    hidden: true,
+    children: [{
+      path: 'sever/:id',
+      component: _import('app_src/views/sever/detail')
+    }]
+  },
+  {
+    path: '/',
+    component: Layout,
     redirect: '/severcomponent',
     name: 'Severcomponent',
     hidden: true,

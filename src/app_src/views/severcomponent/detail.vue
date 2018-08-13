@@ -29,25 +29,25 @@
                         <li>
                             <span>软件大小：</span><span>24.52M</span>
                         </li>
-                        <li><el-button size="mini" type="warning" @click="handleApply(obj.name)">申&nbsp;&nbsp;&nbsp;&nbsp;请</el-button>
-                        <el-button size="mini" type="primary" @click="handleHistory(obj.name)">申请记录</el-button>
-                                                <el-button size="mini" type="danger" @click="goAnchor('#anchor1')">下&nbsp;&nbsp;&nbsp;&nbsp;载</el-button>
+                        <li>
+                          <el-button size="mini" type="warning" @click="handleApply(obj.name)">申&nbsp;&nbsp;&nbsp;&nbsp;请</el-button>
+                          <el-button size="mini" type="primary" @click="handleHistory(obj.name)">申请记录</el-button>
+                          <el-button size="mini" type="danger" @click="goAnchor('#anchor1')">下&nbsp;&nbsp;&nbsp;&nbsp;载</el-button>
                         </li>
-                    </ul>
-                    
+                    </ul>   
    </el-card>                 
-<el-card>
+<el-card class="componentinfo">
     组件简介
     <div v-html="obj.content"></div>
 </el-card>
-<el-card id="#anchor1">
+<el-card id="#anchor1" class="componentinfo">
      <div style="float:left;width:20%;height:120px;">
          <h5>组件下载</h5>
-         <a>.NET Framework 4.7</a>
+         <a @click="handleDown('rar')">.NET Framework 4.7</a>
      </div>
      <div style="float:left;">
-         <h5>文件下载</h5>
-        <a>.NET Framework 4.7</a><a>.NET Framework 4.7</a><a>.NET Framework 4.7</a>
+        <h5>文件下载</h5>
+        <a @click="handleDown('组件相关')">使用说明</a><a @click="handleDown('组件相关')">案例</a><a @click="handleDown('组件相关')">开发文档</a>
      </div>
  </el-card>
  </el-card>
@@ -157,23 +157,36 @@
       //document.querySelector("#app-root").scrollTop = this.$el.querySelector(selector).offsetTop;
       //this.$el.querySelector(selector).scrollIntoView()
       document.getElementById(selector).scrollIntoView()
+    },
+     handleDown(name) {
+      alert('正在下载'+name+'文件')
     }
     }
   }
 </script>
 <style>
-
+.componentinfo {
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+}
 /* .componentinfo li{float:left;width:100px;background:#CCC;margin-left:3px;line-height:30px;} */
 .componentinfo ul { 
 width: 100%; list-style:none;
+margin-bottom: 20px;
 }
 .componentinfo li { 
+font-size: 14px;
 width: 45%; /*如果显示三列 则width改为70px*/ 
 float: left; 
 display: block; 
+margin: 5px;
 } 
-       a:link {text-decoration:none;color:blue;}
-       a:hover {text-decoration:underline;color:blue;}
+a{
+text-decoration:none;color:blue;
+font-size: 10px;margin-right:20px;
+}
+a:link {text-decoration:none;color:blue;}
+a:hover {text-decoration:none;color:blue;}
        /* a:active{text-decoration:none;color:yellow;}
        a:visited {text-decoration:none;color:green;} */
 </style>

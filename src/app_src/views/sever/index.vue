@@ -5,7 +5,7 @@
         <el-col :span="6">
           <div class="grid-content bg-purple">
             <el-card class="box-card">
-               <div style="text-align: center"><img style="width:200px;height:45px;" src="../../../app_src/imgs/title.png"></div>
+               <div style="text-align: center"><img style="width:200px;height:45px;" src="../../../app_src/imgs/title.png"></div>                      
                <ul v-for="(item,index) in TopList" :key="index" class="text">
                  <li style="padding:7px 0;float:left;width:10%;line-height:30px;"><span :class="addclass(index+1)">{{index+1}}</span></li>
                  <li style="padding:7px 0;float:left;width:65%;line-height:30px;"><span class="name" :title="item.name">{{item.name }}</span></li>
@@ -22,43 +22,34 @@
                     </el-input>
                     <el-button class="filter-item" type="primary" icon="el-icon-search" >搜索</el-button>
                 </div>
-              <el-table :data="tableData" style="width: 100%">
-                  <el-table-column
-                  label="序号"
-                  align="center"
-                  type="index">
-                  </el-table-column>
-                  <el-table-column
-                  prop="name"
-                  label="服务名称"
-                  align="center"
-                  show-overflow-tooltip
-                  width="180">
-                  </el-table-column>
-                  <el-table-column
-                  prop="download"
-                  width="80"
-                  align="center"
-                  label="使用次数">
-                  </el-table-column>
-                  <el-table-column
-                  prop="date"
-                  label="更新时间"
-                  align="center"
-                  width="100">
-                  </el-table-column>
-                  <el-table-column label="操作"
-                  align="center"
-                  width="300">
-                  <template slot-scope="scope">
-                    <el-button size="mini" type="success" @click="handleDetail(scope.$index, scope.row)">详&nbsp;&nbsp;&nbsp;&nbsp;情</el-button>
-                    <el-button size="mini" type="warning" @click="handleApply(scope.$index, scope.row)" v-if="scope.row.status==0?true:false">申&nbsp;&nbsp;&nbsp;&nbsp;请</el-button>
-                    <el-button size="mini" type="info" @click="handleExamine(scope.$index, scope.row)" v-if="scope.row.status==1?true:false">待审核</el-button>
-                    <el-button size="mini" type="danger" @click="handleDown(scope.$index, scope.row)" v-if="scope.row.status==2?true:false">下&nbsp;&nbsp;&nbsp;&nbsp;载</el-button>
-                    <el-button size="mini" type="primary" @click="handleHistory(scope.$index, scope.row)">记&nbsp;&nbsp;&nbsp;&nbsp;录</el-button>
-                  </template>
-                  </el-table-column>
-              </el-table>
+              <el-card v-for="(component,key) in tableData" :key="key"  class="content" @click.native="getcontent(component.id)">
+                <ul>
+                  <li>
+                  <div class="left"><img style="width:140px;height:80px;" src="../../../app_src/imgs/feedback.png" alt=""></div>
+                  <div class="right">
+                    <div class="right_top">
+                        <h3>{{component.name}}</h3>
+                    </div>
+                    <div style="font-size:10px;width:140px;float:left;">
+                      <el-rate
+                        v-model="value5"
+                        disabled
+                        show-score
+                        text-color="#ff9900"
+                        score-template="{value}"> 
+                      </el-rate>
+                    </div>
+                <div style="font-size:10px;float:left;margin:4px;">请求方式：get  更新时间：2018-08-07 服务类型：内部服务</div>
+                    <div class="name">{{component.content}}</div>
+                    <div class="right_bottom">
+                        <div class="right_bottom_left">
+                            <span>发布单位：</span><span>大港石油公司</span>  <span>使用次数：</span><span>71</span>
+                        </div>
+                    </div>
+                  </div>
+                  </li>
+                </ul>
+              </el-card>
               <div class="pagination-container">
               <el-pagination
                 @size-change="handleSizeChange"
@@ -83,7 +74,7 @@
             <!-- <el-form-item label="组件名称">
               <div>{{componentName}}</div>
             </el-form-item> -->
-            <el-form-item label="服务说明">
+            <el-form-item label="组件说明">
             <div v-html="componentContent"></div>
             </el-form-item>
             </el-form>
@@ -136,6 +127,7 @@
 export default {
   data() {
     return {
+      value5: 3.7,
       TopList: [
         { name: '云组织推送服务', id: 1, download: '151次使用' },
         { name: '生成服务码', id: 2, download: '71次使用' },
@@ -217,19 +209,19 @@ export default {
     },
     handleDetail(index, row) {
       this.dialogDetailVisible = true
-      this.dialogTitle = '服务' + row.name + '详情'
+      this.dialogTitle = '组件' + row.name + '详情'
       this.componentContent = row.content
     },
     handleApply(index, row) {
       this.dialogFormVisible = true
-      this.dialogTitle = '服务' + row.name + '申请记录'
+      this.dialogTitle = '组件' + row.name + '申请记录'
     },
     handleHistory(index, row) {
       this.dialogTableVisible = true
-      this.dialogTitle = '服务' + row.name + '申请记录'
+      this.dialogTitle = '组件' + row.name + '申请记录'
     },
     handleExamine(index, row) {
-      this.$alert('服务' + row.name + '信息审核中，请耐心等待！', '消息提示', {
+      this.$alert('组件' + row.name + '信息审核中，请耐心等待！', '消息提示', {
         confirmButtonText: '确定'
         // callback: action => {
         //   this.$message({
@@ -241,6 +233,11 @@ export default {
     },
     handleDown(index, row) {
       alert('正在下载rar文件')
+    },
+    getcontent(data) {
+      // alert("aaaa");
+       let id =data.toString();
+       this.$router.push({path:'/sever/'+id})
     }
   }
 }
@@ -248,6 +245,61 @@ export default {
 
 
 <style lang="scss">
+.content{
+  margin-top: 15px;
+}
+.content ul,li{
+    margin: 0px;
+    padding: 0px;
+}
+.content ul li img:hover{
+    transform: scale(1.2);/*当鼠标移动到图片上时实现放大功能*/
+}
+ .content ul li{
+            // height: 100px;
+            overflow: hidden;
+            // border-bottom: 1px solid lavender;
+            background: white;
+            list-style-type: none;
+            transition-duration: 0.5s;
+             margin: 10px 10px 5px 0;
+ 
+        }
+
+  .content ul li:hover{
+            background-color: lavender;
+            transition-duration: 0.5s;
+        }
+        .content .left{
+            overflow: hidden;/*隐藏溢出图片内容*/
+            transition-duration: 0.5s;
+            width: 20%;
+            height:80px;
+            /*background: green;*/
+            float: left;
+            margin-right:20px;
+        }
+        .content .right{
+            // width:400px ;
+            width: 75%;
+            float: left;
+            /*background: pink;*/
+        }
+        .right_top h3{
+          margin: 0px;
+          padding: 0px;
+          text-align: center;
+            // height:60px;
+        }
+        .right_bottom{
+            margin-top:50px;
+            text-align: right;
+        }
+        .right_bottom_left span{
+
+            color: darkgray;
+            font-size: 12px;
+        }
 .top{
   font-weight:bold;
   color: white;
