@@ -17,8 +17,7 @@
     <el-col :span="24">
 
       <div class="main-container">
-      <div>
-        
+      <div>     
         <topbar></topbar>
       </div>
       <div>
@@ -75,7 +74,7 @@ export default {
   height: 100%;
   width: 100%;
 }
-.headerset{
+.headerset {
   margin-top: 5px;
 }
 .drawer-bg {
@@ -88,15 +87,18 @@ export default {
   z-index: 999;
 }
 .header {
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
   position: fixed;
   z-index: 1999;
   min-width: 100%;
   height: 60px;
-  // background:#3A71A8;
+  background:#2196F3;
   margin: 0 auto;
-  line-height: 55px; /*设置line-height与父级元素的height相等*/
-  overflow: hidden; /*防止内容超出容器或者产生自动换行*/
-  background:#75b8e3;
+  line-height: 55px; //设置line-height与父级元素的height相等
+  overflow: hidden; //防止内容超出容器或者产生自动换行
+  background: #75b8e3;
 
   .logo {
     float: left;

@@ -39,12 +39,12 @@
                     <div class="foot">
                       <el-row >
                         <el-col :span="24">
-                          发表日期：{{card.cardinfo.upTime}} <el-button type="text" @click="getcomment" >{{mainCardMsg}}({{card.cardinfo.commentNumber}})</el-button>                   
+                          发表日期：{{card.cardinfo.upTime}} <el-button type="text" @click="getcomment(card)" >{{mainCardMsg}}({{card.cardinfo.commentNumber}})</el-button>                   
                         </el-col>
                       </el-row>
                     </div>
 
-                    <div class="commit" v-if="commitVisibility">
+                    <div class="commit" v-if="commitIndex===key">
                       <el-row>
                         <el-col>
                           <el-card>
@@ -190,14 +190,17 @@ export default {
       commitfootinputVisibility: false,
       commitcontent: "",
       mainCardMsg: "回复",
-      commitcardMsg: "我也说一句"
+      commitcardMsg: "我也说一句",
+      commitIndex:null,
     };
   },
   methods: {
     getId() {
       console.log(this.$route.params.id);
     },
-    getcomment() {
+    getcomment(data) {
+      this.commitIndex=data.cardinfo.id
+      console.log(data.cardinfo.id);
       this.commitVisibility = !this.commitVisibility;
       if (this.commitVisibility === true) {
         this.mainCardMsg = "收起回复";
