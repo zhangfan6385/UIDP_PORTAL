@@ -22,7 +22,7 @@
                               </el-table-column>
 
                               <el-table-column prop="name" label="服务名称" :show-overflow-tooltip="true" align="center"></el-table-column>
-                              <el-table-column prop="download" label="使用次数" width="50" align="center"></el-table-column>
+                              <el-table-column prop="download" label="使用次数" width="80" align="center" :show-overflow-tooltip="true"></el-table-column>
                           </el-table>
                       </div>
             </el-card>
@@ -152,7 +152,7 @@ export default {
         { name: 'UIDP开发平台服务(测试版)', id: 7, download: '27' },
         { name: 'UIDP开发平台服务1(测试版)', id: 8, download: '25' },
         { name: 'UIDP开发平台服务(测试版)', id: 9, download: '22' },
-        { name: 'UIDP开发平台服务(测试版)', id: 10, download: '19' }
+        { name: 'UIDP开发平台服务(测试版)', id: 10, download: '190000' }
       ],
       tableData: [
         { name: '云组织推送服务', id: 1, download: '151', date: '2018-08-08', status: 0, content: '<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">微软更新了.Net Framework，更新后版本号升至4.7，它也包含在这次的创意者更新里，开发者可以使用Visual Studio 2017进行.Net Framework 4.7项目的开发。Windows10</p><p><img class="large" src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=4069284240,3156467089&fm=170&s=F902E412ECB4F99054474CDC0300D0E2&w=600&h=230&img.JPG"/></p><p style="margin-top: 26px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">最新版的.Net Framework 4.7主要带来了以下方面的提升：</p><p style="margin-top: 22px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">为Win10上的WPF程序带来了触控支持;</p><p style="margin-top: 22px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">增强了加密支持；</p><p style="margin-top: 22px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">提升性能和稳定性。</p><p><br/></p>' },
