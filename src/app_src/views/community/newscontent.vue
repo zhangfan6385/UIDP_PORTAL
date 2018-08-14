@@ -50,7 +50,7 @@
                           <el-card>
                             <div v-for="(commit,commitIndex) in card.commitinfo" :key="commitIndex">
                               <el-row type="flex">
-                              <el-col :span="5">
+                              <el-col :span="3">
                                 <div class="commithead">
                                     <img src="../../../app_src/imgs/userHead.png">
                                   </div>
@@ -211,8 +211,7 @@ export default {
         this.mainCardMsg = "回复";
       }
     },
-    openCommit(data) {
-      console.log(data)
+    openCommit() {
       this.commitcontent = "";
       this.commitfootinputVisibility = !this.commitfootinputVisibility;
       this.justbutton();
@@ -276,6 +275,8 @@ export default {
     margin-top: 35px;
   }
   .commitcontent {
+    margin-top: 10px;
+    margin-left: 15px;
     font-size: 12px;
     color: gray;
   }
@@ -293,7 +294,7 @@ export default {
     margin-top: 20px;
   }
   .commithead {
-    text-align: center;
+    text-align: right;
     img {
       width: 30px;
       height: 30px;

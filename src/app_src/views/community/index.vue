@@ -27,7 +27,13 @@
                     <el-table-column prop="commentNumber" label="评论人数" width="100px" align="center"></el-table-column>
                     <el-table-column prop="writter" label="作者" width="100px" align="center"></el-table-column>
                     <el-table-column prop="upTime" label="发表日期" width="100px" align="center"></el-table-column>
-                  </el-table>               
+                  </el-table>  
+                    <div class="page">
+                      <el-pagination
+                      layout="prev, pager, next"
+                      :total="50">
+                    </el-pagination>         
+                    </div>    
                 </el-card>
               </div>
           </el-col>
@@ -65,7 +71,6 @@ export default {
         { index: "5", name: "张5", score: 10000 },
         { index: "6", name: "张6", score: 10000 },
         { index: "7", name: "张7", score: 10000 },
-        { index: "8", name: "张8", score: 10000 }
       ],
       newslist: [
         {
@@ -140,18 +145,6 @@ export default {
           content:
             "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
         },
-        {
-          id:7,
-          writter:'小李',
-          type:1,
-          title: "为祖国庆生",
-          upTime: "2018-8-8",
-          readNumber: 200,
-          offer: 200,
-          commentNumber: 200,
-          content:
-            "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
-        }
       ],
       currentPage1: 1
     };
@@ -198,6 +191,9 @@ export default {
         height: 30px;
         border-radius: 1em;
       }
+    }
+    .page{
+      text-align: center;
     }
     .title {
       margin-left: 15px;
