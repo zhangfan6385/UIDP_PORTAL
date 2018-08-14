@@ -1,6 +1,6 @@
 <template>
     <div id="topbar" class="headermenu">
-        <el-menu  class="el-menu-demo" mode="horizontal" :default-active="this.$route.path" router  background-color="#e8f6f7" text-color="gray">
+        <el-menu  class="el-menu-demo" mode="horizontal" :default-active="this.$route.path" router  text-color="gray">
             <el-row type="flex">
                 <el-col :span="2"></el-col>
                 <el-col :span="4" v-for="(item,key) in menuList" :key="key">
@@ -18,31 +18,28 @@
 import { mapGetters } from "vuex";
 
 export default {
-    data(){
-        return{
-            menuList:[
-                {path:'/home',name:'首页'},
-                {path:'/dashboard',name:'开发平台'},
-                {path:'/severcomponent',name:'组件目录'},
-                {path:'/sever',name:'服务目录'},
-                {path:'/community',name:'社区'}
-            ]
-        }
-    }
+  data() {
+    return {
+      menuList: [
+        { path: "/home", name: "首页" },
+        { path: "/dashboard", name: "开发平台" },
+        { path: "/severcomponent", name: "组件目录" },
+        { path: "/sever", name: "服务目录" },
+        { path: "/community", name: "社区" }
+      ]
+    };
+  }
 };
 </script>
 
 <style lang="scss">
-
-.headermenu{
-    .el-menu-demo{
-        background:none;
-    }
+.headermenu {
+  .el-menu-demo {
+    max-height: 56px;
+  }
 }
 .el-menu-item {
   text-align: center;
-  max-height: 50px;
-  
 }
 .copyright {
   position: fixed;

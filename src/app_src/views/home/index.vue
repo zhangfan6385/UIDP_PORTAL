@@ -5,7 +5,7 @@
                 <el-col :span="2"></el-col>
                 <el-col :span="10">
                     <el-card>   
-                        <el-card v-for="(item,key) in noticeList" :key="key" v-if="key<=2">
+                        <el-card v-for="(item,key) in noticeList" :key="key" v-if="key<=2" class="card1">
                             <div slot="header" class="header">
                                 <span>{{item.title}}</span>
                             </div>

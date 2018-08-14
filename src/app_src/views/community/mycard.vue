@@ -149,7 +149,6 @@ export default {
 
 <style lang="scss">
 .mycard {
-  margin-top: 20px;
   .leftcontainer {
     min-height: 450px;
     text-align: center;

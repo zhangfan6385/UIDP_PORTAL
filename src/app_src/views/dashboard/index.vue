@@ -1,90 +1,37 @@
 <template>
   <div class="dashboard-container">
-    <div class="platform">
-        <el-row :gutter="20" type="flex">
-          <el-col :span="2"> </el-col>
-          <el-col :span="20">
-            <div class="grid-content bg-purple">         
-                <el-col :span="4">
-                    <div class="logo">
-                      <img src="../../../app_src/imgs/C.png"> 
-                    </div>
-                </el-col>
-                <el-col :span="8">
-                    <div class="platformInfo">
-                      <h3>平台需求</h3> 
-                      <p>服务器: {{CSharpPlatformInfo.server}}</p>
-                      <p>运行环境：{{CSharpPlatformInfo.OperatingEnvironment}}</p>
-                      <el-button @click="download" type="primary" round >平台下载</el-button>
-                    </div>
-                </el-col>
+    <div class="paltform">
+      <el-row type="flex">
+        <el-col :span="2"></el-col>
+        <el-col :span="20">
+          <div class="card">
+            <el-card>
+              <el-col :span="4">
+                <div class="logo">
+                  <img src="../../../app_src/imgs/C.png" alt="">
+                </div>
+              </el-col>
 
-                <el-col :span="4">
-                    <div class="waitlogo">
-                       <img src="../../../app_src/imgs/time.png" title="历史版本" @click="histiory">
+              <el-col :span="8">
+                <el-row>
+                  <el-col>
+                    <div class="infotitle">
+                      123
                     </div>
-                </el-col>
+                  </el-col>
+                </el-row>
 
-                <el-col :span="6">
-                  <div  class="histiory" v-for="(item,key) in CSharpPlatformInfo.Edition" :key=key>
-                      <el-radio v-model="CSharpradio" :label="item.id">{{item.name}}</el-radio>
-                  </div>
-                </el-col>
-                <el-col>
-                 <div v-for="(item,key) in successhistory" :key="key" class="sucesshistory">
-                   <a :href="item.URL">{{item.name}}：{{item.content}}</a>
-                 </div>
-                </el-col>               
-            </div>
-            </el-col> 
-        </el-row>
-        
-
-
-        <el-row :gutter="20" type="flex">
-          <el-col :span="2"> </el-col>
-          <el-col :span="20">
-            <div class="grid-content bg-purple">
-                <el-col :span="4">
-                    <div class="logo">
-                      <img src="../../../app_src/imgs/GO.png" > 
-                    </div>
-                </el-col>
-                <el-col :span="8">
-                    <div class="platformInfo">
-                      <h3>平台需求</h3> 
-                      <p>服务器: {{GOPlatformInfo.server}}</p>
-                      <p>运行环境：{{GOPlatformInfo.OperatingEnvironment}}</p>
-                      <el-button type="primary" round @click="download">平台下载</el-button>
-                    </div>
-                </el-col>
-
-                <el-col :span="4">
-                    <div class="waitlogo">
-                       <img src="../../../app_src/imgs/time.png" title="历史版本">
-                    </div>
-                </el-col>
-
-                <el-col :span="6">
-                  <div  class="histiory" v-for="(item,key) in GOPlatformInfo.Edition" :key=key>
-                      <el-radio v-model="GOradio" :label="item.id">{{item.name}}</el-radio>
-                  </div>
-                </el-col>        
-            </div>
-            </el-col>          
-        </el-row>
+                <el-row>
+                  <el-col>
+                    123
+                  </el-col>
+                </el-row>
+              </el-col>
+            </el-card>
+          </div>
+        </el-col>
+      </el-row>
     </div>
-    <el-dialog title="历史版本" :visible.sync="dialogTableVisible">
-      <el-table :data="histioryList">
-        <el-table-column property="time" label="日期" width="150" align="center"></el-table-column>
-        <el-table-column property="name" label="版本" width="300" align="center"></el-table-column>
-        <el-table-column  label="操作" align="center">
-          <template slot-scope="scope">
-            <el-button @click="download(scope.row.id)" type="primary" size="mini">点击下载</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-    </el-dialog>
   </div>
 </template>
 

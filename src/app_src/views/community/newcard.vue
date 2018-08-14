@@ -115,10 +115,6 @@ export default {
 
 
 <style lang="scss">
-.newcard {
-  .mainform {
-    margin-top: 20px;
-  }
-}
+
 </style>
 
