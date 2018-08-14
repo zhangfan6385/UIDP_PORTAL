@@ -5,40 +5,31 @@
                 <el-col :span="2"></el-col>
                 <el-col :span="10">
                     <el-card>   
-                        <el-card v-for="(item,key) in noticeList" :key="key" v-if="key<=2" class="card1">
-                            <div slot="header" class="header">
-                                <span>{{item.title}}</span>
-                            </div>
-                            <el-row>
-                                <el-col>
-                                    <div class="content">
-                                        <p v-html="item.content"></p>
-                                    </div>
-                                </el-col>
-                            </el-row>
-
-                            <el-row>
-                                <el-col>
-                                    <div class="foot">
-                                        作者：{{item.writter}}
-                                        <br>
-                                        发表日期：{{item.time}}
-                                    </div>
-                                </el-col>
-                            </el-row>
-                        </el-card>
-                        <el-pagination
-                            layout="prev, pager, next"
-                            :total="50">
-                        </el-pagination>
+                        <h3>公告</h3>
+                        <el-table :data="noticeList" height="383px" size="mini" style="border-top:1px solid #2196F3;cursor:pointer">
+                           <el-table-column label="标题" prop="title"  align="center"></el-table-column>
+                            <el-table-column label="发布人" prop="writter" align="center"></el-table-column>
+                            <el-table-column label="发布时间" prop="time" align="center"></el-table-column>
+                        </el-table>
+                         <div class="pagination-container">
+              <el-pagination
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page="currentPage"
+                :page-sizes="[10, 20, 30, 40]"
+                :page-size="10"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="11">
+                </el-pagination>
+              </div>
                     </el-card> 
                 </el-col>
 
                 <el-col :span="10">
                     <el-card>
                         <h3>论坛积分排行榜</h3>
-                        <el-table :data="commnunityScoreList" >
-                            <el-table-column label="排名" prop="index" align="center"></el-table-column>
+                        <el-table :data="commnunityScoreList" size="mini" height="397px" style="border-top:1px solid #2196F3;">
+                            <el-table-column label="排名" prop="index"  align="center"></el-table-column>
                             <el-table-column label="姓名" prop="name" align="center"></el-table-column>
                             <el-table-column label="积分" prop="score" align="center"></el-table-column>
                         </el-table>
@@ -47,7 +38,7 @@
             </el-row>
         </div> 
 
-        <div class="row1">
+        <!-- <div class="row1">
             <el-row :gutter="20" type="flex">
                 <el-col :span="2"></el-col>
                 <el-col :span="10">
@@ -62,7 +53,7 @@
                     </el-card>
                 </el-col>
             </el-row>                   
-        </div>
+        </div> -->
 
         <div class="row1">
             <el-row :gutter="20" type="flex">
@@ -70,18 +61,19 @@
                 <el-col :span="10">
                     <el-card>
                         <h3>组件下载排行榜</h3>
-                        <el-table :data="severRankList" >
-                            <el-table-column label="排名" prop="index" align="center"></el-table-column>
-                            <el-table-column label="姓名" prop="name" align="center"></el-table-column>
-                            <el-table-column label="积分" prop="score" align="center"></el-table-column>
+                        <el-table :data="severRankList" height="397px" size="mini" style="border-top:1px solid #2196F3">
+                            <el-table-column label="标题" prop="index" align="center"></el-table-column>
+                            <el-table-column label="发布人" prop="name" align="center"></el-table-column>
+                            <el-table-column label="发布时间" prop="score" align="center"></el-table-column>
                         </el-table>
+                       
                     </el-card>
                 </el-col>
 
                 <el-col :span="10">
                     <el-card>
                         <h3>服务积分排行榜</h3>
-                        <el-table :data="SeverComponentRankList" >
+                        <el-table :data="SeverComponentRankList" height="397px" size="mini" style="border-top:1px solid #2196F3">
                             <el-table-column label="排名" prop="index" align="center"></el-table-column>
                             <el-table-column label="姓名" prop="name" align="center"></el-table-column>
                             <el-table-column label="积分" prop="score" align="center"></el-table-column>
@@ -127,12 +119,6 @@ export default {
           content: "<h5>大港软件开发通知</h5>",
           writter: "管理员",
           time: "2018-8-13"
-        },
-        {
-          title: "重要通知",
-          content: "<h5>大港软件开发通知</h5>",
-          writter: "管理员",
-          time: "2018-8-13"
         }
       ],
       commnunityScoreList: [
@@ -143,7 +129,9 @@ export default {
         { index: "5", name: "张5", score: 10000 },
         { index: "6", name: "张6", score: 10000 },
         { index: "7", name: "张7", score: 10000 },
-        { index: "8", name: "张8", score: 10000 }
+        { index: "8", name: "张7", score: 10000 },
+        { index: "9", name: "张7", score: 10000 },
+        { index: "10", name: "张8", score: 10000 }
       ],
       severRankList: [
         { index: "1", name: "张1", score: 10000 },
@@ -153,7 +141,9 @@ export default {
         { index: "5", name: "张5", score: 10000 },
         { index: "6", name: "张6", score: 10000 },
         { index: "7", name: "张7", score: 10000 },
-        { index: "8", name: "张8", score: 10000 }
+        { index: "8", name: "张7", score: 10000 },
+        { index: "9", name: "张7", score: 10000 },
+        { index: "10", name: "张8", score: 10000 }
       ],
       SeverComponentRankList: [
         { index: "1", name: "张1", score: 10000 },
@@ -163,7 +153,9 @@ export default {
         { index: "5", name: "张5", score: 10000 },
         { index: "6", name: "张6", score: 10000 },
         { index: "7", name: "张7", score: 10000 },
-        { index: "8", name: "张8", score: 10000 }
+       { index: "8", name: "张7", score: 10000 },
+        { index: "9", name: "张7", score: 10000 },
+        { index: "10", name: "张8", score: 10000 }
       ]
     };
   }
