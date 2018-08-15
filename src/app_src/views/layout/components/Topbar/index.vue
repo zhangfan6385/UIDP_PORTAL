@@ -1,9 +1,9 @@
 <template>
     <div id="topbar" class="headermenu">
-        <el-menu  class="el-menu-demo" mode="horizontal" :default-active="this.$route.path" router  text-color="gray">
+        <el-menu  class="el-menu-demo" mode="horizontal" :default-active="this.$route.path" router  text-color="white">
             <el-row type="flex">
-                <el-col :span="2"></el-col>
-                <el-col :span="4" v-for="(item,key) in menuList" :key="key">
+                <el-col :span="4"></el-col>
+                <el-col :span="3" v-for="(item,key) in menuList" :key="key">
                     <el-menu-item :index="item.path">{{item.name}}</el-menu-item>
                 </el-col>
             </el-row>
@@ -38,6 +38,10 @@ export default {
     max-height: 56px;
   }
 }
+.el-menu{
+  background: rgb(25, 5, 112);
+  font-family: "微软雅黑"
+}
 .el-menu-item {
   text-align: center;
 }
@@ -46,9 +50,9 @@ export default {
   left: 40%;
   bottom: 0px;
   margin: 0 auto;
-  margin-bottom: 5px;
+  //margin-bottom: 5px;
   color: gray;
-  font-family: "华文楷体";
+  font-family: "微软雅黑";
   font-size: 13px;
 }
 </style>

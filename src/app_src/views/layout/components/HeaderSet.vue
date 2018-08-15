@@ -119,7 +119,9 @@ export default {
   border-right: none;
   border-bottom: none;
 }
-
+.el-menu{
+  font-family: "微软雅黑";
+}
 .logo {
   float: left;
   margin: 0 20px;
@@ -132,17 +134,16 @@ export default {
 
   img {
     vertical-align: top;
-    margin-top: 10px;
-    height: 30px;
-    width: 30px;
+    height: 25px;
+    width: 25px;
   }
 }
 
 .navbar-set {
   background-color: transparent;
-  margin-top: 2px;
-  height: 50px;
-  line-height: 50px;
+ // margin-top: 2px;
+ // height: 50px;
+  line-height: 25px;
   border-radius: 0px !important;
 
   .errLog-container {
@@ -164,7 +165,7 @@ export default {
     }
     .notice{
       width: 40px;
-      height: 35px;
+      height: 40px;
       border-radius: 10px;
       vertical-align: middle;
     }
@@ -182,22 +183,23 @@ export default {
     //   vertical-align: 15px;
     // }
     .avatar-container {
-      height: 55px;
-      margin-right: 30px;
+      height: 40px;
+      //margin-right: 30px;
       .avatar-wrapper {
         cursor: pointer;
         // margin-top: 5px;
         position: relative;
         .user-avatar {
-          width: 30px;
-          height: 30px;
+          margin-top: 7px;
+          width: 25px;
+          height: 25px;
           border-radius: 10px;
           vertical-align: middle;
         }
         .el-icon-caret-bottom {
           position: absolute;
           right: -20px;
-          top: 25px;
+         // top: 25px;
           font-size: 12px;
           color: #fff;
         }
