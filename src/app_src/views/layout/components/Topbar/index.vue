@@ -67,6 +67,7 @@ export default {
   position: fixed;
   left: 40%;
   bottom: 0px;
+  padding-top: 20px;
   margin: 0 auto;
   //margin-bottom: 5px;
   color: gray;

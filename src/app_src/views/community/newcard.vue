@@ -33,10 +33,10 @@
                                     </div>
                                 </el-col>
                             </el-row>
-        
+
                             <el-form-item label="详细" :rules="rules.content">
                                 <div class="editor">
-                                    <quill-editor v-model="newcard.content" ref="myQuillEditor" :options="newcard.editorOption" @ready="onEditorReady($event)"></quill-editor>                                     
+                                    <quill-editor v-model="newcard.content" ref="myQuillEditor" :options="newcard.editorOption" @ready="onEditorReady($event)" height="500px"></quill-editor>
                                 </div>
 
                                 <el-form-item>
@@ -64,11 +64,11 @@ export default {
         type: "",
         content: "",
         editorOption: {},
-        needscore:'',
-        getscore:''
+        needscore: "",
+        getscore: ""
       },
       rules: {
-        type:[{ required: true, message: "请输入标题", trigger: "blur" }],
+        type: [{ required: true, message: "请输入标题", trigger: "blur" }],
         title: [{ required: true, message: "请选择类型", trigger: "blur" }],
         content: [
           { required: true, message: "请输入详细内容", trigger: "blur" }
@@ -115,6 +115,11 @@ export default {
 
 
 <style lang="scss">
-
+.el-card{
+    min-height: 500px;
+}
+.editor{
+    min-height: 500px;
+}
 </style>
 
