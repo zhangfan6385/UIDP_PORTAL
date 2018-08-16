@@ -32,7 +32,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .headermenu {
   .el-menu-demo {
     min-height: 56px;//56px;
@@ -41,25 +41,28 @@ export default {
 .el-menu{
   background: rgb(41, 10, 180);
   font-family: "微软雅黑";
- 
-  
 }
 .el-menu-item {
-   font-size: 16px;
-  height:55px;
-  background:rgb(41, 10, 180) !important;
+  font-size: 16px;
+  height:53;//55
   text-align: center;
+  &:link{
+    border-bottom:3.5px solid rgb(41, 10, 180) !important;
+  }
+    //  &:visited{
+    //     border-bottom: 3.5px solid #eefaf3 !important;
+    // }
   &:hover{
      border-bottom: 3.5px solid #eefaf3 !important;
   }
   &:active{
     border-bottom: 3.5px solid #eefaf3 !important;
   }
-   &:visited{
-     
-    border-bottom: 3.5px solid #eefaf3 !important;
-  }
+  background:rgb(41, 10, 180) !important;
 }
+.is-active{
+    border-bottom: 3.5px solid #eefaf3 !important;
+  } 
 .copyright {
   position: fixed;
   left: 40%;
