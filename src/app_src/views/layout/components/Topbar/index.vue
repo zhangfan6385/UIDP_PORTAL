@@ -40,9 +40,12 @@ export default {
 }
 .el-menu{
   background: rgb(41, 10, 180);
-  font-family: "微软雅黑"
+  font-family: "微软雅黑";
+ 
+  
 }
 .el-menu-item {
+   font-size: 16px;
   height:55px;
   background:rgb(41, 10, 180) !important;
   text-align: center;
