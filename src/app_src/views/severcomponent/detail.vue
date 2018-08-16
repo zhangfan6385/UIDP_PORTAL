@@ -164,7 +164,7 @@
     }
   }
 </script>
-<style>
+<style scope="scope">
 .componentinfo {
   margin-bottom: 15px;
   padding-bottom: 10px;

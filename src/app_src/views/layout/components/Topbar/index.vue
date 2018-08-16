@@ -1,10 +1,10 @@
 <template>
     <div id="topbar" class="headermenu">
-        <el-menu  class="el-menu-demo" mode="horizontal" :default-active="this.$route.path" router  text-color="white">
+        <el-menu  class="el-menu-demo" mode="horizontal" :default-active="this.$route.path" active-text-color="white" router  text-color="white">
             <el-row type="flex">
                 <el-col :span="4"></el-col>
                 <el-col :span="3" v-for="(item,key) in menuList" :key="key">
-                    <el-menu-item :index="item.path">{{item.name}}</el-menu-item>
+                    <el-menu-item :index="item.path" >{{item.name}}</el-menu-item>
                 </el-col>
             </el-row>
         </el-menu>   
@@ -35,15 +35,27 @@ export default {
 <style lang="scss">
 .headermenu {
   .el-menu-demo {
-    max-height: 56px;
+    min-height: 56px;//56px;
   }
 }
 .el-menu{
-  background: rgb(25, 5, 112);
+  background: rgb(41, 10, 180);
   font-family: "微软雅黑"
 }
 .el-menu-item {
+  height:55px;
+  background:rgb(41, 10, 180) !important;
   text-align: center;
+  &:hover{
+     border-bottom: 3.5px solid #eefaf3 !important;
+  }
+  &:active{
+    border-bottom: 3.5px solid #eefaf3 !important;
+  }
+   &:visited{
+     
+    border-bottom: 3.5px solid #eefaf3 !important;
+  }
 }
 .copyright {
   position: fixed;
