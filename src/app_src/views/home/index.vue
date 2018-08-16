@@ -5,79 +5,133 @@
                 <el-col :span="2"></el-col>
                 <el-col :span="10">
                     <el-card>   
-                        <h3>公告</h3>
-                        <el-table :data="noticeList" height="383px" size="mini" style="border-top:1px solid #2196F3;cursor:pointer">
-                           <el-table-column label="标题" prop="title"  align="center"></el-table-column>
-                            <el-table-column label="发布人" prop="writter" align="center"></el-table-column>
-                            <el-table-column label="发布时间" prop="time" align="center"></el-table-column>
+                        <div slot="header" class="header">
+                            <el-row>
+                                <el-col :span="2">
+                                    <img src="../../../app_src/imgs/notice.png" title="公告">
+                                </el-col>
+
+                                <el-col :span="22">
+                                    <div class="title">
+                                        公告
+                                        <div class="headerbutton">
+                                            <el-button type="primary" size="mini"> 查看详情</el-button>
+                                        </div>
+                                    </div>
+                                </el-col>
+                            </el-row>
+                             
+                        </div>
+                        <el-table :data="noticeList" size="mini" :show-header="showheader" show-overflow-tooltip>
+                           <el-table-column  prop="title"  align="center"></el-table-column>
+                            <!-- <el-table-column  prop="writter" align="center"></el-table-column> -->
+                            <el-table-column  prop="time" align="center"></el-table-column>
                         </el-table>
-                         <div class="pagination-container">
-              <el-pagination
-                @size-change="handleSizeChange"
-                @current-change="handleCurrentChange"
-                :current-page="currentPage"
-                :page-sizes="[10, 20, 30, 40]"
-                :page-size="10"
-                layout="total, sizes, prev, pager, next, jumper"
-                :total="11">
-                </el-pagination>
-              </div>
                     </el-card> 
                 </el-col>
 
                 <el-col :span="10">
                     <el-card>
-                        <h3>论坛积分排行榜</h3>
-                        <el-table :data="commnunityScoreList" size="mini" height="397px" style="border-top:1px solid #2196F3;">
-                            <el-table-column label="排名" prop="index"  align="center"></el-table-column>
-                            <el-table-column label="姓名" prop="name" align="center"></el-table-column>
-                            <el-table-column label="积分" prop="score" align="center"></el-table-column>
-                        </el-table>
+                        <div slot="header" class="header">
+                            <el-row>
+                                <el-col :span="2">
+                                    <img src="../../../app_src/imgs/message.png" title="公告">
+                                </el-col>
+
+                                <el-col :span="22">
+                                    <div class="title">
+                                        最新发帖
+                                        <div class="headerbutton">
+                                            <el-button type="primary" size="mini" @click="goToCommunity"> 论坛首页</el-button>
+                                        </div>
+                                    </div>
+                                </el-col>
+                            </el-row>                            
+                        </div>
+                        <el-table :data="newslist" @row-click="getcontent" size="mini" :show-header=showheader show-overflow-tooltip>
+                            <el-table-column  label="类型" width="50px" align="center">
+                            <template slot-scope="scope">
+                                <div class="newslogo">
+                                <span v-if="scope.row.type===1">
+                                    <img src="../../../app_src/imgs/shakehande.png" title="经验分享">                           
+                                    </span>
+                                    <span v-else-if="scope.row.type===2">
+                                    <img src="../../../app_src/imgs/feedback.png" title="问题反馈">
+                                    </span>
+                                    <span v-else-if="scope.row.type===3">
+                                    <img src="../../../app_src/imgs/help.png" title="问题求助">
+                                    </span>
+                                </div>
+                                </template> 
+                            </el-table-column>
+                            <el-table-column prop="title" width="280px" label="主题" ></el-table-column>
+                            <!-- <el-table-column prop="readNumber" label="阅读量" width="100px" align="center"></el-table-column>
+                            <el-table-column prop="offer" label="悬赏金额" width="100px" align="center"></el-table-column>
+                            <el-table-column prop="commentNumber" label="评论人数" width="100px" align="center"></el-table-column>
+                            <el-table-column prop="writter" label="作者" width="100px" align="center"></el-table-column>
+                            <el-table-column prop="upTime" label="发表日期" width="100px" align="center"></el-table-column> -->
+                        </el-table>  
                     </el-card>
                 </el-col>
             </el-row>
         </div> 
 
-        <!-- <div class="row1">
-            <el-row :gutter="20" type="flex">
+        <div class="row2">
+            <el-row  type="flex">
                 <el-col :span="2"></el-col>
-                <el-col :span="10">
+                  <el-col :span="20">
                     <el-card>
-                        C#平台
+                      <el-col :span="12">
+                        pingtai1
+                      </el-col>
+                      <el-col :span="12">
+                        pingtia2
+                      </el-col>
                     </el-card>
-                </el-col>
-
-                <el-col :span="10">
-                    <el-card>
-                        GO平台
-                    </el-card>
-                </el-col>
+                  </el-col>
             </el-row>                   
-        </div> -->
+        </div> 
 
-        <div class="row1">
+        <div class="row3">
             <el-row :gutter="20" type="flex">
                 <el-col :span="2"></el-col>
                 <el-col :span="10">
                     <el-card>
-                        <h3>组件下载排行榜</h3>
-                        <el-table :data="severRankList" height="397px" size="mini" style="border-top:1px solid #2196F3">
-                            <el-table-column label="标题" prop="index" align="center"></el-table-column>
-                            <el-table-column label="发布人" prop="name" align="center"></el-table-column>
-                            <el-table-column label="发布时间" prop="score" align="center"></el-table-column>
-                        </el-table>
-                       
+                        <el-row type="flex">
+                            <el-col :span="2"></el-col>
+                            <el-col :span="20">
+                                <div class="parent">
+                                    <el-carousel trigger="click" height="300px">
+                                    <el-carousel-item >
+                                        <div id="myChart" :style="{width: '350px', height: '300px'}" class="child"></div>
+                                    </el-carousel-item>
+                                    <el-carousel-item>
+                                        <div id="myChart1" :style="{width: '375px', height: '300px'}"></div>
+                                    </el-carousel-item>
+                                    </el-carousel>
+                                </div>
+                            </el-col>
+                        </el-row>
                     </el-card>
                 </el-col>
 
                 <el-col :span="10">
                     <el-card>
-                        <h3>服务积分排行榜</h3>
-                        <el-table :data="SeverComponentRankList" height="397px" size="mini" style="border-top:1px solid #2196F3">
-                            <el-table-column label="排名" prop="index" align="center"></el-table-column>
-                            <el-table-column label="姓名" prop="name" align="center"></el-table-column>
-                            <el-table-column label="积分" prop="score" align="center"></el-table-column>
-                        </el-table>
+                       <el-row type="flex">
+                            <el-col :span="2"></el-col>
+                            <el-col :span="20">
+                                <div class="parent1">
+                                    <el-carousel trigger="click" height="300px">
+                                    <el-carousel-item >
+                                        <div id="myChart2" :style="{width: '350px', height: '300px'}" class="child"></div>
+                                    </el-carousel-item>
+                                    <el-carousel-item>
+                                        <div id="myChart3" :style="{width: '375px', height: '300px'}"></div>
+                                    </el-carousel-item>
+                                    </el-carousel>
+                                </div>
+                            </el-col>
+                        </el-row>
                     </el-card>
                 </el-col>
             </el-row> 
@@ -119,46 +173,262 @@ export default {
           content: "<h5>大港软件开发通知</h5>",
           writter: "管理员",
           time: "2018-8-13"
+        },
+        {
+          title: "重要通知",
+          content: "<h5>大港软件开发通知</h5>",
+          writter: "管理员",
+          time: "2018-8-13"
+        },
+        {
+          title: "重要通知",
+          content: "<h5>大港软件开发通知</h5>",
+          writter: "管理员",
+          time: "2018-8-13"
         }
       ],
-      commnunityScoreList: [
-        { index: "1", name: "张1", score: 10000 },
-        { index: "2", name: "张2", score: 10000 },
-        { index: "3", name: "张3", score: 10000 },
-        { index: "4", name: "张4", score: 10000 },
-        { index: "5", name: "张5", score: 10000 },
-        { index: "6", name: "张6", score: 10000 },
-        { index: "7", name: "张7", score: 10000 },
-        { index: "8", name: "张7", score: 10000 },
-        { index: "9", name: "张7", score: 10000 },
-        { index: "10", name: "张8", score: 10000 }
+      newslist: [
+        {
+          id: 1,
+          writter: "小李",
+          type: 1,
+          title: "为祖国庆生",
+          upTime: "2018-8-8",
+          readNumber: 200,
+          offer: 200,
+          commentNumber: 200,
+          content:
+            "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
+        },
+        {
+          id: 2,
+          writter: "小张",
+          type: 2,
+          title: "为祖国庆生",
+          upTime: "2018-8-8",
+          readNumber: 200,
+          offer: 200,
+          commentNumber: 200,
+          content:
+            "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
+        },
+        {
+          id: 3,
+          writter: "小王",
+          type: 3,
+          title: "为祖国庆生",
+          upTime: "2018-8-8",
+          readNumber: 200,
+          offer: 200,
+          commentNumber: 200,
+          content:
+            "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
+        },
+        {
+          id: 4,
+          writter: "小李",
+          type: 1,
+          title: "为祖国庆生",
+          upTime: "2018-8-8",
+          readNumber: 200,
+          offer: 200,
+          commentNumber: 200,
+          content:
+            "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
+        },
+        {
+          id: 5,
+          writter: "小李",
+          type: 2,
+          title: "为祖国庆生",
+          upTime: "2018-8-8",
+          readNumber: 200,
+          offer: 200,
+          commentNumber: 200,
+          content:
+            "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
+        },
+        {
+          id: 6,
+          writter: "小李",
+          type: 3,
+          title: "为祖国庆生",
+          upTime: "2018-8-8",
+          readNumber: 200,
+          offer: 200,
+          commentNumber: 200,
+          content:
+            "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
+        }
       ],
       severRankList: [
-        { index: "1", name: "张1", score: 10000 },
-        { index: "2", name: "张2", score: 10000 },
-        { index: "3", name: "张3", score: 10000 },
-        { index: "4", name: "张4", score: 10000 },
-        { index: "5", name: "张5", score: 10000 },
-        { index: "6", name: "张6", score: 10000 },
-        { index: "7", name: "张7", score: 10000 },
-        { index: "8", name: "张7", score: 10000 },
-        { index: "9", name: "张7", score: 10000 },
-        { index: "10", name: "张8", score: 10000 }
+        { index: "1", name: "张1", score: 1 },
+        { index: "2", name: "张2", score: 2 },
+        { index: "3", name: "张3", score: 3 },
+        { index: "4", name: "张4", score: 4 },
+        { index: "5", name: "张5", score: 5 },
+        { index: "6", name: "张6", score: 6 },
+        { index: "7", name: "张7", score: 7 },
+        { index: "8", name: "张7", score: 8 },
+        { index: "9", name: "张7", score: 9 },
+        { index: "10", name: "张8", score: 10 }
       ],
       SeverComponentRankList: [
-        { index: "1", name: "张1", score: 10000 },
-        { index: "2", name: "张2", score: 10000 },
-        { index: "3", name: "张3", score: 10000 },
-        { index: "4", name: "张4", score: 10000 },
-        { index: "5", name: "张5", score: 10000 },
-        { index: "6", name: "张6", score: 10000 },
-        { index: "7", name: "张7", score: 10000 },
-       { index: "8", name: "张7", score: 10000 },
-        { index: "9", name: "张7", score: 10000 },
-        { index: "10", name: "张8", score: 10000 }
-      ]
+        { index: "1", name: "张1", score: 11 },
+        { index: "2", name: "张2", score: 12 },
+        { index: "3", name: "张3", score: 13 },
+        { index: "4", name: "张4", score: 14 },
+        { index: "5", name: "张5", score: 15 },
+        { index: "6", name: "张6", score: 16 },
+        { index: "7", name: "张7", score: 17 },
+        { index: "8", name: "张7", score: 18 },
+        { index: "9", name: "张7", score: 19 },
+        { index: "10", name: "张8", score: 20 }
+      ],
+      //柱状图数据
+      option: {
+        title: {
+          text: "组件下载详情"
+        },
+        tooltip: {},
+        xAxis: {
+          data: []
+        },
+        yAxis: {},
+        series: [
+          {
+            name: "销量",
+            type: "bar",
+            data: []
+          }
+        ]
+      },
+      option1: {
+        title: { text: "组件下载详情" },
+        tooltip: {},
+        series: [
+          {
+            name: "销量",
+            type: "pie",
+            data: []
+          }
+        ]
+      },
+      option2: {
+        title: {
+          text: "组件下载详情"
+        },
+        tooltip: {},
+        xAxis: {
+          data: [1, 2, 3, 4, 5]
+        },
+        yAxis: {},
+        series: [
+          {
+            name: "销量",
+            type: "bar",
+            data: [1, 2, 3, 4, 5]
+          }
+        ]
+      },
+      option3: {
+        title: { text: "组件下载详情" },
+        tooltip: {},
+        series: [
+          {
+            name: "销量",
+            type: "pie",
+            data: []
+          }
+        ]
+      },
+      showheader:false
     };
-  }
+  },
+  methods: {
+    drawLine() {
+      let myChart = this.$echarts.init(document.getElementById("myChart"));
+      myChart.setOption(this.option);
+      let myChart1 = this.$echarts.init(document.getElementById("myChart1"));
+      myChart1.setOption(this.option1);
+
+      let myChart2 = this.$echarts.init(document.getElementById("myChart2"));
+      myChart2.setOption(this.option2);
+      let myChart3 = this.$echarts.init(document.getElementById("myChart3"));
+      myChart3.setOption(this.option3);
+    },
+    getdata() {
+      let Xarr = [];
+      let dataarr = [];
+      let item = {};
+      for (let i of this.SeverComponentRankList) {
+        //柱状图赋值
+        Xarr.push(i.name);
+        dataarr.push(i.score);
+      }
+      this.option.xAxis.data = Xarr;
+
+      this.option.series = {
+        name: "销量",
+        type: "bar",
+        data: dataarr
+      };
+      //饼状图赋值
+      var data = [];
+      for (let i = 0; i < this.SeverComponentRankList.length; i++) {
+        data.push({
+          value: this.SeverComponentRankList[i].score,
+          name: this.SeverComponentRankList[i].name
+        });
+      }
+      this.option1.series = {
+        type: "pie",
+        data: data
+      };
+    },
+    getdata1() {
+      let Xarr = [];
+      let dataarr = [];
+      let item = {};
+      for (let i of this.severRankList) {
+        //柱状图赋值
+        Xarr.push(i.name);
+        dataarr.push(i.score);
+      }
+      this.option2.xAxis.data = Xarr;
+
+      this.option2.series = {
+        name: "销量",
+        type: "bar",
+        data: dataarr
+      };
+      //饼状图赋值
+      let data = [];
+      for (let i = 0; i < this.severRankList.length; i++) {
+        data.push({
+          value: this.severRankList[i].score,
+          name: this.severRankList[i].name
+        });
+      }
+      this.option3.series = {
+        type: "pie",
+        data: data
+      };
+    },
+    getcontent(row, event, column) {
+      let id = row.id.toString();
+      this.$router.push({ path: "/community/main/newscontent/" + id });
+    },
+    goToCommunity(){
+      this.$router.push({path:"/community"})
+    }
+  },
+  mounted() {
+    this.getdata();
+    this.getdata1();
+    this.drawLine();
+  },
+  create() {}
 };
 </script>
 
@@ -168,13 +438,76 @@ export default {
 <style lang="scss">
 .row1 {
   margin-top: 20px;
-  text-align: center;
+  .headerbutton {
+    float: right;
+    margin-right: 0px;
+  }
+  img {
+    width: 25px;
+    height: 25px;
+  }
   //max-height: 400px;
   .foot {
     float: right;
     font-size: 13px;
     color: gray;
   }
+  .canven {
+    text-align: center;
+  }
+  .newslogo {
+    img {
+      width: 18px;
+      height: 18px;
+      border-radius: 1em;
+    }
+  }
+  .header {
+    font-weight: bold;
+    font-size: 20px;
+    max-height: 40px;
+    .title {
+      margin-top: 1px;
+      margin-bottom: 0px;
+    }
+  }
+}
+
+.row3 {
+  margin-top: 20px;
+  .headerbutton {
+    float: right;
+    margin-right: 0px;
+  }
+  img {
+    width: 25px;
+    height: 25px;
+  }
+  //max-height: 400px;
+  .foot {
+    float: right;
+    font-size: 13px;
+    color: gray;
+  }
+  .newslogo {
+    img {
+      width: 25px;
+      height: 25px;
+      border-radius: 1em;
+    }
+  }
+  .header {
+    font-weight: bold;
+    font-size: 20px;
+    max-height: 40px;
+    .title {
+      margin-top: 1px;
+      margin-bottom: 0px;
+    }
+  }
+}
+.el-card {
+  font-family: "微软雅黑";
 }
 </style>
 
