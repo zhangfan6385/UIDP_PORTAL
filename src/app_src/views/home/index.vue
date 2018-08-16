@@ -5,7 +5,7 @@
                 <el-col :span="2"></el-col>
                 <el-col :span="10">
                     <el-card>   
-                        <div slot="header" class="header">
+                        <div  class="header">
                             <el-row>
                                 <el-col :span="2">
                                     <img src="../../../app_src/imgs/notice.png" title="公告">
@@ -20,10 +20,11 @@
                                     </div>
                                 </el-col>
                             </el-row>
-                             
+                            <hr>    
                         </div>
-                        <el-table :data="noticeList" size="mini" :show-header="showheader" show-overflow-tooltip>
-                           <el-table-column  prop="title"  align="center"></el-table-column>
+
+                        <el-table :data="noticeList" size="mini" :show-header="showheader" height="250px" >
+                           <el-table-column  prop="title"  align="center" show-overflow-tooltip></el-table-column>
                             <!-- <el-table-column  prop="writter" align="center"></el-table-column> -->
                             <el-table-column  prop="time" align="center"></el-table-column>
                         </el-table>
@@ -32,7 +33,7 @@
 
                 <el-col :span="10">
                     <el-card>
-                        <div slot="header" class="header">
+                        <div class="header">
                             <el-row>
                                 <el-col :span="2">
                                     <img src="../../../app_src/imgs/message.png" title="公告">
@@ -46,9 +47,10 @@
                                         </div>
                                     </div>
                                 </el-col>
-                            </el-row>                            
+                            </el-row>
+                            <hr>                            
                         </div>
-                        <el-table :data="newslist" @row-click="getcontent" size="mini" :show-header=showheader show-overflow-tooltip>
+                        <el-table :data="newslist" @row-click="getcontent" size="mini" :show-header="showheader"  height="250px">
                             <el-table-column  label="类型" width="50px" align="center">
                             <template slot-scope="scope">
                                 <div class="newslogo">
@@ -64,7 +66,7 @@
                                 </div>
                                 </template> 
                             </el-table-column>
-                            <el-table-column prop="title" width="280px" label="主题" ></el-table-column>
+                            <el-table-column prop="title" width="420px" label="主题" show-overflow-tooltip></el-table-column>
                             <!-- <el-table-column prop="readNumber" label="阅读量" width="100px" align="center"></el-table-column>
                             <el-table-column prop="offer" label="悬赏金额" width="100px" align="center"></el-table-column>
                             <el-table-column prop="commentNumber" label="评论人数" width="100px" align="center"></el-table-column>
@@ -80,14 +82,25 @@
             <el-row  type="flex">
                 <el-col :span="2"></el-col>
                   <el-col :span="20">
-                    <el-card>
+                    <div class="logocard">
+                      <el-card>
+                        <el-row>
+                          <el-col>
+                            开发平台
+                          </el-col>
+                        </el-row>
                       <el-col :span="12">
-                        pingtai1
+                        <div class="platform">
+                          <img src="../../../app_src/imgs/platform.png" title="问题求助">
+                        </div>
                       </el-col>
                       <el-col :span="12">
-                        pingtia2
+                        <div class="platform">
+                          <img src="../../../app_src/imgs/GOplatform.png" title="问题求助">
+                        </div>
                       </el-col>
                     </el-card>
+                    </div>
                   </el-col>
             </el-row>                   
         </div> 
@@ -179,12 +192,6 @@ export default {
           content: "<h5>大港软件开发通知</h5>",
           writter: "管理员",
           time: "2018-8-13"
-        },
-        {
-          title: "重要通知",
-          content: "<h5>大港软件开发通知</h5>",
-          writter: "管理员",
-          time: "2018-8-13"
         }
       ],
       newslist: [
@@ -192,7 +199,8 @@ export default {
           id: 1,
           writter: "小李",
           type: 1,
-          title: "为祖国庆生",
+          title:
+            "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。",
           upTime: "2018-8-8",
           readNumber: 200,
           offer: 200,
@@ -342,7 +350,10 @@ export default {
           }
         ]
       },
-      showheader:false
+      //不显示表头属性
+      showheader: false,
+      //文字过长隐藏属性
+      tooLongHidden: true
     };
   },
   methods: {
@@ -419,8 +430,8 @@ export default {
       let id = row.id.toString();
       this.$router.push({ path: "/community/main/newscontent/" + id });
     },
-    goToCommunity(){
-      this.$router.push({path:"/community"})
+    goToCommunity() {
+      this.$router.push({ path: "/community" });
     }
   },
   mounted() {
@@ -465,14 +476,33 @@ export default {
   .header {
     font-weight: bold;
     font-size: 20px;
-    max-height: 40px;
+    max-height: 30px;
     .title {
       margin-top: 1px;
       margin-bottom: 0px;
     }
   }
 }
-
+.row2 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  .el-card{
+    min-height: 180px;
+  }
+  .platform {
+    img {
+      width: 80px;
+      height: 80px;
+    }
+    img:hover {
+      /*鼠标悬浮效果*/
+      /*发光*/
+      background-color: #58b7ff;
+      width: 90px;
+      height: 90px;
+    }
+  }
+}
 .row3 {
   margin-top: 20px;
   .headerbutton {
