@@ -28,48 +28,33 @@
             <el-col :span="14">
                 <div class="rightcontainer">
                     <el-card>
-                    <el-card v-for="(news,key) in newslist" :key="key" body-style="{padding:'0px'}" class="card" v-if="key<3" @click.native="getcontent(news)">
-                        <el-col :span="3">
-                            <div class="newslogo">
-                                <img src="../../../app_src/imgs/shakehande.png" v-if="news.type===1" title="经验分享">
-                                <img src="../../../app_src/imgs/share.png" v-if="news.type===2" title="经验分享">
-                                 <img src="../../../app_src/imgs/help.png" v-if="news.type===3" title="求助">
-                            </div>
-                        </el-col>
-                        <el-row>
-                            <el-col :span="16">
-                                <div class="title">
-                                    {{news.title}}
-                                </div>
-                                <div class="content">
-                                    {{news.content}}
-                                </div>
-                            </el-col>
-
-                            <el-col :span="5">
-                                <div class="info">
-                                  发表日期：{{news.upTime}}  
-                                   <br>
-                                  求助金额：<img src="../../../app_src/imgs/coin.png" >{{news.offer}}
-                                   <br>
-                                   阅读量：{{news.readNumber}}
-                                   <br>
-                                  评论数：{{news.commentNumber}}
-                                   <br>
-                                </div>
-                            </el-col>
-                        </el-row>
-                    </el-card>
-                    <div class="pageclass">
-                        <el-pagination
-                        @size-change="handleSizeChange"
-                        @current-change="handleCurrentChange"
-                        :current-page.sync="currentPage1"
-                        :page-size="10"
-                        layout="total, prev, pager, next"
-                        :total="100">
-                        </el-pagination>
-                    </div>                            
+                        <div class="title">
+                            我的帖子
+                        </div>
+                        
+                        <el-table :data="myCollectionList" @row-click="getcontent">
+                            <el-table-column label="主题" prop="title" align="center"></el-table-column>
+                            <el-table-column label="类型" prop="type" align="center" >
+                                <template slot-scope="scope">
+                                    <div class="newslogo">
+                                        <span v-if="scope.row.type===1">
+                                        <img src="../../../app_src/imgs/shakehande.png" title="经验分享">                           
+                                        </span>
+                                        <span v-else-if="scope.row.type===2">
+                                        <img src="../../../app_src/imgs/feedback.png" title="问题反馈">
+                                        </span>
+                                        <span v-else-if="scope.row.type===3">
+                                        <img src="../../../app_src/imgs/help.png" title="问题求助">
+                                        </span>
+                                    </div>
+                                </template>
+                            </el-table-column>                           
+                            <el-table-column label="阅读量" prop="readNumber" align="center"></el-table-column>
+                            <el-table-column label="悬赏金额" prop="offer" align="center"></el-table-column>
+                            <el-table-column label="评论人数" prop="commentNumber" align="center"></el-table-column>
+                            <!-- <el-table-column label="作者" prop="writter" align="center"></el-table-column> -->
+                            <el-table-column label="发帖日期" prop="collectionTiome" align="center"></el-table-column>
+                        </el-table>                         
                     </el-card>
                 </div>
             </el-col>
@@ -89,9 +74,9 @@ export default {
         recordNumber: "100",
         reviewNumvber: "101"
       },
-      newslist: [
+      myCollectionList: [
         {
-          id:1,
+          id: 1,
           writter: "小李",
           type: 1,
           title: "为祖国庆生",
@@ -99,35 +84,42 @@ export default {
           readNumber: 200,
           offer: 200,
           commentNumber: 200,
-          content:
-            "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
+          collectionTiome: "2018-8-14"
         },
         {
-          id:2,
-          writter: "小张",
+          id: 2,
+          writter: "小李",
           type: 2,
           title: "为祖国庆生",
           upTime: "2018-8-8",
           readNumber: 200,
           offer: 200,
           commentNumber: 200,
-          content:
-            "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
+          collectionTiome: "2018-8-14"
         },
         {
-          id:3,
-          writter: "小王",
+          id: 3,
+          writter: "小李",
           type: 3,
           title: "为祖国庆生",
           upTime: "2018-8-8",
           readNumber: 200,
           offer: 200,
           commentNumber: 200,
-          content:
-            "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
+          collectionTiome: "2018-8-14"
+        },
+        {
+          id: 4,
+          writter: "小李",
+          type: 3,
+          title: "为祖国庆生",
+          upTime: "2018-8-8",
+          readNumber: 200,
+          offer: 200,
+          commentNumber: 200,
+          collectionTiome: "2018-8-14"
         }
-      ],
-      currentPage1: 1
+      ]
     };
   },
   methods: {
@@ -137,9 +129,9 @@ export default {
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`);
     },
-    getcontent(data){
-      var id=data.id.toString();
-      this.$router.push({path:'/community/main/newscontent/'+id})
+    getcontent(data) {
+      var id = data.id.toString();
+      this.$router.push({ path: "/community/main/newscontent/" + id });
     }
   }
 };
@@ -164,8 +156,7 @@ export default {
     .info {
       font-size: 20px;
       line-height: 35px;
-      font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-        "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+      font-family: '微软雅黑';
     }
   }
   .rightcontainer {
@@ -173,8 +164,8 @@ export default {
     border-radius: 0.5em;
     .newslogo {
       img {
-        width: 100px;
-        height: 100px;
+        width: 30px;
+        height: 30px;
         border-radius: 1em;
       }
     }
@@ -216,6 +207,3 @@ export default {
   }
 }
 </style>
-
-
-

@@ -90,16 +90,17 @@
                                 <el-col :span="23">
                                     开发平台
                                 </el-col>
+
                             </el-row>
                             <hr>
-
                             <el-row type="flex">
+                                <el-col :span="2"></el-col>
                                 <el-col :span="3">
                                     <div class="platform">
                                         <img src="../../../app_src/imgs/platform.png" title="c#平台" @click="GOplatform1()">
                                     </div>
                                 </el-col>
-                                <el-col :span="9">
+                                <el-col :span="6">
                                     <el-col>
                                         <div class="title">
                                             C#平台
@@ -107,28 +108,32 @@
                                     </el-col>
                                     <el-col>
                                         <div class="content">
-
+                                            前端：Vue 2.0+elementUI
+                                            <br> 后端：.NET Core2.0+Web API
                                         </div>
                                     </el-col>
                                 </el-col>
+                                <el-col :span="2"></el-col>
                                 <el-col :span="3">
                                     <div class="platform">
                                         <img src="../../../app_src/imgs/GOplatform.png" title="GO平台" @click="GOplatform1()">
                                     </div>
                                 </el-col>
 
-                                <el-col :span="9">
+                                <el-col :span="6">
                                     <el-col>
                                         <div class="title">
-                                            GO#平台
+                                            GOLANG平台
                                         </div>
                                     </el-col>
                                     <el-col>
                                         <div class="content">
-
+                                            前端：Vue 2.0+elementUI
+                                            <br> 后端：.NET Core2.0+Web API
                                         </div>
                                     </el-col>
                                 </el-col>
+                                <el-col :span="3"></el-col>
                             </el-row>
 
                         </el-card>
@@ -186,295 +191,303 @@
 
 <script>
 export default {
-  data() {
-    return {
-      noticeList: [
-        {
-          title: "重要通知",
-          content: "<h5>大港软件开发通知</h5>",
-          writter: "管理员",
-          time: "2018-8-13"
+    data() {
+        return {
+            noticeList: [
+                {
+                    title: "重要通知",
+                    content: "<h5>大港软件开发通知</h5>",
+                    writter: "管理员",
+                    time: "2018-8-13"
+                },
+                {
+                    title: "重要通知",
+                    content: "<h5>大港软件开发通知</h5>",
+                    writter: "管理员",
+                    time: "2018-8-13"
+                },
+                {
+                    title: "重要通知",
+                    content: "<h5>大港软件开发通知</h5>",
+                    writter: "管理员",
+                    time: "2018-8-13"
+                },
+                {
+                    title: "重要通知",
+                    content: "<h5>大港软件开发通知</h5>",
+                    writter: "管理员",
+                    time: "2018-8-13"
+                },
+                {
+                    title: "重要通知",
+                    content: "<h5>大港软件开发通知</h5>",
+                    writter: "管理员",
+                    time: "2018-8-13"
+                },
+                {
+                    title: "重要通知",
+                    content: "<h5>大港软件开发通知</h5>",
+                    writter: "管理员",
+                    time: "2018-8-13"
+                }
+            ],
+            newslist: [
+                {
+                    id: 1,
+                    writter: "小李",
+                    type: 1,
+                    title:
+                        "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。",
+                    upTime: "2018-8-8",
+                    readNumber: 200,
+                    offer: 200,
+                    commentNumber: 200,
+                    content:
+                        "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
+                },
+                {
+                    id: 2,
+                    writter: "小张",
+                    type: 2,
+                    title: "为祖国庆生",
+                    upTime: "2018-8-8",
+                    readNumber: 200,
+                    offer: 200,
+                    commentNumber: 200,
+                    content:
+                        "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
+                },
+                {
+                    id: 3,
+                    writter: "小王",
+                    type: 3,
+                    title: "为祖国庆生",
+                    upTime: "2018-8-8",
+                    readNumber: 200,
+                    offer: 200,
+                    commentNumber: 200,
+                    content:
+                        "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
+                },
+                {
+                    id: 4,
+                    writter: "小李",
+                    type: 1,
+                    title: "为祖国庆生",
+                    upTime: "2018-8-8",
+                    readNumber: 200,
+                    offer: 200,
+                    commentNumber: 200,
+                    content:
+                        "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
+                },
+                {
+                    id: 5,
+                    writter: "小李",
+                    type: 2,
+                    title: "为祖国庆生",
+                    upTime: "2018-8-8",
+                    readNumber: 200,
+                    offer: 200,
+                    commentNumber: 200,
+                    content:
+                        "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
+                },
+                {
+                    id: 6,
+                    writter: "小李",
+                    type: 3,
+                    title: "为祖国庆生",
+                    upTime: "2018-8-8",
+                    readNumber: 200,
+                    offer: 200,
+                    commentNumber: 200,
+                    content:
+                        "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
+                }
+            ],
+            severRankList: [
+                { index: "1", name: "张1", score: 1 },
+                { index: "2", name: "张2", score: 2 },
+                { index: "3", name: "张3", score: 3 },
+                { index: "4", name: "张4", score: 4 },
+                { index: "5", name: "张5", score: 5 },
+                { index: "6", name: "张6", score: 6 },
+                { index: "7", name: "张7", score: 7 },
+                { index: "8", name: "张7", score: 8 },
+                { index: "9", name: "张7", score: 9 },
+                { index: "10", name: "张8", score: 10 }
+            ],
+            SeverComponentRankList: [
+                { index: "1", name: "张1", score: 11 },
+                { index: "2", name: "张2", score: 12 },
+                { index: "3", name: "张3", score: 13 },
+                { index: "4", name: "张4", score: 14 },
+                { index: "5", name: "张5", score: 15 },
+                { index: "6", name: "张6", score: 16 },
+                { index: "7", name: "张7", score: 17 },
+                { index: "8", name: "张7", score: 18 },
+                { index: "9", name: "张7", score: 19 },
+                { index: "10", name: "张8", score: 20 }
+            ],
+            //柱状图数据
+            option: {
+                title: {
+                    text: "组件下载详情"
+                },
+                tooltip: {},
+                xAxis: {
+                    data: []
+                },
+                yAxis: {},
+                series: [
+                    {
+                        name: "销量",
+                        type: "bar",
+                        data: []
+                    }
+                ]
+            },
+            option1: {
+                title: { text: "组件下载详情" },
+                tooltip: {},
+                series: [
+                    {
+                        name: "销量",
+                        type: "pie",
+                        data: []
+                    }
+                ]
+            },
+            option2: {
+                title: {
+                    text: "服务下载详情"
+                },
+                tooltip: {},
+                xAxis: {
+                    data: []
+                },
+                yAxis: {},
+                series: [
+                    {
+                        name: "销量",
+                        type: "bar",
+                        data: []
+                    }
+                ]
+            },
+            option3: {
+                title: { text: "服务下载详情" },
+                tooltip: {},
+                series: [
+                    {
+                        name: "销量",
+                        type: "pie",
+                        data: []
+                    }
+                ]
+            },
+            //不显示表头属性
+            showheader: false,
+            //文字过长隐藏属性
+            tooLongHidden: true
+        };
+    },
+    methods: {
+        drawLine() {
+            let myChart = this.$echarts.init(
+                document.getElementById("myChart")
+            );
+            myChart.setOption(this.option);
+            let myChart1 = this.$echarts.init(
+                document.getElementById("myChart1")
+            );
+            myChart1.setOption(this.option1);
+
+            let myChart2 = this.$echarts.init(
+                document.getElementById("myChart2")
+            );
+            myChart2.setOption(this.option2);
+            let myChart3 = this.$echarts.init(
+                document.getElementById("myChart3")
+            );
+            myChart3.setOption(this.option3);
         },
-        {
-          title: "重要通知",
-          content: "<h5>大港软件开发通知</h5>",
-          writter: "管理员",
-          time: "2018-8-13"
+        getdata() {
+            let Xarr = [];
+            let dataarr = [];
+            let item = {};
+            for (let i of this.SeverComponentRankList) {
+                //柱状图赋值
+                Xarr.push(i.name);
+                dataarr.push(i.score);
+            }
+            this.option.xAxis.data = Xarr;
+
+            this.option.series = {
+                name: "下载量",
+                type: "bar",
+                data: dataarr
+            };
+            //饼状图赋值
+            var data = [];
+            for (let i = 0; i < this.SeverComponentRankList.length; i++) {
+                data.push({
+                    value: this.SeverComponentRankList[i].score,
+                    name: this.SeverComponentRankList[i].name
+                });
+            }
+            this.option1.series = {
+                type: "pie",
+                data: data
+            };
         },
-        {
-          title: "重要通知",
-          content: "<h5>大港软件开发通知</h5>",
-          writter: "管理员",
-          time: "2018-8-13"
+        getdata1() {
+            let Xarr = [];
+            let dataarr = [];
+            let item = {};
+            for (let i of this.severRankList) {
+                //柱状图赋值
+                Xarr.push(i.name);
+                dataarr.push(i.score);
+            }
+            this.option2.xAxis.data = Xarr;
+
+            this.option2.series = {
+                name: "销量",
+                type: "bar",
+                data: dataarr
+            };
+            //饼状图赋值
+            let data = [];
+            for (let i = 0; i < this.severRankList.length; i++) {
+                data.push({
+                    value: this.severRankList[i].score,
+                    name: this.severRankList[i].name
+                });
+            }
+            this.option3.series = {
+                type: "pie",
+                data: data
+            };
         },
-        {
-          title: "重要通知",
-          content: "<h5>大港软件开发通知</h5>",
-          writter: "管理员",
-          time: "2018-8-13"
+        getcontent(row, event, column) {
+            let id = row.id.toString();
+            this.$router.push({ path: "/community/main/newscontent/" + id });
         },
-        {
-          title: "重要通知",
-          content: "<h5>大港软件开发通知</h5>",
-          writter: "管理员",
-          time: "2018-8-13"
+        goToCommunity() {
+            this.$router.push({ path: "/community" });
         },
-        {
-          title: "重要通知",
-          content: "<h5>大港软件开发通知</h5>",
-          writter: "管理员",
-          time: "2018-8-13"
+        GOplatform1() {
+            this.$router.push({ path: "/dashboard" });
         }
-      ],
-      newslist: [
-        {
-          id: 1,
-          writter: "小李",
-          type: 1,
-          title:
-            "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。",
-          upTime: "2018-8-8",
-          readNumber: 200,
-          offer: 200,
-          commentNumber: 200,
-          content:
-            "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
-        },
-        {
-          id: 2,
-          writter: "小张",
-          type: 2,
-          title: "为祖国庆生",
-          upTime: "2018-8-8",
-          readNumber: 200,
-          offer: 200,
-          commentNumber: 200,
-          content:
-            "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
-        },
-        {
-          id: 3,
-          writter: "小王",
-          type: 3,
-          title: "为祖国庆生",
-          upTime: "2018-8-8",
-          readNumber: 200,
-          offer: 200,
-          commentNumber: 200,
-          content:
-            "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
-        },
-        {
-          id: 4,
-          writter: "小李",
-          type: 1,
-          title: "为祖国庆生",
-          upTime: "2018-8-8",
-          readNumber: 200,
-          offer: 200,
-          commentNumber: 200,
-          content:
-            "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
-        },
-        {
-          id: 5,
-          writter: "小李",
-          type: 2,
-          title: "为祖国庆生",
-          upTime: "2018-8-8",
-          readNumber: 200,
-          offer: 200,
-          commentNumber: 200,
-          content:
-            "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
-        },
-        {
-          id: 6,
-          writter: "小李",
-          type: 3,
-          title: "为祖国庆生",
-          upTime: "2018-8-8",
-          readNumber: 200,
-          offer: 200,
-          commentNumber: 200,
-          content:
-            "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
-        }
-      ],
-      severRankList: [
-        { index: "1", name: "张1", score: 1 },
-        { index: "2", name: "张2", score: 2 },
-        { index: "3", name: "张3", score: 3 },
-        { index: "4", name: "张4", score: 4 },
-        { index: "5", name: "张5", score: 5 },
-        { index: "6", name: "张6", score: 6 },
-        { index: "7", name: "张7", score: 7 },
-        { index: "8", name: "张7", score: 8 },
-        { index: "9", name: "张7", score: 9 },
-        { index: "10", name: "张8", score: 10 }
-      ],
-      SeverComponentRankList: [
-        { index: "1", name: "张1", score: 11 },
-        { index: "2", name: "张2", score: 12 },
-        { index: "3", name: "张3", score: 13 },
-        { index: "4", name: "张4", score: 14 },
-        { index: "5", name: "张5", score: 15 },
-        { index: "6", name: "张6", score: 16 },
-        { index: "7", name: "张7", score: 17 },
-        { index: "8", name: "张7", score: 18 },
-        { index: "9", name: "张7", score: 19 },
-        { index: "10", name: "张8", score: 20 }
-      ],
-      //柱状图数据
-      option: {
-        title: {
-          text: "组件下载详情"
-        },
-        tooltip: {},
-        xAxis: {
-          data: []
-        },
-        yAxis: {},
-        series: [
-          {
-            name: "销量",
-            type: "bar",
-            data: []
-          }
-        ]
-      },
-      option1: {
-        title: { text: "组件下载详情" },
-        tooltip: {},
-        series: [
-          {
-            name: "销量",
-            type: "pie",
-            data: []
-          }
-        ]
-      },
-      option2: {
-        title: {
-          text: "服务下载详情"
-        },
-        tooltip: {},
-        xAxis: {
-          data: []
-        },
-        yAxis: {},
-        series: [
-          {
-            name: "销量",
-            type: "bar",
-            data: []
-          }
-        ]
-      },
-      option3: {
-        title: { text: "服务下载详情" },
-        tooltip: {},
-        series: [
-          {
-            name: "销量",
-            type: "pie",
-            data: []
-          }
-        ]
-      },
-      //不显示表头属性
-      showheader: false,
-      //文字过长隐藏属性
-      tooLongHidden: true
-    };
-  },
-  methods: {
-    drawLine() {
-      let myChart = this.$echarts.init(document.getElementById("myChart"));
-      myChart.setOption(this.option);
-      let myChart1 = this.$echarts.init(document.getElementById("myChart1"));
-      myChart1.setOption(this.option1);
-
-      let myChart2 = this.$echarts.init(document.getElementById("myChart2"));
-      myChart2.setOption(this.option2);
-      let myChart3 = this.$echarts.init(document.getElementById("myChart3"));
-      myChart3.setOption(this.option3);
     },
-    getdata() {
-      let Xarr = [];
-      let dataarr = [];
-      let item = {};
-      for (let i of this.SeverComponentRankList) {
-        //柱状图赋值
-        Xarr.push(i.name);
-        dataarr.push(i.score);
-      }
-      this.option.xAxis.data = Xarr;
-
-      this.option.series = {
-        name: "下载量",
-        type: "bar",
-        data: dataarr
-      };
-      //饼状图赋值
-      var data = [];
-      for (let i = 0; i < this.SeverComponentRankList.length; i++) {
-        data.push({
-          value: this.SeverComponentRankList[i].score,
-          name: this.SeverComponentRankList[i].name
-        });
-      }
-      this.option1.series = {
-        type: "pie",
-        data: data
-      };
+    mounted() {
+        this.getdata();
+        this.getdata1();
+        this.drawLine();
     },
-    getdata1() {
-      let Xarr = [];
-      let dataarr = [];
-      let item = {};
-      for (let i of this.severRankList) {
-        //柱状图赋值
-        Xarr.push(i.name);
-        dataarr.push(i.score);
-      }
-      this.option2.xAxis.data = Xarr;
-
-      this.option2.series = {
-        name: "销量",
-        type: "bar",
-        data: dataarr
-      };
-      //饼状图赋值
-      let data = [];
-      for (let i = 0; i < this.severRankList.length; i++) {
-        data.push({
-          value: this.severRankList[i].score,
-          name: this.severRankList[i].name
-        });
-      }
-      this.option3.series = {
-        type: "pie",
-        data: data
-      };
-    },
-    getcontent(row, event, column) {
-      let id = row.id.toString();
-      this.$router.push({ path: "/community/main/newscontent/" + id });
-    },
-    goToCommunity() {
-      this.$router.push({ path: "/community" });
-    },
-    GOplatform1() {
-      this.$router.push({ path: "/dashboard" });
-    }
-  },
-  mounted() {
-    this.getdata();
-    this.getdata1();
-    this.drawLine();
-  },
-  create() {}
+    create() {}
 };
 </script>
 
@@ -482,130 +495,131 @@ export default {
 
 
 <style lang="scss">
-.home{
+.home {
     margin-bottom: 25px;
 }
 .row1 {
-  margin-top: 20px;
-  .headerbutton {
-    float: right;
-    margin-right: 0px;
-  }
-  img {
-    width: 25px;
-    height: 25px;
-  }
-  //max-height: 400px;
-  .foot {
-    float: right;
-    font-size: 13px;
-    color: gray;
-  }
-  .canven {
-    text-align: center;
-  }
-  .newslogo {
+    margin-top: 20px;
+    .headerbutton {
+        float: right;
+        margin-right: 0px;
+    }
     img {
-      width: 16px;
-      height: 16px;
-      border-radius: 1em;
+        width: 25px;
+        height: 25px;
     }
-  }
-  .header {
-    font-weight: bold;
-    font-size: 20px;
-    max-height: 30px;
-    .title {
-      margin-top: 1px;
-      margin-bottom: 0px;
+    //max-height: 400px;
+    .foot {
+        float: right;
+        font-size: 13px;
+        color: gray;
     }
-  }
+    .canven {
+        text-align: center;
+    }
+    .newslogo {
+        img {
+            width: 16px;
+            height: 16px;
+            border-radius: 1em;
+        }
+    }
+    .header {
+        font-weight: bold;
+        font-size: 20px;
+        max-height: 30px;
+        .title {
+            margin-top: 1px;
+            margin-bottom: 0px;
+        }
+    }
 }
 .row2 {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  .el-card {
-    min-height: 200px;
-  }
-  .logocard {
-    font-weight: bold;
-    font-size: 20px;
-    img {
-      width: 25px;
-      height: 25px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    .el-card {
+        min-height: 200px;
     }
-  }
-  .platform {
-    img {
-      width: 80px;
-      height: 80px;
+    .logocard {
+        font-weight: bold;
+        font-size: 20px;
+        img {
+            width: 25px;
+            height: 25px;
+        }
     }
-    img:hover {
-      /*鼠标悬浮效果*/
-      /*发光*/
-      background-color: #58b7ff;
-      width: 90px;
-      height: 90px;
+    .platform {
+        img {
+            width: 80px;
+            height: 80px;
+        }
+        img:hover {
+            /*鼠标悬浮效果*/
+            /*发光*/
+            background-color: #58b7ff;
+            width: 90px;
+            height: 90px;
+        }
     }
-  }
-  .title {
-    text-align: center;
-    font-size: 18px;
-    font-weight: bold;
-  }
-  .content {
-    font-size: 13px;
-  }
+    .title {
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+    }
+    .content {
+        font-size: 13px;
+        margin-top: 15px;
+        line-height: 25px;
+        color: gray;
+    }
 }
 .row3 {
-  margin-top: 20px;
-  .headerbutton {
-    float: right;
-    margin-right: 0px;
-  }
-  img {
-    width: 25px;
-    height: 25px;
-  }
-  //max-height: 400px;
-  .foot {
-    float: right;
-    font-size: 13px;
-    color: gray;
-  }
-  .newslogo {
+    margin-top: 20px;
+    .headerbutton {
+        float: right;
+        margin-right: 0px;
+    }
     img {
-      width: 25px;
-      height: 25px;
-      border-radius: 1em;
+        width: 25px;
+        height: 25px;
     }
-  }
-  .header {
-    font-weight: bold;
-    font-size: 20px;
-    max-height: 40px;
-    .title {
-      margin-top: 1px;
-      margin-bottom: 0px;
+    //max-height: 400px;
+    .foot {
+        float: right;
+        font-size: 13px;
+        color: gray;
     }
-  }
-  .parent {
-    text-align: center;
-    .myChart {
-      width: 350px;
-      height: 350px;
-      margin: auto;
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
+    .newslogo {
+        img {
+            width: 25px;
+            height: 25px;
+            border-radius: 1em;
+        }
     }
-  }
+    .header {
+        font-weight: bold;
+        font-size: 20px;
+        max-height: 40px;
+        .title {
+            margin-top: 1px;
+            margin-bottom: 0px;
+        }
+    }
+    .parent {
+        text-align: center;
+        .myChart {
+            width: 350px;
+            height: 300px;
+            margin: auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+        }
+    }
 }
 .el-card {
-  font-family: "微软雅黑";
+    font-family: "微软雅黑";
 }
 </style>
-
-

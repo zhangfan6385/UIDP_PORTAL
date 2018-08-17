@@ -11,23 +11,25 @@
       <el-col :span="14">
         <div class="headerset">
           <header-set></header-set>
-        </div>     
+        </div>
       </el-col>
     </div>
     <el-col :span="24">
 
       <div class="main-container">
-      <div>     
-        <topbar></topbar>
-      </div>
-      <div>
-        <login-dialog></login-dialog>
+        <div>
+          <topbar></topbar>
+        </div>
+        <div>
+          <login-dialog></login-dialog>
           <app-main></app-main>
-      </div>
-        
+        </div>
+
       </div>
     </el-col>
-
+    <div class="copyright">
+      版权所有：©大港油田集团责任有限公司信息中心
+    </div>
   </div>
 </template>
 
@@ -36,89 +38,100 @@ import { AppMain, HeaderSet, Topbar, LoginDialog } from "./components";
 import ResizeMixin from "./mixin/ResizeHandler";
 
 export default {
-  name: "layout",
-  components: {
-    //Navbar,
-    //Sidebar,
-    //TagsView,
-    AppMain,
-    Topbar,
-    LoginDialog,
-    HeaderSet
-  },
-  mixins: [ResizeMixin],
-  computed: {
-    sidebar() {
-      return this.$store.state.app.sidebar;
+    name: "layout",
+    components: {
+        //Navbar,
+        //Sidebar,
+        //TagsView,
+        AppMain,
+        Topbar,
+        LoginDialog,
+        HeaderSet
     },
-    device() {
-      return this.$store.state.app.device;
+    mixins: [ResizeMixin],
+    computed: {
+        sidebar() {
+            return this.$store.state.app.sidebar;
+        },
+        device() {
+            return this.$store.state.app.device;
+        },
+        classObj() {
+            return {
+                hideSidebar: !this.sidebar.opened,
+                withoutAnimation: this.sidebar.withoutAnimation,
+                mobile: this.device === "mobile"
+            };
+        }
     },
-    classObj() {
-      return {
-        hideSidebar: !this.sidebar.opened,
-        withoutAnimation: this.sidebar.withoutAnimation,
-        mobile: this.device === "mobile"
-      };
-    }
-  },
-  methods: {}
+    methods: {}
 };
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
 @import "src/app_src/styles/mixin.scss";
-.main-container{
-  background: #e3e6e8;
+.main-container {
+    background: #e3e6e8;
 }
 .app-wrapper {
-  @include clearfix;
-  position: relative;
-  height: 100%;
-  width: 100%;
-  overflow-x:hidden;
+    @include clearfix;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
 }
 // .headerset {
 //   //margin-top: 5px;
 // }
 .drawer-bg {
-  background: #000;
-  opacity: 0.3;
-  width: 100%;
-  top: 0;
-  height: 100%;
-  position: absolute;
-  z-index: 999;
+    background: #000;
+    opacity: 0.3;
+    width: 100%;
+    top: 0;
+    height: 100%;
+    position: absolute;
+    z-index: 999;
 }
 .header {
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
-  position: fixed;
-  z-index: 1999;
-  min-width: 100%;
-  height: 40px;
-  background:#dce4e9;
-  margin: 0 auto;
-  line-height: 30px; //设置line-height与父级元素的height相等
-  overflow: hidden; //防止内容超出容器或者产生自动换行
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    z-index: 1999;
+    min-width: 100%;
+    height: 40px;
+    background: #dce4e9;
+    margin: 0 auto;
+    line-height: 30px; //设置line-height与父级元素的height相等
+    overflow: hidden; //防止内容超出容器或者产生自动换行
 
-  .logo {
-    float: left;
-    margin: 4px 10px;
-    span {
-      margin-left: 8px;
-      font-size: 15px;
-      font-weight: bold;
-      color: #0a0a0a;
-    }
+    .logo {
+        float: left;
+        margin: 4px 10px;
+        span {
+            margin-left: 8px;
+            font-size: 15px;
+            font-weight: bold;
+            color: #0a0a0a;
+        }
 
-    img {
-      vertical-align: top;
-      margin-top: 2px;
-      height: 27px;
-      width: 27px;
+        img {
+            vertical-align: top;
+            margin-top: 2px;
+            height: 27px;
+            width: 27px;
+        }
     }
-  }
+}
+.copyright {
+    position: fixed;
+    left: 40%;
+    bottom: 0px;
+    padding-top: 20px;
+    margin: 0 auto;
+    //margin-bottom: 5px;
+    color: gray;
+    font-family: "微软雅黑";
+    font-size: 13px;
 }
 </style>

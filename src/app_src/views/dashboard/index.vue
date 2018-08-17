@@ -8,12 +8,40 @@
           <el-carousel :interval="5000" arrow="always" height="650px">
             <el-carousel-item>
               <div class="cSharpPlatform">
-
+                <el-row>
+                  <el-col :span="24">
+                    <div class="info">
+                      <div class="title">
+                        C#平台
+                      </div>
+                      <div class="content">
+                        运行环境：.Net Core 2.0<br> 运行服务器：Windows Server 2008 sp1
+                      </div>
+                      <div class="button">
+                        <img src="../../../app_src/imgs/ButtonWhite.png" alt="" title="点击下载">
+                      </div>
+                    </div>
+                  </el-col>
+                </el-row>
               </div>
             </el-carousel-item>
             <el-carousel-item>
               <div class="GOPlatform">
-
+                <el-row>
+                  <el-col :span="24">
+                    <div class="info">
+                      <div class="title">
+                        GOLANG平台
+                      </div>
+                      <div class="content">
+                        运行环境：.Net Core 2.0<br> 运行服务器：Windows Server 2008 sp1
+                      </div>
+                      <div class="button">
+                        <img src="../../../app_src/imgs/ButtonBlack.png" alt="" title="点击下载">
+                      </div>
+                    </div>
+                  </el-col>
+                </el-row>
               </div>
             </el-carousel-item>
           </el-carousel>
@@ -34,24 +62,72 @@ export default {};
 <style lang="scss">
 .index {
     .platform {
-        min-height: 600px;
+        .cSharpPlatform {
+            border-radius: 0.83em;
+            background-image: url(../../../app_src/imgs/CSharpBackground.png);
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            -moz-background-size: 100% 100%;
+            font-family: "微软雅黑";
+            height: 95%;
+            color: white;
+            .info {
+                margin-left: 45%;
+                margin-top: 16%;
+            }
+            .title {
+                margin-left: 50px;
+                font-size: 30px;
+                font-weight: bold;
+            }
+            .content {
+                margin-top: 20px;
+                line-height: 30px;
+                font-weight: 10px;
+            }
+            .button {
+                margin-top: 10px;
+                margin-left: 20px;
+                img {
+                    width: 230px;
+                    height: 70px;
+                }
+            }
+        }
     }
+
     .el-carousel {
         min-height: 600px;
     }
-    .cSharpPlatform {
-        background-image: url(../../../app_src/imgs/CSharpBackground.jpg);
-        background-repeat: no-repeat;
-        background-size: 100% 100%;
-        -moz-background-size: 100% 100%;
-        min-height: 600px;
-    }
     .GOPlatform {
-        background-image: url(../../../app_src/imgs/GOBackground.png);
+        border-radius: 0.83em;
+        background-image: url(../../../app_src/imgs/GOBackground.jpg);
         background-repeat: no-repeat;
         background-size: 100% 100%;
         -moz-background-size: 100% 100%;
-        min-height: 600px;
+        min-height: 95%;
+        .info {
+            margin-left: 15%;
+            margin-top: 20%;
+        }
+        .title {
+            margin-left: 50px;
+            font-size: 30px;
+            font-weight: bold;
+        }
+        .content {
+            margin-top: 20px;
+            line-height: 30px;
+            font-weight: 10px;
+        }
+        .button {
+            margin-top: 10px;
+            margin-left: 20px;
+            img {
+                width: 230px;
+                height: 70px;
+            }
+        }
     }
 }
 </style>
