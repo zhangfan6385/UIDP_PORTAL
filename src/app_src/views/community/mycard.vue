@@ -33,7 +33,7 @@
                         </div>
                         
                         <el-table :data="myCollectionList" @row-click="getcontent">
-                            <el-table-column label="主题" prop="title" align="center"></el-table-column>
+                            
                             <el-table-column label="类型" prop="type" align="center" >
                                 <template slot-scope="scope">
                                     <div class="newslogo">
@@ -48,7 +48,8 @@
                                         </span>
                                     </div>
                                 </template>
-                            </el-table-column>                           
+                            </el-table-column> 
+                            <el-table-column label="主题" prop="title" align="center"></el-table-column>                          
                             <el-table-column label="阅读量" prop="readNumber" align="center"></el-table-column>
                             <el-table-column label="悬赏金额" prop="offer" align="center"></el-table-column>
                             <el-table-column label="评论人数" prop="commentNumber" align="center"></el-table-column>

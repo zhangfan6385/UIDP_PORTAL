@@ -92,12 +92,12 @@
                                 </el-col>
 
                             </el-row>
-                            <hr>
                             <el-row type="flex">
                                 <el-col :span="2"></el-col>
                                 <el-col :span="3">
+                                    
                                     <div class="platform">
-                                        <img src="../../../app_src/imgs/platform.png" title="c#平台" @click="GOplatform1()">
+                                        <!-- <img src="../../../app_src/imgs/platform.png" title="c#平台" @click="GOplatform1()"> -->
                                     </div>
                                 </el-col>
                                 <el-col :span="6">
@@ -116,7 +116,7 @@
                                 <el-col :span="2"></el-col>
                                 <el-col :span="3">
                                     <div class="platform">
-                                        <img src="../../../app_src/imgs/GOplatform.png" title="GO平台" @click="GOplatform1()">
+                                        <!-- <img src="../../../app_src/imgs/GOplatform.png" title="GO平台" @click="GOplatform1()"> -->
                                     </div>
                                 </el-col>
 
@@ -549,16 +549,21 @@ export default {
         }
     }
     .platform {
+        margin-top: 20px;
+        background:url(../../../app_src/imgs/GOplatform.png);
+        //overflow: hidden;
         img {
+            display: block;
             width: 80px;
             height: 80px;
+            transition: all 1s;
         }
         img:hover {
             /*鼠标悬浮效果*/
             /*发光*/
-            background-color: #58b7ff;
-            width: 90px;
-            height: 90px;
+            //background-color: #58b7ff;
+            transform: scale(1.1);
+            //background-image:url(../../../app_src/imgs/platform.png);
         }
     }
     .title {

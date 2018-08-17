@@ -6,8 +6,7 @@
         <div class="LeftContainer">
           <el-card>
             <el-table :data="newslist" @row-click="getcontent">
-              <el-table-column prop="title" label="主题" align="center" show-overflow-tooltip></el-table-column>
-              <el-table-column label="类型" width="80px" align="center">
+              <el-table-column label="类型" width="50px" align="center">
                 <template slot-scope="scope">
                   <div class="newslogo">
                     <span v-if="scope.row.type===1">
@@ -22,6 +21,7 @@
                   </div>
                 </template>
               </el-table-column>
+              <el-table-column prop="title" label="主题" align="center" show-overflow-tooltip></el-table-column>
               <el-table-column prop="readNumber" label="阅读量" width="100px" align="center"></el-table-column>
               <el-table-column prop="offer" label="悬赏金额" width="100px" align="center"></el-table-column>
               <el-table-column prop="commentNumber" label="评论人数" width="100px" align="center"></el-table-column>
