@@ -25,7 +25,8 @@ const user = {
     userSex: '',
     roleLevel: '',
     dashboardindex: '',
-    dialogLoginVisible:false //判断登录框弹出zp
+    dialogLoginVisible:false, //判断登录框弹出zp
+    dialogPasswordVisible:false //判断修改密码框弹出zp
   },
 
   mutations: {

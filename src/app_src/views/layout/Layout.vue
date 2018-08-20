@@ -21,6 +21,7 @@
           <topbar></topbar>
         </div>
         <div>
+        <user-password-manager></user-password-manager>
           <login-dialog></login-dialog>
           <app-main></app-main>
         </div>
@@ -35,10 +36,15 @@
 
 <script>
 import { AppMain, HeaderSet, Topbar, LoginDialog } from "./components";
+import userPasswordManager from '@/app_src/views/layout/components/LoginDialog/userPasswordManager'
 import ResizeMixin from "./mixin/ResizeHandler";
 
 export default {
     name: "layout",
+    data(){
+        return{
+        }
+    },
     components: {
         //Navbar,
         //Sidebar,
@@ -46,7 +52,8 @@ export default {
         AppMain,
         Topbar,
         LoginDialog,
-        HeaderSet
+        HeaderSet,
+        userPasswordManager
     },
     mixins: [ResizeMixin],
     computed: {

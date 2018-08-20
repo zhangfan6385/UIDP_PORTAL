@@ -52,6 +52,7 @@
         </el-dropdown-menu>
       </el-dropdown>
     </div>
+    
   </el-menu>
 </template>
 
@@ -90,7 +91,7 @@ export default {
             alert("changeProj");
         },
         changePassword() {
-            alert("changepassword");
+            this.$store.state.user.dialogPasswordVisible=true;
         },
         getcontent() {
             alert("content");
