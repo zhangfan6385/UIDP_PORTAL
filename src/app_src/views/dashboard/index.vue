@@ -17,7 +17,7 @@
                         运行环境：.Net Core 2.0<br> 运行服务器：Windows Server 2008 sp1
                       </div>
                       <div class="button">
-                        <img src="../../../app_src/imgs/ButtonWhite.png" alt="" title="点击下载">
+                        <img src="../../../app_src/imgs/ButtonWhite.png" alt="" title="点击下载" @click="goToHistory">
                       </div>
                     </div>
                   </el-col>
@@ -36,7 +36,7 @@
                         运行环境：.Net Core 2.0<br> 运行服务器：Windows Server 2008 sp1
                       </div>
                       <div class="button">
-                        <img src="../../../app_src/imgs/ButtonBlack.png" alt="" title="点击下载">
+                        <img src="../../../app_src/imgs/ButtonBlack.png" alt="" title="点击下载" @click="goToHistory">
                       </div>
                     </div>
                   </el-col>
@@ -55,26 +55,23 @@
 
 <script>
 export default {
-  data(){
-    return{
-      index:0
+    data() {
+        return {
+            index: 0
+        };
+    },
+    methods: {
+        getindex() {
+            let dashaboardindex = this.$store.state.user.dashaboardindex;
+            this.index = dashaboardindex;
+        },
+        goToHistory(){
+          this.$router.push({path:'/history'})
+        }
+    },
+    mounted() {
+        this.getindex();
     }
-  },
-  methods:{
-    getindex(){
-      let dashaboardindex=this.$store.state.user.dashaboardindex
-      // console.log('ling'+dashaboardindex)
-      // console.log('yi'+this.$store.state.user.dashaboardindex)
-      // console.log(typeof(this.$store.state.user.dashaboardindex))
-      // console.log('er'+this.$store.state.user.dashaboardindex)
-      this.index=dashaboardindex 
-      //console.log('san'+this.dashboardindex)
-      //console.log(this.dashboardindex)
-    }
-  },
-  mounted() {
-    this.getindex();
-  },
 };
 </script>
 
@@ -82,6 +79,7 @@ export default {
 <style lang="scss">
 .index {
     .platform {
+      margin-top: 20px;
         .cSharpPlatform {
             border-radius: 0.83em;
             background-image: url(../../../app_src/imgs/CSharpBackground.png);

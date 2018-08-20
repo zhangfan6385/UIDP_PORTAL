@@ -136,6 +136,28 @@ export const constantRouterMap = [
       component: _import('app_src/views/notice/index')
     }]
   },
+  {
+    path: '/',
+    component: Layout,
+    redirect: '/noticecontent',
+    name: 'noticecontent',
+    hidden: true,
+    children: [{
+      path: 'noticecontent/:id',
+      component: _import('app_src/views/notice/noticecontent')
+    }]
+  },
+  {
+    path: '/',
+    component: Layout,
+    redirect: '/history',
+    name: 'history',
+    hidden: true,
+    children: [{
+      path: 'history',
+      component: _import('app_src/views/history/index')
+    }]
+  },
   /*
     {
       path: '/example',
