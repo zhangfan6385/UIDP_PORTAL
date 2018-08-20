@@ -18,13 +18,13 @@ const user = {
       articlePlatform: []
     },
     sysCode: '1',
-    sysName: '大港油田软件研发平台',
+    sysName: '大港软件工厂',
     departCode: '',
     departName: '',
     userId: '',
     userSex: '',
-    roleLevel: ''
-
+    roleLevel: '',
+    dashboardindex: ''
   },
 
   mutations: {
@@ -81,6 +81,9 @@ const user = {
     },
     SET_ROLE_LEVEL: (state, roleLevel) => {
       state.roleLevel = roleLevel
+    },
+    SET_DASHBOARD_INDEX: (state, dashboardindex) => {
+      state.dashboardindex = dashboardindex
     }
   },
 
@@ -98,6 +101,8 @@ const user = {
       commit('SET_ROLE_LEVEL', roleLevel)
     }, setUserId({ commit }, userId) {
       commit('SET_USER_ID', userId)
+    }, setDashboardIndex({ commit }, dashboardindex) {
+      commit('SET_DASHBOARD_INDEX', dashboardindex)
     },
 
     // 用户名登录

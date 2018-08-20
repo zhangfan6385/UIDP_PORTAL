@@ -15,14 +15,14 @@
                                     <div class="title">
                                         公告
                                         <div class="headerbutton">
-                                            <el-button type="primary" size="mini"> 查看详情</el-button>
+                                            <el-button type="primary" size="mini" @click="gotonotice"> 查看更多</el-button>
                                         </div>
                                     </div>
                                 </el-col>
                             </el-row>
                         </div>
                         <hr>
-                        <el-table :data="noticeList" size="mini" :show-header="showheader">
+                        <el-table :data="noticeList" size="mini" :show-header="false">
                             <el-table-column prop="title" align="center" show-overflow-tooltip></el-table-column>
                             <!-- <el-table-column  prop="writter" align="center"></el-table-column> -->
                             <el-table-column prop="time" align="center"></el-table-column>
@@ -49,7 +49,7 @@
                             </el-row>
                         </div>
                         <hr>
-                        <el-table :data="newslist" @row-click="getcontent" size="mini" :show-header="showheader">
+                        <el-table :data="newslist" @row-click="getcontent" size="mini" :show-header="false">
                             <el-table-column label="类型" width="50px" align="center">
                                 <template slot-scope="scope">
                                     <div class="newslogo">
@@ -97,7 +97,7 @@
                                 <el-col :span="3">
                                     
                                     <div class="platform">
-                                        <!-- <img src="../../../app_src/imgs/platform.png" title="c#平台" @click="GOplatform1()"> -->
+                                        <img src="../../../app_src/imgs/platform.png" title="c#平台" @click="GOplatform1(0)">
                                     </div>
                                 </el-col>
                                 <el-col :span="6">
@@ -116,7 +116,7 @@
                                 <el-col :span="2"></el-col>
                                 <el-col :span="3">
                                     <div class="platform">
-                                        <!-- <img src="../../../app_src/imgs/GOplatform.png" title="GO平台" @click="GOplatform1()"> -->
+                                        <img src="../../../app_src/imgs/GOplatform.png" title="GO平台" @click="GOplatform1(1)">
                                     </div>
                                 </el-col>
 
@@ -387,10 +387,6 @@ export default {
                     }
                 ]
             },
-            //不显示表头属性
-            showheader: false,
-            //文字过长隐藏属性
-            tooLongHidden: true
         };
     },
     methods: {
@@ -478,8 +474,14 @@ export default {
         goToCommunity() {
             this.$router.push({ path: "/community" });
         },
-        GOplatform1() {
-            this.$router.push({ path: "/dashboard" });
+        GOplatform1(data) {
+            this.$store.state.user.dashaboardindex=data;
+            console.log(this.$store.state.user.dashaboardindex)
+            //console.log(typeof(this.$store.state.user.dashaboardindex) )
+            this.$router.push({ path: "/dashboard" });    
+        },
+        gotonotice(){
+             this.$router.push({ path: "/notice" });
         }
     },
     mounted() {
@@ -550,7 +552,6 @@ export default {
     }
     .platform {
         margin-top: 20px;
-        background:url(../../../app_src/imgs/GOplatform.png);
         //overflow: hidden;
         img {
             display: block;

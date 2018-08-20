@@ -1,11 +1,10 @@
 <template>
   <div id="index" class="index">
-
     <el-row type="flex">
       <el-col :span="2"></el-col>
       <el-col :span="20">
         <div class="platform">
-          <el-carousel :interval="5000" arrow="always" height="650px">
+          <el-carousel :interval="5000" arrow="always" height="650px" :initial-index="index">
             <el-carousel-item>
               <div class="cSharpPlatform">
                 <el-row>
@@ -55,7 +54,28 @@
 
 
 <script>
-export default {};
+export default {
+  data(){
+    return{
+      index:0
+    }
+  },
+  methods:{
+    getindex(){
+      let dashaboardindex=this.$store.state.user.dashaboardindex
+      // console.log('ling'+dashaboardindex)
+      // console.log('yi'+this.$store.state.user.dashaboardindex)
+      // console.log(typeof(this.$store.state.user.dashaboardindex))
+      // console.log('er'+this.$store.state.user.dashaboardindex)
+      this.index=dashaboardindex 
+      //console.log('san'+this.dashboardindex)
+      //console.log(this.dashboardindex)
+    }
+  },
+  mounted() {
+    this.getindex();
+  },
+};
 </script>
 
 

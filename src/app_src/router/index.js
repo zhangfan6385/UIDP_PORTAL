@@ -22,7 +22,6 @@ import Layout from '../views/layout/Layout'
 export const constantRouterMap = [
   { path: '/login', component: _import('app_src/views/login/index'), hidden: true },
   { path: '/404', component: _import('app_src/views/404'), hidden: true },
-
   {
     path: '/',
     component: Layout,
@@ -53,7 +52,7 @@ export const constantRouterMap = [
     hidden: true,
     children: [{
       path: 'community',
-      component: _import('app_src/views/community/index'),
+      component: _import('app_src/views/community/index')
     }, {
       path: 'main',
       redirect: '/community/main/index',
@@ -61,23 +60,23 @@ export const constantRouterMap = [
       children: [
         {
           path: 'index',
-          component: _import('app_src/views/community/index'),
+          component: _import('app_src/views/community/index')
         },
         {
           path: 'mycard',
-          component: _import('app_src/views/community/mycard'),
+          component: _import('app_src/views/community/mycard')
         },
         {
           path: 'mycollection',
-          component: _import('app_src/views/community/mycollection'),
+          component: _import('app_src/views/community/mycollection')
         },
         {
           path: 'newcard',
-          component: _import('app_src/views/community/newcard'),
+          component: _import('app_src/views/community/newcard')
         },
         {
           path: 'newscontent/:id',
-          component: _import('app_src/views/community/newscontent'),
+          component: _import('app_src/views/community/newscontent')
         }
       ]
     }]
@@ -124,6 +123,17 @@ export const constantRouterMap = [
     children: [{
       path: 'componentdetail/:id',
       component: _import('app_src/views/severcomponent/detail')
+    }]
+  },
+  {
+    path: '/',
+    component: Layout,
+    redirect: '/notice',
+    name: 'notice',
+    hidden: true,
+    children: [{
+      path: 'notice',
+      component: _import('app_src/views/notice/index')
     }]
   },
   /*
