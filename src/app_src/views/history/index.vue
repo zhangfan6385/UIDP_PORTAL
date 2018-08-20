@@ -1,6 +1,6 @@
 <template>
     <div id="histiory" class="history">
-        <el-row gutter="20" type="flex">
+        <el-row :gutter="20" type="flex">
             <el-col :span="2"></el-col>
             <el-col :span="10">
                 <el-card>
@@ -8,6 +8,16 @@
                         当前版本
                     </div>
                     <el-table :data="currentEdition">
+                        <el-table-column type="expand">
+                            <template slot-scope="scope">
+                                <el-form>
+                                    <el-form-item label="类型">
+                                        <span>{{scope.row.type}}</span>
+                                    </el-form-item>
+                                </el-form>
+
+                            </template>
+                        </el-table-column>
                         <el-table-column prop="type" label="类型"></el-table-column>
                         <el-table-column prop="title" label="名称"></el-table-column>
                         <el-table-column prop="content" label="更新内容"></el-table-column>
@@ -34,32 +44,32 @@
 
 <script>
 export default {
-    data(){
-        return{
-            currentEdition:[
-                {type:'pro',title:'新版本',id:1,content:'更新内容1'},
-                {type:'doc',title:'新版本',id:2,content:'更新内容2'},
-                {type:'doc',title:'新版本',id:3,content:'更新内容3'}
+    data() {
+        return {
+            currentEdition: [
+                { type: "pro", title: "新版本", id: 1, content: "更新内容1" },
+                { type: "doc", title: "新版本", id: 2, content: "更新内容2" },
+                { type: "doc", title: "新版本", id: 3, content: "更新内容3" }
             ],
-            histroyEdition:[
-                {type:'pro',title:'新版本',id:1,content:'更新内容1'},
-                {type:'doc',title:'新版本',id:2,content:'更新内容2'},
-                {type:'doc',title:'新版本',id:3,content:'更新内容3'}
+            histroyEdition: [
+                { type: "pro", title: "新版本", id: 1, content: "更新内容1" },
+                { type: "doc", title: "新版本", id: 2, content: "更新内容2" },
+                { type: "doc", title: "新版本", id: 3, content: "更新内容3" }
             ],
-            power:false
-        }
+            power: false
+        };
     },
-    methods:{
-
-    },
-
-}
+    methods: {}
+};
 </script>
 
 
 <style lang="scss">
-.history{
+.history {
     margin-top: 20px;
+    .title {
+        text-align: center;
+    }
 }
 </style>
 
