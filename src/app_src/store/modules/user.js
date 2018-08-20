@@ -24,10 +24,17 @@ const user = {
     userId: '',
     userSex: '',
     roleLevel: '',
-    dashboardindex: ''
+    dashboardindex: '',
+    dialogLoginVisible:false //判断登录框弹出zp
   },
 
   mutations: {
+    SET_DIALOGLOGINVISIBLE: (state, code) => {
+      state.dialogLoginVisible = code
+    },
+    SET_CODE: (state, code) => {
+      state.code = code
+    },
     SET_CODE: (state, code) => {
       state.code = code
     },
@@ -104,6 +111,11 @@ const user = {
     }, setDashboardIndex({ commit }, dashboardindex) {
       commit('SET_DASHBOARD_INDEX', dashboardindex)
     },
+    setdialogLoginVisible({ commit }, dialogLoginVisible) {
+      commit('SET_DIALOGLOGINVISIBLE', dialogLoginVisible)
+    },
+
+    
 
     // 用户名登录
     LoginByUsername({ commit }, userInfo) {
