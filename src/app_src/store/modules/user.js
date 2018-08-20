@@ -25,7 +25,7 @@ const user = {
     userSex: '',
     roleLevel: '',
     dashboardindex: '',
-    dialogLoginVisible:false //判断登录框弹出zp
+    dialogFormVisible: false //  判断登录框弹出zp
   },
 
   mutations: {
@@ -115,7 +115,7 @@ const user = {
       commit('SET_DIALOGLOGINVISIBLE', dialogLoginVisible)
     },
 
-    
+
 
     // 用户名登录
     LoginByUsername({ commit }, userInfo) {

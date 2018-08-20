@@ -22,7 +22,7 @@
                             </el-row>
                         </div>
                         <hr>
-                        <el-table :data="noticeList" size="mini" :show-header="false">
+                        <el-table :data="noticeList" size="mini" :show-header="false" @row-click="goToContent">
                             <el-table-column prop="title" align="center" show-overflow-tooltip></el-table-column>
                             <!-- <el-table-column  prop="writter" align="center"></el-table-column> -->
                             <el-table-column prop="time" align="center"></el-table-column>
@@ -195,36 +195,42 @@ export default {
         return {
             noticeList: [
                 {
+                    id:1,
                     title: "重要通知",
                     content: "<h5>大港软件开发通知</h5>",
                     writter: "管理员",
                     time: "2018-8-13"
                 },
                 {
+                    id:2,
                     title: "重要通知",
                     content: "<h5>大港软件开发通知</h5>",
                     writter: "管理员",
                     time: "2018-8-13"
                 },
                 {
+                    id:3,
                     title: "重要通知",
                     content: "<h5>大港软件开发通知</h5>",
                     writter: "管理员",
                     time: "2018-8-13"
                 },
                 {
+                    id:4,
                     title: "重要通知",
                     content: "<h5>大港软件开发通知</h5>",
                     writter: "管理员",
                     time: "2018-8-13"
                 },
                 {
+                    id:5,
                     title: "重要通知",
                     content: "<h5>大港软件开发通知</h5>",
                     writter: "管理员",
                     time: "2018-8-13"
                 },
                 {
+                    id:6,
                     title: "重要通知",
                     content: "<h5>大港软件开发通知</h5>",
                     writter: "管理员",
@@ -476,20 +482,20 @@ export default {
         },
         GOplatform1(data) {
             this.$store.state.user.dashaboardindex=data;
-            console.log(this.$store.state.user.dashaboardindex)
-            //console.log(typeof(this.$store.state.user.dashaboardindex) )
             this.$router.push({ path: "/dashboard" });    
         },
         gotonotice(){
              this.$router.push({ path: "/notice" });
+        },
+        goToContent(row){
+            this.$router.push({path: "noticecontent/" + row.id })
         }
     },
     mounted() {
         this.getdata();
         this.getdata1();
         this.drawLine();
-    },
-    create() {}
+    }
 };
 </script>
 
