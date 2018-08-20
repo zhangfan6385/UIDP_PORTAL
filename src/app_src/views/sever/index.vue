@@ -4,17 +4,11 @@
         <el-col :span="2"></el-col>
         <el-col :span="6">
           <div class="grid-content bg-purple">
-            <el-card class="box-card">
-               <!-- <div style="text-align: center"><img style="width:200px;height:45px;" src="../../../app_src/imgs/title.png"></div>                      
-               <ul v-for="(item,index) in TopList" :key="index" class="text">
-                 <li style="padding:7px 0;float:left;width:10%;line-height:30px;"><span :class="addclass(index+1)">{{index+1}}</span></li>
-                 <li style="padding:7px 0;float:left;width:60%;line-height:30px;"><span class="name" :title="item.name">{{item.name }}</span></li>
-                 <li style="padding:7px 0;float:left;width:30%;line-height:30px;"><span class="spandownload">{{item.download}}</span></li>
-                </ul> -->
+            <el-card class="box-card"  shadow="never">
                       <div style="text-align: center">
                           <img  style="width:200px;height:45px;" src="../../../app_src/imgs/title.png">
                           <br>
-                          <el-table :data="TopList"  >
+                          <el-table :data="TopList"   size="mini">
                               <el-table-column prop="id" label="排名" width="50" align="center">
                                   <template slot-scope="scope">
                                     <span :class="addclass(scope.row.id+1)">{{scope.row.id}}</span>
@@ -30,50 +24,31 @@
         </el-col>
         <el-col :span="14">
           <div class="grid-content bg-purple">
-            <el-card class="box-card">
+            <el-card class="box-card"  shadow="never">
                 <div class="filter-container">
                     <el-input style="width: 420px;" class="filter-item"  >
                     </el-input>
                     <el-button class="filter-item" type="primary" icon="el-icon-search" >搜索</el-button>
                 </div>
-              <el-card v-for="(component,key) in tableData" :key="key"  class="content" @click.native="getcontent(component.id)">
+              <el-card v-for="(component,key) in tableData" :key="key"  shadow="never" class="content" >
                 <ul>
-                  <li>
-                  <div class="left"><img style="width:140px;height:80px;" src="../../../app_src/imgs/feedback.png" alt=""></div>
+                  <li  >
+                  <div class="left"><img style="width:40px;height:40px;" src="../../../app_src/imgs/feedback.png" alt=""></div>
                   <div class="right">
-                    <div class="right_top">
-                        <h3>{{component.name}}</h3>
+                    <div class="right_top" @click="getcontent(component.id)">
+                        {{component.name}}
                     </div>
-                    <div style="font-size:10px;width:140px;float:left;">
-                      <el-rate
-                        v-model="value5"
-                        disabled
-                        show-score
-                        text-color="#ff9900"
-                        score-template="{value}"> 
-                      </el-rate>
-                    </div>
-                <div style="font-size:10px;float:left;margin:4px;">请求方式：get  更新时间：2018-08-07 服务类型：内部服务</div>
-                    <div class="name">{{component.content}}</div>
-                    <div class="right_bottom">
                         <div class="right_bottom_left">
-                            <span>发布单位：</span><span>大港石油公司</span>  <span>使用次数：</span><span>71</span>
+                            <span>发布者：</span><span>微软公司</span> &nbsp;|&nbsp;
+                             <span>发布时间：</span><span>71</span>
+                               <span>下载次数：</span><span>71089</span>
                         </div>
-                    </div>
                   </div>
                   </li>
                 </ul>
               </el-card>
               <div class="pagination-container">
-              <el-pagination
-                @size-change="handleSizeChange"
-                @current-change="handleCurrentChange"
-                :current-page="currentPage"
-                :page-sizes="[10, 20, 30, 40]"
-                :page-size="10"
-                layout="total, sizes, prev, pager, next, jumper"
-                :total="100">
-                </el-pagination>
+               点击加载更多
               </div>
             </el-card>
             <el-dialog :title="dialogTitle" :visible.sync="dialogTableVisible">
@@ -258,7 +233,7 @@ export default {
 </script>
 
 
-<style lang="scss">
+<style lang="scss" scoped>
 .content{
   margin-top: 15px;
 }
@@ -276,43 +251,49 @@ export default {
             background: white;
             list-style-type: none;
             transition-duration: 0.5s;
-             margin: 10px 10px 5px 0;
+             margin: 5px 5px 2px 0;
  
         }
 
-  .content ul li:hover{
-            background-color: lavender;
-            transition-duration: 0.5s;
-        }
+  // .content ul li:hover{
+  //           background-color: lavender;
+  //           transition-duration: 0.5s;
+  //       }
+       
         .content .left{
             overflow: hidden;/*隐藏溢出图片内容*/
             transition-duration: 0.5s;
-            width: 20%;
-            height:80px;
+            width: 5%;
+            height:40px;
             /*background: green;*/
             float: left;
             margin-right:20px;
         }
         .content .right{
             // width:400px ;
-            width: 75%;
+            width: 90%;
             float: left;
             /*background: pink;*/
         }
-        .right_top h3{
+        .right_top{
           margin: 0px;
           padding: 0px;
-          text-align: center;
-            // height:60px;
+          text-align: left;
+          font-weight: 700;
+          font-size: 18px;
+          cursor: pointer;
         }
         .right_bottom{
             margin-top:50px;
             text-align: right;
         }
-        .right_bottom_left span{
-
+        .right_bottom_left{
+            float:left;
+            padding-top:15px;
+            width: 100%;
+            text-align:right;
             color: darkgray;
-            font-size: 12px;
+            font-size: 14px;
         }
 .top{
   font-weight:bold;
@@ -421,6 +402,9 @@ text-align:center;
 font-size:10px;
 }
 .pagination-container{
-  float:right;
+  margin-top: 15px;
+  font-size: 13px;
+  text-align: center;
+  color:red;
 }
 </style>
