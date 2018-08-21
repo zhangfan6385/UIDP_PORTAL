@@ -22,6 +22,7 @@
         </div>
         <div>
         <user-password-manager></user-password-manager>
+          <apply-dialog></apply-dialog>
           <login-dialog></login-dialog>
           <app-main></app-main>
         </div>
@@ -30,12 +31,13 @@
     </el-col>
     <div class="copyright">
       版权所有：©大港油田集团责任有限公司信息中心
+      <!-- 版权所有：©大港油田集团责任有限公司信息中心 -->
     </div>
   </div>
 </template>
 
 <script>
-import { AppMain, HeaderSet, Topbar, LoginDialog } from "./components";
+import { AppMain, HeaderSet, Topbar, LoginDialog,ApplyDialog } from "./components";
 import userPasswordManager from '@/app_src/views/layout/components/LoginDialog/userPasswordManager'
 import ResizeMixin from "./mixin/ResizeHandler";
 
@@ -53,7 +55,8 @@ export default {
         Topbar,
         LoginDialog,
         HeaderSet,
-        userPasswordManager
+        userPasswordManager,
+        ApplyDialog
     },
     mixins: [ResizeMixin],
     computed: {

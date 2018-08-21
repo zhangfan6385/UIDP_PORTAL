@@ -95,7 +95,7 @@
                             <el-row type="flex">
                                 <el-col :span="2"></el-col>
                                 <el-col :span="3">
-                                    
+
                                     <div class="platform">
                                         <img src="../../../app_src/imgs/platform.png" title="c#平台" @click="GOplatform1(0)">
                                     </div>
@@ -195,42 +195,42 @@ export default {
         return {
             noticeList: [
                 {
-                    id:1,
+                    id: 1,
                     title: "重要通知",
                     content: "<h5>大港软件开发通知</h5>",
                     writter: "管理员",
                     time: "2018-8-13"
                 },
                 {
-                    id:2,
+                    id: 2,
                     title: "重要通知",
                     content: "<h5>大港软件开发通知</h5>",
                     writter: "管理员",
                     time: "2018-8-13"
                 },
                 {
-                    id:3,
+                    id: 3,
                     title: "重要通知",
                     content: "<h5>大港软件开发通知</h5>",
                     writter: "管理员",
                     time: "2018-8-13"
                 },
                 {
-                    id:4,
+                    id: 4,
                     title: "重要通知",
                     content: "<h5>大港软件开发通知</h5>",
                     writter: "管理员",
                     time: "2018-8-13"
                 },
                 {
-                    id:5,
+                    id: 5,
                     title: "重要通知",
                     content: "<h5>大港软件开发通知</h5>",
                     writter: "管理员",
                     time: "2018-8-13"
                 },
                 {
-                    id:6,
+                    id: 6,
                     title: "重要通知",
                     content: "<h5>大港软件开发通知</h5>",
                     writter: "管理员",
@@ -392,7 +392,7 @@ export default {
                         data: []
                     }
                 ]
-            },
+            }
         };
     },
     methods: {
@@ -481,14 +481,14 @@ export default {
             this.$router.push({ path: "/community" });
         },
         GOplatform1(data) {
-            this.$store.state.user.dashaboardindex=data;
-            this.$router.push({ path: "/dashboard" });    
+            this.$store.state.user.dashaboardindex = data;
+            this.$router.push({ path: "/dashboard" });
         },
-        gotonotice(){
-             this.$router.push({ path: "/notice" });
+        gotonotice() {
+            this.$router.push({ path: "/notice" });
         },
-        goToContent(row){
-            this.$router.push({path: "noticecontent/" + row.id })
+        goToContent(row) {
+            this.$router.push({ path: "noticecontent/" + row.id });
         }
     },
     mounted() {

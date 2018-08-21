@@ -11,6 +11,8 @@ import '@/app_src/styles/index.scss' // 全局 css
 import App from './app_src/App'
 import router from './app_src/router'
 import store from './app_src/store'
+//引入本地化
+import i18n from './app_src/lang'
 
 import '@/app_src/icons' // 图标
 //  import '@/app_src/permission' // 权限控制
@@ -29,8 +31,9 @@ Vue.config.productionTip = false
 
 new Vue({
   el: '#app',
-  router,
+  i18n,
   store,
+  router,
   VueQuillEditor,
   template: '<App/>',
   components: { App }

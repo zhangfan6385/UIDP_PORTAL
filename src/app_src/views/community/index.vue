@@ -29,7 +29,7 @@
               <el-table-column prop="upTime" label="发表日期" width="100px" align="center"></el-table-column>
             </el-table>
             <div class="page">
-              <el-pagination layout="prev, pager, next" :total="50">
+              <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage4" :page-sizes="[100, 200, 300, 400]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="400">
               </el-pagination>
             </div>
           </el-card>
@@ -58,240 +58,240 @@
 
 <script>
 export default {
-  data() {
-    return {
-      score: 1000,
-      scoreList: [
-        { index: "1", name: "张1", score: 10000 },
-        { index: "2", name: "张2", score: 10000 },
-        { index: "3", name: "张3", score: 10000 },
-        { index: "4", name: "张4", score: 10000 },
-        { index: "5", name: "张5", score: 10000 },
-        { index: "6", name: "张6", score: 10000 },
-        { index: "7", name: "张7", score: 10000 },
-        { index: "8", name: "张7", score: 10000 },
-        { index: "9", name: "张7", score: 10000 },
-        { index: "10", name: "张7", score: 10000 }
-      ],
-      newslist: [
-        {
-          id: 1,
-          writter: "小李",
-          type: 1,
-          title: "为祖国庆生",
-          upTime: "2018-8-8",
-          readNumber: 200,
-          offer: 200,
-          commentNumber: 200,
-          content:
-            "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
+    data() {
+        return {
+            score: 1000,
+            scoreList: [
+                { index: "1", name: "张1", score: 10000 },
+                { index: "2", name: "张2", score: 10000 },
+                { index: "3", name: "张3", score: 10000 },
+                { index: "4", name: "张4", score: 10000 },
+                { index: "5", name: "张5", score: 10000 },
+                { index: "6", name: "张6", score: 10000 },
+                { index: "7", name: "张7", score: 10000 },
+                { index: "8", name: "张7", score: 10000 },
+                { index: "9", name: "张7", score: 10000 },
+                { index: "10", name: "张7", score: 10000 }
+            ],
+            newslist: [
+                {
+                    id: 1,
+                    writter: "小李",
+                    type: 1,
+                    title: "为祖国庆生",
+                    upTime: "2018-8-8",
+                    readNumber: 200,
+                    offer: 200,
+                    commentNumber: 200,
+                    content:
+                        "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
+                },
+                {
+                    id: 2,
+                    writter: "小张",
+                    type: 2,
+                    title: "为祖国庆生",
+                    upTime: "2018-8-8",
+                    readNumber: 200,
+                    offer: 200,
+                    commentNumber: 200,
+                    content:
+                        "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
+                },
+                {
+                    id: 3,
+                    writter: "小王",
+                    type: 3,
+                    title: "为祖国庆生",
+                    upTime: "2018-8-8",
+                    readNumber: 200,
+                    offer: 200,
+                    commentNumber: 200,
+                    content:
+                        "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
+                },
+                {
+                    id: 4,
+                    writter: "小李",
+                    type: 1,
+                    title: "为祖国庆生",
+                    upTime: "2018-8-8",
+                    readNumber: 200,
+                    offer: 200,
+                    commentNumber: 200,
+                    content:
+                        "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
+                },
+                {
+                    id: 5,
+                    writter: "小李",
+                    type: 2,
+                    title: "为祖国庆生",
+                    upTime: "2018-8-8",
+                    readNumber: 200,
+                    offer: 200,
+                    commentNumber: 200,
+                    content:
+                        "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
+                },
+                {
+                    id: 6,
+                    writter: "小李",
+                    type: 3,
+                    title: "为祖国庆生",
+                    upTime: "2018-8-8",
+                    readNumber: 200,
+                    offer: 200,
+                    commentNumber: 200,
+                    content:
+                        "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
+                },
+                {
+                    id: 6,
+                    writter: "小李",
+                    type: 3,
+                    title: "为祖国庆生",
+                    upTime: "2018-8-8",
+                    readNumber: 200,
+                    offer: 200,
+                    commentNumber: 200,
+                    content:
+                        "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
+                },
+                {
+                    id: 6,
+                    writter: "小李",
+                    type: 3,
+                    title: "为祖国庆生",
+                    upTime: "2018-8-8",
+                    readNumber: 200,
+                    offer: 200,
+                    commentNumber: 200,
+                    content:
+                        "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
+                },
+                {
+                    id: 6,
+                    writter: "小李",
+                    type: 3,
+                    title: "为祖国庆生",
+                    upTime: "2018-8-8",
+                    readNumber: 200,
+                    offer: 200,
+                    commentNumber: 200,
+                    content:
+                        "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
+                },
+                {
+                    id: 6,
+                    writter: "小李",
+                    type: 3,
+                    title: "为祖国庆生",
+                    upTime: "2018-8-8",
+                    readNumber: 200,
+                    offer: 200,
+                    commentNumber: 200,
+                    content:
+                        "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
+                }
+            ],
+            currentPage1: 1
+        };
+    },
+    methods: {
+        handleSizeChange(val) {
+            console.log(`每页 ${val} 条`);
         },
-        {
-          id: 2,
-          writter: "小张",
-          type: 2,
-          title: "为祖国庆生",
-          upTime: "2018-8-8",
-          readNumber: 200,
-          offer: 200,
-          commentNumber: 200,
-          content:
-            "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
+        handleCurrentChange(val) {
+            console.log(`当前页: ${val}`);
         },
-        {
-          id: 3,
-          writter: "小王",
-          type: 3,
-          title: "为祖国庆生",
-          upTime: "2018-8-8",
-          readNumber: 200,
-          offer: 200,
-          commentNumber: 200,
-          content:
-            "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
-        },
-        {
-          id: 4,
-          writter: "小李",
-          type: 1,
-          title: "为祖国庆生",
-          upTime: "2018-8-8",
-          readNumber: 200,
-          offer: 200,
-          commentNumber: 200,
-          content:
-            "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
-        },
-        {
-          id: 5,
-          writter: "小李",
-          type: 2,
-          title: "为祖国庆生",
-          upTime: "2018-8-8",
-          readNumber: 200,
-          offer: 200,
-          commentNumber: 200,
-          content:
-            "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
-        },
-        {
-          id: 6,
-          writter: "小李",
-          type: 3,
-          title: "为祖国庆生",
-          upTime: "2018-8-8",
-          readNumber: 200,
-          offer: 200,
-          commentNumber: 200,
-          content:
-            "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
-        },
-        {
-          id: 6,
-          writter: "小李",
-          type: 3,
-          title: "为祖国庆生",
-          upTime: "2018-8-8",
-          readNumber: 200,
-          offer: 200,
-          commentNumber: 200,
-          content:
-            "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
-        },
-        {
-          id: 6,
-          writter: "小李",
-          type: 3,
-          title: "为祖国庆生",
-          upTime: "2018-8-8",
-          readNumber: 200,
-          offer: 200,
-          commentNumber: 200,
-          content:
-            "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
-        },
-        {
-          id: 6,
-          writter: "小李",
-          type: 3,
-          title: "为祖国庆生",
-          upTime: "2018-8-8",
-          readNumber: 200,
-          offer: 200,
-          commentNumber: 200,
-          content:
-            "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
-        },
-        {
-          id: 6,
-          writter: "小李",
-          type: 3,
-          title: "为祖国庆生",
-          upTime: "2018-8-8",
-          readNumber: 200,
-          offer: 200,
-          commentNumber: 200,
-          content:
-            "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
+        getcontent(row, event, column) {
+            let id = row.id.toString();
+            this.$router.push({ path: "/community/main/newscontent/" + id });
         }
-      ],
-      currentPage1: 1
-    };
-  },
-  methods: {
-    handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
-    },
-    handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
-    },
-    getcontent(row, event, column) {
-      let id = row.id.toString();
-      this.$router.push({ path: "/community/main/newscontent/" + id });
     }
-  }
 };
 </script>
 
 
 <style lang="scss">
 .community {
-  .card {
-    max-height: 150px;
-  }
-  .header {
-    border-radius: 0.5em;
-    min-height: 65px;
-    max-height: 80px;
-    //background: rgb(194, 206, 195);
-    .headerItem {
-      float: right;
-      padding-right: 20px;
-      margin-left: 40px;
-      margin-bottom: 20px;
+    .card {
+        max-height: 150px;
     }
-  }
-  .LeftContainer {
-    border-radius: 0.5em;
-    min-height: 390px;
-    .newslogo {
-      img {
-        width: 30px;
-        height: 30px;
-        border-radius: 1em;
-      }
+    .header {
+        border-radius: 0.5em;
+        min-height: 65px;
+        max-height: 80px;
+        //background: rgb(194, 206, 195);
+        .headerItem {
+            float: right;
+            padding-right: 20px;
+            margin-left: 40px;
+            margin-bottom: 20px;
+        }
     }
-    .page {
-      text-align: center;
+    .LeftContainer {
+        border-radius: 0.5em;
+        min-height: 390px;
+        .newslogo {
+            img {
+                width: 30px;
+                height: 30px;
+                border-radius: 1em;
+            }
+        }
+        .page {
+            text-align: center;
+        }
+        .title {
+            margin-left: 15px;
+            font-weight: 200;
+            font-size: 20px;
+            font-weight: bold;
+            font-family: "SimHei";
+            text-align: center;
+        }
+        .info {
+            line-height: 25px;
+            margin-bottom: 20px;
+            color: gray;
+            font-size: 10px;
+            img {
+                width: 13px;
+                height: 13px;
+            }
+        }
+        .content {
+            padding-left: 20px;
+            margin-top: 15px;
+            margin-left: 25px;
+            margin-right: 20px;
+            font-size: 15px;
+            line-height: 20px;
+            color: rgb(53, 49, 49);
+            text-overflow: ellipsis;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+        }
+        .pageclass {
+            text-align: center;
+        }
     }
-    .title {
-      margin-left: 15px;
-      font-weight: 200;
-      font-size: 20px;
-      font-weight: bold;
-      font-family: "SimHei";
-      text-align: center;
+    .MainContainer {
+        border-radius: 0.5em;
+        min-height: 100px;
+        min-height: 390px;
+        text-align: center;
+        .rank {
+            img {
+                width: 200px;
+                height: 40px;
+            }
+        }
     }
-    .info {
-      line-height: 25px;
-      margin-bottom: 20px;
-      color: gray;
-      font-size: 10px;
-      img {
-        width: 13px;
-        height: 13px;
-      }
-    }
-    .content {
-      padding-left: 20px;
-      margin-top: 15px;
-      margin-left: 25px;
-      margin-right: 20px;
-      font-size: 15px;
-      line-height: 20px;
-      color: rgb(53, 49, 49);
-      text-overflow: ellipsis;
-      overflow: hidden;
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 3;
-    }
-    .pageclass {
-      text-align: center;
-    }
-  }
-  .MainContainer {
-    border-radius: 0.5em;
-    min-height: 100px;
-    min-height: 390px;
-    text-align: center;
-    .rank {
-      img {
-        width: 200px;
-        height: 40px;
-      }
-    }
-  }
 }
 </style>
 
