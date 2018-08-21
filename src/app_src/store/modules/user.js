@@ -27,8 +27,11 @@ const user = {
     roleLevel: '',
     dashboardindex: '',
     dialogLoginVisible:false, //判断登录框弹出zp
-    dialogPasswordVisible:false //判断修改密码框弹出zpdialogUserInfoVisible:false, //用户信息弹出zp
-    dialogProjectInfoVisible:false //切换项目框弹出zp applyDialogVisible:false //申请界面弹出框  },
+    dialogPasswordVisible:false, //判断修改密码框弹出zp
+    dialogUserInfoVisible:false, //用户信息弹出zp
+    dialogProjectInfoVisible:false, //切换项目框弹出zp 
+    applyDialogVisible:false //申请界面弹出框 
+   },
 
   mutations: {
     SET_DIALOGLOGINVISIBLE: (state, code) => {
