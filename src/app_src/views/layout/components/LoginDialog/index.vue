@@ -86,12 +86,13 @@ export default {
                 this.passwordType = "password";
             }
         },
-        close() {
-            this.$store.state.user.dialogLoginVisible = false;
-        },
         closeDiolog() {
+            this.resetForm('loginForm')
             this.$store.state.user.dialogLoginVisible = false;
         },
+         resetForm(formName) {
+        this.$refs[formName].resetFields();
+      },
         handleLogin() {
             this.loading = true;
             this.$store.state.user.token = "";
@@ -124,6 +125,8 @@ export default {
                     //       this.loading = false;
                     //       Message.error(err);
                     //     });
+                       this.$store.state.user.userId = "sdfdsf";
+            this.$store.state.user.dialogLoginVisible = false;
                     this.loading = false;
                 } else {
                     this.loading = false;

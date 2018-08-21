@@ -10,3 +10,23 @@ export function updatePasswordData(oldpassword,newpassword){//修改密码
           data
         })
   }
+  export function getUserInfo(userId){//获取用户信息
+    const data = {
+      userId
+    }
+    return request({
+      url: '/user/getUserInfo',
+      method: 'post',
+      data
+    })
+}
+export function getProjectInfo(userId){//获取项目信息
+  const data = {
+    userId
+  }
+  return request({
+    url: '/user/getProjectInfo',
+    method: 'post',
+    data
+  })
+}

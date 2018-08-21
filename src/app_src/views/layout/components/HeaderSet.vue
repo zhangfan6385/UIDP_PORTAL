@@ -85,10 +85,10 @@ export default {
             alert("success");
         },
         userInfo() {
-            alert("userinfo");
+           this.$store.state.user.dialogUserInfoVisible=true;
         },
         changeProj() {
-            alert("changeProj");
+           this.$store.state.user.dialogProjectInfoVisible=true;
         },
         changePassword() {
             this.$store.state.user.dialogPasswordVisible=true;

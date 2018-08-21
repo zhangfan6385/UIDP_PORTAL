@@ -4,8 +4,8 @@ import 'normalize.css/normalize.css'
 
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import locale from 'element-ui/lib/locale/lang/en' // lang i18n
-
+//import locale from 'element-ui/lib/locale/lang/en' // lang i18n
+import locale from './app_src/lang' // lang i18n
 import '@/app_src/styles/index.scss' // 全局 css
 
 import App from './app_src/App'

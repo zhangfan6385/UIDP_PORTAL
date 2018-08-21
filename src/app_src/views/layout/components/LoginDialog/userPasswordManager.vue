@@ -87,11 +87,15 @@ export default {
   },
   methods: {
     closeDialog(){
+      //  this.$nextTick(() => {
+      //     this.$refs["pwdForm"].clearValidate();
+      //   });
+      this.resetForm('pwdForm')
       this.$store.state.user.dialogPasswordVisible=false
     },
     resetForm(formName) {
-      this.$refs.pwdForm.resetFields()
-    },
+        this.$refs[formName].resetFields();
+      },
     submitForm(formName) { // 提交修改密码
       this.$refs.pwdForm.validate(valid => {
         if (valid) {
