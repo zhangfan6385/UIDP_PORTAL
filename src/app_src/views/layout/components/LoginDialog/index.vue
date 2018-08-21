@@ -1,5 +1,5 @@
 <template>
-    <div id="logindialog" class="login-container">
+    <div id="dialoglogin" class="logindialog-container">
         <el-dialog :visible.sync="dialogLoginVisible" width="30%" @close="closeDiolog">
             <el-form class="login-form" autoComplete="on" :model="loginForm" :rules="loginRules" ref="loginForm" label-position="left">
                 <div class="logo title">
@@ -124,6 +124,7 @@ export default {
                     //       this.loading = false;
                     //       Message.error(err);
                     //     });
+                    this.loading = false;
                 } else {
                     this.loading = false;
                     return false;
@@ -155,8 +156,7 @@ $bg: rgb(22, 86, 155);
 .dialog-footer {
     text-align: center;
 }
-.login-container {
-    padding: 50px 0;
+.logindialog-container {
     .el-input {
         display: inline-block;
         height: 47px;

@@ -108,7 +108,7 @@ export default {
 }
 </script>
 
-<style rel="stylesheet/scss" lang="scss">
+<style rel="stylesheet/scss" lang="scss" scoped>
 $bg: rgb(22, 86, 155);
 $light_gray:#eee;
 
