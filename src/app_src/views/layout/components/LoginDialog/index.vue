@@ -1,24 +1,37 @@
 <template>
-    <div id="logindialog">
-        <el-dialog title="账号登录" :visible.sync="dialogLoginVisible" width="30%" :show-close="false">
-            <el-form :model="form" ref="loginForm" :rules="loginRules" label-width="80px">
-                <el-form-item label="账号：" prop="username">
-                    <el-input v-model="form.username"  placeholder="请输入账号"></el-input>
+    <div id="logindialog" class="login-container">
+        <el-dialog :visible.sync="dialogLoginVisible" width="30%" @close="closeDiolog">
+            <el-form class="login-form" autoComplete="on" :model="loginForm" :rules="loginRules" ref="loginForm" label-position="left">
+                <div class="logo title">
+                    <img src="@/app_src/imgs/logo.png">
+                    <span>大港油田软件工厂</span>
+                </div>
+                <el-form-item prop="username">
+                    <span class="svg-container svg-container_login">
+                        <svg-icon icon-class="user" />
+                    </span>
+                    <el-input name="username" type="text" v-model="loginForm.username" autoComplete="on" placeholder="账号" />
+
                 </el-form-item>
-                <el-form-item label="密码:" prop="password">
-                    <el-input v-model="form.password" type="password"  placeholder="密码不能小于六位"></el-input>
+                <el-form-item prop="password">
+                    <span class="svg-container">
+                        <svg-icon icon-class="password" />
+                    </span>
+                    <el-input name="password" :type="passwordType" @keyup.enter.native="handleLogin" v-model="loginForm.password" autoComplete="on" placeholder="密码" />
+                    <span class="show-pwd" @click="showPwd">
+                        <svg-icon icon-class="eye" />
+                    </span>
                 </el-form-item>
+                <br>
+                <el-button type="primary" v-waves style="width:86%;margin-bottom:30px;margin-left:30px;background-color:#409EFF;border-color:#409EFF" :loading="loading" @click.native.prevent="handleLogin">登录</el-button>
             </el-form>
-            <div class="dialog-footer">
-                <el-button @click="close">取 消</el-button>
-                <el-button type="primary" @click="login">登 录</el-button>
-            </div>
         </el-dialog>
     </div>
 </template>
 
 
 <script>
+import waves from "@/app_src/directive/waves"; // 水波纹指令
 export default {
     data() {
         const validatePassword = (rule, value, callback) => {
@@ -36,8 +49,10 @@ export default {
             }
         };
         return {
+            passwordType: "password",
+            loading: false,
             dialogLoginVisible: false,
-            form: {
+            loginForm: {
                 username: "",
                 password: ""
             },
@@ -59,15 +74,30 @@ export default {
             }
         };
     },
+    
+    directives: {
+        waves
+    },
     methods: {
+        showPwd() {
+            if (this.passwordType === "password") {
+                this.passwordType = "";
+            } else {
+                this.passwordType = "password";
+            }
+        },
         close() {
             this.$store.state.user.dialogLoginVisible = false;
         },
-        login() {
-            console.log(22)
+        closeDiolog() {
+            this.$store.state.user.dialogLoginVisible = false;
+        },
+        handleLogin() {
+            this.loading = true;
             this.$store.state.user.token = "";
             this.$refs.loginForm.validate(valid => {
                 if (valid) {
+                    console.log(1);
                     //   this.loading = true;
                     //   this.loginForm.userDomain = this.code;
                     //   this.$store
@@ -95,12 +125,13 @@ export default {
                     //       Message.error(err);
                     //     });
                 } else {
+                    this.loading = false;
                     return false;
                 }
             });
 
-            this.$store.state.user.userId = "sdfdsf";
-            this.$store.state.user.dialogLoginVisible = false;
+           // this.$store.state.user.userId = "sdfdsf";
+            //this.$store.state.user.dialogLoginVisible = false;
         }
     },
     computed: {
@@ -118,8 +149,60 @@ export default {
 
 
 <style lang="scss" scoped>
+$dark_gray: #252020;
+$light_gray: #252020;
+$bg: rgb(22, 86, 155);
 .dialog-footer {
     text-align: center;
+}
+.login-container {
+    padding: 50px 0;
+    .el-input {
+        display: inline-block;
+        height: 47px;
+        width: 85%;
+        input {
+            background: transparent;
+            border: 0px;
+            -webkit-appearance: none;
+            border-radius: 0px;
+            padding: 12px 5px 12px 15px;
+            color: $light_gray;
+            height: 47px;
+            &:-webkit-autofill {
+                -webkit-box-shadow: 0 0 0px 1000px $bg inset !important;
+                -webkit-text-fill-color: #fff !important;
+            }
+        }
+    }
+}
+.logo {
+    text-align: center;
+    line-height: 50px;
+    padding-bottom: 30px;
+    span {
+        margin-left: 8px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+}
+.svg-container {
+    padding: 6px 5px 6px 15px;
+    color: $dark_gray;
+    vertical-align: middle;
+    width: 30px;
+    display: inline-block;
+    &_login {
+        font-size: 20px;
+    }
+}
+img {
+    vertical-align: middle;
+    height: 50px;
+    width: 50px;
+}
+.show-pwd{
+    cursor: pointer;
 }
 </style>
 
