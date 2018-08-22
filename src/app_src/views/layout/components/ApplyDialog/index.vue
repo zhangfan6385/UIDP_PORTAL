@@ -1,5 +1,5 @@
 <template>
-    <div id="apply">
+    <div id="apply" class="apply">
         <el-dialog :title="dialogtitle" :visible.sync="applyDialogVisible" @close="close">
             <el-form label-position="left" label-width="80px" ref="applyInfo" :model="applyInfo" :rules="rules">
                 <el-form-item label="用户姓名">
@@ -24,7 +24,7 @@
                         </el-dropdown-menu>
                     </el-dropdown>
                 </el-form-item>
-                <el-form-item label="申请描述" prop="applyContent" >
+                <el-form-item label="申请描述" prop="applyContent">
                     <el-input type="textarea" v-model="applyInfo.applyContent"></el-input>
                 </el-form-item>
                 <el-form-item>
@@ -125,8 +125,8 @@ export default {
             this.applyInfo.applyContent = "";
             this.applyInfo.applyTime = "";
         },
-        close(){
-            this.$store.state.user.applyDialogVisible=false;
+        close() {
+            this.$store.state.user.applyDialogVisible = false;
             //console.log(this.$store.state.user.applyDialogVisible);
         },
         getSeverList() {
@@ -161,13 +161,13 @@ export default {
         }
     },
     computed: {
-        GetApplyDialogVisible(){
+        GetApplyDialogVisible() {
             return this.$store.state.user.applyDialogVisible;
         }
     },
     watch: {
-        GetApplyDialogVisible(data){
-            this.applyDialogVisible=data;
+        GetApplyDialogVisible(data) {
+            this.applyDialogVisible = data;
         }
     }
 };
@@ -175,12 +175,14 @@ export default {
 
 
 <style lang="scss">
-.formbutton {
-    text-align: center;
-}
-.el-dialog__header{
-    text-align: center;
-    font-weight: bold;
+.apply {
+    .formbutton {
+        text-align: center;
+    }
+    .el-dialog__header {
+        text-align: center;
+        font-weight: bold;
+    }
 }
 </style>
 
