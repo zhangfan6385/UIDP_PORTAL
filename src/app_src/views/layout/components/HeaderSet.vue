@@ -22,7 +22,7 @@
       -->
             <span class="login_span" @click="changeIsVisible" v-if="isVisiable">登录</span>
 
-            <el-badge :value="12" v-if="!isVisiable">
+            <el-badge :value="16"  v-if="!isVisiable">
                 <img class='user-avatar' src="../../../../app_src/imgs/message2.png">
             </el-badge>
 
@@ -164,7 +164,7 @@ export default {
 
 .navbar-set {
     background-color: transparent;
-    // margin-top: 2px;
+     margin-top: 8px;
     // height: 50px;
     line-height: 25px;
     border-radius: 0px !important;
@@ -206,7 +206,7 @@ export default {
         //   vertical-align: 15px;
         // }
         .user-avatar {
-            margin-top: 7px;
+            margin-top: 0px;
             width: 25px;
             height: 25px;
             border-radius: 10px;

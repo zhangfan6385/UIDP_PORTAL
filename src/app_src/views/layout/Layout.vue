@@ -113,7 +113,7 @@ export default {
     position: fixed;
     z-index: 1999;
     min-width: 100%;
-    height: 40px;
+    height: 43px;
     background: #dce4e9;
     margin: 0 auto;
     line-height: 30px; //设置line-height与父级元素的height相等
