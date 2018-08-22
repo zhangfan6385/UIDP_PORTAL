@@ -1,59 +1,64 @@
 <template>
-  <el-menu class="navbar-set" mode="horizontal">
+    <el-menu class="navbar-set" mode="horizontal">
 
-    <div class="right-menu">
-      <!--
+        <div class="right-menu">
+            <!--
       <div class="logo">
         <span>Admin</span>
         <span style="margin-left:15px;">单位：大港油田信息中心</span>
       </div>
       -->
-      <!--
+            <!--
       <el-tooltip effect="dark" content='全屏' placement="bottom">
         <screenfull class="screenfull right-menu-item" style="vertical-align: middle;"></screenfull>
       </el-tooltip>
       -->
-      <!--
+            <!--
       <el-tooltip effect="dark" content='换肤' placement="bottom">-->
-      <!-- <theme-picker class="theme-switch right-menu-item"></theme-picker> -->
-      <!--
+            <!-- <theme-picker class="theme-switch right-menu-item"></theme-picker> -->
+            <!--
         <theme-picker class="right-menu-item noborder" style="vertical-align: middle;"></theme-picker>
       </el-tooltip>
       -->
-      <span class="login_span" @click="changeIsVisible" v-if="isVisiable">登录</span>
-      <el-dropdown v-else-if="!isVisiable" class="avatar-container right-menu-item" trigger="click">
-        <div class="avatar-wrapper">
-          <img class='user-avatar' src="../../../../app_src/imgs/avatar.png">
-          <i class="el-icon-caret-bottom"></i>
-        </div>
-        <el-dropdown-menu slot="dropdown">
-          <!--
+            <span class="login_span" @click="changeIsVisible" v-if="isVisiable">登录</span>
+
+            <el-badge :value="12" v-if="!isVisiable">
+                <img class='user-avatar' src="../../../../app_src/imgs/message2.png">
+            </el-badge>
+
+            <el-dropdown v-if="!isVisiable" class="avatar-container right-menu-item" trigger="click">
+                <div class="avatar-wrapper">
+                    <img class='user-avatar' src="../../../../app_src/imgs/avatar.png">
+                    <i class="el-icon-caret-bottom"></i>
+                </div>
+                <el-dropdown-menu slot="dropdown">
+                    <!--
           <router-link to="/">
             <el-dropdown-item>
               首页
             </el-dropdown-item>
           </router-link>
           -->
-          <el-dropdown-item>
-            <span @click="userInfo" style="display:block;">用户信息</span>
-          </el-dropdown-item>
+                    <el-dropdown-item>
+                        <span @click="userInfo" style="display:block;">用户信息</span>
+                    </el-dropdown-item>
 
-          <el-dropdown-item divided>
-            <span @click="changeProj" style="display:block;">切换项目</span>
-          </el-dropdown-item>
+                    <el-dropdown-item divided>
+                        <span @click="changeProj" style="display:block;">切换项目</span>
+                    </el-dropdown-item>
 
-          <el-dropdown-item divided>
-            <span @click="changePassword" style="display:block;">修改密码</span>
-          </el-dropdown-item>
+                    <el-dropdown-item divided>
+                        <span @click="changePassword" style="display:block;">修改密码</span>
+                    </el-dropdown-item>
 
-          <el-dropdown-item divided>
-            <span @click="logout" style="display:block;">退出登录</span>
-          </el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
-    </div>
-    
-  </el-menu>
+                    <el-dropdown-item divided>
+                        <span @click="logout" style="display:block;">退出登录</span>
+                    </el-dropdown-item>
+                </el-dropdown-menu>
+            </el-dropdown>
+        </div>
+
+    </el-menu>
 </template>
 
 <script>
@@ -85,13 +90,13 @@ export default {
             alert("success");
         },
         userInfo() {
-           this.$store.state.user.dialogUserInfoVisible=true;
+            this.$store.state.user.dialogUserInfoVisible = true;
         },
         changeProj() {
-           this.$store.state.user.dialogProjectInfoVisible=true;
+            this.$store.state.user.dialogProjectInfoVisible = true;
         },
         changePassword() {
-            this.$store.state.user.dialogPasswordVisible=true;
+            this.$store.state.user.dialogPasswordVisible = true;
         },
         getcontent() {
             alert("content");
@@ -128,7 +133,7 @@ export default {
         border: none;
     }
 }
-
+ 
 .theme-picker .el-color-picker__trigger {
     border: none;
 }
@@ -200,6 +205,15 @@ export default {
         // .theme-switch {
         //   vertical-align: 15px;
         // }
+        .user-avatar {
+            margin-top: 7px;
+            width: 25px;
+            height: 25px;
+            border-radius: 10px;
+            vertical-align: middle;
+        }
+       
+
         .avatar-container {
             height: 40px;
             //margin-right: 30px;
@@ -207,13 +221,7 @@ export default {
                 cursor: pointer;
                 // margin-top: 5px;
                 position: relative;
-                .user-avatar {
-                    margin-top: 7px;
-                    width: 25px;
-                    height: 25px;
-                    border-radius: 10px;
-                    vertical-align: middle;
-                }
+
                 .el-icon-caret-bottom {
                     position: absolute;
                     right: -20px;
@@ -231,5 +239,6 @@ export default {
         margin-top: 8px;
         padding-right: 20px;
     }
+    
 }
 </style>
