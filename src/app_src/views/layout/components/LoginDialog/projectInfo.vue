@@ -34,7 +34,7 @@
       :page-sizes="[5,10,20,40]"
       :page-size="listQuery.limit"
       layout="total, sizes, prev, pager, next, jumper"
-      :total="listQuery.total">
+      :total="total">
     </el-pagination>
                 </div>
             </el-card>
@@ -86,7 +86,7 @@ export default {
             total: 5,
             listQuery: {
                 page: 1,
-                limit: 10,
+                limit: 5,
                 ProjectNama: ""
             },
             tableKey: 0,
