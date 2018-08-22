@@ -31,6 +31,7 @@
 
 
 <script>
+import { loginByUsername } from "@/app_src/api/login";
 import waves from "@/app_src/directive/waves"; // 水波纹指令
 export default {
     data() {
@@ -74,7 +75,7 @@ export default {
             }
         };
     },
-    
+
     directives: {
         waves
     },
@@ -87,46 +88,25 @@ export default {
             }
         },
         closeDiolog() {
-            this.resetForm('loginForm')
+            this.resetForm("loginForm");
             this.$store.state.user.dialogLoginVisible = false;
         },
-         resetForm(formName) {
-        this.$refs[formName].resetFields();
-      },
+        resetForm(formName) {
+            this.$refs[formName].resetFields();
+        },
+        //登录功能
         handleLogin() {
             this.loading = true;
             this.$store.state.user.token = "";
             this.$refs.loginForm.validate(valid => {
                 if (valid) {
-                    console.log(1);
-                    //   this.loading = true;
-                    //   this.loginForm.userDomain = this.code;
-                    //   this.$store
-                    //     .dispatch("LoginByUsername", this.loginForm)
-                    //     .then(response => {
-                    //       this.$store.dispatch("setRoleLevel", response.data.roleLevel);
-                    //       if (response.data.roleLevel === "admin") {
-                    //         this.$store.dispatch("setUserId",null);
-                    //         this.updateShowDialog("");
-                    //       } else {
-                    //         var userList = this.$store.state.user.userList;
-                    //         if (userList.length === 1) {
-                    //           // this.$store.dispatch('setDepartCode', orglist[0].orgId)
-                    //           // this.$store.dispatch('setDepartName', orglist[0].orgName)
-                    //           this.$store.dispatch("setUserId", userList[0].USER_ID);
-                    //           this.updateShowDialog("");
-                    //         } else {
-                    //           this.showDialog = true;
-                    //         }
-                    //         this.loading = false;
-                    //       }
-                    //     })
-                    //     .catch(err => {
-                    //       this.loading = false;
-                    //       Message.error(err);
-                    //     });
-                       this.$store.state.user.userId = "sdfdsf";
-            this.$store.state.user.dialogLoginVisible = false;
+                    loginByUsername(this.loginForm).then(response=>{
+                        if(response.data.code===2000&&response.data.item){
+                            
+                        }
+                    })
+                    this.$store.state.user.userId = "sdfdsf";
+                    this.$store.state.user.dialogLoginVisible = false;
                     this.loading = false;
                 } else {
                     this.loading = false;
@@ -134,7 +114,7 @@ export default {
                 }
             });
 
-           // this.$store.state.user.userId = "sdfdsf";
+            // this.$store.state.user.userId = "sdfdsf";
             //this.$store.state.user.dialogLoginVisible = false;
         }
     },
@@ -204,7 +184,7 @@ img {
     height: 50px;
     width: 50px;
 }
-.show-pwd{
+.show-pwd {
     cursor: pointer;
 }
 </style>

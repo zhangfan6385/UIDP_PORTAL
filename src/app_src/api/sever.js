@@ -7,3 +7,11 @@ export function fetchSeverList(query) {
         params: query
     })
 }
+
+export function fetchSever(query){
+    return request({
+        url:'',
+        method:'get',
+        params:query
+    })
+}

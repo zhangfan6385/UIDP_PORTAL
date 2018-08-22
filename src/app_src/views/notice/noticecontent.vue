@@ -30,11 +30,69 @@
 </template>
 
 <script>
+import { fetchNoticeList } from "@/app_src/api/notice";
 export default {
     data() {
-        return {};
+        return {
+            noticeList: [],
+            listQuery:{
+                limit:5,
+                page:1
+            },
+            // list: [
+            //     {
+            //         NOTICE_TITLE: 1,
+            //         NOTICE_DATETIME: 2
+            //     },
+            //     {
+            //         NOTICE_TITLE: 1,
+            //         NOTICE_DATETIME: 2
+            //     }
+            // ]
+        };
     },
-    methods: {}
+    methods: {
+        getNoticeList() {
+            fetchNoticeList(this.listQuery).then(response => {
+                if (response.data.code === 2000) {
+                    for (let i = 0; i < response.data.item.length; i++) {
+                        this.noticeList.push({
+                            title: response.data.item[i].NOTICE_TITLE,
+                            date: response.data.item[i].NOTICE_DATETIME,
+                            id: response.data.item[i].NOTICE_ID,
+                            content:  response.data.item[i].NOTICE_CONTENT,
+                            writter: response.data.item[i].NOTICE_ORGNAME,
+                        });
+                    }
+                } else {
+                    this.$notify({
+                        position: "bottom-right",
+                        title: "失败",
+                        message: response.data.message,
+                        type: "error",
+                        duration: 2000
+                    });
+                }
+            });
+        },
+        // test() {
+        //     for (let i = 0; i < this.list.length; i++) {
+        //         this.noticeList.push({
+        //             title: this.list[i].NOTICE_TITLE,
+        //             date: this.list[i].NOTICE_DATETIME,
+        //             id: "",
+        //             contnet: "",
+        //             writter: ""
+        //         });
+        //     }
+        //     //console.log(this.list);
+        //     console.log(this.noticeList);
+        // }
+    },
+    mounted() {
+        //this.test();
+        //this.getNoticeList();
+    }
 };
 </script>
 

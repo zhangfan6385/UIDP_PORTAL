@@ -43,6 +43,7 @@
 
 
 <script>
+import { fetchNoticeList } from "@/app_src/api/notice";
 export default {
     data() {
         return {
@@ -91,7 +92,33 @@ export default {
             let id = data.id.toString();
             console.log(typeof id);
             this.$router.push({ path: "noticecontent/" + id });
+        },
+        getNoticeList() {
+            fetchNoticeList(this.listQuery).then(response => {
+                if (response.data.code === 2000) {
+                    for (let i = 0; i < response.data.item.length; i++) {
+                        this.noticeList.push({
+                            title: response.data.item[i].NOTICE_TITLE,
+                            date: response.data.item[i].NOTICE_DATETIME,
+                            id: response.data.item[i].NOTICE_ID,
+                            content: response.data.item[i].NOTICE_CONTENT,
+                            writter: response.data.item[i].NOTICE_ORGNAME
+                        });
+                    }
+                } else {
+                    this.$notify({
+                        position: "bottom-right",
+                        title: "失败",
+                        message: response.data.message,
+                        type: "error",
+                        duration: 2000
+                    });
+                }
+            });
         }
+    },
+    mounted() {
+        //this.getNoticeList();
     }
 };
 </script>
@@ -111,7 +138,7 @@ export default {
             color: gray;
         }
     }
-    .page{
+    .page {
         text-align: center;
     }
 }

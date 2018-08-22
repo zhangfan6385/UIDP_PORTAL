@@ -1,9 +1,9 @@
 import request from '@/app_src/utils/request'
 
-export function fetchCommunityList(query){
+export function fetchApply(data){
     return request({
         url:'',
-        method:'get',
-        params:query,
+        method:'post',
+        data,
     })
 }

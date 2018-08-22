@@ -190,6 +190,11 @@
 </template>
 
 <script>
+import { fetchNoticeList } from "@/app_src/api/notice";
+import { fetchCommunityList } from "@/app_src/api/community";
+import { fetchSeverList } from "@/app_src/api/sever";
+import { fetchSeverComponentList } from "@/app_src/api/severcomponent";
+
 export default {
     data() {
         return {
@@ -392,6 +397,16 @@ export default {
                         data: []
                     }
                 ]
+            },
+            //查询列表参数
+            listQuery: {
+                limit: 5,
+                page: 1
+            },
+            listRankQuery: {
+                limt: 5,
+                page: 1,
+                sort: "rank"
             }
         };
     },
@@ -489,12 +504,107 @@ export default {
         },
         goToContent(row) {
             this.$router.push({ path: "noticecontent/" + row.id });
+        },
+        //获取通知列表
+        getNoticeList() {
+            fetchNoticeList(this.listQuery).then(response => {
+                if (response.data.code === 2000) {
+                    for (let i = 0; i < response.data.item.length; i++) {
+                        this.noticeList.push({
+                            title: response.data.item[i].NOTICE_TITLE,
+                            date: response.data.item[i].NOTICE_DATETIME,
+                            id: response.data.item[i].NOTICE_ID,
+                            content: response.data.item[i].NOTICE_CONTENT,
+                            writter: response.data.item[i].NOTICE_ORGNAME
+                        });
+                    }
+                } else {
+                    this.$notify({
+                        position: "bottom-right",
+                        title: "失败",
+                        message: response.data.message,
+                        type: "error",
+                        duration: 2000
+                    });
+                }
+            });
+        },
+        //获取论坛列表 待修改表
+        getCommuntityList() {
+            fetchCommunityList(this.listQuery).then(response => {
+                if (response.data.code === 2000) {
+                    for (let i = 0; i < response.data.item.length; i++) {
+                        this.newslist.push({
+                            title: response.data.item[i].NOTICE_TITLE,
+                            date: response.data.item[i].NOTICE_DATETIME,
+                            id: response.data.item[i].NOTICE_ID,
+                            content: response.data.item[i].NOTICE_CONTENT,
+                            writter: response.data.item[i].NOTICE_ORGNAME
+                        });
+                    }
+                } else {
+                    this.$notify({
+                        position: "bottom-right",
+                        title: "失败",
+                        message: response.data.message,
+                        type: "error",
+                        duration: 2000
+                    });
+                }
+            });
+        },
+        //获取服务排名数据
+        getSeverRank() {
+            fetchSeverList(this.listRankQuery).then(response => {
+                if (response.data.code === 2000) {
+                    for (let i = 0; i < response.data.item.length; i++) {
+                        this.severRankList.push({
+                            name: response.data.item[i].SERVICE_NAME,
+                            score: response.data.item[i].SERVICE_TIMES
+                        });
+                    }
+                } else {
+                    this.$notify({
+                        position: "bottom-right",
+                        title: "失败",
+                        message: response.data.message,
+                        type: "error",
+                        duration: 2000
+                    });
+                }
+            });
+        },
+        //获取组件排行榜
+        getSeverComponentRank() {
+            fetchSeverComponentList(this.listRankQuery).then(response => {
+                if (response.data.code === 2000) {
+                    for (let i = 0; i < response.data.item.length; i++) {
+                        this.SeverComponentRankList.push({
+                            name: response.data.item[i].COMPONENT_NAME,
+                            score: response.data.item[i].DOWNLOAD_TIMES
+                        });
+                    }
+                } else {
+                    this.$notify({
+                        position: "bottom-right",
+                        title: "失败",
+                        message: response.data.message,
+                        type: "error",
+                        duration: 2000
+                    });
+                }
+            });
         }
     },
     mounted() {
-        this.getdata();
-        this.getdata1();
-        this.drawLine();
+        this.getdata(); //组件echarts赋值
+        this.getdata1(); //服务echarts赋值
+        this.drawLine(); //绘制echarts图
+    },
+    created() {
+        // this.getNoticeList(); //拉取通知列表
+        // this.getSeverRank(); //获取服务排名
+        // this.getSeverComponentRank(); //获取组件现在排名
     }
 };
 </script>
