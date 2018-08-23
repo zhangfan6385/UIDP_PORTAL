@@ -99,6 +99,7 @@
 </template>
 <script>
 import { fetchSeverComponentList } from "@/app_src/api/severcomponent";
+import { fetchApply } from "@/app_src/api/apply";
 export default {
     data() {
         return {
