@@ -1,114 +1,115 @@
 <template>
-  <div id="severcomponent" class="component">
-    <el-row :gutter="20" type="flex">
-      <el-col :span="2"></el-col>
-      <el-col :span="6">
-        <div class="grid-content bg-purple">
-          <el-card class="box-card" shadow="never">
-            <div style="text-align: center">
-              <img style="width:200px;height:45px;" src="../../../app_src/imgs/title.png">
-              <br>
-              <el-table :data="tableData" size="mini">
-                <el-table-column prop="id" label="排名" width="50" align="center">
-                  <template slot-scope="scope">
-                    <span :class="addclass(scope.row.id+1)">{{scope.row.id}}</span>
-                  </template>
-                </el-table-column>
+    <div id="severcomponent" class="component">
+        <el-row :gutter="20" type="flex">
+            <el-col :span="2"></el-col>
+            <el-col :span="6">
+                <div class="grid-content bg-purple">
+                    <el-card class="box-card" shadow="never">
+                        <div style="text-align: center">
+                            <img style="width:200px;height:45px;" src="../../../app_src/imgs/title.png">
+                            <br>
+                            <el-table :data="tableData" size="mini">
+                                <el-table-column prop="id" label="排名" width="50" align="center">
+                                    <template slot-scope="scope">
+                                        <span :class="addclass(scope.row.id+1)">{{scope.row.id}}</span>
+                                    </template>
+                                </el-table-column>
 
-                <el-table-column prop="name" label="服务名称" :show-overflow-tooltip="true" align="center"></el-table-column>
-                <el-table-column prop="download" label="使用次数" width="80" align="center"></el-table-column>
-              </el-table>
-            </div>
-          </el-card>
-        </div>
-      </el-col>
-      <el-col :span="14">
-        <div class="grid-content bg-purple">
-          <el-card class="box-card" shadow="never">
-            <div class="filter-container">
-              <el-input style="width: 420px;" class="filter-item">
-              </el-input>
-              <el-button class="filter-item" type="primary" icon="el-icon-search">搜索</el-button>
-            </div>
-            <el-card v-for="(component,key) in tableData" :key="key" shadow="never" class="content">
-              <ul>
-                <li>
-                  <div class="left"><img style="width:40px;height:40px;" src="../../../app_src/imgs/feedback.png" alt=""></div>
-                  <div class="right">
-                    <div class="right_top" @click="getcontent(component.id)">
-                      {{component.name}}
-                    </div>
-                    <div class="right_bottom_left">
-                      <span>发布者：</span>
-                      <span>微软公司</span> &nbsp;|&nbsp;
-                      <span>发布时间：</span>
-                      <span>71</span>
-                      <span>调用次数：</span>
-                      <span>71089</span>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </el-card>
-            <div class="pagination-container">
-              点击加载更多
-            </div>
-          </el-card>
-          <el-dialog :title="dialogTitle" :visible.sync="dialogDetailVisible">
-            <el-form :model="form">
-              <!-- <el-form-item label="组件名称">
+                                <el-table-column prop="name" label="服务名称" :show-overflow-tooltip="true" align="center"></el-table-column>
+                                <el-table-column prop="download" label="使用次数" width="80" align="center"></el-table-column>
+                            </el-table>
+                        </div>
+                    </el-card>
+                </div>
+            </el-col>
+            <el-col :span="14">
+                <div class="grid-content bg-purple">
+                    <el-card class="box-card" shadow="never">
+                        <div class="filter-container">
+                            <el-input style="width: 420px;" class="filter-item">
+                            </el-input>
+                            <el-button class="filter-item" type="primary" icon="el-icon-search">搜索</el-button>
+                        </div>
+                        <el-card v-for="(component,key) in tableData" :key="key" shadow="never" class="content">
+                            <ul>
+                                <li>
+                                    <div class="left"><img style="width:40px;height:40px;" src="../../../app_src/imgs/feedback.png" alt=""></div>
+                                    <div class="right">
+                                        <div class="right_top" @click="getcontent(component.id)">
+                                            {{component.name}}
+                                        </div>
+                                        <div class="right_bottom_left">
+                                            <span>发布者：</span>
+                                            <span>微软公司</span> &nbsp;|&nbsp;
+                                            <span>发布时间：</span>
+                                            <span>71</span>
+                                            <span>调用次数：</span>
+                                            <span>71089</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </el-card>
+                        <div class="pagination-container">
+                            点击加载更多
+                        </div>
+                    </el-card>
+                    <el-dialog :title="dialogTitle" :visible.sync="dialogDetailVisible">
+                        <el-form :model="form">
+                            <!-- <el-form-item label="组件名称">
               <div>{{componentName}}</div>
             </el-form-item> -->
-              <el-form-item label="组件说明">
-                <div v-html="componentContent"></div>
-              </el-form-item>
-            </el-form>
-            <div slot="footer" class="dialog-footer">
-              <el-button @click="dialogDetailVisible = false">取 消</el-button>
-              <el-button type="primary" @click="dialogDetailVisible = false">确 定</el-button>
-            </div>
-          </el-dialog>
-          <el-dialog :title="dialogTitle" :visible.sync="dialogFormVisible">
-            <el-form :model="form">
-              <el-form-item label="公司名称" :label-width="formLabelWidth">
-                <el-input v-model="form.companyname" auto-complete="off"></el-input>
-              </el-form-item>
-              <el-form-item label="承担项目" :label-width="formLabelWidth">
-                <el-input v-model="form.projectname" auto-complete="off"></el-input>
-              </el-form-item>
-              <el-form-item label="用途" :label-width="formLabelWidth">
-                <el-input v-model="form.purpose" auto-complete="off"></el-input>
-              </el-form-item>
-              <el-form-item label="用途类型" :label-width="formLabelWidth">
-                <el-select v-model="form.type" placeholder="请选用途类型">
-                  <el-option label="开发" value="kaifa"></el-option>
-                  <el-option label="生产" value="shengchan"></el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="联系人" :label-width="formLabelWidth">
-                <el-input v-model="form.contact" auto-complete="off"></el-input>
-              </el-form-item>
-              <el-form-item label="联系电话" :label-width="formLabelWidth">
-                <el-input v-model="form.phone" auto-complete="off"></el-input>
-              </el-form-item>
-              <el-form-item label="邮箱" :label-width="formLabelWidth">
-                <el-input v-model="form.email" auto-complete="off"></el-input>
-              </el-form-item>
-            </el-form>
-            <div slot="footer" class="dialog-footer">
-              <el-button @click="dialogFormVisible = false">取 消</el-button>
-              <el-button type="primary" @click="dialogFormVisible = false">提 交</el-button>
-            </div>
-          </el-dialog>
-        </div>
-      </el-col>
+                            <el-form-item label="组件说明">
+                                <div v-html="componentContent"></div>
+                            </el-form-item>
+                        </el-form>
+                        <div slot="footer" class="dialog-footer">
+                            <el-button @click="dialogDetailVisible = false">取 消</el-button>
+                            <el-button type="primary" @click="dialogDetailVisible = false">确 定</el-button>
+                        </div>
+                    </el-dialog>
+                    <el-dialog :title="dialogTitle" :visible.sync="dialogFormVisible">
+                        <el-form :model="form">
+                            <el-form-item label="公司名称" :label-width="formLabelWidth">
+                                <el-input v-model="form.companyname" auto-complete="off"></el-input>
+                            </el-form-item>
+                            <el-form-item label="承担项目" :label-width="formLabelWidth">
+                                <el-input v-model="form.projectname" auto-complete="off"></el-input>
+                            </el-form-item>
+                            <el-form-item label="用途" :label-width="formLabelWidth">
+                                <el-input v-model="form.purpose" auto-complete="off"></el-input>
+                            </el-form-item>
+                            <el-form-item label="用途类型" :label-width="formLabelWidth">
+                                <el-select v-model="form.type" placeholder="请选用途类型">
+                                    <el-option label="开发" value="kaifa"></el-option>
+                                    <el-option label="生产" value="shengchan"></el-option>
+                                </el-select>
+                            </el-form-item>
+                            <el-form-item label="联系人" :label-width="formLabelWidth">
+                                <el-input v-model="form.contact" auto-complete="off"></el-input>
+                            </el-form-item>
+                            <el-form-item label="联系电话" :label-width="formLabelWidth">
+                                <el-input v-model="form.phone" auto-complete="off"></el-input>
+                            </el-form-item>
+                            <el-form-item label="邮箱" :label-width="formLabelWidth">
+                                <el-input v-model="form.email" auto-complete="off"></el-input>
+                            </el-form-item>
+                        </el-form>
+                        <div slot="footer" class="dialog-footer">
+                            <el-button @click="dialogFormVisible = false">取 消</el-button>
+                            <el-button type="primary" @click="dialogFormVisible = false">提 交</el-button>
+                        </div>
+                    </el-dialog>
+                </div>
+            </el-col>
 
-    </el-row>
-  </div>
+        </el-row>
+    </div>
 </template>
 
 
 <script>
+import { fetchSeverComponentList } from "@/app_src/api/severcomponent";
 export default {
     data() {
         return {
@@ -211,6 +212,11 @@ export default {
                 contact: "",
                 phone: "",
                 email: ""
+            },
+            queryList: {
+                limit: 5,
+                page: 1,
+                id: null
             }
         };
     },
@@ -268,8 +274,35 @@ export default {
             console.log(data);
             let id = data.toString();
             this.$router.push({ path: "/componentdetail/" + id });
+        },
+        getSeverComponentList() {
+            fetchSeverComponentList(this.queryList).then(response => {
+                if (response.data.code === 2000) {
+                    for (let i = 0; i < response.data.item.length; i++) {
+                        this.tableData.push({
+                            name: response.data.item[i].COMPONENT_NAME,
+                            id: response.data.item[i].COMPONENT_ID,
+                            download: response.data.item[i].DOWNLOAD_TIMES,
+                            date: response.data.item[i].CREATE_DATE,
+                            //status: response.data.item[i].,
+                            content: response.data.item[i].COMPONENT_CONTENT
+                        });
+                    }
+                } else {
+                    this.$notify({
+                        position: "bottom-right",
+                        title: "失败",
+                        message: response.data.message,
+                        type: "error",
+                        duration: 2000
+                    });
+                }
+            });
         }
-    }
+    },
+    mounted() {
+        //this.getSeverComponentList();
+    },
 };
 </script>
 

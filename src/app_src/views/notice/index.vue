@@ -84,7 +84,12 @@ export default {
                     time: "2018-8-20",
                     id: 5
                 }
-            ]
+            ],
+            listQuery:{
+                limit:5,
+                page:1,
+                id:null,
+            }
         };
     },
     methods: {

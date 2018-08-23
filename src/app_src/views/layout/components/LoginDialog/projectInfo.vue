@@ -3,7 +3,7 @@
         <el-dialog title="切换项目" class="projectdialog" :visible.sync="isvisibleProject" width="45%" @close='closeDialog'>
             <el-card class="box-card">
                 <el-table :key='tableKey' :data="list" size="mini" :header-cell-class-name="tableRowClassName" v-loading="listLoading" element-loading-text="给我一点时间" border fit highlight-current-row style="width: 100%;height:270px;">
-                    <el-table-column  align="center" label="项目名称">
+                    <el-table-column align="center" label="项目名称">
                         <template slot-scope="scope">
                             <span>{{scope.row.PROJECT_NAME}}</span>
                         </template>
@@ -20,22 +20,15 @@
                             <span>{{scope.row.CONTACT_PARTYA_NAME}}</span>
                         </template>
                     </el-table-column>
-                    <el-table-column align="center" label="操作" width="100" >
+                    <el-table-column align="center" label="操作" width="100">
                         <template slot-scope="scope">
-                            <el-button type="primary" size="mini" @click="handleProject(scope.row)">切换</el-button>
+                            <el-button type="primary" size="text" @click="handleProject(scope.row)">切换</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
                 <div class="pagination-container">
-                   <el-pagination 
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      :current-page="listQuery.page"
-      :page-sizes="[5,10,20,40]"
-      :page-size="listQuery.limit"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="total">
-    </el-pagination>
+                    <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="listQuery.page" :page-sizes="[5,10,20,40]" :page-size="listQuery.limit" layout="total, sizes, prev, pager, next, jumper" :total="total">
+                    </el-pagination>
                 </div>
             </el-card>
 
@@ -55,22 +48,26 @@ export default {
                     PROJECT_NAME: "大港油田项目",
                     PROJECT_CODE: "010100023",
                     CONTACT_PARTYA_NAME: "张三"
-                },{
+                },
+                {
                     PROJECT_ID: "ASDF",
                     PROJECT_NAME: "大港油田项目",
                     PROJECT_CODE: "010100023",
                     CONTACT_PARTYA_NAME: "张三"
-                },{
+                },
+                {
                     PROJECT_ID: "ASDF",
                     PROJECT_NAME: "大港油田项目",
                     PROJECT_CODE: "010100023",
                     CONTACT_PARTYA_NAME: "张三"
-                },{
+                },
+                {
                     PROJECT_ID: "ASDF",
                     PROJECT_NAME: "大港油田项目",
                     PROJECT_CODE: "010100023",
                     CONTACT_PARTYA_NAME: "张三"
-                },{
+                },
+                {
                     PROJECT_ID: "ASDF",
                     PROJECT_NAME: "大港油田项目",
                     PROJECT_CODE: "010100023",
@@ -124,6 +121,10 @@ export default {
         },
         handleProject(row) {
             this.temp = Object.assign({}, row); // copy obj
+            this.$store.state.user.currentProjID=this.temp.PROJECT_ID;
+            this.$store.state.user.currentProjName=this.temp.PROJECT_NAME;
+            //console.log(this.$store.state.user.currentProjID);
+            //console.log(this.$store.state.user.currentProjName);
         },
         handleSizeChange(val) {
             this.listQuery.limit = val;
@@ -145,9 +146,15 @@ export default {
         },
         closeDialog() {
             this.$store.state.user.dialogProjectInfoVisible = false;
+        },
+        getProjList(){
+            this.list=this.$store.state.prjList
+            console.log(this.list)
         }
     },
-    created() {}
+    created() {
+        this.getProjList();
+    }
 };
 </script>
 <style lang="scss" >

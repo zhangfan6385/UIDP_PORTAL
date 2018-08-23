@@ -36,6 +36,7 @@ export default {
         return {
             noticeList: [],
             listQuery:{
+                id:null,
                 limit:5,
                 page:1
             },
@@ -53,6 +54,7 @@ export default {
     },
     methods: {
         getNoticeList() {
+            this.listQuery.id=this.$route.params.id;
             fetchNoticeList(this.listQuery).then(response => {
                 if (response.data.code === 2000) {
                     for (let i = 0; i < response.data.item.length; i++) {
@@ -91,7 +93,7 @@ export default {
     },
     mounted() {
         //this.test();
-        //this.getNoticeList();
+        this.getNoticeList();
     }
 };
 </script>

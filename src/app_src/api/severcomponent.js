@@ -8,11 +8,3 @@ export function fetchSeverComponentList(query) {
     })
 }
 
-
-export function fetchSever(query) {
-    return request({
-        url: '',
-        method: 'get',
-        params: query
-    })
-}

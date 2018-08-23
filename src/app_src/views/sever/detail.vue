@@ -83,7 +83,7 @@
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="dialogFormVisible = false">取 消</el-button>
+          <el-button @click="cencel">取 消</el-button>
           <el-button type="primary" @click="submit">提 交</el-button>
         </div>
       </el-dialog>
@@ -92,15 +92,15 @@
 
 </template>
 <script>
-import { fetchSeverDetail, fetchSeverList } from "@/app_src/api/sever";
+import { fetchSeverList } from "@/app_src/api/sever";
 import { fetchApply } from "@/app_src/api/apply";
 export default {
     data() {
         return {
             form: {
                 userID: "",
-                companyname: "XX公司",
-                projectname: "xx项目",
+                companyname: "",
+                projectname: "",
                 purpose: "",
                 type: "",
                 contact: "",
@@ -127,6 +127,7 @@ export default {
     },
     methods: {
         handleApply() {
+            console.log(this.$store.state.user.userID)
             if (this.$store.state.user.userID != null) {
                 this.dialogFormVisible = true;
                 this.dialogTitle = "组件" + name + "申请记录";
@@ -144,7 +145,7 @@ export default {
         },
         getSever() {
             var id = this.$route.params.id;
-            this.queryList.id=id;
+            this.queryList.id = id;
             fetchSeverList(this.queryList).then(response => {
                 if (response.data.code === 2000) {
                     this.severInfo = response.data.item;
@@ -198,6 +199,19 @@ export default {
                     });
                 }
             });
+        },
+        cencel(){
+          this.resetForm();
+          this.dialogFormVisible=false;
+        },
+        resetForm(){
+          this.form.companyname='';
+          this.form.projectname='';
+          this.form.purpose='';
+          this.form.type='';
+          this.form.contact='';
+          this.form. phone='';
+          this.form. email='';
         }
     },
     mounted() {

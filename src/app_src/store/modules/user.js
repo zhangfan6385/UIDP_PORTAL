@@ -3,42 +3,50 @@ import { getToken, setToken, removeToken } from '@/app_src/utils/auth'
 
 const user = {
   state: {
-    user: '',
-    userID:null,
+    //userInfo
+    userID: null,
     status: '',
     code: '',
     token: getToken(),
-    name: '',
-    avatar: '',
-    introduction: '',
-    roles: [],
-    orgList: null, // 单位集合
-    userList: null, // 用户集合
-    loginUserCode: '', // 登陆账号
-    setting: {
-      articlePlatform: []
-    },
-    sysCode: '1',
-    sysName: '大港软件工厂',
-    departCode: '',
-    departName: '',
-    userId: '',
-    userSex: '',
-    roleLevel: '',
+    userName: '',
+    loginUserCode: '', // 登陆账号,
+    //projInfo
+    currentProjID: '',
+    currentProjName: '',
+    projList: [],
+    //global params
     dashboardindex: '',
-    dialogLoginVisible:false, //判断登录框弹出zp
-    dialogPasswordVisible:false, //判断修改密码框弹出zp
-    dialogUserInfoVisible:false, //用户信息弹出zp
-    dialogProjectInfoVisible:false, //切换项目框弹出zp 
-    applyDialogVisible:false //申请界面弹出框 
-   },
+    dialogLoginVisible: false, //判断登录框弹出zp
+    dialogPasswordVisible: false, //判断修改密码框弹出zp
+    dialogUserInfoVisible: false, //用户信息弹出zp
+    dialogProjectInfoVisible: false, //切换项目框弹出zp 
+    applyDialogVisible: false, //申请界面弹出框 
+    // avatar: '',
+    // userSex: '',
+    // roleLevel: ''
+    // introduction: '',
+    // roles: [],
+    // orgList: null, // 单位集合
+    // userList: null, // 用户集合
+     
+    // setting: {
+    //   articlePlatform: []
+    // },
+    // sysCode: '1',
+    // sysName: '大港软件工厂',
+    // departCode: '',
+    // departName: '',
+  },
 
   mutations: {
     SET_DIALOGLOGINVISIBLE: (state, code) => {
       state.dialogLoginVisible = code
     },
-    SET_CODE: (state, code) => {
-      state.code = code
+    SET_USER_ID: (state, userID) => {
+      state.userID = userID
+    },
+    SET_USER_NAME: (state, userName) => {
+      state.name = userName
     },
     SET_CODE: (state, code) => {
       state.code = code
@@ -46,93 +54,115 @@ const user = {
     SET_TOKEN: (state, token) => {
       state.token = token
     },
-    SET_INTRODUCTION: (state, introduction) => {
-      state.introduction = introduction
+    SET_DASHBOARD_INDEX: (state, dashboardindex) => {
+      state.dashboardindex = dashboardindex
     },
-    SET_SETTING: (state, setting) => {
-      state.setting = setting
+    SET_PROJLIST: (state, projList) => {
+      state.projList = projList
     },
-    SET_STATUS: (state, status) => {
-      state.status = status
+    SET_CURRENTPROJID: (state, currentProjID) => {
+      state.currentProjID = currentProjID
     },
-    SET_NAME: (state, name) => {
-      state.name = name
-    },
-    SET_AVATAR: (state, avatar) => {
-      state.avatar = avatar
-    },
-    SET_ROLES: (state, roles) => {
-      state.roles = roles
-    },
-    SET_ORG_LIST: (state, orgList) => {
-      state.orgList = orgList
-    },
-    SET_USER_LIST: (state, userList) => {
-      state.userList = userList
+    SET_CURRENTPROJNAME: (state, currentProjName) => {
+      state.currentProjName = currentProjName
     },
     SET_LOGIN_USER_CODE: (state, loginUserCode) => {
       state.loginUserCode = loginUserCode
     },
-    SET_SYS_CODE: (state, sysCode) => {
-      state.sysCode = sysCode
-    },
-    SET_SYS_NAME: (state, sysName) => {
-      state.sysName = sysName
-    },
-    SET_DEPART_CODE: (state, departCode) => {
-      state.departCode = departCode
-    },
-    SET_USER_ID: (state, userId) => {
-      state.userId = userId
-    },
-    SET_DEPART_NAME: (state, departName) => {
-      state.departName = departName
-    },
-    SET_USER_SEX: (state, userSex) => {
-      state.userSex = userSex
-    },
-    SET_ROLE_LEVEL: (state, roleLevel) => {
-      state.roleLevel = roleLevel
-    },
-    SET_DASHBOARD_INDEX: (state, dashboardindex) => {
-      state.dashboardindex = dashboardindex
-    }
+    // SET_INTRODUCTION: (state, introduction) => {
+    //   state.introduction = introduction
+    // },
+    // SET_SETTING: (state, setting) => {
+    //   state.setting = setting
+    // },
+    // SET_STATUS: (state, status) => {
+    //   state.status = status
+    // },
+    // SET_NAME: (state, name) => {
+    //   state.name = name
+    // },
+    // SET_AVATAR: (state, avatar) => {
+    //   state.avatar = avatar
+    // },
+    // SET_ROLES: (state, roles) => {
+    //   state.roles = roles
+    // },
+    // SET_ORG_LIST: (state, orgList) => {
+    //   state.orgList = orgList
+    // },
+    // SET_USER_LIST: (state, userList) => {
+    //   state.userList = userList
+    // },
+    // SET_SYS_CODE: (state, sysCode) => {
+    //   state.sysCode = sysCode
+    // },
+    // SET_SYS_NAME: (state, sysName) => {
+    //   state.sysName = sysName
+    // },
+    // SET_DEPART_CODE: (state, departCode) => {
+    //   state.departCode = departCode
+    // },
+    // SET_USER_ID: (state, userId) => {
+    //   state.userId = userId
+    // },
+    // SET_DEPART_NAME: (state, departName) => {
+    //   state.departName = departName
+    // },
+    // SET_USER_SEX: (state, userSex) => {
+    //   state.userSex = userSex
+    // },
+    // SET_ROLE_LEVEL: (state, roleLevel) => {
+    //   state.roleLevel = roleLevel
+    // },
+
   },
 
   actions: {
-    setSysCode({ commit }, sysCode) {
-      commit('SET_SYS_CODE', sysCode)
+    // setSysCode({ commit }, sysCode) {
+    //   commit('SET_SYS_CODE', sysCode)
+    // },
+    // setSysName({ commit }, sysName) {
+    //   commit('SET_SYS_NAME', sysName)
+    // },
+    // setDepartCode({ commit }, departCode) {
+    //   commit('SET_DEPART_CODE', departCode)
+    // },
+    // setDepartName({ commit }, departName) {
+    //   commit('SET_DEPART_NAME', departName)
+    // },
+    // setRoleLevel({ commit }, roleLevel) {
+    //   commit('SET_ROLE_LEVEL', roleLevel)
+    // },
+    setUserId({ commit }, userID) {
+      commit('SET_USER_ID', userID)
     },
-    setSysName({ commit }, sysName) {
-      commit('SET_SYS_NAME', sysName)
-    }, setDepartCode({ commit }, departCode) {
-      commit('SET_DEPART_CODE', departCode)
-    }, setDepartName({ commit }, departName) {
-      commit('SET_DEPART_NAME', departName)
-    }, setRoleLevel({ commit }, roleLevel) {
-      commit('SET_ROLE_LEVEL', roleLevel)
-    }, setUserId({ commit }, userId) {
-      commit('SET_USER_ID', userId)
-    }, setDashboardIndex({ commit }, dashboardindex) {
+    setUserName({ commit }, userName) {
+      commit('SET_USER_NAME', userName)
+    },
+    setDashboardIndex({ commit }, dashboardindex) {
       commit('SET_DASHBOARD_INDEX', dashboardindex)
+    },
+    setProjList({ commit }, projList) {
+      commit('SET_PROJLIST', projList)
     },
     setdialogLoginVisible({ commit }, dialogLoginVisible) {
       commit('SET_DIALOGLOGINVISIBLE', dialogLoginVisible)
     },
 
-    
+
 
     // 用户名登录
     LoginByUsername({ commit }, userInfo) {
       const username = userInfo.username.trim()
-      return new Promise((resolve, reject) => { //, userDomain:userDomain
+      return new Promise((resolve, reject) => { 
         commit('SET_LOGIN_USER_CODE', username)// 保存用户登陆账号
-        loginByUsername(username, userInfo.password, userInfo.userDomain).then(response => {
+        loginByUsername(userInfo.username, userInfo.password).then(response => {
           if (response.data.code === 2000) {
             const data = response.data
-            // commit('SET_ORG_LIST', data.orgList)
-            commit('SET_USER_LIST', data.userList)
+            commit('SET_USER_NAME', data.userName)
+            commit('SET_CODE', data.userCode)
             commit('SET_TOKEN', data.token)
+            commit('SET_PROJLIST',data.projList)
             setToken(response.data.token)
             resolve(response)
           } else {
@@ -158,16 +188,9 @@ const user = {
           //   reject('getInfo: roles must be a non-null array !')
           // }
 
-          commit('SET_NAME', data.name)
+          commit('SET_USER_NAME', data.userName)
           commit('SET_AVATAR', data.avatar)
           commit('SET_INTRODUCTION', data.introduction)
-
-          commit('SET_SYS_CODE', data.sysCode)// 设置当前系统编码
-          commit('SET_SYS_NAME', data.sysName)// 设置当前系统名称
-          commit('SET_DEPART_CODE', data.departCode)
-          commit('SET_DEPART_NAME', data.departName)
-          commit('SET_USER_ID', data.userId)
-          commit('SET_USER_SEX', data.userSex)
           commit('SET_CODE', data.userCode)
           commit('SET_TOKEN', data.token)
           resolve(response)

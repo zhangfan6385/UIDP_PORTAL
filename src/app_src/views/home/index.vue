@@ -401,7 +401,8 @@ export default {
             //查询列表参数
             listQuery: {
                 limit: 5,
-                page: 1
+                page: 1,
+                id:null,
             },
             listRankQuery: {
                 limt: 5,

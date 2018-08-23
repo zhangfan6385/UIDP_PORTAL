@@ -7,39 +7,31 @@
           <ul>
             <li>
               <span>版　　本：</span>
-              <span>简体中文版</span>
-            </li>
-            <li>
-              <span>软件授权：</span>
-              <span>免费软件</span>
-            </li>
-            <li>
-              <span>软件类型：</span>
-              <span>国外软件</span>
+              <span>{{obj.SOFTWARE_LANGUAGE}}</span>
             </li>
             <li>
               <span>软件语言：</span>
-              <span>简体中文</span>
+              <span>{{obj.SOFTWARE_LANGUAGE}}</span>
+            </li>
+            <li>
+              <span>上传人：</span>
+              <span>{{obj.CREATER}}</span>
             </li>
             <li>
               <span>更新时间：</span>
-              <span>2010/10/13 16:55:30</span>
+              <span>{{obj.CREATE_DATE}}</span>
             </li>
             <li>
               <span>应用平台：</span>
-              <span>WinXP</span>
-            </li>
-            <li>
-              <span>软件官网：</span>
-              <span>www.188soft.com</span>
+              <span>{{obj.SUIT_PLAT}}</span>
             </li>
             <li>
               <span>软件大小：</span>
-              <span>24.52M</span>
+              <span>{{obj.COMPONENT_SIZE}}</span>
             </li>
             <li>
-              <el-button size="mini" type="primary" @click="handleApply(obj.name)">申&nbsp;&nbsp;&nbsp;&nbsp;请</el-button>
-              </li>
+              <el-button size="mini" type="primary" @click="handleApply(obj.COMPONENT_NAME)">申&nbsp;&nbsp;&nbsp;&nbsp;请</el-button>
+            </li>
           </ul>
         </el-card>
         <el-card id="#anchor1" class="componentinfo">
@@ -56,7 +48,7 @@
         </el-card>
         <el-card class="componentinfo">
           组件简介
-          <div v-html="obj.content"></div>
+          <div v-html="obj.COMPONENT_CONTENT"></div>
         </el-card>
 
       </el-card>
@@ -97,8 +89,8 @@
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="dialogFormVisible = false">取 消</el-button>
-          <el-button type="primary" @click="dialogFormVisible = false">提 交</el-button>
+          <el-button @click="cencel">取 消</el-button>
+          <el-button type="primary" @click="submit">提 交</el-button>
         </div>
       </el-dialog>
     </el-col>
@@ -106,6 +98,7 @@
 
 </template>
 <script>
+import { fetchSeverComponentList } from "@/app_src/api/severcomponent";
 export default {
     data() {
         return {
@@ -132,8 +125,9 @@ export default {
                 }
             ],
             form: {
-                companyname: "XX公司",
-                projectname: "xx项目",
+                userID:'',
+                companyname: "",
+                projectname: "",
                 purpose: "",
                 type: "",
                 contact: "",
@@ -158,20 +152,85 @@ export default {
                 status: 0,
                 content:
                     'Microsoft .NET Framework是用于Windows的新托管代码编程模型。它将强大的功能与新技术结合起来，用于构建具有视觉上引人注目的用户体验的应用程序，实现跨技术边界的无缝通信，并且能支持各种业务流程。.NET Framework就提供了一个这样的安全模型。<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">微软更新了.Net Framework，更新后版本号升至4.7，它也包含在这次的创意者更新里，开发者可以使用Visual Studio 2017进行.Net Framework 4.7项目的开发。Windows10</p><p><img class="large" src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=4069284240,3156467089&fm=170&s=F902E412ECB4F99054474CDC0300D0E2&w=600&h=230&img.JPG"/></p><p style="margin-top: 26px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">最新版的.Net Framework 4.7主要带来了以下方面的提升：</p><p style="margin-top: 22px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">为Win10上的WPF程序带来了触控支持;</p><p style="margin-top: 22px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">增强了加密支持；</p><p style="margin-top: 22px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">提升性能和稳定性。</p><p><br/></p>'
+            },
+            queryList: {
+                limit: 5,
+                page: 1,
+                id: null
             }
         };
     },
     methods: {
-        handleApply(name) {
-            this.dialogFormVisible = true;
-            this.dialogTitle = "组件" + name + "申请记录";
+        handleApply() {
+            console.log(this.$store.state.user.userID);
+            if (this.$store.state.user.userID != null) {
+                this.dialogFormVisible = true;
+                this.dialogTitle = "组件" + name + "申请记录";
+            } else {
+                this.$store.state.user.dialogLoginVisible = true;
+            }
         },
         // goAnchor(selector) {
         //     document.getElementById(selector).scrollIntoView();
         // },
         handleDown(name) {
             alert("正在下载" + name + "文件");
+        },
+        getSeverComponent() {
+            this.queryList.id = this.$route.params.id;
+            fetchSeverComponentList(this.queryList).then(response => {
+                if (response.data.code === 2000) {
+                    this.obj = response.data.item; //获取的为1个对象不是数组
+                } else {
+                    this.$notify({
+                        position: "bottom-right",
+                        title: "失败",
+                        message: response.data.message,
+                        type: "error",
+                        duration: 2000
+                    });
+                }
+            });
+        },
+        submit() {
+            this.form.userID = this.$store.state.user.userID;
+            fetchApply(this.form).then(response => {
+                if (response.data.code === 2000) {
+                    this.$notify({
+                        position: "bottom-right",
+                        title: "成功",
+                        message: response.data.message,
+                        type: "success",
+                        duration: 2000
+                    });
+                    this.dialogFormVisible = false;
+                } else {
+                    this.$notify({
+                        position: "bottom-right",
+                        title: "失败",
+                        message: response.data.message,
+                        type: "error",
+                        duration: 2000
+                    });
+                }
+            });
+        },
+        cencel() {
+            this.resetForm();
+            this.dialogFormVisible = false;
+        },
+        resetForm() {
+            this.form.companyname = "";
+            this.form.projectname = "";
+            this.form.purpose = "";
+            this.form.type = "";
+            this.form.contact = "";
+            this.form.phone = "";
+            this.form.email = "";
         }
+    },
+    mounted() {
+        //this.getSeverComponent();
     }
 };
 </script>

@@ -112,7 +112,7 @@ export default {
     },
     computed: {
         getLoginVisible() {
-            return this.$store.state.user.userId;
+            return this.$store.state.user.userID;
         }
     },
     watch: {
