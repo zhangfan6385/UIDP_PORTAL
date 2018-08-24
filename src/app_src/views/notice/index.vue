@@ -101,13 +101,16 @@ export default {
         getNoticeList() {
             fetchNoticeList(this.listQuery).then(response => {
                 if (response.data.code === 2000) {
-                    for (let i = 0; i < response.data.item.length; i++) {
+                    for (let i = 0; i < response.data.items.length; i++) {
+                        let longtime = response.data.items[i].creatE_DATE;
+                        let shorttime = longtime.substring(0, 10);
                         this.noticeList.push({
-                            title: response.data.item[i].NOTICE_TITLE,
-                            date: response.data.item[i].NOTICE_DATETIME,
-                            id: response.data.item[i].NOTICE_ID,
-                            content: response.data.item[i].NOTICE_CONTENT,
-                            writter: response.data.item[i].NOTICE_ORGNAME
+                            title: response.data.items[i].noticE_TITLE,
+                            date: response.data.items[i].noticE_DATETIME,
+                            id: response.data.items[i].noticE_ID,
+                            content: response.data.items[i].noticE_CONTENT,
+                            writter: response.data.items[i].creater,
+                            time:shorttime
                         });
                     }
                 } else {
@@ -120,7 +123,7 @@ export default {
                     });
                 }
             });
-        }
+        },
     },
     mounted() {
         //this.getNoticeList();

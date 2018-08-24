@@ -51,7 +51,7 @@
                             </ul>
                         </el-card>
                         <div class="pagination-container">
-                            点击加载更多
+                            <a href="#" @click="getmore">点击加载更多</a>
                         </div>
                     </el-card>
                     <el-dialog :title="dialogTitle" :visible.sync="dialogTableVisible">
@@ -328,6 +328,11 @@ export default {
                 }
             });
         },
+        getmore(){
+            this.queryList.limit+=10;
+            console.log(this.queryList.limit)
+            this.getSeverList();
+        },
         mounted() {
             //this.getSeverList();
         }
@@ -508,6 +513,19 @@ li {
     margin-top: 15px;
     font-size: 13px;
     text-align: center;
-    color: red;
+    text-decoration:none;
+    color:blue;
+}
+.pagination-container:hover{
+    text-decoration:underline;
+    color:red;
+}
+.pagination-container:active{
+    text-decoration:none;
+    color:yellow;
+}
+.pagination-container:visited{
+    text-decoration:none;
+    color:green;
 }
 </style>

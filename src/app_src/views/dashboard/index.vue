@@ -17,7 +17,7 @@
                         运行环境：.Net Core 2.0<br> 运行服务器：Windows Server 2008 sp1
                       </div>
                       <div class="button">
-                        <img src="../../../app_src/imgs/ButtonWhite.png" alt="" title="点击下载" @click="goToHistory">
+                        <img src="../../../app_src/imgs/ButtonWhite.png" alt="" title="点击下载" @click="goToHistory(0)">
                       </div>
                     </div>
                   </el-col>
@@ -36,7 +36,7 @@
                         运行环境：.Net Core 2.0<br> 运行服务器：Windows Server 2008 sp1
                       </div>
                       <div class="button">
-                        <img src="../../../app_src/imgs/ButtonBlack.png" alt="" title="点击下载" @click="goToHistory">
+                        <img src="../../../app_src/imgs/ButtonBlack.png" alt="" title="点击下载" @click="goToHistory(1)">
                       </div>
                     </div>
                   </el-col>
@@ -65,7 +65,9 @@ export default {
             let dashaboardindex = this.$store.state.user.dashaboardindex;
             this.index = dashaboardindex;
         },
-        goToHistory(){
+        goToHistory(data){
+          this.$store.state.user.platformIndex=data;
+          console.log(this.$store.state.user.platformIndex)
           this.$router.push({path:'/history'})
         }
     },

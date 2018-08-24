@@ -1,5 +1,7 @@
 import { loginByUsername, getUserInfo } from '@/app_src/api/login'
 import { getToken, setToken, removeToken } from '@/app_src/utils/auth'
+import { fetchMessageList } from '@/app_src/api/message'
+import { Promise } from 'core-js';
 
 const user = {
   state: {
@@ -13,14 +15,20 @@ const user = {
     //projInfo
     currentProjID: '',
     currentProjName: '',
-    projList: [],
+    projList: [
+      {projID:'1',projName:'12432'}
+    ],
+    //Msg Info
+    msgInfo: '',
     //global params
     dashboardindex: '',
+    platformIndex: '',
     dialogLoginVisible: false, //判断登录框弹出zp
     dialogPasswordVisible: false, //判断修改密码框弹出zp
     dialogUserInfoVisible: false, //用户信息弹出zp
     dialogProjectInfoVisible: false, //切换项目框弹出zp 
-    applyDialogVisible: false, //申请界面弹出框 
+    applyDialogVisible: false, //申请界面弹出框
+    messageDialogVisible: false,// 
     // avatar: '',
     // userSex: '',
     // roleLevel: ''
@@ -28,7 +36,6 @@ const user = {
     // roles: [],
     // orgList: null, // 单位集合
     // userList: null, // 用户集合
-     
     // setting: {
     //   articlePlatform: []
     // },
@@ -69,6 +76,9 @@ const user = {
     SET_LOGIN_USER_CODE: (state, loginUserCode) => {
       state.loginUserCode = loginUserCode
     },
+    SET_MSGINFO: (state, msgInfo) => {
+      state.msgInfo = msgInfo
+    }
     // SET_INTRODUCTION: (state, introduction) => {
     //   state.introduction = introduction
     // },
@@ -148,13 +158,16 @@ const user = {
     setdialogLoginVisible({ commit }, dialogLoginVisible) {
       commit('SET_DIALOGLOGINVISIBLE', dialogLoginVisible)
     },
+    setMsgInfo({ commit }, msginfo) {
+      commit('SET_MSGINFO', msginfo)
+    },
 
 
 
     // 用户名登录
     LoginByUsername({ commit }, userInfo) {
       const username = userInfo.username.trim()
-      return new Promise((resolve, reject) => { 
+      return new Promise((resolve, reject) => {
         commit('SET_LOGIN_USER_CODE', username)// 保存用户登陆账号
         loginByUsername(userInfo.username, userInfo.password).then(response => {
           if (response.data.code === 2000) {
@@ -162,12 +175,28 @@ const user = {
             commit('SET_USER_NAME', data.userName)
             commit('SET_CODE', data.userCode)
             commit('SET_TOKEN', data.token)
-            commit('SET_PROJLIST',data.projList)
+            commit('SET_PROJLIST', data.projList)
             setToken(response.data.token)
+            this.$store.dispatch('GetUserMsg')
             resolve(response)
           } else {
             reject(response.data.message)
           }
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+    //获取用户消息
+    GetUserMsg({ commit, state }) {
+      return new Promise((resolve, reject) => {
+        fetchMessageList(state.userID, state.token).then(response => {
+          if (!response.data) { // 由于mockjs 不支持自定义状态码只能这样hack
+            reject('error')
+          }
+          const data = response.data
+          commit(' SET_MSGINFO', data)
+          resolve(response)
         }).catch(error => {
           reject(error)
         })

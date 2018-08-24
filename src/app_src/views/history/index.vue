@@ -253,17 +253,17 @@ export default {
                 }
             ],
             querylist: {
+                type:'',
                 limit: 10,
                 page: 1
             },
             permissionquery: {
                 userID: null,
-                proID: null
             },
             permissionList: [],
             total: null,
             userPower: 0,
-            listloading: true
+            listloading: true,
         };
     },
     methods: {
@@ -276,6 +276,7 @@ export default {
              }
         },
         getHistoryList() {
+            this.querylist.type=this.$store.state.user.platformIndex
             fetchGetHistoryList(this.listQuery).then(response => {
                 if (response.data.code === 2000) {
                     this.histroyEdition = response.data.items;

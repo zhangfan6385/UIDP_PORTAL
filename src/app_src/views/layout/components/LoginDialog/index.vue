@@ -95,55 +95,47 @@ export default {
             this.$refs[formName].resetFields();
         },
         //登录功能
-        handleLogin() {
-            this.loading = true;
-            this.$store.state.user.token = "";
-            this.$store.state.user.userID = "sdfdsf";
-            this.$store.state.user.dialogLoginVisible = false;
-            // this.$refs.loginForm.validate(valid => {
-            //     if (valid) {
-            //         this.loading = true;
-            //         this.$store
-            //             .dispatch("LoginByUsername", this.loginForm)
-            //             .then(response => {
-            //                 this.$store.dispatch(
-            //                     "setProjList",
-            //                     response.data.ProjList
-            //                 );
-            //                 if (response.data.ProjList.length != 0) {
-            //                     this.$store.state.user.dialogProjectInfoVisible = true;
-            //                     if(this.$store.state.user.currentProject!=null){
-            //                         this.$store.state.user.dialogLoginVisible = false;
-            //                         alert('登录成功')
-            //                     }
-            //                 } else {
-            //                     alert('登录失败')
-            //                 }
-            //             })
-            //             .catch(err => {
-            //                 this.loading = false;
-            //                 Message.error(err);
-            //             });
-            //     } else {
-            //         console.log("error submit!!");
-            //         return false;
-            //     }
-            // });
-        },
         // handleLogin() {
         //     this.loading = true;
+        //     // this.$store.state.user.token = "";
+        //     // this.$store.state.user.userID = "sdfdsf";
+        //     // this.$store.state.user.dialogLoginVisible = false;
         //     this.$refs.loginForm.validate(valid => {
         //         if (valid) {
-        //             loginByUsername(this.loginForm).then(response => {
-        //                 if (response.data.code === 2000) {
-        //                     alert("成功");
-        //                 } else {
-        //                     alert("失败");
-        //                 }
-        //             });
+        //             this.loading = true;
+        //             this.$store
+        //                 .dispatch("LoginByUsername", this.loginForm)
+        //                 .then(response => {
+        //                     this.$store.dispatch(
+        //                         "setProjList",
+        //                         response.data.ProjList
+        //                     );
+        //                     if (this.$store.state.user.ProjList.length != 0) {
+        //                         this.$store.state.user.dialogProjectInfoVisible = true;
+        //                     } else {
+        //                         alert("登录失败");
+        //                     }
+        //                 })
+        //                 .catch(err => {
+        //                     this.loading = false;
+        //                     Message.error(err);
+        //                 });
+        //                 this.loading = false;
+        //         } else {
+        //             console.log("error submit!!");
+        //             return false;
         //         }
         //     });
         // }
+        handleLogin() {
+            this.loading = true;
+            if ( this.$store.state.user.length != 0) {
+                this.$store.state.user.dialogProjectInfoVisible = true;
+            } else {
+                alert("登录失败");
+            }
+            this.loading = false;
+        }
     },
     computed: {
         getLoginVisible() {

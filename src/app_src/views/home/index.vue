@@ -199,48 +199,48 @@ export default {
     data() {
         return {
             noticeList: [
-                {
-                    id: 1,
-                    title: "重要通知",
-                    content: "<h5>大港软件开发通知</h5>",
-                    writter: "管理员",
-                    time: "2018-8-13"
-                },
-                {
-                    id: 2,
-                    title: "重要通知",
-                    content: "<h5>大港软件开发通知</h5>",
-                    writter: "管理员",
-                    time: "2018-8-13"
-                },
-                {
-                    id: 3,
-                    title: "重要通知",
-                    content: "<h5>大港软件开发通知</h5>",
-                    writter: "管理员",
-                    time: "2018-8-13"
-                },
-                {
-                    id: 4,
-                    title: "重要通知",
-                    content: "<h5>大港软件开发通知</h5>",
-                    writter: "管理员",
-                    time: "2018-8-13"
-                },
-                {
-                    id: 5,
-                    title: "重要通知",
-                    content: "<h5>大港软件开发通知</h5>",
-                    writter: "管理员",
-                    time: "2018-8-13"
-                },
-                {
-                    id: 6,
-                    title: "重要通知",
-                    content: "<h5>大港软件开发通知</h5>",
-                    writter: "管理员",
-                    time: "2018-8-13"
-                }
+                // {
+                //     id: 1,
+                //     title: "重要通知",
+                //     content: "<h5>大港软件开发通知</h5>",
+                //     writter: "管理员",
+                //     time: "2018-8-13"
+                // },
+                // {
+                //     id: 2,
+                //     title: "重要通知",
+                //     content: "<h5>大港软件开发通知</h5>",
+                //     writter: "管理员",
+                //     time: "2018-8-13"
+                // },
+                // {
+                //     id: 3,
+                //     title: "重要通知",
+                //     content: "<h5>大港软件开发通知</h5>",
+                //     writter: "管理员",
+                //     time: "2018-8-13"
+                // },
+                // {
+                //     id: 4,
+                //     title: "重要通知",
+                //     content: "<h5>大港软件开发通知</h5>",
+                //     writter: "管理员",
+                //     time: "2018-8-13"
+                // },
+                // {
+                //     id: 5,
+                //     title: "重要通知",
+                //     content: "<h5>大港软件开发通知</h5>",
+                //     writter: "管理员",
+                //     time: "2018-8-13"
+                // },
+                // {
+                //     id: 6,
+                //     title: "重要通知",
+                //     content: "<h5>大港软件开发通知</h5>",
+                //     writter: "管理员",
+                //     time: "2018-8-13"
+                // }
             ],
             newslist: [
                 {
@@ -317,34 +317,14 @@ export default {
                         "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
                 }
             ],
-            severRankList: [
-                { index: "1", name: "张1", score: 1 },
-                { index: "2", name: "张2", score: 2 },
-                { index: "3", name: "张3", score: 3 },
-                { index: "4", name: "张4", score: 4 },
-                { index: "5", name: "张5", score: 5 },
-                { index: "6", name: "张6", score: 6 },
-                { index: "7", name: "张7", score: 7 },
-                { index: "8", name: "张7", score: 8 },
-                { index: "9", name: "张7", score: 9 },
-                { index: "10", name: "张8", score: 10 }
-            ],
-            SeverComponentRankList: [
-                { index: "1", name: "张1", score: 11 },
-                { index: "2", name: "张2", score: 12 },
-                { index: "3", name: "张3", score: 13 },
-                { index: "4", name: "张4", score: 14 },
-                { index: "5", name: "张5", score: 15 },
-                { index: "6", name: "张6", score: 16 },
-                { index: "7", name: "张7", score: 17 },
-                { index: "8", name: "张7", score: 18 },
-                { index: "9", name: "张7", score: 19 },
-                { index: "10", name: "张8", score: 20 }
-            ],
+            severRankList: [],
+            severTopList: [],
+            SeverComponentRankList: [],
+            SeverComponentTopList: [],
             //柱状图数据
             option: {
                 title: {
-                    text: "组件下载详情"
+                    text: "Top下载详情"
                 },
                 tooltip: {},
                 xAxis: {
@@ -353,18 +333,18 @@ export default {
                 yAxis: {},
                 series: [
                     {
-                        name: "销量",
+                        name: "下载量",
                         type: "bar",
                         data: []
                     }
                 ]
             },
             option1: {
-                title: { text: "组件下载详情" },
+                title: { text: "半年下载量详情" },
                 tooltip: {},
                 series: [
                     {
-                        name: "销量",
+                        name: "月份",
                         type: "pie",
                         data: []
                     }
@@ -372,7 +352,7 @@ export default {
             },
             option2: {
                 title: {
-                    text: "服务下载详情"
+                    text: "Top下载详情"
                 },
                 tooltip: {},
                 xAxis: {
@@ -381,14 +361,14 @@ export default {
                 yAxis: {},
                 series: [
                     {
-                        name: "销量",
+                        name: "月份",
                         type: "bar",
                         data: []
                     }
                 ]
             },
             option3: {
-                title: { text: "服务下载详情" },
+                title: { text: "半年下载量详情" },
                 tooltip: {},
                 series: [
                     {
@@ -402,12 +382,100 @@ export default {
             listQuery: {
                 limit: 5,
                 page: 1,
-                id:null,
+                id: null
             },
             listRankQuery: {
                 limt: 5,
                 page: 1,
                 sort: "rank"
+            },
+            list1: {
+                total: 1,
+                items: [
+                    {
+                        noticE_ID: "26b81b29-be4a-400e-9334-8ebe215dc4b8",
+                        noticE_CODE: "111",
+                        noticE_TITLE: "简介",
+                        noticE_CONTENT:
+                            '<p>\t大港<a href="https://baike.baidu.com/item/%E6%B2%B9%E7%94%B0" target="_blank" style="color: rgb(19, 110, 194);">油田</a>始建于1964年1月，经过多年的艰苦创业，昔日的盐碱滩已建设成为一个集石油及天然气勘探、开发、<a href="https://baike.baidu.com/item/%E5%8E%9F%E6%B2%B9" target="_blank" style="color: rgb(19, 110, 194);">原油</a>加工、机械制造、科研设计、后勤服务、多种经营、社会公益等多功能于一体的油气生产基地。现有职工71000余人，干部总数22000余人，专业技术人员19000余人。开发建设了21个<a href="https://baike.baidu.com/item/%E6%B2%B9%E6%B0%94%E7%94%B0" target="_blank" style="color: rgb(19, 110, 194);">油气田</a>，形成了年生产原油430万吨、天然气3.6亿立方米生产能力和250万吨原油加工能力。截止1996年底，累计生产原油9349万吨，天然气124亿立方米，在全国陆上21个油气田中，按原油产量计算，列第6位，在全国500家<a href="https://baike.baidu.com/item/%E7%89%B9%E5%A4%A7%E5%9E%8B%E4%BC%81%E4%B8%9A" target="_blank" style="color: rgb(19, 110, 194);">特大型企业</a>中列第59位。</p><p>\t大港油田勘探范围广阔，有陆地、滩海和极浅海三大勘探领域。包括<a href="https://baike.baidu.com/item/%E9%BB%84%E9%AA%85" target="_blank" style="color: rgb(19, 110, 194);">黄骅</a>坳陷中、南部陆地，滩海海域（0～5米水深），以及<a href="https://baike.baidu.com/item/%E6%B2%A7%E5%8E%BF" target="_blank" style="color: rgb(19, 110, 194);">沧县</a>隆起东半部、埕宁隆起北半部的陆地部分。探区内以油藏类型多，具有多套生油层系含油组合为主要特征，是一个油气生成量和聚集量十分丰富的大型复式含油气区，有着广阔的找油找气领域和发展前景。在已勘探开发范围内有2700平方公里的滩海区域。其中，油田自己承建的张巨河海上<a href="https://baike.baidu.com/item/%E4%BA%BA%E5%B7%A5%E5%B2%9B" target="_blank" style="color: rgb(19, 110, 194);">人工岛</a>被中国石油天然气总公司命名为“中华第一人工岛。”</p>',
+                        noticE_DATETIME: "2018-08-21T16:57:25",
+                        noticE_ORGID: "84e9a85d-38d2-461e-9e2b-b128bb9e188c",
+                        noticE_ORGNAME: "大港油田公司",
+                        iS_DELETE: null,
+                        creater: "管理员001",
+                        creatE_DATE: "2018-08-21T16:57:25",
+                        noticE_DETAIL_ID: null,
+                        filE_URL: null,
+                        filE_NAME: null,
+                        filE_SIZE: null,
+                        children: [
+                            {
+                                noticE_ID: null,
+                                noticE_CODE: null,
+                                noticE_TITLE: null,
+                                noticE_CONTENT: null,
+                                noticE_DATETIME: "0001-01-01T00:00:00",
+                                noticE_ORGID: null,
+                                noticE_ORGNAME: null,
+                                iS_DELETE: null,
+                                creater: "sdf",
+                                creatE_DATE: "2018-08-24T09:23:51",
+                                noticE_DETAIL_ID:
+                                    "26b81b29-be4a-400e-9334-8ebe215dc4b0",
+                                filE_URL: "sfsdf",
+                                filE_NAME: "sdf",
+                                filE_SIZE: "21",
+                                children: null
+                            }
+                        ]
+                    }
+                ],
+                code: 2000,
+                message: "查询成功"
+            },
+            list2: {
+                dtComponentMonth: [
+                    {
+                        TOTAL: 1,
+                        CHECK_MONTH: 8
+                    },
+                    {
+                        TOTAL: 1,
+                        CHECK_MONTH: 7
+                    },
+                    {
+                        TOTAL: 1,
+                        CHECK_MONTH: 6
+                    }
+                ],
+                dtServerMonth: [
+                    {
+                        TOTAL: 2,
+                        CHECK_MONTH: 8
+                    }
+                ],
+                dtComponentTop: [
+                    {
+                        DOWNLOAD_TIMES: 21,
+                        COMPONENT_NAME: "dd"
+                    },
+                    {
+                        DOWNLOAD_TIMES: 12,
+                        COMPONENT_NAME: "sdfdsf"
+                    }
+                ],
+                dtServerCountTop: [
+                    {
+                        SERVICE_TIMES: 5,
+                        SERVICE_NAME: "we"
+                    },
+                    {
+                        SERVICE_TIMES: 3,
+                        SERVICE_NAME: "ss"
+                    }
+                ],
+                code: 2000,
+                message: "查询成功"
             }
         };
     },
@@ -431,6 +499,7 @@ export default {
             );
             myChart3.setOption(this.option3);
         },
+        //组件数据转化
         getdata() {
             let Xarr = [];
             let dataarr = [];
@@ -449,10 +518,10 @@ export default {
             };
             //饼状图赋值
             var data = [];
-            for (let i = 0; i < this.SeverComponentRankList.length; i++) {
+            for (let i = 0; i < this.SeverComponentTopList.length; i++) {
                 data.push({
-                    value: this.SeverComponentRankList[i].score,
-                    name: this.SeverComponentRankList[i].name
+                    value: this.SeverComponentTopList[i].score,
+                    name: this.SeverComponentTopList[i].name
                 });
             }
             this.option1.series = {
@@ -460,12 +529,13 @@ export default {
                 data: data
             };
         },
+        //服务数据转化
         getdata1() {
+            //柱状图赋值，前6个月
             let Xarr = [];
             let dataarr = [];
             let item = {};
             for (let i of this.severRankList) {
-                //柱状图赋值
                 Xarr.push(i.name);
                 dataarr.push(i.score);
             }
@@ -476,12 +546,12 @@ export default {
                 type: "bar",
                 data: dataarr
             };
-            //饼状图赋值
+            //饼状图赋值，下载量
             let data = [];
-            for (let i = 0; i < this.severRankList.length; i++) {
+            for (let i = 0; i < this.severTopList.length; i++) {
                 data.push({
-                    value: this.severRankList[i].score,
-                    name: this.severRankList[i].name
+                    value: this.severTopList[i].score,
+                    name: this.severTopList[i].name
                 });
             }
             this.option3.series = {
@@ -510,13 +580,16 @@ export default {
         getNoticeList() {
             fetchNoticeList(this.listQuery).then(response => {
                 if (response.data.code === 2000) {
-                    for (let i = 0; i < response.data.item.length; i++) {
+                    for (let i = 0; i < response.data.items.length; i++) {
+                        let longtime = response.data.items[i].creatE_DATE;
+                        let shorttime = longtime.substring(0, 10);
                         this.noticeList.push({
-                            title: response.data.item[i].NOTICE_TITLE,
-                            date: response.data.item[i].NOTICE_DATETIME,
-                            id: response.data.item[i].NOTICE_ID,
-                            content: response.data.item[i].NOTICE_CONTENT,
-                            writter: response.data.item[i].NOTICE_ORGNAME
+                            title: response.data.items[i].noticE_TITLE,
+                            date: response.data.items[i].noticE_DATETIME,
+                            id: response.data.items[i].noticE_ID,
+                            content: response.data.items[i].noticE_CONTENT,
+                            writter: response.data.items[i].creater,
+                            time: shorttime
                         });
                     }
                 } else {
@@ -530,6 +603,18 @@ export default {
                 }
             });
         },
+        //本地数据测试
+        // getNoticeList() {
+        //     for (let i = 0; i < this.list1.items.length; i++) {
+        //         this.noticeList.push({
+        //              title: this.list1.items[i].noticE_TITLE,
+        //             // date: response.data.item[i].NOTICE_DATETIME,
+        //             id: this.list1.items[i].noticE_ID
+        //             // content: response.data.item[i].NOTICE_CONTENT,
+        //             // writter: response.data.item[i].NOTICE_ORGNAME
+        //         });
+        //     }
+        // },
         //获取论坛列表 待修改表
         getCommuntityList() {
             fetchCommunityList(this.listQuery).then(response => {
@@ -558,10 +643,36 @@ export default {
         getSeverRank() {
             fetchSeverList(this.listRankQuery).then(response => {
                 if (response.data.code === 2000) {
-                    for (let i = 0; i < response.data.item.length; i++) {
+                    for (
+                        let i = 0;
+                        i < response.data.dtComponentMonth.length;
+                        i++
+                    ) {
                         this.severRankList.push({
-                            name: response.data.item[i].SERVICE_NAME,
-                            score: response.data.item[i].SERVICE_TIMES
+                            name: response.data.dtComponentMonth[i].TOTAL,
+                            score: response.data.dtComponentMonth[i].CHECK_MONTH
+                        });
+                    }
+                    for (let i = 0; i < response.data.list2.dtComponentTop.length; i++) {
+                        this.severTopList.push({
+                            name: response.data.dtComponentTop[i].COMPONENT_NAME,
+                            score: response.data.dtComponentTop[i].DOWNLOAD_TIMES
+                        });
+                    }
+                    for (let i = 0; i < response.data.dtServerMonth.length; i++) {
+                        this.SeverComponentRankList.push({
+                            name: response.data.dtServerMonth[i].TOTAL,
+                            score: response.data.dtServerMonth[i].CHECK_MONTH
+                        });
+                    }
+                    for (
+                        let i = 0;
+                        i < response.data.dtServerCountTop.length;
+                        i++
+                    ) {
+                        this.SeverComponentTopList.push({
+                            name: response.data.dtServerCountTop[i].SERVICE_NAME,
+                            score:response.data.dtServerCountTop[i].SERVICE_TIMES
                         });
                     }
                 } else {
@@ -575,14 +686,45 @@ export default {
                 }
             });
         },
+        //获取服务排名数据本地数据测试
+        getSeverRank() {
+            for (let i = 0; i < this.list2.dtComponentMonth.length; i++) {
+                this.severRankList.push({
+                    name: this.list2.dtComponentMonth[i].TOTAL,
+                    score: this.list2.dtComponentMonth[i].CHECK_MONTH
+                });
+            }
+            for (let i = 0; i < this.list2.dtComponentTop.length; i++) {
+                this.severTopList.push({
+                    name: this.list2.dtComponentTop[i].COMPONENT_NAME,
+                    score: this.list2.dtComponentTop[i].DOWNLOAD_TIMES
+                });
+            }
+            //
+            for (let i = 0; i < this.list2.dtServerMonth.length; i++) {
+                this.SeverComponentRankList.push({
+                    name: this.list2.dtServerMonth[i].TOTAL,
+                    score: this.list2.dtServerMonth[i].CHECK_MONTH
+                });
+            }
+            for (let i = 0; i < this.list2.dtServerCountTop.length; i++) {
+                this.SeverComponentTopList.push({
+                    name: this.list2.dtServerCountTop[i].SERVICE_NAME,
+                    score: this.list2.dtServerCountTop[i].SERVICE_TIMES
+                });
+            }
+            this.getdata(); //组件echarts赋值
+            this.getdata1(); //服务echarts赋值
+            this.drawLine(); //绘制echarts图
+        },
         //获取组件排行榜
         getSeverComponentRank() {
             fetchSeverComponentList(this.listRankQuery).then(response => {
                 if (response.data.code === 2000) {
                     for (let i = 0; i < response.data.item.length; i++) {
                         this.SeverComponentRankList.push({
-                            name: response.data.item[i].COMPONENT_NAME,
-                            score: response.data.item[i].DOWNLOAD_TIMES
+                            name: response.data.item[i].CHECK_MONTH,
+                            score: response.data.item[i].TOTAL
                         });
                     }
                 } else {
@@ -598,13 +740,10 @@ export default {
         }
     },
     mounted() {
-        this.getdata(); //组件echarts赋值
-        this.getdata1(); //服务echarts赋值
-        this.drawLine(); //绘制echarts图
+        this.getSeverRank(); //获取服务排名
     },
     created() {
-        // this.getNoticeList(); //拉取通知列表
-        // this.getSeverRank(); //获取服务排名
+        //.getNoticeList(); //拉取通知列表
         // this.getSeverComponentRank(); //获取组件现在排名
     }
 };

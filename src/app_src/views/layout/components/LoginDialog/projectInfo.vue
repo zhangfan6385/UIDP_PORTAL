@@ -123,8 +123,9 @@ export default {
             this.temp = Object.assign({}, row); // copy obj
             this.$store.state.user.currentProjID=this.temp.PROJECT_ID;
             this.$store.state.user.currentProjName=this.temp.PROJECT_NAME;
-            //console.log(this.$store.state.user.currentProjID);
-            //console.log(this.$store.state.user.currentProjName);
+            this.$store.state.user.userID = "sdfdsf";
+            this.$store.state.user.dialogLoginVisible=false;
+            this.$store.state.user.dialogProjectInfoVisible=false;           
         },
         handleSizeChange(val) {
             this.listQuery.limit = val;
@@ -145,11 +146,12 @@ export default {
             return "";
         },
         closeDialog() {
+            this.$store.state.user.dialogLoginVisible=false;
             this.$store.state.user.dialogProjectInfoVisible = false;
         },
         getProjList(){
-            this.list=this.$store.state.prjList
-            console.log(this.list)
+            this.list=this.$store.state.user.projList
+           // console.log(this.list)
         }
     },
     created() {

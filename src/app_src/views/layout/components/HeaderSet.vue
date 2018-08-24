@@ -2,28 +2,11 @@
     <el-menu class="navbar-set" mode="horizontal">
 
         <div class="right-menu">
-            <!--
-      <div class="logo">
-        <span>Admin</span>
-        <span style="margin-left:15px;">单位：大港油田信息中心</span>
-      </div>
-      -->
-            <!--
-      <el-tooltip effect="dark" content='全屏' placement="bottom">
-        <screenfull class="screenfull right-menu-item" style="vertical-align: middle;"></screenfull>
-      </el-tooltip>
-      -->
-            <!--
-      <el-tooltip effect="dark" content='换肤' placement="bottom">-->
-            <!-- <theme-picker class="theme-switch right-menu-item"></theme-picker> -->
-            <!--
-        <theme-picker class="right-menu-item noborder" style="vertical-align: middle;"></theme-picker>
-      </el-tooltip>
-      -->
+
             <span class="login_span" @click="changeIsVisible" v-if="isVisiable">登录</span>
 
-            <el-badge :value="16"  v-if="!isVisiable">
-                <img class='user-avatar' src="../../../../app_src/imgs/message2.png">
+            <el-badge :value="total" v-if="!isVisiable" >
+                <img class='user-avatar' src="../../../../app_src/imgs/message2.png" @click="getMsg">
             </el-badge>
 
             <el-dropdown v-if="!isVisiable" class="avatar-container right-menu-item" trigger="click">
@@ -32,13 +15,7 @@
                     <i class="el-icon-caret-bottom"></i>
                 </div>
                 <el-dropdown-menu slot="dropdown">
-                    <!--
-          <router-link to="/">
-            <el-dropdown-item>
-              首页
-            </el-dropdown-item>
-          </router-link>
-          -->
+
                     <el-dropdown-item>
                         <span @click="userInfo" style="display:block;">用户信息</span>
                     </el-dropdown-item>
@@ -63,7 +40,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-
+import { fetchCheckInfo } from "@/app_src/api/message";
 import Screenfull from "@/app_src/components/Screenfull";
 import ThemePicker from "@/app_src/components/ThemePicker";
 
@@ -71,8 +48,9 @@ export default {
     data() {
         return {
             isVisiable: true,
-            total: "您共有n条通知",
-            list: {}
+            total:'',
+            list: {},
+            userID: ""
         };
     },
     components: {
@@ -108,11 +86,40 @@ export default {
         },
         changeIsVisible() {
             this.$store.state.user.dialogLoginVisible = true;
+        },
+        getMsg() {
+            this.$store.state.user.messageDialogVisible=true;
+            // this.userID = this.$store.state.user.userID;
+            // fetchCheckInfo(this.userID).then(response => {
+            //     if (response.data.code === 2000) {
+            //         this.$notify({
+            //             position: "bottom-right",
+            //             title: "成功",
+            //             message: response.data.message,
+            //             type: "success",
+            //             duration: 2000
+            //         });
+            //     } else {
+            //         this.$notify({
+            //             position: "bottom-right",
+            //             title: "失败",
+            //             message: response.data.message,
+            //             type: "error",
+            //             duration: 2000
+            //         });
+            //     }
+            // });
+        },
+        getMesCount() {
+            this.total=this.$store.state.user.msgInfo.total;
         }
     },
     computed: {
         getLoginVisible() {
             return this.$store.state.user.userID;
+        },
+        getMstCount(){
+            return this.$store.state.user.msgInfo.total
         }
     },
     watch: {
@@ -122,8 +129,14 @@ export default {
             } else {
                 this.isVisiable = false;
             }
+        },
+        getMstCount(data){
+            this.total=data;
         }
-    }
+    },
+    mounted() {
+        this.getMesCount();
+    },
 };
 </script>
 
@@ -133,7 +146,7 @@ export default {
         border: none;
     }
 }
- 
+
 .theme-picker .el-color-picker__trigger {
     border: none;
 }
@@ -164,7 +177,7 @@ export default {
 
 .navbar-set {
     background-color: transparent;
-     margin-top: 8px;
+    margin-top: 8px;
     // height: 50px;
     line-height: 25px;
     border-radius: 0px !important;
@@ -212,7 +225,6 @@ export default {
             border-radius: 10px;
             vertical-align: middle;
         }
-       
 
         .avatar-container {
             height: 40px;
@@ -239,6 +251,5 @@ export default {
         margin-top: 8px;
         padding-right: 20px;
     }
-    
 }
 </style>

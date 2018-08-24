@@ -1,67 +1,77 @@
 <template>
-  <div class="app-wrapper" :class="classObj">
-    <div class="header">
-      <el-col :span="10">
-        <div class="logo">
-          <img src="../../../app_src/imgs/logo.png">
-          <!-- <img src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif"> -->
-          <span>大港油田软件工厂</span>
+    <div class="app-wrapper" :class="classObj">
+        <div class="header">
+            <el-col :span="10">
+                <div class="logo">
+                    <img src="../../../app_src/imgs/logo.png">
+                    <!-- <img src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif"> -->
+                    <span>大港油田软件工厂</span>
+                </div>
+            </el-col>
+            <el-col :span="14">
+                <div class="headerset">
+                    <header-set></header-set>
+                </div>
+            </el-col>
         </div>
-      </el-col>
-      <el-col :span="14">
-        <div class="headerset">
-          <header-set></header-set>
-        </div>
-      </el-col>
-    </div>
-    <el-col :span="24">
+        <el-col :span="24">
 
-      <div class="main-container">
-        <div>
-          <topbar></topbar>
-        </div>
-        <div>
-        <user-password-manager></user-password-manager>
-          <apply-dialog></apply-dialog>
-          <login-dialog></login-dialog>
-          <user-info></user-info>
-          <project-info></project-info>
-          <app-main></app-main>
-        </div>
+            <div class="main-container">
+                <div>
+                    <topbar></topbar>
+                </div>
+                <div>
+                    <user-password-manager></user-password-manager>
+                    <apply-dialog></apply-dialog>
+                    <login-dialog></login-dialog>
+                    <message-dialog></message-dialog>
+                    <user-info></user-info>
+                    <project-info></project-info>
+                    <app-main></app-main>
+                </div>
 
-      </div>
-    </el-col>
-    <div class="copyright">
-      版权所有：©大港油田集团责任有限公司信息中心
-      <!-- 版权所有：©大港油田集团责任有限公司信息中心 -->
+            </div>
+        </el-col>
+        <div class="copyright">
+            版权所有：©大港油田集团责任有限公司信息中心
+            <!-- 版权所有：©大港油田集团责任有限公司信息中心 -->
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
-import { AppMain, HeaderSet, Topbar, LoginDialog,ApplyDialog } from "./components";
-import userPasswordManager from '@/app_src/views/layout/components/LoginDialog/userPasswordManager'
-import userInfo from '@/app_src/views/layout/components/LoginDialog/userInfo'
-import projectInfo from '@/app_src/views/layout/components/LoginDialog/projectInfo'
+import {
+    AppMain,
+    HeaderSet,
+    Topbar,
+    LoginDialog,
+    ApplyDialog,
+    MessageDialog
+} from "./components";
+import userPasswordManager from "@/app_src/views/layout/components/LoginDialog/userPasswordManager";
+import userInfo from "@/app_src/views/layout/components/LoginDialog/userInfo";
+import projectInfo from "@/app_src/views/layout/components/LoginDialog/projectInfo";
 import ResizeMixin from "./mixin/ResizeHandler";
 
 export default {
     name: "layout",
-    data(){
-        return{
-        }
+    data() {
+        return {};
     },
     components: {
         //Navbar,
         //Sidebar,
         //TagsView,
+        MessageDialog,
         AppMain,
         Topbar,
         LoginDialog,
         HeaderSet,
         userPasswordManager,
         projectInfo,
-        userInfo,       ApplyDialog    },
+        userInfo,
+        ApplyDialog
+    },
     mixins: [ResizeMixin],
     computed: {
         sidebar() {
