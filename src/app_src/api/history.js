@@ -2,7 +2,7 @@ import request from '@/app_src/utils/request'
 
 export function fetchGetHistoryList(query) {
     return request({
-        url: 'software/history',
+        url: 'apply/fetchPlatformList',
         method: 'get',
         params: query
     })

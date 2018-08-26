@@ -16,7 +16,7 @@ const user = {
     currentProjID: '',
     currentProjName: '',
     projList: [
-      {projID:'1',projName:'12432'}
+      {PROJECT_ID:'1',PROJECT_NAME:'12432'}
     ],
     //Msg Info
     msgInfo: '',

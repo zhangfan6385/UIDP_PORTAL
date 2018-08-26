@@ -8,15 +8,15 @@
                         <div style="text-align: center">
                             <img style="width:200px;height:45px;" src="../../../app_src/imgs/title.png">
                             <br>
-                            <el-table :data="tableData" size="mini">
-                                <el-table-column prop="id" label="排名" width="50" align="center">
+                            <!--TOP排行榜-->
+                            <el-table :data="tableDataTop" size="mini">
+                                <el-table-column label="排名" width="50" align="center" type="index">
                                     <template slot-scope="scope">
-                                        <span :class="addclass(scope.row.id+1)">{{scope.row.id}}</span>
+                                        <span :class="addclass(scope.$index+1)">{{scope.$index+1}}</span>
                                     </template>
                                 </el-table-column>
-
                                 <el-table-column prop="name" label="服务名称" :show-overflow-tooltip="true" align="center"></el-table-column>
-                                <el-table-column prop="download" label="使用次数" width="80" align="center" :show-overflow-tooltip="true"></el-table-column>
+                                <el-table-column prop="download" label="使用次数" width="80" align="center"></el-table-column>
                             </el-table>
                         </div>
                     </el-card>
@@ -54,13 +54,13 @@
                             <a href="#" @click="getmore">点击加载更多</a>
                         </div>
                     </el-card>
-                    <el-dialog :title="dialogTitle" :visible.sync="dialogTableVisible">
+                    <!-- <el-dialog :title="dialogTitle" :visible.sync="dialogTableVisible">
                         <el-table :data="gridData">
                             <el-table-column property="applaydate" label="申请日期" width="150"></el-table-column>
                             <el-table-column property="projectname" label="项目名称" width="200"></el-table-column>
                             <el-table-column property="purpose" label="用途类型"></el-table-column>
                         </el-table>
-                    </el-dialog>
+                    </el-dialog> -->
                     <el-dialog :title="dialogTitle" :visible.sync="dialogDetailVisible">
                         <el-form :model="form">
                             <!-- <el-form-item label="组件名称">
@@ -118,249 +118,189 @@
 <script>
 import { fetchSeverList } from "@/app_src/api/sever";
 export default {
-    data() {
-        return {
-            value5: 3.7,
-            tableData: [
-                {
-                    name: "云组织推送服务",
-                    id: 1,
-                    download: "151",
-                    writter: "小张",
-                    date: "2018-08-08",
-                    status: 0,
-                    content:
-                        '<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">微软更新了.Net Framework，更新后版本号升至4.7，它也包含在这次的创意者更新里，开发者可以使用Visual Studio 2017进行.Net Framework 4.7项目的开发。Windows10</p><p><img class="large" src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=4069284240,3156467089&fm=170&s=F902E412ECB4F99054474CDC0300D0E2&w=600&h=230&img.JPG"/></p><p style="margin-top: 26px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">最新版的.Net Framework 4.7主要带来了以下方面的提升：</p><p style="margin-top: 22px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">为Win10上的WPF程序带来了触控支持;</p><p style="margin-top: 22px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">增强了加密支持；</p><p style="margin-top: 22px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">提升性能和稳定性。</p><p><br/></p>'
-                },
-                {
-                    name: "生成服务码",
-                    id: 2,
-                    download: "71",
-                    date: "2018-08-08",
-                    status: 1
-                },
-                {
-                    name: "服务1",
-                    id: 3,
-                    download: "71",
-                    date: "2018-08-08",
-                    status: 2,
-                    content: ""
-                },
-                {
-                    name: "UIDP开发平台服务(测试版))",
-                    id: 4,
-                    download: "53",
-                    date: "2018-08-08",
-                    status: 0,
-                    content: ""
-                },
-                {
-                    name: "UIDP开发平台服务(测试版))",
-                    id: 5,
-                    download: "47",
-                    date: "2018-08-07",
-                    status: 1,
-                    content: ""
-                },
-                {
-                    name: "UIDP开发平台服务(测试版)",
-                    id: 6,
-                    download: "32",
-                    date: "2018-08-06",
-                    status: 2,
-                    content: ""
-                },
-                {
-                    name: "UIDP开发平台服务(测试版)",
-                    id: 7,
-                    download: "27",
-                    date: "2018-08-05",
-                    status: 0,
-                    content: ""
-                },
-                {
-                    name: "UIDP开发平台服务(测试版)",
-                    id: 8,
-                    download: "25",
-                    date: "2018-08-04",
-                    status: 1,
-                    content: ""
-                },
-                {
-                    name: "UIDP开发平台服务(测试版)",
-                    id: 9,
-                    download: "22",
-                    date: "2018-08-03",
-                    status: 0,
-                    content: ""
-                },
-                {
-                    name: "UIDP开发平台服务(测试版)",
-                    id: 10,
-                    download: "19",
-                    date: "2018-08-02",
-                    status: 2,
-                    content: ""
-                }
-            ],
-            currentPage: 1,
-            gridData: [
-                {
-                    projectname: "xx管理系统",
-                    applaydate: "2018-08-02",
-                    purpose: "开发"
-                },
-                {
-                    projectname: "xx管理系统",
-                    applaydate: "2018-07-04",
-                    purpose: "生产"
-                },
-                {
-                    projectname: "xx管理系统",
-                    applaydate: "2018-06-21",
-                    purpose: "开发"
-                },
-                {
-                    projectname: "xx管理系统",
-                    applaydate: "2018-05-04",
-                    purpose: "生产"
-                }
-            ],
-            dialogTableVisible: false,
-            dialogDetailVisible: false,
-            dialogFormVisible: false,
-            componentName: "",
-            dialogTitle: "",
-            componentContent: "",
-            formLabelWidth: "120px",
-            form: {
-                companyname: "XX公司",
-                projectname: "xx项目",
-                purpose: "",
-                type: "",
-                contact: "",
-                phone: "",
-                email: ""
-            },
-            queryList: {
-                limit: 10,
-                page: 1,
-                id: null
-            }
-        };
+  data() {
+    return {
+      value5: 3.7,
+      tableDataTop: [],
+      tableData: [],
+      dialogTableVisible: false,
+      dialogDetailVisible: false,
+      dialogFormVisible: false,
+      componentName: "",
+      dialogTitle: "",
+      componentContent: "",
+      formLabelWidth: "120px",
+      form: {
+        companyname: "XX公司",
+        projectname: "xx项目",
+        purpose: "",
+        type: "",
+        contact: "",
+        phone: "",
+        email: ""
+      },
+      queryList: {
+        limit: 10,
+        page: 1
+      },
+      list1: {
+        code: 2000,
+        message: "",
+        total: 1,
+        items: [
+          {
+            SERVICE_ID: "dddd",
+            SERVICE_CODE: "sdf",
+            SERVICE_NAME: "sdf",
+            REQUEST_METHOD: "sdf",
+            SERVICE_CONTENT: null,
+            SERVICE_TIMES: null,
+            MANAGE_ORG_ID: null,
+            MANAGE_TEL: null,
+            MANAGE_ROLE_ID: null,
+            SUIT_PLAT: null,
+            SERVICE_URL: null,
+            DATA_FORMAT: null,
+            IS_DELETE: 0,
+            CREATER: null,
+            CREATE_DATE: null
+          }
+        ]
+      }
+    };
+  },
+  methods: {
+    addclass(i) {
+      switch (i) {
+        case 1:
+          return "top1";
+        case 2:
+          return "top2";
+        case 3:
+          return "top3";
+        default:
+          return "top";
+      }
     },
-    methods: {
-        addclass(i) {
-            switch (i) {
-                case 1:
-                    return "top1";
-                case 2:
-                    return "top2";
-                case 3:
-                    return "top3";
-                default:
-                    return "top";
-            }
-        },
-        handleSizeChange(val) {
-            console.log(`每页 ${val} 条`);
-        },
-        handleCurrentChange(val) {
-            console.log(`当前页: ${val}`);
-        },
-        handleDetail(index, row) {
-            this.dialogDetailVisible = true;
-            this.dialogTitle = "组件" + row.name + "详情";
-            this.componentContent = row.content;
-        },
-        handleApply(index, row) {
-            this.dialogFormVisible = true;
-            this.dialogTitle = "组件" + row.name + "申请记录";
-        },
-        handleHistory(index, row) {
-            this.dialogTableVisible = true;
-            this.dialogTitle = "组件" + row.name + "申请记录";
-        },
-        handleExamine(index, row) {
-            this.$alert(
-                "组件" + row.name + "信息审核中，请耐心等待！",
-                "消息提示",
-                {
-                    confirmButtonText: "确定"
-                    // callback: action => {
-                    //   this.$message({
-                    //     type: 'info',
-                    //     message: `action:${action}`
-                    //   })
-                    // }
-                }
-            );
-        },
-        handleDown(index, row) {
-            alert("正在下载rar文件");
-        },
-        getcontent(data) {
-            // alert("aaaa");
-            let id = data.toString();
-            this.$router.push({ path: "/sever/" + id });
-        },
-        getSeverList() {
-            fetchSeverList(this.queryList).then(response => {
-                if (response.data.code === 2000) {
-                    for (let i = 0; i < response.data.item.length; i++) {
-                        this.tableData.push({
-                            name: response.data.item[i].SERVICE_NAME,
-                            id: response.data.item[i].SERVICE_ID,
-                            download: response.data.item[i].SERVICE_TIMES,
-                            date: response.data.item[i].CREATE_DATE,
-                            content: response.data.item[i].SERVICE_CONTENT
-                        });
-                    }
-                } else {
-                    this.$notify({
-                        position: "bottom-right",
-                        title: "失败",
-                        message: response.data.message,
-                        type: "error",
-                        duration: 2000
-                    });
-                }
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`);
+    },
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`);
+    },
+    handleDetail(index, row) {
+      this.dialogDetailVisible = true;
+      this.dialogTitle = "组件" + row.name + "详情";
+      this.componentContent = row.content;
+    },
+    handleApply(index, row) {
+      this.dialogFormVisible = true;
+      this.dialogTitle = "组件" + row.name + "申请记录";
+    },
+    handleHistory(index, row) {
+      this.dialogTableVisible = true;
+      this.dialogTitle = "组件" + row.name + "申请记录";
+    },
+    handleExamine(index, row) {
+      this.$alert("组件" + row.name + "信息审核中，请耐心等待！", "消息提示", {
+        confirmButtonText: "确定"
+        // callback: action => {
+        //   this.$message({
+        //     type: 'info',
+        //     message: `action:${action}`
+        //   })
+        // }
+      });
+    },
+    handleDown(index, row) {
+      alert("正在下载rar文件");
+    },
+    getcontent(data) {
+      // alert("aaaa");
+      let id = data.toString();
+      this.$router.push({ path: "/sever/" + id });
+    },
+    getSeverList() {
+      fetchSeverList(this.queryList).then(response => {
+        if (this.list1.code === 2000) {
+          for (var i = 0; i < response.data.items.length; i++) {
+            this.tableData.push({
+              name: response.data.items[i].SERVICE_NAME,
+              id: response.data.items[i].SERVICE_ID,
+              date: response.data.items[i].CREATE_DATE,
+              content: response.data.items[i].SERVICE_CONTENT
             });
-        },
-        getmore(){
-            this.queryList.limit+=10;
-            console.log(this.queryList.limit)
-            this.getSeverList();
-        },
-        mounted() {
-            //this.getSeverList();
+            if (i < 10) {
+              this.tableDataTop.push({
+                name: response.data.items[i].SERVICE_NAME,
+                id: response.data.items[i].SERVICE_ID,
+                date: response.data.items[i].CREATE_DATE,
+                content: response.data.items[i].SERVICE_CONTENT
+              });
+            }
+          }
+        } else {
+          this.$notify({
+            position: "bottom-right",
+            title: "失败",
+            message: response.data.message,
+            type: "error",
+            duration: 2000
+          });
         }
+      });
+    },
+    test() {
+      for (var i = 0; i < this.list1.items.length; i++) {
+        this.tableData.push({
+          name: this.list1.items[i].SERVICE_NAME,
+          id: this.list1.items[i].SERVICE_ID,
+          date: this.list1.items[i].CREATE_DATE,
+          content: this.list1.items[i].SERVICE_CONTENT
+        });
+        if (i < 10) {
+          this.tableDataTop.push({
+            name: this.list1.items[i].SERVICE_NAME,
+            id: this.list1.items[i].SERVICE_ID,
+            date: this.list1.items[i].CREATE_DATE,
+            content: this.list1.items[i].SERVICE_CONTENT
+          });
+        }
+      }
+    },
+    getmore() {
+      this.queryList.limit += 5;
+      this.getSeverList();
     }
+  },
+  mounted() {
+    this.getSeverList();
+    //this.test();
+  }
 };
 </script>
 
 
 <style lang="scss" scoped>
 .content {
-    margin-top: 15px;
+  margin-top: 15px;
 }
 .content ul,
 li {
-    margin: 0px;
-    padding: 0px;
+  margin: 0px;
+  padding: 0px;
 }
 .content ul li img:hover {
-    transform: scale(1.2); /*当鼠标移动到图片上时实现放大功能*/
+  transform: scale(1.2); /*当鼠标移动到图片上时实现放大功能*/
 }
 .content ul li {
-    // height: 100px;
-    overflow: hidden;
-    // border-bottom: 1px solid lavender;
-    background: white;
-    list-style-type: none;
-    transition-duration: 0.5s;
-    margin: 5px 5px 2px 0;
+  // height: 100px;
+  overflow: hidden;
+  // border-bottom: 1px solid lavender;
+  background: white;
+  list-style-type: none;
+  transition-duration: 0.5s;
+  margin: 5px 5px 2px 0;
 }
 
 // .content ul li:hover{
@@ -369,163 +309,163 @@ li {
 //       }
 
 .content .left {
-    overflow: hidden; /*隐藏溢出图片内容*/
-    transition-duration: 0.5s;
-    width: 5%;
-    height: 40px;
-    /*background: green;*/
-    float: left;
-    margin-right: 20px;
+  overflow: hidden; /*隐藏溢出图片内容*/
+  transition-duration: 0.5s;
+  width: 5%;
+  height: 40px;
+  /*background: green;*/
+  float: left;
+  margin-right: 20px;
 }
 .content .right {
-    // width:400px ;
-    width: 90%;
-    float: left;
-    /*background: pink;*/
+  // width:400px ;
+  width: 90%;
+  float: left;
+  /*background: pink;*/
 }
 .right_top {
-    margin: 0px;
-    padding: 0px;
-    text-align: left;
-    font-weight: 700;
-    font-size: 18px;
-    cursor: pointer;
+  margin: 0px;
+  padding: 0px;
+  text-align: left;
+  font-weight: 700;
+  font-size: 18px;
+  cursor: pointer;
 }
 .right_bottom {
-    margin-top: 50px;
-    text-align: right;
+  margin-top: 50px;
+  text-align: right;
 }
 .right_bottom_left {
-    float: left;
-    padding-top: 15px;
-    width: 100%;
-    text-align: right;
-    color: darkgray;
-    font-size: 14px;
+  float: left;
+  padding-top: 15px;
+  width: 100%;
+  text-align: right;
+  color: darkgray;
+  font-size: 14px;
 }
 .top {
-    font-weight: bold;
-    color: white;
-    text-align: center;
-    width: 25px;
-    line-height: 25px;
-    background-color: #7f7f7f;
-    border-radius: 5px;
-    display: -moz-inline-box; /* css注释：for ff2 */
-    display: inline-block;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  width: 25px;
+  line-height: 25px;
+  background-color: #7f7f7f;
+  border-radius: 5px;
+  display: -moz-inline-box; /* css注释：for ff2 */
+  display: inline-block;
 }
 .top1 {
-    font-weight: bold;
-    color: white;
-    text-align: center;
-    width: 25px;
-    line-height: 25px;
-    background-color: #c00000;
-    border-radius: 5px;
-    display: -moz-inline-box; /* css注释：for ff2 */
-    display: inline-block;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  width: 25px;
+  line-height: 25px;
+  background-color: #c00000;
+  border-radius: 5px;
+  display: -moz-inline-box; /* css注释：for ff2 */
+  display: inline-block;
 }
 
 .top2 {
-    font-weight: bold;
-    color: white;
-    text-align: center;
-    width: 25px;
-    line-height: 25px;
-    background-color: #00b050;
-    border-radius: 5px;
-    display: -moz-inline-box; /* css注释：for ff2 */
-    display: inline-block;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  width: 25px;
+  line-height: 25px;
+  background-color: #00b050;
+  border-radius: 5px;
+  display: -moz-inline-box; /* css注释：for ff2 */
+  display: inline-block;
 }
 .top3 {
-    font-weight: bold;
-    color: white;
-    text-align: center;
-    width: 25px;
-    line-height: 25px;
-    background-color: #ffc000;
-    border-radius: 5px;
-    display: -moz-inline-box; /* css注释：for ff2 */
-    display: inline-block;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  width: 25px;
+  line-height: 25px;
+  background-color: #ffc000;
+  border-radius: 5px;
+  display: -moz-inline-box; /* css注释：for ff2 */
+  display: inline-block;
 }
 
 .component {
-    // margin: 0 auto;
-    // width: 980px;
-    margin: 30px;
-    // background: #f3f3f3;
+  // margin: 0 auto;
+  // width: 980px;
+  margin: 30px;
+  // background: #f3f3f3;
 }
 
 .el-row {
-    margin-bottom: 20px;
-    &:last-child {
-        margin-bottom: 0;
-    }
+  margin-bottom: 20px;
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 .el-col {
-    border-radius: 4px;
+  border-radius: 4px;
 }
 .bg-purple-dark {
-    background: #99a9bf;
+  background: #99a9bf;
 }
 .bg-purple {
-    background: #d3dce6;
+  background: #d3dce6;
 }
 .bg-purple-light {
-    background: #e5e9f2;
+  background: #e5e9f2;
 }
 .grid-content {
-    border-radius: 4px;
-    min-height: 36px;
+  border-radius: 4px;
+  min-height: 36px;
 }
 .row-bg {
-    padding: 10px 0;
-    background-color: #f9fafc;
+  padding: 10px 0;
+  background-color: #f9fafc;
 }
 .text {
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-    font-size: 14px;
-    width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  font-size: 14px;
+  width: 100%;
 }
 
 .name {
-    display: -moz-inline-box;
-    float: left;
-    width: 100%;
-    height: 25px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    word-break: keep-all;
-    cursor: pointer;
+  display: -moz-inline-box;
+  float: left;
+  width: 100%;
+  height: 25px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: keep-all;
+  cursor: pointer;
 }
 .spandownload {
-    width: 30px;
-    height: 25px;
-    margin-left: 8px;
-    color: #99a9bf;
-    text-align: center;
-    font-size: 10px;
+  width: 30px;
+  height: 25px;
+  margin-left: 8px;
+  color: #99a9bf;
+  text-align: center;
+  font-size: 10px;
 }
 .pagination-container {
-    margin-top: 15px;
-    font-size: 13px;
-    text-align: center;
-    text-decoration:none;
-    color:blue;
+  margin-top: 15px;
+  font-size: 13px;
+  text-align: center;
+  text-decoration: none;
+  color: blue;
 }
-.pagination-container:hover{
-    text-decoration:underline;
-    color:red;
+.pagination-container:hover {
+  text-decoration: underline;
+  color: red;
 }
-.pagination-container:active{
-    text-decoration:none;
-    color:yellow;
+.pagination-container:active {
+  text-decoration: none;
+  color: yellow;
 }
-.pagination-container:visited{
-    text-decoration:none;
-    color:green;
+.pagination-container:visited {
+  text-decoration: none;
+  color: green;
 }
 </style>
