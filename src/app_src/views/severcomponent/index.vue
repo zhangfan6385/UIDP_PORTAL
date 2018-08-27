@@ -160,6 +160,109 @@ export default {
             IS_DELETE: 0,
             CREATER: null,
             CREATE_DATE: "2018-08-25T14:40:04"
+          },
+           {
+            COMPONENT_ID: "dddd",
+            COMPONENT_CODE: "sd",
+            COMPONENT_NAME: "dsf",
+            COMPONENT_CONTENT: "sdf",
+            DOWNLOAD_TIMES: 23,
+            MANAGE_ORG_ID: null,
+            MANAGE_ORG_NAME: null,
+            MANAGE_TEL: null,
+            MANAGE_ROLE_ID: null,
+            COMPONENT_SIZE: null,
+            SOFTWARE_LANGUAGE: null,
+            SUIT_PLAT: null,
+            APPLICATION_BROWSER: null,
+            IS_DELETE: 0,
+            CREATER: null,
+            CREATE_DATE: "2018-08-25T14:40:04"
+          }, {
+            COMPONENT_ID: "dddd",
+            COMPONENT_CODE: "sd",
+            COMPONENT_NAME: "dsf",
+            COMPONENT_CONTENT: "sdf",
+            DOWNLOAD_TIMES: 23,
+            MANAGE_ORG_ID: null,
+            MANAGE_ORG_NAME: null,
+            MANAGE_TEL: null,
+            MANAGE_ROLE_ID: null,
+            COMPONENT_SIZE: null,
+            SOFTWARE_LANGUAGE: null,
+            SUIT_PLAT: null,
+            APPLICATION_BROWSER: null,
+            IS_DELETE: 0,
+            CREATER: null,
+            CREATE_DATE: "2018-08-25T14:40:04"
+          }, {
+            COMPONENT_ID: "dddd",
+            COMPONENT_CODE: "sd",
+            COMPONENT_NAME: "dsf",
+            COMPONENT_CONTENT: "sdf",
+            DOWNLOAD_TIMES: 23,
+            MANAGE_ORG_ID: null,
+            MANAGE_ORG_NAME: null,
+            MANAGE_TEL: null,
+            MANAGE_ROLE_ID: null,
+            COMPONENT_SIZE: null,
+            SOFTWARE_LANGUAGE: null,
+            SUIT_PLAT: null,
+            APPLICATION_BROWSER: null,
+            IS_DELETE: 0,
+            CREATER: null,
+            CREATE_DATE: "2018-08-25T14:40:04"
+          }, {
+            COMPONENT_ID: "dddd",
+            COMPONENT_CODE: "sd",
+            COMPONENT_NAME: "dsf",
+            COMPONENT_CONTENT: "sdf",
+            DOWNLOAD_TIMES: 23,
+            MANAGE_ORG_ID: null,
+            MANAGE_ORG_NAME: null,
+            MANAGE_TEL: null,
+            MANAGE_ROLE_ID: null,
+            COMPONENT_SIZE: null,
+            SOFTWARE_LANGUAGE: null,
+            SUIT_PLAT: null,
+            APPLICATION_BROWSER: null,
+            IS_DELETE: 0,
+            CREATER: null,
+            CREATE_DATE: "2018-08-25T14:40:04"
+          }, {
+            COMPONENT_ID: "dddd",
+            COMPONENT_CODE: "sd",
+            COMPONENT_NAME: "dsf",
+            COMPONENT_CONTENT: "sdf",
+            DOWNLOAD_TIMES: 23,
+            MANAGE_ORG_ID: null,
+            MANAGE_ORG_NAME: null,
+            MANAGE_TEL: null,
+            MANAGE_ROLE_ID: null,
+            COMPONENT_SIZE: null,
+            SOFTWARE_LANGUAGE: null,
+            SUIT_PLAT: null,
+            APPLICATION_BROWSER: null,
+            IS_DELETE: 0,
+            CREATER: null,
+            CREATE_DATE: "2018-08-25T14:40:04"
+          }, {
+            COMPONENT_ID: "dddd",
+            COMPONENT_CODE: "sd",
+            COMPONENT_NAME: "dsf",
+            COMPONENT_CONTENT: "sdf",
+            DOWNLOAD_TIMES: 23,
+            MANAGE_ORG_ID: null,
+            MANAGE_ORG_NAME: null,
+            MANAGE_TEL: null,
+            MANAGE_ROLE_ID: null,
+            COMPONENT_SIZE: null,
+            SOFTWARE_LANGUAGE: null,
+            SUIT_PLAT: null,
+            APPLICATION_BROWSER: null,
+            IS_DELETE: 0,
+            CREATER: null,
+            CREATE_DATE: "2018-08-25T14:40:04"
           }
         ]
       }
@@ -271,7 +374,7 @@ export default {
   },
   mounted() {
     this.getSeverComponentList();
-    //this.test();
+    this.test();
   }
 };
 </script>

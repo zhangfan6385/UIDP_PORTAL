@@ -275,7 +275,7 @@ export default {
     }
   },
   mounted() {
-    //this.test();
+    this.test();
     this.getSeverComponent();
   }
 };

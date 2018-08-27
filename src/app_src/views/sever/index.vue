@@ -164,6 +164,71 @@ export default {
             IS_DELETE: 0,
             CREATER: null,
             CREATE_DATE: null
+          },
+          {
+            SERVICE_ID: "dddd",
+            SERVICE_CODE: "sdf",
+            SERVICE_NAME: "sdf",
+            REQUEST_METHOD: "sdf",
+            SERVICE_CONTENT: null,
+            SERVICE_TIMES: null,
+            MANAGE_ORG_ID: null,
+            MANAGE_TEL: null,
+            MANAGE_ROLE_ID: null,
+            SUIT_PLAT: null,
+            SERVICE_URL: null,
+            DATA_FORMAT: null,
+            IS_DELETE: 0,
+            CREATER: null,
+            CREATE_DATE: null
+          },{
+            SERVICE_ID: "dddd",
+            SERVICE_CODE: "sdf",
+            SERVICE_NAME: "sdf",
+            REQUEST_METHOD: "sdf",
+            SERVICE_CONTENT: null,
+            SERVICE_TIMES: null,
+            MANAGE_ORG_ID: null,
+            MANAGE_TEL: null,
+            MANAGE_ROLE_ID: null,
+            SUIT_PLAT: null,
+            SERVICE_URL: null,
+            DATA_FORMAT: null,
+            IS_DELETE: 0,
+            CREATER: null,
+            CREATE_DATE: null
+          },{
+            SERVICE_ID: "dddd",
+            SERVICE_CODE: "sdf",
+            SERVICE_NAME: "sdf",
+            REQUEST_METHOD: "sdf",
+            SERVICE_CONTENT: null,
+            SERVICE_TIMES: null,
+            MANAGE_ORG_ID: null,
+            MANAGE_TEL: null,
+            MANAGE_ROLE_ID: null,
+            SUIT_PLAT: null,
+            SERVICE_URL: null,
+            DATA_FORMAT: null,
+            IS_DELETE: 0,
+            CREATER: null,
+            CREATE_DATE: null
+          },{
+            SERVICE_ID: "dddd",
+            SERVICE_CODE: "sdf",
+            SERVICE_NAME: "sdf",
+            REQUEST_METHOD: "sdf",
+            SERVICE_CONTENT: null,
+            SERVICE_TIMES: null,
+            MANAGE_ORG_ID: null,
+            MANAGE_TEL: null,
+            MANAGE_ROLE_ID: null,
+            SUIT_PLAT: null,
+            SERVICE_URL: null,
+            DATA_FORMAT: null,
+            IS_DELETE: 0,
+            CREATER: null,
+            CREATE_DATE: null
           }
         ]
       }
@@ -275,7 +340,7 @@ export default {
   },
   mounted() {
     this.getSeverList();
-    //this.test();
+    this.test();
   }
 };
 </script>

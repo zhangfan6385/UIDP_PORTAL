@@ -256,7 +256,7 @@ export default {
   },
   mounted() {
     this.getSever();
-    //this.test();
+    this.test();
   }
 };
 </script>
