@@ -6,20 +6,20 @@ import { Promise } from 'core-js';
 const user = {
   state: {
     //userInfo
-    userID: null,
+    userID: "e0ff3b1e-1ec4-4c06-8b14-97f518731469",
     status: '',
     code: '',
     token: getToken(),
     userName: '',
     loginUserCode: '', // 登陆账号,
+    userInfo: [],
     //projInfo
     currentProjID: '',
     currentProjName: '',
-    projList: [
-      {PROJECT_ID:'1',PROJECT_NAME:'12432'}
-    ],
+    projList: [],
     //Msg Info
     msgInfo: '',
+    total: '',
     //global params
     dashboardindex: '',
     platformIndex: '',
@@ -29,20 +29,6 @@ const user = {
     dialogProjectInfoVisible: false, //切换项目框弹出zp 
     applyDialogVisible: false, //申请界面弹出框
     messageDialogVisible: false,// 
-    // avatar: '',
-    // userSex: '',
-    // roleLevel: ''
-    // introduction: '',
-    // roles: [],
-    // orgList: null, // 单位集合
-    // userList: null, // 用户集合
-    // setting: {
-    //   articlePlatform: []
-    // },
-    // sysCode: '1',
-    // sysName: '大港软件工厂',
-    // departCode: '',
-    // departName: '',
   },
 
   mutations: {
@@ -78,7 +64,13 @@ const user = {
     },
     SET_MSGINFO: (state, msgInfo) => {
       state.msgInfo = msgInfo
-    }
+    },
+    SET_TOTAL: (state, total) => {
+      state.total = total
+    },
+    SET_USER_INFO: (state, userinfo) => {
+      state.userinfo = userinfo
+    },
     // SET_INTRODUCTION: (state, introduction) => {
     //   state.introduction = introduction
     // },
@@ -143,6 +135,9 @@ const user = {
     // setRoleLevel({ commit }, roleLevel) {
     //   commit('SET_ROLE_LEVEL', roleLevel)
     // },
+    setUserInfo({ commit }, userinfo) {
+      commit('SET_USER_INFO', userinfo)
+    },
     setUserId({ commit }, userID) {
       commit('SET_USER_ID', userID)
     },
@@ -172,12 +167,13 @@ const user = {
         loginByUsername(userInfo.username, userInfo.password).then(response => {
           if (response.data.code === 2000) {
             const data = response.data
-            commit('SET_USER_NAME', data.userName)
-            commit('SET_CODE', data.userCode)
-            commit('SET_TOKEN', data.token)
-            commit('SET_PROJLIST', data.projList)
+            // commit('SET_USER_NAME', data.userName)
+            // commit('SET_CODE', data.userCode)
+            // commit('SET_TOKEN', data.token)
+            commit('SET_USER_INFO', data.userInfo)
+            commit('SET_PROJLIST', data.projectInfo)
             setToken(response.data.token)
-            this.$store.dispatch('GetUserMsg')
+            //this.$store.dispatch('GetUserMsg')
             resolve(response)
           } else {
             reject(response.data.message)
@@ -188,15 +184,18 @@ const user = {
       })
     },
     //获取用户消息
-    GetUserMsg({ commit, state }) {
+    GetUserMsg({ commit }, mesinfo) {
       return new Promise((resolve, reject) => {
-        fetchMessageList(state.userID, state.token).then(response => {
-          if (!response.data) { // 由于mockjs 不支持自定义状态码只能这样hack
-            reject('error')
+        fetchMessageList(mesinfo).then(response => {
+          if (response.data.code === 2000) {
+            const data = response.data
+            commit('SET_MSGINFO', data.items)
+            commit('SET_TOTAL', data.total)
+            //this.$store.dispatch('GetUserMsg')
+            resolve(response)
+          } else {
+            reject(response.data.message)
           }
-          const data = response.data
-          commit(' SET_MSGINFO', data)
-          resolve(response)
         }).catch(error => {
           reject(error)
         })

@@ -43,36 +43,36 @@ export default {
         return {
             isvisibleProject: false,
             list: [
-                {
-                    PROJECT_ID: "ASDF",
-                    PROJECT_NAME: "大港油田项目",
-                    PROJECT_CODE: "010100023",
-                    CONTACT_PARTYA_NAME: "张三"
-                },
-                {
-                    PROJECT_ID: "ASDF",
-                    PROJECT_NAME: "大港油田项目",
-                    PROJECT_CODE: "010100023",
-                    CONTACT_PARTYA_NAME: "张三"
-                },
-                {
-                    PROJECT_ID: "ASDF",
-                    PROJECT_NAME: "大港油田项目",
-                    PROJECT_CODE: "010100023",
-                    CONTACT_PARTYA_NAME: "张三"
-                },
-                {
-                    PROJECT_ID: "ASDF",
-                    PROJECT_NAME: "大港油田项目",
-                    PROJECT_CODE: "010100023",
-                    CONTACT_PARTYA_NAME: "张三"
-                },
-                {
-                    PROJECT_ID: "ASDF",
-                    PROJECT_NAME: "大港油田项目",
-                    PROJECT_CODE: "010100023",
-                    CONTACT_PARTYA_NAME: "张三"
-                }
+                // {
+                //     PROJECT_ID: "ASDF",
+                //     PROJECT_NAME: "大港油田项目",
+                //     PROJECT_CODE: "010100023",
+                //     CONTACT_PARTYA_NAME: "张三"
+                // },
+                // {
+                //     PROJECT_ID: "ASDF",
+                //     PROJECT_NAME: "大港油田项目",
+                //     PROJECT_CODE: "010100023",
+                //     CONTACT_PARTYA_NAME: "张三"
+                // },
+                // {
+                //     PROJECT_ID: "ASDF",
+                //     PROJECT_NAME: "大港油田项目",
+                //     PROJECT_CODE: "010100023",
+                //     CONTACT_PARTYA_NAME: "张三"
+                // },
+                // {
+                //     PROJECT_ID: "ASDF",
+                //     PROJECT_NAME: "大港油田项目",
+                //     PROJECT_CODE: "010100023",
+                //     CONTACT_PARTYA_NAME: "张三"
+                // },
+                // {
+                //     PROJECT_ID: "ASDF",
+                //     PROJECT_NAME: "大港油田项目",
+                //     PROJECT_CODE: "010100023",
+                //     CONTACT_PARTYA_NAME: "张三"
+                // }
             ],
             temp: {
                 PROJECT_ID: "",
@@ -93,11 +93,17 @@ export default {
     computed: {
         getProjectVisible() {
             return this.$store.state.user.dialogProjectInfoVisible;
+        },
+        getProjList() {
+            return this.$store.state.user.projList;
         }
     },
     watch: {
         getProjectVisible(data) {
             this.isvisibleProject = data;
+        },
+        getProjList(data) {
+            this.list = data;
         }
     },
     methods: {
@@ -121,11 +127,11 @@ export default {
         },
         handleProject(row) {
             this.temp = Object.assign({}, row); // copy obj
-            this.$store.state.user.currentProjID=this.temp.PROJECT_ID;
-            this.$store.state.user.currentProjName=this.temp.PROJECT_NAME;
+            this.$store.state.user.currentProjID = this.temp.PROJECT_ID;
+            this.$store.state.user.currentProjName = this.temp.PROJECT_NAME;
             this.$store.state.user.userID = "sdfdsf";
-            this.$store.state.user.dialogLoginVisible=false;
-            this.$store.state.user.dialogProjectInfoVisible=false;           
+            this.$store.state.user.dialogLoginVisible = false;
+            this.$store.state.user.dialogProjectInfoVisible = false;
         },
         handleSizeChange(val) {
             this.listQuery.limit = val;
@@ -146,17 +152,15 @@ export default {
             return "";
         },
         closeDialog() {
-            this.$store.state.user.dialogLoginVisible=false;
+            this.$store.state.user.dialogLoginVisible = false;
             this.$store.state.user.dialogProjectInfoVisible = false;
-        },
-        getProjList(){
-            this.list=this.$store.state.user.projList
-           // console.log(this.list)
         }
+        // getProjList() {
+        //     this.list = this.$store.state.user.projList;
+        //     // console.log(this.list)
+        // }
     },
-    created() {
-        this.getProjList();
-    }
+    created() {}
 };
 </script>
 <style lang="scss" >

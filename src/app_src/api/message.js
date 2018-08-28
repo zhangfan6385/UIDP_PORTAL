@@ -2,7 +2,7 @@ import request from '@/app_src/utils/request'
 
 export function fetchMessageList(query) {
     return request({
-        url: '',
+        url: 'Apply/fetchApplyRecordList',
         method: 'get',
         params: query
     })

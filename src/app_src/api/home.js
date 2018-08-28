@@ -1,9 +1,9 @@
 import request from '@/app_src/utils/request'
 
-export function fetchNoticeList(query){
+export function fetchAlldata(data){
     return request({
-        url:'Home/fetchNoticeList',
+        url:'Home/fetchCountList',
         method:'get',
-        params:query
+        data,
     })
 }

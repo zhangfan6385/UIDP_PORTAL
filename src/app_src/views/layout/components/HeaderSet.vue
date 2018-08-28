@@ -111,7 +111,7 @@ export default {
             // });
         },
         getMesCount() {
-            this.total=this.$store.state.user.msgInfo.total;
+            this.total=this.$store.state.user.total;
         }
     },
     computed: {
@@ -119,7 +119,7 @@ export default {
             return this.$store.state.user.userID;
         },
         getMstCount(){
-            return this.$store.state.user.msgInfo.total
+            return this.$store.state.user.total
         }
     },
     watch: {

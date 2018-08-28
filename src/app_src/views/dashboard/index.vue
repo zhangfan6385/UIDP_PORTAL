@@ -84,7 +84,7 @@ export default {
       margin-top: 20px;
         .cSharpPlatform {
             border-radius: 0.83em;
-            background-image: url(../../../app_src/imgs/CSharpBackground.png);
+            background-image: url(../../../app_src/imgs/CSharpBackground.jpg);
             background-repeat: no-repeat;
             background-size: 100% 100%;
             -moz-background-size: 100% 100%;

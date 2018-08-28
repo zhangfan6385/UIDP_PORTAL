@@ -11,7 +11,7 @@
                         <svg-icon icon-class="user" />
                     </span>
                     <el-input name="username" type="text" v-model="loginForm.username" autoComplete="on" placeholder="账号" />
-
+                    
                 </el-form-item>
                 <el-form-item prop="password">
                     <span class="svg-container">
@@ -72,6 +72,11 @@ export default {
                         validator: validatePassword
                     }
                 ]
+            },
+            msgform: {
+                limit: 1,
+                page: 5,
+                userId: ""
             }
         };
     },
@@ -94,48 +99,60 @@ export default {
         resetForm(formName) {
             this.$refs[formName].resetFields();
         },
-        //登录功能
-        // handleLogin() {
-        //     this.loading = true;
-        //     // this.$store.state.user.token = "";
-        //     // this.$store.state.user.userID = "sdfdsf";
-        //     // this.$store.state.user.dialogLoginVisible = false;
-        //     this.$refs.loginForm.validate(valid => {
-        //         if (valid) {
-        //             this.loading = true;
-        //             this.$store
-        //                 .dispatch("LoginByUsername", this.loginForm)
-        //                 .then(response => {
-        //                     this.$store.dispatch(
-        //                         "setProjList",
-        //                         response.data.ProjList
-        //                     );
-        //                     if (this.$store.state.user.ProjList.length != 0) {
-        //                         this.$store.state.user.dialogProjectInfoVisible = true;
-        //                     } else {
-        //                         alert("登录失败");
-        //                     }
-        //                 })
-        //                 .catch(err => {
-        //                     this.loading = false;
-        //                     Message.error(err);
-        //                 });
-        //                 this.loading = false;
-        //         } else {
-        //             console.log("error submit!!");
-        //             return false;
-        //         }
-        //     });
-        // }
+        // //登录功能
         handleLogin() {
             this.loading = true;
-            if ( this.$store.state.user.length != 0) {
-                this.$store.state.user.dialogProjectInfoVisible = true;
-            } else {
-                alert("登录失败");
-            }
-            this.loading = false;
+            // this.$store.state.user.token = "";
+            // this.$store.state.user.userID = "sdfdsf";
+            // this.$store.state.user.dialogLoginVisible = false;
+            this.$refs.loginForm.validate(valid => {
+                if (valid) {
+                    this.loading = true;
+                    this.$store
+                        .dispatch("LoginByUsername", this.loginForm)
+                        .then(response => {
+                            if (
+                                response.data.code === 2000 &&
+                                response.data.projectInfo.length != 0
+                            ) {
+                                this.$store.state.user.dialogProjectInfoVisible = true;
+                                this.msgform.userId = this.$store.state.user.userinfo[0].USER_ID;
+                                this.$store.dispatch(
+                                    "GetUserMsg",
+                                    this.msgform
+                                );
+                            } else {
+                                this.listLoading = false;
+                                this.$notify({
+                                    position: "bottom-right",
+                                    title: "失败",
+                                    type: "error",
+                                    duration: 2000
+                                });
+                            }
+                        })
+                        .catch(err => {
+                            this.loading = false;
+                            Message.error(err);
+                        });
+                    this.loading = false;
+                } else {
+                    console.log("error submit!!");
+                    return false;
+                }
+            });
         }
+        // handleLogin() {
+        //     this.loading = true;
+        //     if ( this.$store.state.user.length != 0) {
+        //         this.$store.state.user.dialogProjectInfoVisible = true;
+        //         this.msgform.userId=this.$store.state.user.userID
+        //         this.$store.dispatch("GetUserMsg",this.msgform)
+        //     } else {
+        //         alert("登录失败");
+        //     }
+        //     this.loading = false;
+        // }
     },
     computed: {
         getLoginVisible() {

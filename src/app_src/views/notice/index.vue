@@ -17,18 +17,19 @@
                             <div class="content">
                                 <el-row>
                                     <el-col :span="24">
-                                        {{item.content}}
-                                    </el-col>
-                                </el-row>
-                                <el-row>
-                                    <el-col :span="24">
-                                        <div class="foot">
-                                            作者:{{item.writter}} 发表日期：{{item.time}}
-                                        </div>
-
+                                        <div v-html="item.content"></div>
                                     </el-col>
                                 </el-row>
                             </div>
+                            <el-row>
+                                <el-col :span="24">
+                                    <div class="foot">
+                                        作者:{{item.writter}} 发表日期：{{item.time}}
+                                    </div>
+
+                                </el-col>
+                            </el-row>
+
                         </el-card>
                         <div class="page">
                             <el-pagination background layout="prev, pager, next" :total="1000">
@@ -47,48 +48,11 @@ import { fetchNoticeList } from "@/app_src/api/notice";
 export default {
     data() {
         return {
-            noticeList: [
-                {
-                    title:
-                        "zhongyao1zhongyao1zhongyao1zhongyao1zhongyao1zhongyao1zhongyao1zhongyao1zhongyao1",
-                    content: "123123123",
-                    writter: "xiaozhang",
-                    time: "2018-8-20",
-                    id: 1
-                },
-                {
-                    content: "123123123",
-                    title: "zhongyao1",
-                    writter: "xiaozhang",
-                    time: "2018-8-20",
-                    id: 2
-                },
-                {
-                    content: "123123123",
-                    title: "zhongyao1",
-                    writter: "xiaozhang",
-                    time: "2018-8-20",
-                    id: 3
-                },
-                {
-                    content: "123123123",
-                    title: "zhongyao1",
-                    writter: "xiaozhang",
-                    time: "2018-8-20",
-                    id: 4
-                },
-                {
-                    content: "123123123",
-                    title: "zhongyao1",
-                    writter: "xiaozhang",
-                    time: "2018-8-20",
-                    id: 5
-                }
-            ],
-            listQuery:{
-                limit:5,
-                page:1,
-                id:null,
+            noticeList: [],
+            listQuery: {
+                limit: 5,
+                page: 1,
+                id: null
             }
         };
     },
@@ -101,16 +65,17 @@ export default {
         getNoticeList() {
             fetchNoticeList(this.listQuery).then(response => {
                 if (response.data.code === 2000) {
+                    console.log(response.data.items);
                     for (let i = 0; i < response.data.items.length; i++) {
-                        let longtime = response.data.items[i].creatE_DATE;
+                        let longtime = response.data.items[i].CREATE_DATE;
                         let shorttime = longtime.substring(0, 10);
                         this.noticeList.push({
-                            title: response.data.items[i].noticE_TITLE,
-                            date: response.data.items[i].noticE_DATETIME,
-                            id: response.data.items[i].noticE_ID,
-                            content: response.data.items[i].noticE_CONTENT,
-                            writter: response.data.items[i].creater,
-                            time:shorttime
+                            title: response.data.items[i].NOTICE_TITLE,
+                            date: response.data.items[i].NOTICE_DATETIME,
+                            id: response.data.items[i].NOTICE_ID,
+                            content: response.data.items[i].NOTICE_CONTENT,
+                            writter: response.data.items[i].CREATER,
+                            time: shorttime
                         });
                     }
                 } else {
@@ -123,10 +88,10 @@ export default {
                     });
                 }
             });
-        },
+        }
     },
     mounted() {
-        //this.getNoticeList();
+        this.getNoticeList();
     }
 };
 </script>
@@ -139,19 +104,30 @@ export default {
         text-align: center;
     }
     .content {
-        font-size: 20px;
-        .foot {
-            float: right;
-            font-size: 10px;
-            color: gray;
-        }
+        padding-left: 20px;
+        margin-top: 15px;
+        margin-left: 25px;
+        margin-right: 20px;
+        font-size: 15px;
+        line-height: 20px;
+        color: rgb(53, 49, 49);
+        text-overflow: ellipsis;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+    }
+    .foot {
+        float: right;
+        font-size: 10px;
+        color: gray;
     }
     .page {
         text-align: center;
     }
-}
-.el-card {
-    font-family: "微软雅黑";
+    .el-card {
+        font-family: "微软雅黑";
+    }
 }
 </style>
 

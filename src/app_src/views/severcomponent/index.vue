@@ -41,11 +41,11 @@
                                         </div>
                                         <div class="right_bottom_left">
                                             <span>发布者：</span>
-                                            <span>微软公司</span> &nbsp;|&nbsp;
+                                            <span>{{component.writter}}</span> &nbsp;|&nbsp;
                                             <span>发布时间：</span>
-                                            <span>71</span>
+                                            <span>{{component.time}}</span>
                                             <span>调用次数：</span>
-                                            <span>71089</span>
+                                            <span>{{component.download}}</span>
                                         </div>
                                     </div>
                                 </li>
@@ -138,134 +138,6 @@ export default {
         limit: 10,
         page: 1
       },
-      list1: {
-        code: 2000,
-        message: "",
-        total: 1,
-        items: [
-          {
-            COMPONENT_ID: "dddd",
-            COMPONENT_CODE: "sd",
-            COMPONENT_NAME: "dsf",
-            COMPONENT_CONTENT: "sdf",
-            DOWNLOAD_TIMES: 23,
-            MANAGE_ORG_ID: null,
-            MANAGE_ORG_NAME: null,
-            MANAGE_TEL: null,
-            MANAGE_ROLE_ID: null,
-            COMPONENT_SIZE: null,
-            SOFTWARE_LANGUAGE: null,
-            SUIT_PLAT: null,
-            APPLICATION_BROWSER: null,
-            IS_DELETE: 0,
-            CREATER: null,
-            CREATE_DATE: "2018-08-25T14:40:04"
-          },
-           {
-            COMPONENT_ID: "dddd",
-            COMPONENT_CODE: "sd",
-            COMPONENT_NAME: "dsf",
-            COMPONENT_CONTENT: "sdf",
-            DOWNLOAD_TIMES: 23,
-            MANAGE_ORG_ID: null,
-            MANAGE_ORG_NAME: null,
-            MANAGE_TEL: null,
-            MANAGE_ROLE_ID: null,
-            COMPONENT_SIZE: null,
-            SOFTWARE_LANGUAGE: null,
-            SUIT_PLAT: null,
-            APPLICATION_BROWSER: null,
-            IS_DELETE: 0,
-            CREATER: null,
-            CREATE_DATE: "2018-08-25T14:40:04"
-          }, {
-            COMPONENT_ID: "dddd",
-            COMPONENT_CODE: "sd",
-            COMPONENT_NAME: "dsf",
-            COMPONENT_CONTENT: "sdf",
-            DOWNLOAD_TIMES: 23,
-            MANAGE_ORG_ID: null,
-            MANAGE_ORG_NAME: null,
-            MANAGE_TEL: null,
-            MANAGE_ROLE_ID: null,
-            COMPONENT_SIZE: null,
-            SOFTWARE_LANGUAGE: null,
-            SUIT_PLAT: null,
-            APPLICATION_BROWSER: null,
-            IS_DELETE: 0,
-            CREATER: null,
-            CREATE_DATE: "2018-08-25T14:40:04"
-          }, {
-            COMPONENT_ID: "dddd",
-            COMPONENT_CODE: "sd",
-            COMPONENT_NAME: "dsf",
-            COMPONENT_CONTENT: "sdf",
-            DOWNLOAD_TIMES: 23,
-            MANAGE_ORG_ID: null,
-            MANAGE_ORG_NAME: null,
-            MANAGE_TEL: null,
-            MANAGE_ROLE_ID: null,
-            COMPONENT_SIZE: null,
-            SOFTWARE_LANGUAGE: null,
-            SUIT_PLAT: null,
-            APPLICATION_BROWSER: null,
-            IS_DELETE: 0,
-            CREATER: null,
-            CREATE_DATE: "2018-08-25T14:40:04"
-          }, {
-            COMPONENT_ID: "dddd",
-            COMPONENT_CODE: "sd",
-            COMPONENT_NAME: "dsf",
-            COMPONENT_CONTENT: "sdf",
-            DOWNLOAD_TIMES: 23,
-            MANAGE_ORG_ID: null,
-            MANAGE_ORG_NAME: null,
-            MANAGE_TEL: null,
-            MANAGE_ROLE_ID: null,
-            COMPONENT_SIZE: null,
-            SOFTWARE_LANGUAGE: null,
-            SUIT_PLAT: null,
-            APPLICATION_BROWSER: null,
-            IS_DELETE: 0,
-            CREATER: null,
-            CREATE_DATE: "2018-08-25T14:40:04"
-          }, {
-            COMPONENT_ID: "dddd",
-            COMPONENT_CODE: "sd",
-            COMPONENT_NAME: "dsf",
-            COMPONENT_CONTENT: "sdf",
-            DOWNLOAD_TIMES: 23,
-            MANAGE_ORG_ID: null,
-            MANAGE_ORG_NAME: null,
-            MANAGE_TEL: null,
-            MANAGE_ROLE_ID: null,
-            COMPONENT_SIZE: null,
-            SOFTWARE_LANGUAGE: null,
-            SUIT_PLAT: null,
-            APPLICATION_BROWSER: null,
-            IS_DELETE: 0,
-            CREATER: null,
-            CREATE_DATE: "2018-08-25T14:40:04"
-          }, {
-            COMPONENT_ID: "dddd",
-            COMPONENT_CODE: "sd",
-            COMPONENT_NAME: "dsf",
-            COMPONENT_CONTENT: "sdf",
-            DOWNLOAD_TIMES: 23,
-            MANAGE_ORG_ID: null,
-            MANAGE_ORG_NAME: null,
-            MANAGE_TEL: null,
-            MANAGE_ROLE_ID: null,
-            COMPONENT_SIZE: null,
-            SOFTWARE_LANGUAGE: null,
-            SUIT_PLAT: null,
-            APPLICATION_BROWSER: null,
-            IS_DELETE: 0,
-            CREATER: null,
-            CREATE_DATE: "2018-08-25T14:40:04"
-          }
-        ]
-      }
     };
   },
   methods: {
@@ -323,18 +195,25 @@ export default {
       fetchSeverComponentList(this.queryList).then(response => {
         if (response.data.code === 2000) {
           for (var i = 0; i < response.data.items.length; i++) {
+            let longtime=response.data.items[i].COMPONENT_PUBLISHDATE;
+            let shorttime=longtime.substring(0,10);
             this.tableData.push({
               name: response.data.items[i].COMPONENT_NAME,
               id: response.data.items[i].COMPONENT_ID,
               date: response.data.items[i].CREATE_DATE,
-              content: response.data.items[i].COMPONENT_CONTENT
+              content: response.data.items[i].COMPONENT_CONTENT,
+              download:response.data.items[i].DOWNLOAD_TIMES,
+              time:shorttime,
+              writter:response.data.items[i].CREATER,
             });
+            console.log(this.tableData[i].id)
             if (i < 10) {
               this.tableDataTop.push({
                 name: response.data.items[i].COMPONENT_NAME,
                 id: response.data.items[i].COMPONENT_ID,
                 date: response.data.items[i].CREATE_DATE,
-                content: response.data.items[i].COMPONENT_CONTENT
+                content: response.data.items[i].COMPONENT_CONTENT,
+                download:response.data.items[i].DOWNLOAD_TIMES
               });
             }
           }
@@ -374,7 +253,6 @@ export default {
   },
   mounted() {
     this.getSeverComponentList();
-    this.test();
   }
 };
 </script>

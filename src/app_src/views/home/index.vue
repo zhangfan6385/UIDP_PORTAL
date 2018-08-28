@@ -16,13 +16,14 @@
                                         公告
                                         <div class="headerbutton">
                                             <el-button type="primary" size="mini" @click="gotonotice"> 查看更多</el-button>
+                                            <el-button type="primary" size="mini" @click="test"> 全局数据展示</el-button>
                                         </div>
                                     </div>
                                 </el-col>
                             </el-row>
                         </div>
                         <hr>
-                        <el-table :data="noticeList" size="mini" :show-header="false" @row-click="goToContent">
+                        <el-table :data="noticeList" size="mini" :show-header="false" @row-click="goToContent" height="220px">
                             <el-table-column prop="title" align="center" show-overflow-tooltip></el-table-column>
                             <!-- <el-table-column  prop="writter" align="center"></el-table-column> -->
                             <el-table-column prop="time" align="center"></el-table-column>
@@ -49,7 +50,7 @@
                             </el-row>
                         </div>
                         <hr>
-                        <el-table :data="newslist" @row-click="getcontent" size="mini" :show-header="false">
+                        <el-table :data="newslist" @row-click="getcontent" size="mini" :show-header="false" height="220px">
                             <el-table-column label="类型" width="50px" align="center">
                                 <template slot-scope="scope">
                                     <div class="newslogo">
@@ -192,8 +193,9 @@
 <script>
 import { fetchNoticeList } from "@/app_src/api/notice";
 import { fetchCommunityList } from "@/app_src/api/community";
-import { fetchSeverList } from "@/app_src/api/sever";
-import { fetchSeverComponentList } from "@/app_src/api/severcomponent";
+//import { fetchSeverList } from "@/app_src/api/sever";
+//import { fetchSeverComponentList } from "@/app_src/api/severcomponent";
+import { fetchAlldata } from "@/app_src/api/home";
 
 export default {
     data() {
@@ -381,57 +383,7 @@ export default {
             //查询列表参数
             listQuery: {
                 limit: 5,
-                page: 1,
-                id: null
-            },
-            listRankQuery: {
-                limt: 5,
-                page: 1,
-                sort: "rank"
-            },
-            list1: {
-                total: 1,
-                items: [
-                    {
-                        noticE_ID: "26b81b29-be4a-400e-9334-8ebe215dc4b8",
-                        noticE_CODE: "111",
-                        noticE_TITLE: "简介",
-                        noticE_CONTENT:
-                            '<p>\t大港<a href="https://baike.baidu.com/item/%E6%B2%B9%E7%94%B0" target="_blank" style="color: rgb(19, 110, 194);">油田</a>始建于1964年1月，经过多年的艰苦创业，昔日的盐碱滩已建设成为一个集石油及天然气勘探、开发、<a href="https://baike.baidu.com/item/%E5%8E%9F%E6%B2%B9" target="_blank" style="color: rgb(19, 110, 194);">原油</a>加工、机械制造、科研设计、后勤服务、多种经营、社会公益等多功能于一体的油气生产基地。现有职工71000余人，干部总数22000余人，专业技术人员19000余人。开发建设了21个<a href="https://baike.baidu.com/item/%E6%B2%B9%E6%B0%94%E7%94%B0" target="_blank" style="color: rgb(19, 110, 194);">油气田</a>，形成了年生产原油430万吨、天然气3.6亿立方米生产能力和250万吨原油加工能力。截止1996年底，累计生产原油9349万吨，天然气124亿立方米，在全国陆上21个油气田中，按原油产量计算，列第6位，在全国500家<a href="https://baike.baidu.com/item/%E7%89%B9%E5%A4%A7%E5%9E%8B%E4%BC%81%E4%B8%9A" target="_blank" style="color: rgb(19, 110, 194);">特大型企业</a>中列第59位。</p><p>\t大港油田勘探范围广阔，有陆地、滩海和极浅海三大勘探领域。包括<a href="https://baike.baidu.com/item/%E9%BB%84%E9%AA%85" target="_blank" style="color: rgb(19, 110, 194);">黄骅</a>坳陷中、南部陆地，滩海海域（0～5米水深），以及<a href="https://baike.baidu.com/item/%E6%B2%A7%E5%8E%BF" target="_blank" style="color: rgb(19, 110, 194);">沧县</a>隆起东半部、埕宁隆起北半部的陆地部分。探区内以油藏类型多，具有多套生油层系含油组合为主要特征，是一个油气生成量和聚集量十分丰富的大型复式含油气区，有着广阔的找油找气领域和发展前景。在已勘探开发范围内有2700平方公里的滩海区域。其中，油田自己承建的张巨河海上<a href="https://baike.baidu.com/item/%E4%BA%BA%E5%B7%A5%E5%B2%9B" target="_blank" style="color: rgb(19, 110, 194);">人工岛</a>被中国石油天然气总公司命名为“中华第一人工岛。”</p>',
-                        noticE_DATETIME: "2018-08-21T16:57:25",
-                        noticE_ORGID: "84e9a85d-38d2-461e-9e2b-b128bb9e188c",
-                        noticE_ORGNAME: "大港油田公司",
-                        iS_DELETE: null,
-                        creater: "管理员001",
-                        creatE_DATE: "2018-08-21T16:57:25",
-                        noticE_DETAIL_ID: null,
-                        filE_URL: null,
-                        filE_NAME: null,
-                        filE_SIZE: null,
-                        children: [
-                            {
-                                noticE_ID: null,
-                                noticE_CODE: null,
-                                noticE_TITLE: null,
-                                noticE_CONTENT: null,
-                                noticE_DATETIME: "0001-01-01T00:00:00",
-                                noticE_ORGID: null,
-                                noticE_ORGNAME: null,
-                                iS_DELETE: null,
-                                creater: "sdf",
-                                creatE_DATE: "2018-08-24T09:23:51",
-                                noticE_DETAIL_ID:
-                                    "26b81b29-be4a-400e-9334-8ebe215dc4b0",
-                                filE_URL: "sfsdf",
-                                filE_NAME: "sdf",
-                                filE_SIZE: "21",
-                                children: null
-                            }
-                        ]
-                    }
-                ],
-                code: 2000,
-                message: "查询成功"
+                page: 1
             },
             list2: {
                 dtComponentMonth: [
@@ -499,66 +451,6 @@ export default {
             );
             myChart3.setOption(this.option3);
         },
-        //组件数据转化
-        getdata() {
-            let Xarr = [];
-            let dataarr = [];
-            let item = {};
-            for (let i of this.SeverComponentRankList) {
-                //柱状图赋值
-                Xarr.push(i.name);
-                dataarr.push(i.score);
-            }
-            this.option.xAxis.data = Xarr;
-
-            this.option.series = {
-                name: "下载量",
-                type: "bar",
-                data: dataarr
-            };
-            //饼状图赋值
-            var data = [];
-            for (let i = 0; i < this.SeverComponentTopList.length; i++) {
-                data.push({
-                    value: this.SeverComponentTopList[i].score,
-                    name: this.SeverComponentTopList[i].name
-                });
-            }
-            this.option1.series = {
-                type: "pie",
-                data: data
-            };
-        },
-        //服务数据转化
-        getdata1() {
-            //柱状图赋值，前6个月
-            let Xarr = [];
-            let dataarr = [];
-            let item = {};
-            for (let i of this.severRankList) {
-                Xarr.push(i.name);
-                dataarr.push(i.score);
-            }
-            this.option2.xAxis.data = Xarr;
-
-            this.option2.series = {
-                name: "销量",
-                type: "bar",
-                data: dataarr
-            };
-            //饼状图赋值，下载量
-            let data = [];
-            for (let i = 0; i < this.severTopList.length; i++) {
-                data.push({
-                    value: this.severTopList[i].score,
-                    name: this.severTopList[i].name
-                });
-            }
-            this.option3.series = {
-                type: "pie",
-                data: data
-            };
-        },
         getcontent(row, event, column) {
             let id = row.id.toString();
             this.$router.push({ path: "/community/main/newscontent/" + id });
@@ -580,15 +472,16 @@ export default {
         getNoticeList() {
             fetchNoticeList(this.listQuery).then(response => {
                 if (response.data.code === 2000) {
+                    //console.log(response.data.items);
                     for (let i = 0; i < response.data.items.length; i++) {
-                        let longtime = response.data.items[i].creatE_DATE;
+                        let longtime = response.data.items[i].CREATE_DATE;
                         let shorttime = longtime.substring(0, 10);
                         this.noticeList.push({
-                            title: response.data.items[i].noticE_TITLE,
-                            date: response.data.items[i].noticE_DATETIME,
-                            id: response.data.items[i].noticE_ID,
-                            content: response.data.items[i].noticE_CONTENT,
-                            writter: response.data.items[i].creater,
+                            title: response.data.items[i].NOTICE_TITLE,
+                            date: response.data.items[i].NOTICE_DATETIME,
+                            id: response.data.items[i].NOTICE_ID,
+                            content: response.data.items[i].NOTICE_CONTENT,
+                            writter: response.data.items[i].CREATER,
                             time: shorttime
                         });
                     }
@@ -603,18 +496,7 @@ export default {
                 }
             });
         },
-        //本地数据测试
-        // getNoticeList() {
-        //     for (let i = 0; i < this.list1.items.length; i++) {
-        //         this.noticeList.push({
-        //              title: this.list1.items[i].noticE_TITLE,
-        //             // date: response.data.item[i].NOTICE_DATETIME,
-        //             id: this.list1.items[i].noticE_ID
-        //             // content: response.data.item[i].NOTICE_CONTENT,
-        //             // writter: response.data.item[i].NOTICE_ORGNAME
-        //         });
-        //     }
-        // },
+
         //获取论坛列表 待修改表
         getCommuntityList() {
             fetchCommunityList(this.listQuery).then(response => {
@@ -641,40 +523,35 @@ export default {
         },
         //获取服务排名数据
         getSeverRank() {
-            fetchSeverList(this.listRankQuery).then(response => {
+            fetchAlldata().then(response => {
                 if (response.data.code === 2000) {
+                    this.severTopList = response.data.dtServerCountTop; //服务下载量柱状图数据
                     for (
+                        //服务下载量饼状图数据
+                        let i = 0;
+                        i < response.data.dtServerMonth.length;
+                        i++
+                    ) {
+                        this.severRankList.push({
+                            name: response.data.dtServerMonth[i].CHECK_MONTH,
+                            value: response.data.dtServerMonth[i].TOTAL
+                        });
+                    }
+                    this.SeverComponentTopList = response.data.dtComponentTop; //组件下载量柱状图数据
+                    for (
+                        //组件下载量饼状图数据
                         let i = 0;
                         i < response.data.dtComponentMonth.length;
                         i++
                     ) {
-                        this.severRankList.push({
-                            name: response.data.dtComponentMonth[i].TOTAL,
-                            score: response.data.dtComponentMonth[i].CHECK_MONTH
-                        });
-                    }
-                    for (let i = 0; i < response.data.list2.dtComponentTop.length; i++) {
-                        this.severTopList.push({
-                            name: response.data.dtComponentTop[i].COMPONENT_NAME,
-                            score: response.data.dtComponentTop[i].DOWNLOAD_TIMES
-                        });
-                    }
-                    for (let i = 0; i < response.data.dtServerMonth.length; i++) {
                         this.SeverComponentRankList.push({
-                            name: response.data.dtServerMonth[i].TOTAL,
-                            score: response.data.dtServerMonth[i].CHECK_MONTH
+                            name: response.data.dtComponentMonth[i].CHECK_MONTH,
+                            value: response.data.dtComponentMonth[i].TOTAL
                         });
                     }
-                    for (
-                        let i = 0;
-                        i < response.data.dtServerCountTop.length;
-                        i++
-                    ) {
-                        this.SeverComponentTopList.push({
-                            name: response.data.dtServerCountTop[i].SERVICE_NAME,
-                            score:response.data.dtServerCountTop[i].SERVICE_TIMES
-                        });
-                    }
+                    console.log(this.severRankList);
+                    this.changedata();
+                    this.drawLine(); //绘制echarts图
                 } else {
                     this.$notify({
                         position: "bottom-right",
@@ -685,65 +562,102 @@ export default {
                     });
                 }
             });
+        },
+        //数据转化
+        changedata() {
+            //option 服务柱状图转化
+            let Xdata = [];
+            let Severdata = [];
+            for (var sevice of this.severTopList) {
+                Xdata.push(sevice.SERVICE_NAME);
+                Severdata.push(sevice.SERVICE_TIMES);
+            }
+            this.option.xAxis.data = Xdata;
+            this.option.series = [
+                {
+                    name: "下载量",
+                    type: "bar",
+                    data: Severdata
+                }
+            ];
+            //option1 服务饼状图数据转化
+            this.option1.series = [
+                {
+                    name: "服务下载量",
+                    type: "pie",
+                    data: this.severRankList
+                }
+            ];
+            //option2 组件柱状图数据转化
+            let Xdata1 = [];
+            let Comdata = [];
+            for (var com of this.SeverComponentTopList) {
+                Xdata1.push(com.COMPONENT_NAME);
+                Comdata.push(com.DOWNLOAD_TIMES);
+            }
+            this.option2.series = [
+                {
+                    name: "组件下载量",
+                    type: "bar",
+                    data: Comdata
+                }
+            ];
+            //option3 组件饼状图转化
+            this.option3.series = [
+                {
+                    name: "服务下载量",
+                    type: "pie",
+                    data: this.SeverComponentRankList
+                }
+            ];
         },
         //获取服务排名数据本地数据测试
-        getSeverRank() {
-            for (let i = 0; i < this.list2.dtComponentMonth.length; i++) {
-                this.severRankList.push({
-                    name: this.list2.dtComponentMonth[i].TOTAL,
-                    score: this.list2.dtComponentMonth[i].CHECK_MONTH
-                });
-            }
-            for (let i = 0; i < this.list2.dtComponentTop.length; i++) {
-                this.severTopList.push({
-                    name: this.list2.dtComponentTop[i].COMPONENT_NAME,
-                    score: this.list2.dtComponentTop[i].DOWNLOAD_TIMES
-                });
-            }
-            //
-            for (let i = 0; i < this.list2.dtServerMonth.length; i++) {
-                this.SeverComponentRankList.push({
-                    name: this.list2.dtServerMonth[i].TOTAL,
-                    score: this.list2.dtServerMonth[i].CHECK_MONTH
-                });
-            }
-            for (let i = 0; i < this.list2.dtServerCountTop.length; i++) {
-                this.SeverComponentTopList.push({
-                    name: this.list2.dtServerCountTop[i].SERVICE_NAME,
-                    score: this.list2.dtServerCountTop[i].SERVICE_TIMES
-                });
-            }
-            this.getdata(); //组件echarts赋值
-            this.getdata1(); //服务echarts赋值
-            this.drawLine(); //绘制echarts图
-        },
-        //获取组件排行榜
-        getSeverComponentRank() {
-            fetchSeverComponentList(this.listRankQuery).then(response => {
-                if (response.data.code === 2000) {
-                    for (let i = 0; i < response.data.item.length; i++) {
-                        this.SeverComponentRankList.push({
-                            name: response.data.item[i].CHECK_MONTH,
-                            score: response.data.item[i].TOTAL
-                        });
-                    }
-                } else {
-                    this.$notify({
-                        position: "bottom-right",
-                        title: "失败",
-                        message: response.data.message,
-                        type: "error",
-                        duration: 2000
-                    });
-                }
-            });
+        // getSeverRank() {
+        //     for (let i = 0; i < this.list2.dtComponentMonth.length; i++) {
+        //         this.severRankList.push({
+        //             name: this.list2.dtComponentMonth[i].TOTAL,
+        //             score: this.list2.dtComponentMonth[i].CHECK_MONTH
+        //         });
+        //     }
+        //     for (let i = 0; i < this.list2.dtComponentTop.length; i++) {
+        //         this.severTopList.push({
+        //             name: this.list2.dtComponentTop[i].COMPONENT_NAME,
+        //             score: this.list2.dtComponentTop[i].DOWNLOAD_TIMES
+        //         });
+        //     }
+        //     //
+        //     for (let i = 0; i < this.list2.dtServerMonth.length; i++) {
+        //         this.SeverComponentRankList.push({
+        //             name: this.list2.dtServerMonth[i].TOTAL,
+        //             score: this.list2.dtServerMonth[i].CHECK_MONTH
+        //         });
+        //     }
+        //     for (let i = 0; i < this.list2.dtServerCountTop.length; i++) {
+        //         this.SeverComponentTopList.push({
+        //             name: this.list2.dtServerCountTop[i].SERVICE_NAME,
+        //             score: this.list2.dtServerCountTop[i].SERVICE_TIMES
+        //         });
+        //     }
+        //     this.getdata(); //组件echarts赋值
+        //     this.getdata1(); //服务echarts赋值
+        //     this.drawLine(); //绘制echarts图
+        // },
+        test(){
+            //console.log(this.$store.state.user.total)
+            //console.log(this.$store.state.user.msgInfo)
+            console.log(this.$store.state.user.userinfo)
+            console.log(this.$store.state.user.projList)
         }
     },
     mounted() {
-        this.getSeverRank(); //获取服务排名
+        //获取服务排名
+        this.getNoticeList();
+        // this.getdata(); //组件echarts赋值
+        // this.getdata1(); //服务echarts赋值
     },
     created() {
-        //.getNoticeList(); //拉取通知列表
+        this.getSeverRank();
+        //getNoticeList(); //拉取通知列表
         // this.getSeverComponentRank(); //获取组件现在排名
     }
 };

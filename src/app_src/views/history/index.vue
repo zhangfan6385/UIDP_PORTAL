@@ -168,78 +168,6 @@ export default {
             total: null,
             userPower: 0,
             listloading: true,
-            list1: {
-                code: 2000,
-                message: "",
-                items: [
-                    {
-                        PLAT_ID: "ssss",
-                        PLAT_CODE: "123",
-                        PLAT_NAME: "23",
-                        PLAT_VERSION: "23",
-                        PLAT_PUBLISHDATE: "2018-08-25T18:08:58",
-                        PLAT_SIZE: 23,
-                        SOFTWARE_LANGUAGE: "SOFTWARE_LANGUAGE",
-                        SUIT_PLAT: "23",
-                        APPLICATION_BROWSER: "23",
-                        PLAT_RUNREQUIRE: "PLAT_RUNREQUIRE",
-                        PLAT_TYPE: 0,
-                        MANAGE_ROLE_ID: "MANAGE_ROLE_ID",
-                        MANAGE_ORG_ID: "MANAGE_ORG_ID",
-                        MANAGE_ORG_NAME: "MANAGE_ORG_NAME",
-                        MANAGE_TEL: "MANAGE_TEL",
-                        IS_DELETE: 0,
-                        CREATER: "CREATER",
-                        CREATE_DATE: "2018-08-25T18:08:58",
-                        CHECK_STATE: 1,
-                        children: [
-                            {
-                                PLAT_DETAIL_ID: "sdfds",
-                                PLAT_ID: "dddd",
-                                FILE_NAME: "sdf",
-                                FILE_TYPE: 0,
-                                FILE_URL: "sdf",
-                                FILE_SIZE: 3,
-                                CREATER: "sdf",
-                                CREATE_DATE: "2018-08-22T17:13:28"
-                            }
-                        ]
-                    },
-                    {
-                        PLAT_ID: "dddd",
-                        PLAT_CODE: "sdf",
-                        PLAT_NAME: "sdf",
-                        PLAT_VERSION: "sdf",
-                        PLAT_PUBLISHDATE: "2018-08-16T17:10:48",
-                        PLAT_SIZE: 32,
-                        SOFTWARE_LANGUAGE: "",
-                        SUIT_PLAT: "23",
-                        APPLICATION_BROWSER: "23",
-                        PLAT_RUNREQUIRE: "",
-                        PLAT_TYPE: 0,
-                        MANAGE_ROLE_ID: "",
-                        MANAGE_ORG_ID: "",
-                        MANAGE_ORG_NAME: "",
-                        MANAGE_TEL: "",
-                        IS_DELETE: 0,
-                        CREATER: "",
-                        CREATE_DATE: "2018-08-14T17:11:33",
-                        CHECK_STATE: -1,
-                        children: [
-                            {
-                                PLAT_DETAIL_ID: "sdfds",
-                                PLAT_ID: "dddd",
-                                FILE_NAME: "sdf",
-                                FILE_TYPE: 0,
-                                FILE_URL: "sdf",
-                                FILE_SIZE: 3,
-                                CREATER: "sdf",
-                                CREATE_DATE: "2018-08-22T17:13:28"
-                            }
-                        ]
-                    }
-                ]
-            }
         };
     },
     methods: {
@@ -268,6 +196,11 @@ export default {
             fetchGetHistoryList(this.querylist).then(response => {
                 if (response.data.code === 2000) {
                     this.histroyEdition = response.data.items;
+                    for(let i=0;i<response.data.items.length;i++){
+                        let longtime=response.data.items[i].CREATE_DATE
+                        let shorttime=longtime.substring(0,10);
+                        this.histroyEdition[i].CREATE_DATE=shorttime;
+                    }
                     this.listLoading = false;
                 } else {
                     this.listLoading = false;
@@ -287,7 +220,6 @@ export default {
     },
     mounted() {
         this.getHistoryList();
-        this.test();
     }
 };
 </script>

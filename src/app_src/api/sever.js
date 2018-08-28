@@ -2,7 +2,7 @@ import request from '@/app_src/utils/request'
 
 export function fetchSeverList(query) {
     return request({
-        url: '/apply/fetchComponentList/',
+        url: '/apply/fetchServerList/',
         method: 'get',
         params: query
     })
