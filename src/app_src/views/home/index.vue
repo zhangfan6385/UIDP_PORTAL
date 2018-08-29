@@ -38,7 +38,6 @@
                                 <el-col :span="2">
                                     <img src="../../../app_src/imgs/message.png" title="公告">
                                 </el-col>
-
                                 <el-col :span="22">
                                     <div class="title">
                                         最新发帖
@@ -200,125 +199,8 @@ import { fetchAlldata } from "@/app_src/api/home";
 export default {
     data() {
         return {
-            noticeList: [
-                // {
-                //     id: 1,
-                //     title: "重要通知",
-                //     content: "<h5>大港软件开发通知</h5>",
-                //     writter: "管理员",
-                //     time: "2018-8-13"
-                // },
-                // {
-                //     id: 2,
-                //     title: "重要通知",
-                //     content: "<h5>大港软件开发通知</h5>",
-                //     writter: "管理员",
-                //     time: "2018-8-13"
-                // },
-                // {
-                //     id: 3,
-                //     title: "重要通知",
-                //     content: "<h5>大港软件开发通知</h5>",
-                //     writter: "管理员",
-                //     time: "2018-8-13"
-                // },
-                // {
-                //     id: 4,
-                //     title: "重要通知",
-                //     content: "<h5>大港软件开发通知</h5>",
-                //     writter: "管理员",
-                //     time: "2018-8-13"
-                // },
-                // {
-                //     id: 5,
-                //     title: "重要通知",
-                //     content: "<h5>大港软件开发通知</h5>",
-                //     writter: "管理员",
-                //     time: "2018-8-13"
-                // },
-                // {
-                //     id: 6,
-                //     title: "重要通知",
-                //     content: "<h5>大港软件开发通知</h5>",
-                //     writter: "管理员",
-                //     time: "2018-8-13"
-                // }
-            ],
-            newslist: [
-                {
-                    id: 1,
-                    writter: "小李",
-                    type: 1,
-                    title:
-                        "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。",
-                    upTime: "2018-8-8",
-                    readNumber: 200,
-                    offer: 200,
-                    commentNumber: 200,
-                    content:
-                        "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
-                },
-                {
-                    id: 2,
-                    writter: "小张",
-                    type: 2,
-                    title: "为祖国庆生",
-                    upTime: "2018-8-8",
-                    readNumber: 200,
-                    offer: 200,
-                    commentNumber: 200,
-                    content:
-                        "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
-                },
-                {
-                    id: 3,
-                    writter: "小王",
-                    type: 3,
-                    title: "为祖国庆生",
-                    upTime: "2018-8-8",
-                    readNumber: 200,
-                    offer: 200,
-                    commentNumber: 200,
-                    content:
-                        "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
-                },
-                {
-                    id: 4,
-                    writter: "小李",
-                    type: 1,
-                    title: "为祖国庆生",
-                    upTime: "2018-8-8",
-                    readNumber: 200,
-                    offer: 200,
-                    commentNumber: 200,
-                    content:
-                        "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
-                },
-                {
-                    id: 5,
-                    writter: "小李",
-                    type: 2,
-                    title: "为祖国庆生",
-                    upTime: "2018-8-8",
-                    readNumber: 200,
-                    offer: 200,
-                    commentNumber: 200,
-                    content:
-                        "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
-                },
-                {
-                    id: 6,
-                    writter: "小李",
-                    type: 3,
-                    title: "为祖国庆生",
-                    upTime: "2018-8-8",
-                    readNumber: 200,
-                    offer: 200,
-                    commentNumber: 200,
-                    content:
-                        "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
-                }
-            ],
+            noticeList: [],
+            newslist: [],
             severRankList: [],
             severTopList: [],
             SeverComponentRankList: [],
@@ -380,54 +262,20 @@ export default {
                     }
                 ]
             },
-            //查询列表参数
+            //查询列表参数(公告,数据)
             listQuery: {
                 limit: 5,
                 page: 1
             },
-            list2: {
-                dtComponentMonth: [
-                    {
-                        TOTAL: 1,
-                        CHECK_MONTH: 8
-                    },
-                    {
-                        TOTAL: 1,
-                        CHECK_MONTH: 7
-                    },
-                    {
-                        TOTAL: 1,
-                        CHECK_MONTH: 6
-                    }
-                ],
-                dtServerMonth: [
-                    {
-                        TOTAL: 2,
-                        CHECK_MONTH: 8
-                    }
-                ],
-                dtComponentTop: [
-                    {
-                        DOWNLOAD_TIMES: 21,
-                        COMPONENT_NAME: "dd"
-                    },
-                    {
-                        DOWNLOAD_TIMES: 12,
-                        COMPONENT_NAME: "sdfdsf"
-                    }
-                ],
-                dtServerCountTop: [
-                    {
-                        SERVICE_TIMES: 5,
-                        SERVICE_NAME: "we"
-                    },
-                    {
-                        SERVICE_TIMES: 3,
-                        SERVICE_NAME: "ss"
-                    }
-                ],
-                code: 2000,
-                message: "查询成功"
+            //帖子查询参数
+            listQuery1: {
+                limit: 6,
+                page: 1,
+                POST_TYPE: null,
+                USER_ID: null,
+                TITLE_NAME: null,
+                BEGIN_SEND_DATE: null,
+                END_SEND_DATE: null
             }
         };
     },
@@ -499,15 +347,17 @@ export default {
 
         //获取论坛列表 待修改表
         getCommuntityList() {
-            fetchCommunityList(this.listQuery).then(response => {
+            fetchCommunityList(this.listQuery1).then(response => {
                 if (response.data.code === 2000) {
-                    for (let i = 0; i < response.data.item.length; i++) {
+                    for (let i = 0; i < response.data.items.length; i++) {
                         this.newslist.push({
-                            title: response.data.item[i].NOTICE_TITLE,
-                            date: response.data.item[i].NOTICE_DATETIME,
-                            id: response.data.item[i].NOTICE_ID,
-                            content: response.data.item[i].NOTICE_CONTENT,
-                            writter: response.data.item[i].NOTICE_ORGNAME
+                            id: response.data.items[i].POST_ID,
+                            writter: response.data.items[i].CREATER,
+                            type: response.data.items[i].POST_TYPE,
+                            title: response.data.items[i].TITLE_NAME,
+                            upTime: response.data.items[i].SEND_DATE,
+                            readNumber: response.data.items[i].BROWSE_NUM,
+                            content: response.data.items[i].POST_CONTENT
                         });
                     }
                 } else {
@@ -642,23 +492,20 @@ export default {
         //     this.getdata1(); //服务echarts赋值
         //     this.drawLine(); //绘制echarts图
         // },
-        test(){
-            //console.log(this.$store.state.user.total)
-            //console.log(this.$store.state.user.msgInfo)
-            console.log(this.$store.state.user.userinfo)
-            console.log(this.$store.state.user.projList)
+        test() {
+            console.log(this.$store.state.user.userinfo);
+            // console.log(this.$store.state.user.projList);
+            // console.log(this.$store.state.user.msgInfo);
         }
     },
     mounted() {
         //获取服务排名
         this.getNoticeList();
-        // this.getdata(); //组件echarts赋值
-        // this.getdata1(); //服务echarts赋值
+        //获取帖子列表
+        this.getCommuntityList();
     },
     created() {
         this.getSeverRank();
-        //getNoticeList(); //拉取通知列表
-        // this.getSeverComponentRank(); //获取组件现在排名
     }
 };
 </script>

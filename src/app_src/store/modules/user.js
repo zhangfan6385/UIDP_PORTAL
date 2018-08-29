@@ -6,13 +6,13 @@ import { Promise } from 'core-js';
 const user = {
   state: {
     //userInfo
-    userID: "e0ff3b1e-1ec4-4c06-8b14-97f518731469",
+    userID: null,
     status: '',
     code: '',
     token: getToken(),
     userName: '',
     loginUserCode: '', // 登陆账号,
-    userInfo: [],
+    userinfo: [],
     //projInfo
     currentProjID: '',
     currentProjName: '',
@@ -167,11 +167,13 @@ const user = {
         loginByUsername(userInfo.username, userInfo.password).then(response => {
           if (response.data.code === 2000) {
             const data = response.data
+            console.log(response.data.token)
             // commit('SET_USER_NAME', data.userName)
             // commit('SET_CODE', data.userCode)
             // commit('SET_TOKEN', data.token)
             commit('SET_USER_INFO', data.userInfo)
             commit('SET_PROJLIST', data.projectInfo)
+            commit('SET_USER_ID',data.userInfo[0].USER_ID)
             setToken(response.data.token)
             //this.$store.dispatch('GetUserMsg')
             resolve(response)

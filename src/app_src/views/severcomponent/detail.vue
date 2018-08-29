@@ -217,8 +217,7 @@ export default {
             alert("正在下载" + name + "文件");
         },
         getSeverComponent() {
-            this.queryList.userid = "2a474344-0d65-48a4-8735-b8a2371160d4";
-            //this.queryList.ID = this.$store.state.user.userID;
+            this.queryList.ID = this.$store.state.user.userID;
             this.queryList.projectid = this.$store.state.user.currentProjID;
             this.queryList.resourceid = this.$route.params.id;
             fetchSeverComponentDetail(this.queryList).then(response => {

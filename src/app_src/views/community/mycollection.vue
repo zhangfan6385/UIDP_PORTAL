@@ -1,64 +1,68 @@
 <template>
-  <div id="mycard" class="mycard">
-    <el-row type="flex" :gutter="20">
-      <el-col :span="2"></el-col>
-      <el-col :span="6">
-        <div class="leftcontainer">
-          <el-card :body-style="{ padding: '0px' }">
-            <div class="photo">
-              <img src="../../../app_src/imgs/avatar.png">
-            </div>
-            <div style="padding: 14px;" class="info">
-              <span>
-                用户ID：{{userinfo.name}}
-                <br> 公司：{{userinfo.company}}
-                <br> 积分：{{userinfo.score}}
-                <br> 发帖数量：{{userinfo.recordNumber}}
-                <br> 评论数量：{{userinfo.reviewNumvber}}
-              </span>
-            </div>
-          </el-card>
-        </div>
-      </el-col>
+    <div id="mycard" class="mycard">
+        <el-row type="flex" :gutter="20">
+            <el-col :span="2"></el-col>
+            <el-col :span="6">
+                <div class="leftcontainer">
+                    <el-card :body-style="{ padding: '0px' }">
+                        <div class="photo">
+                            <img src="../../../app_src/imgs/avatar.png">
+                        </div>
+                        <div style="padding: 14px;" class="info">
+                            <span>
+                                用户姓名：{{userinfo.USER_NAME}}
+                                <br> 公司：{{userinfo.ORG_NAME}}
+                                <br> 积分：{{userinfo.SCORE}}
+                                <br> 手机：{{userinfo.MOBILE}}
+                                <br> 办公电话：{{userinfo.OFFICE}}
+                                <br> 注册邮箱：{{userinfo.USER_EMAIL}}
+                                <br> 发帖数量：{{userinfo.recordNumber}}
+                                <br> 评论数量：{{userinfo.reviewNumvber}}
+                            </span>
+                        </div>
+                    </el-card>
+                </div>
+            </el-col>
 
-      <el-col :span="14">
-        <div class="rightcontainer">
-          <el-card>
-            <div class="title">
-              我的收藏
-            </div>
-            <el-table :data="myCollectionList" @row-click="getcontent">
-              <el-table-column label="类型" prop="type" align="center">
-                <template slot-scope="scope">
-                  <div class="newslogo">
-                    <span v-if="scope.row.type===1">
-                      <img src="../../../app_src/imgs/shakehande.png" title="经验分享">
-                    </span>
-                    <span v-else-if="scope.row.type===2">
-                      <img src="../../../app_src/imgs/feedback.png" title="问题反馈">
-                    </span>
-                    <span v-else-if="scope.row.type===3">
-                      <img src="../../../app_src/imgs/help.png" title="问题求助">
-                    </span>
-                  </div>
-                </template>
-              </el-table-column>
- <el-table-column label="主题" prop="title" align="center"></el-table-column>
-              <el-table-column label="阅读量" prop="readNumber" align="center"></el-table-column>
-              <el-table-column label="悬赏金额" prop="offer" align="center"></el-table-column>
-              <el-table-column label="评论人数" prop="commentNumber" align="center"></el-table-column>
-              <el-table-column label="作者" prop="writter" align="center"></el-table-column>
-              <el-table-column label="收藏日期" prop="collectionTiome" align="center"></el-table-column>
-            </el-table>
-          </el-card>
-        </div>
-      </el-col>
-    </el-row>
-  </div>
+            <el-col :span="14">
+                <div class="rightcontainer">
+                    <el-card>
+                        <div class="title">
+                            我的收藏
+                        </div>
+                        <el-table :data="myCollectionList" @row-click="getcontent">
+                            <el-table-column label="类型" prop="type" align="center">
+                                <template slot-scope="scope">
+                                    <div class="newslogo">
+                                        <span v-if="scope.row.type===1">
+                                            <img src="../../../app_src/imgs/shakehande.png" title="经验分享">
+                                        </span>
+                                        <span v-else-if="scope.row.type===2">
+                                            <img src="../../../app_src/imgs/feedback.png" title="问题反馈">
+                                        </span>
+                                        <span v-else-if="scope.row.type===3">
+                                            <img src="../../../app_src/imgs/help.png" title="问题求助">
+                                        </span>
+                                    </div>
+                                </template>
+                            </el-table-column>
+                            <el-table-column label="主题" prop="title" align="center"></el-table-column>
+                            <el-table-column label="阅读量" prop="readNumber" align="center"></el-table-column>
+                            <el-table-column label="悬赏金额" prop="offer" align="center"></el-table-column>
+                            <el-table-column label="评论人数" prop="commentNumber" align="center"></el-table-column>
+                            <el-table-column label="作者" prop="writter" align="center"></el-table-column>
+                            <el-table-column label="收藏日期" prop="collectionTime" align="center"></el-table-column>
+                        </el-table>
+                    </el-card>
+                </div>
+            </el-col>
+        </el-row>
+    </div>
 </template>
 
 
 <script>
+import { fetchMyCommunityCollectionList } from "@/app_src/api/community";
 export default {
     data() {
         return {
@@ -70,51 +74,56 @@ export default {
                 reviewNumvber: "101"
             },
             myCollectionList: [
-                {
-                    id: 1,
-                    writter: "小李",
-                    type: 1,
-                    title: "为祖国庆生",
-                    upTime: "2018-8-8",
-                    readNumber: 200,
-                    offer: 200,
-                    commentNumber: 200,
-                    collectionTiome: "2018-8-14"
-                },
-                {
-                    id: 2,
-                    writter: "小李",
-                    type: 2,
-                    title: "为祖国庆生",
-                    upTime: "2018-8-8",
-                    readNumber: 200,
-                    offer: 200,
-                    commentNumber: 200,
-                    collectionTiome: "2018-8-14"
-                },
-                {
-                    id: 3,
-                    writter: "小李",
-                    type: 3,
-                    title: "为祖国庆生",
-                    upTime: "2018-8-8",
-                    readNumber: 200,
-                    offer: 200,
-                    commentNumber: 200,
-                    collectionTiome: "2018-8-14"
-                },
-                {
-                    id: 4,
-                    writter: "小李",
-                    type: 3,
-                    title: "为祖国庆生",
-                    upTime: "2018-8-8",
-                    readNumber: 200,
-                    offer: 200,
-                    commentNumber: 200,
-                    collectionTiome: "2018-8-14"
-                }
-            ]
+                // {
+                //     id: 1,
+                //     writter: "小李",
+                //     type: 1,
+                //     title: "为祖国庆生",
+                //     upTime: "2018-8-8",
+                //     readNumber: 200,
+                //     offer: 200,
+                //     commentNumber: 200,
+                //     collectionTime: "2018-8-14"
+                // },
+                // {
+                //     id: 2,
+                //     writter: "小李",
+                //     type: 2,
+                //     title: "为祖国庆生",
+                //     upTime: "2018-8-8",
+                //     readNumber: 200,
+                //     offer: 200,
+                //     commentNumber: 200,
+                //     collectionTiome: "2018-8-14"
+                // },
+                // {
+                //     id: 3,
+                //     writter: "小李",
+                //     type: 3,
+                //     title: "为祖国庆生",
+                //     upTime: "2018-8-8",
+                //     readNumber: 200,
+                //     offer: 200,
+                //     commentNumber: 200,
+                //     collectionTiome: "2018-8-14"
+                // },
+                // {
+                //     id: 4,
+                //     writter: "小李",
+                //     type: 3,
+                //     title: "为祖国庆生",
+                //     upTime: "2018-8-8",
+                //     readNumber: 200,
+                //     offer: 200,
+                //     commentNumber: 200,
+                //     collectionTiome: "2018-8-14"
+                // }
+            ],
+            queryList: {
+                USER_ID: null,
+                limit: 5,
+                page: 1
+            }
         };
     },
     methods: {
@@ -127,7 +136,49 @@ export default {
         getcontent(data) {
             var id = data.id.toString();
             this.$router.push({ path: "/community/main/newscontent/" + id });
+        },
+        getCollectionList() {
+            this.queryList.USER_ID=this.$store.state.user.userID
+            fetchMyCommunityCollectionList(this.queryList).then(response => {
+                if (response.data.code === 2000) {
+                    for (let i = 0; i < response.data.items.length; i++) {
+                        let time = response.data.items[i].SEND_DATE.substring(
+                            0,
+                            10
+                        );
+                        let time1 = response.data.items[
+                            i
+                        ].CREATE_DATE.substring(0, 10);
+                        this.myCollectionList.push({
+                            id: response.data.items[i].COLLECTION_ID,
+                            writter: response.data.items[i].CREATER,
+                            type: response.data.items[i].POST_TYPE,
+                            title: response.data.items[i].TITLE_NAME,
+                            upTime: time,
+                            readNumber: response.data.items[i].BROWSE_NUM,
+                            //offer: response.data.items[i].,
+                            //commentNumber: response.data.items[i].,
+                            collectionTime: time1
+                        });
+                    }
+                } else {
+                    this.$notify({
+                        position: "bottom-right",
+                        title: "失败",
+                        message: response.data.message,
+                        type: "error",
+                        duration: 2000
+                    });
+                }
+            });
+        },
+        getUserInfo(){
+            this.userinfo=this.$store.state.user.userinfo[0]
         }
+    },
+    mounted() {
+        this.getCollectionList();
+        this.getUserInfo();
     }
 };
 </script>
@@ -151,8 +202,7 @@ export default {
         .info {
             font-size: 20px;
             line-height: 35px;
-            font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-                "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+            font-family: "微软雅黑"
         }
     }
     .rightcontainer {

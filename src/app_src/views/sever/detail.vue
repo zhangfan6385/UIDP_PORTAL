@@ -162,7 +162,7 @@ export default {
     },
     methods: {
         handleApply() {
-            console.log(this.$store.state.user.userID);
+             console.log(this.$store.state.user.userID);
             if (this.$store.state.user.userID != null) {
                 this.dialogFormVisible = true;
                 this.dialogTitle = "组件" + name + "申请记录";

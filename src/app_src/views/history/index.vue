@@ -109,12 +109,7 @@
 
 
 <script>
-import {
-    fetchGetHistoryList,
-    fetchDownloadFile,
-    fetchApplyDownload,
-    FetchGetPermisstion
-} from "@/app_src/api/history";
+import { fetchGetHistoryList } from "@/app_src/api/history";
 export default {
     data() {
         return {
@@ -156,10 +151,11 @@ export default {
             // ],
             histroyEdition: [],
             querylist: {
-                userID: null,
-                projID: null,
-                resouseID: null,
-                type: 0
+                userid: null,
+                projectid: null,
+                resouseid: null,
+                type: 0,
+                isFirst: false
             },
             permissionquery: {
                 userID: null
@@ -167,7 +163,7 @@ export default {
             permissionList: [],
             total: null,
             userPower: 0,
-            listloading: true,
+            listloading: true
         };
     },
     methods: {
@@ -188,18 +184,18 @@ export default {
         },
         getHistoryList() {
             this.querylist.type = this.$store.state.user.platformIndex;
-            this.querylist.projID = this.$store.state.user.currentProjID;
-            this.querylist.userID = this.$store.state.user.userID;
+            this.querylist.projectid = this.$store.state.user.currentProjID;
+            this.querylist.userid = this.$store.state.user.userID;
             this.FetchHistoryList();
         },
         FetchHistoryList() {
             fetchGetHistoryList(this.querylist).then(response => {
                 if (response.data.code === 2000) {
                     this.histroyEdition = response.data.items;
-                    for(let i=0;i<response.data.items.length;i++){
-                        let longtime=response.data.items[i].CREATE_DATE
-                        let shorttime=longtime.substring(0,10);
-                        this.histroyEdition[i].CREATE_DATE=shorttime;
+                    for (let i = 0; i < response.data.items.length; i++) {
+                        let longtime = response.data.items[i].CREATE_DATE;
+                        let shorttime = longtime.substring(0, 10);
+                        this.histroyEdition[i].CREATE_DATE = shorttime;
                     }
                     this.listLoading = false;
                 } else {

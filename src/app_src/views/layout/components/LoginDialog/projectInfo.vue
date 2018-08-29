@@ -129,7 +129,6 @@ export default {
             this.temp = Object.assign({}, row); // copy obj
             this.$store.state.user.currentProjID = this.temp.PROJECT_ID;
             this.$store.state.user.currentProjName = this.temp.PROJECT_NAME;
-            this.$store.state.user.userID = "sdfdsf";
             this.$store.state.user.dialogLoginVisible = false;
             this.$store.state.user.dialogProjectInfoVisible = false;
         },
