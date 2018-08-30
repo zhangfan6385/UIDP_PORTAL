@@ -15,3 +15,27 @@ export function fetchMyCommunityCollectionList(query) {
         params: query,
     })
 }
+
+export function fetchMyCommunityUserInfoList(query) {
+    return request({
+        url: 'User/CommunityUserInfo',
+        method: 'get',
+        params: query,
+    })
+}
+
+export function fetchMyCommunityList(query) {
+    return request({
+        url: 'communitypost/fetchCommunityPostList',
+        method: 'get',
+        params: query,
+    })
+}
+
+export function createCard(data){
+    return request({
+        url:'communitypost/createCommunityPostArticle',
+        method:'post',
+        data
+    })
+}

@@ -1,112 +1,112 @@
 <template>
-  <!--主贴界面-->
-  <div id="newscontent" class="newscontent">
-    <el-row :gutter="20" type="flex">
-      <el-col :span="2"> </el-col>
-      <el-col :span="20">
-        <div class="card">
-          <!--主楼标题按钮界面-->
-          <el-card v-for="(card,cardIndex) in cardList" :key="cardIndex">
-            <div slot="header" class="cardheader" v-if="cardIndex ===0">
-              <span>{{card.cardinfo.title}}</span>
-              <div class="operation">
-                <el-button size="mini">
-                  <i class="el-icon-circle-plus"></i>收藏
-                </el-button>
-                <el-button size="mini">
-                  <i class="el-icon-remove"></i>取消收藏
-                </el-button>
-                <el-button size="mini" type="info">回复</el-button>
-              </div>
-            </div>
-            <!--主贴头像区域-->
-            <el-row>
-              <el-col :span="5">
-                <div class="userhead">
-                  <img src="../../../app_src/imgs/userHead.png">
-                  <div class="logo">
-                    <el-button type="primary" size="mini" v-if="cardIndex===0">楼主</el-button>
-                  </div>
-                </div>
-              </el-col>
-              <!--主贴信息界面-->
-              <el-col :span="18">
-                <div class="content">
-                  <p v-html="card.cardinfo.content"></p>
-                </div>
-              </el-col>
-            </el-row>
-            <div class="foot">
-              <el-row>
-                <el-col :span="24">
-                  发表日期：{{card.cardinfo.upTime}}
-                  <el-button type="text" @click="getcomment(card,cardIndex)">{{mainCardMsg}}({{card.cardinfo.commentNumber}})</el-button>
-                </el-col>
-              </el-row>
-            </div>
-            <!--主贴评论界面-->
-            <div class="commit" v-show="currentIndex===cardIndex">
-              <el-row>
-                <el-col>
-                  <el-card>
-                    <div v-for="(commit,commitIndex) in card.commitinfo" :key="commitIndex">
-                      <el-row type="flex">
-                        <el-col :span="3">
-                          <div class="commithead">
-                            <img src="../../../app_src/imgs/userHead.png">
-                          </div>
-                        </el-col>
-                        <el-col :span="21">
-                          <div class="commitcontent">
-                            {{card.commitinfo[commitIndex].writter}}:{{card.commitinfo[commitIndex].content}}
-                          </div>
-                        </el-col>
-                      </el-row>
-                      <el-row>
-                        <div class="commitfoot">
-                          <el-col :span="24">
-                            发表日期：{{card.commitinfo[commitIndex].upTime}}
-                            <el-button type="text" @click="commitToPerson(card.commitinfo[commitIndex],commitIndex)">回复</el-button>
-                          </el-col>
+    <!--主贴界面-->
+    <div id="newscontent" class="newscontent">
+        <el-row :gutter="20" type="flex">
+            <el-col :span="2"> </el-col>
+            <el-col :span="20">
+                <div class="card">
+                    <!--主楼标题按钮界面-->
+                    <el-card v-for="(card,cardIndex) in cardList" :key="cardIndex">
+                        <div slot="header" class="cardheader" v-if="cardIndex ===0">
+                            <span>{{card.cardinfo.title}}</span>
+                            <div class="operation">
+                                <el-button size="mini">
+                                    <i class="el-icon-circle-plus"></i>收藏
+                                </el-button>
+                                <el-button size="mini">
+                                    <i class="el-icon-remove"></i>取消收藏
+                                </el-button>
+                                <el-button size="mini" type="info">回复</el-button>
+                            </div>
                         </div>
-                      </el-row>
+                        <!--主贴头像区域-->
+                        <el-row>
+                            <el-col :span="5">
+                                <div class="userhead">
+                                    <img src="../../../app_src/imgs/userHead.png">
+                                    <div class="logo">
+                                        <el-button type="primary" size="mini" v-if="cardIndex===0">楼主</el-button>
+                                    </div>
+                                </div>
+                            </el-col>
+                            <!--主贴信息界面-->
+                            <el-col :span="18">
+                                <div class="content">
+                                    <p v-html="card.cardinfo.content"></p>
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <div class="foot">
+                            <el-row>
+                                <el-col :span="24">
+                                    发表日期：{{card.cardinfo.upTime}}
+                                    <!-- <el-button type="text" @click="getcomment(card,cardIndex)">{{mainCardMsg}}({{card.cardinfo.commentNumber}})</el-button> -->
+                                </el-col>
+                            </el-row>
+                        </div>
+                        <!--主贴评论界面-->
+                        <!--<div class="commit" v-show="currentIndex===cardIndex">
+                            <el-row>
+                                <el-col>
+                                    <el-card>
+                                        <div v-for="(commit,commitIndex) in card.commitinfo" :key="commitIndex">
+                                            <el-row type="flex">
+                                                <el-col :span="3">
+                                                    <div class="commithead">
+                                                        <img src="../../../app_src/imgs/userHead.png">
+                                                    </div>
+                                                </el-col>
+                                                <el-col :span="21">
+                                                    <div class="commitcontent">
+                                                        {{card.commitinfo[commitIndex].writter}}:{{card.commitinfo[commitIndex].content}}
+                                                    </div>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row>
+                                                <div class="commitfoot">
+                                                    <el-col :span="24">
+                                                        发表日期：{{card.commitinfo[commitIndex].upTime}}
+                                                        <el-button type="text" @click="commitToPerson(card.commitinfo[commitIndex],commitIndex)">回复</el-button>
+                                                    </el-col>
+                                                </div>
+                                            </el-row>
 
-                    </div>
-                    <!--我也说一句按钮 循环体外-->
-                    <el-row>
-                      <div class="commitfootbutton">
-                        <el-col :span="24">
-                          <el-button type="info" size="mini" @click="openCommit()">{{commitcardMsg}}</el-button>
-                        </el-col>
-                      </div>
-                    </el-row>
-                    <!--评论的回复input以及确定按钮-->
-                    <div v-if="commitfootinputVisibility">
-                      <el-row>
-                        <div class="commitfootinput">
-                          <el-col :span="24">
-                            <el-input placeholder="请输入内容" v-model="commitcontent"></el-input>
-                          </el-col>
-                        </div>
-                      </el-row>
+                                        </div>
+                                        
+                                        <el-row>
+                                            <div class="commitfootbutton">
+                                                <el-col :span="24">
+                                                    <el-button type="info" size="mini" @click="openCommit()">{{commitcardMsg}}</el-button>
+                                                </el-col>
+                                            </div>
+                                        </el-row>
+                                        
+                                        <div v-if="commitfootinputVisibility">
+                                            <el-row>
+                                                <div class="commitfootinput">
+                                                    <el-col :span="24">
+                                                        <el-input placeholder="请输入内容" v-model="commitcontent"></el-input>
+                                                    </el-col>
+                                                </div>
+                                            </el-row>
 
-                      <el-row>
-                        <div class="commitfootbutton">
-                          <el-col :span="24">
-                            <el-button size="mini" type="primary">确定</el-button>
-                          </el-col>
-                        </div>
-                      </el-row>
-                    </div>
-                  </el-card>
-                </el-col>
-              </el-row>
-            </div>
-          </el-card>
-        </div>
-      </el-col>
-    </el-row>
-  </div>
+                                            <el-row>
+                                                <div class="commitfootbutton">
+                                                    <el-col :span="24">
+                                                        <el-button size="mini" type="primary">确定</el-button>
+                                                    </el-col>
+                                                </div>
+                                            </el-row>
+                                        </div>
+                                    </el-card>
+                                </el-col>
+                            </el-row>
+                        </div>-->
+                    </el-card>
+                </div>
+            </el-col>
+        </el-row>
+    </div>
 </template>
 
 

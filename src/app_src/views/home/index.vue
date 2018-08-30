@@ -16,7 +16,7 @@
                                         公告
                                         <div class="headerbutton">
                                             <el-button type="primary" size="mini" @click="gotonotice"> 查看更多</el-button>
-                                            <el-button type="primary" size="mini" @click="test"> 全局数据展示</el-button>
+                                            <!-- <el-button type="primary" size="mini" @click="test"> 全局数据展示</el-button> -->
                                         </div>
                                     </div>
                                 </el-col>
@@ -24,9 +24,17 @@
                         </div>
                         <hr>
                         <el-table :data="noticeList" size="mini" :show-header="false" @row-click="goToContent" height="220px">
-                            <el-table-column prop="title" align="center" show-overflow-tooltip></el-table-column>
+                            <el-table-column align="center" show-overflow-tooltip>
+                                <template slot-scope="scope">
+                                    <span class="noticetitle">{{scope.row.title}}</span>
+                                </template>
+                            </el-table-column>
                             <!-- <el-table-column  prop="writter" align="center"></el-table-column> -->
-                            <el-table-column prop="time" align="center"></el-table-column>
+                            <el-table-column align="center">
+                                <template slot-scope="scope">
+                                    <span class="noticetitle">{{scope.row.time}}</span>
+                                </template>
+                            </el-table-column>
                         </el-table>
                     </el-card>
                 </el-col>
@@ -65,7 +73,11 @@
                                     </div>
                                 </template>
                             </el-table-column>
-                            <el-table-column prop="title" label="主题" show-overflow-tooltip></el-table-column>
+                            <el-table-column label="主题" show-overflow-tooltip>
+                                <template slot-scope="scope">
+                                    <span class="communitytitle">{{scope.row.title}}</span>
+                                </template>
+                            </el-table-column>
                             <!-- <el-table-column prop="readNumber" label="阅读量" width="100px" align="center"></el-table-column>
                             <el-table-column prop="offer" label="悬赏金额" width="100px" align="center"></el-table-column>
                             <el-table-column prop="commentNumber" label="评论人数" width="100px" align="center"></el-table-column>
@@ -455,47 +467,16 @@ export default {
             //option3 组件饼状图转化
             this.option3.series = [
                 {
-                    name: "服务下载量",
+                    name: "组件下载量",
                     type: "pie",
                     data: this.SeverComponentRankList
                 }
             ];
         },
-        //获取服务排名数据本地数据测试
-        // getSeverRank() {
-        //     for (let i = 0; i < this.list2.dtComponentMonth.length; i++) {
-        //         this.severRankList.push({
-        //             name: this.list2.dtComponentMonth[i].TOTAL,
-        //             score: this.list2.dtComponentMonth[i].CHECK_MONTH
-        //         });
-        //     }
-        //     for (let i = 0; i < this.list2.dtComponentTop.length; i++) {
-        //         this.severTopList.push({
-        //             name: this.list2.dtComponentTop[i].COMPONENT_NAME,
-        //             score: this.list2.dtComponentTop[i].DOWNLOAD_TIMES
-        //         });
-        //     }
-        //     //
-        //     for (let i = 0; i < this.list2.dtServerMonth.length; i++) {
-        //         this.SeverComponentRankList.push({
-        //             name: this.list2.dtServerMonth[i].TOTAL,
-        //             score: this.list2.dtServerMonth[i].CHECK_MONTH
-        //         });
-        //     }
-        //     for (let i = 0; i < this.list2.dtServerCountTop.length; i++) {
-        //         this.SeverComponentTopList.push({
-        //             name: this.list2.dtServerCountTop[i].SERVICE_NAME,
-        //             score: this.list2.dtServerCountTop[i].SERVICE_TIMES
-        //         });
-        //     }
-        //     this.getdata(); //组件echarts赋值
-        //     this.getdata1(); //服务echarts赋值
-        //     this.drawLine(); //绘制echarts图
-        // },
         test() {
             console.log(this.$store.state.user.userinfo);
-            // console.log(this.$store.state.user.projList);
-            // console.log(this.$store.state.user.msgInfo);
+            console.log(this.$store.state.user.projList);
+            console.log(this.$store.state.user.msgInfo);
         }
     },
     mounted() {
@@ -552,6 +533,16 @@ export default {
             margin-bottom: 0px;
         }
     }
+    .noticetitle:hover {
+        text-decoration: underline;
+        color: red;
+        cursor: pointer;
+    }
+    .communitytitle:hover {
+        text-decoration: underline;
+        color: red;
+        cursor: pointer;
+    }
 }
 .row2 {
     margin-top: 20px;
@@ -581,6 +572,7 @@ export default {
             /*发光*/
             //background-color: #58b7ff;
             transform: scale(1.1);
+            cursor: pointer;
             //background-image:url(../../../app_src/imgs/platform.png);
         }
     }

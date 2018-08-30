@@ -5,20 +5,22 @@
             <el-col :span="6">
                 <div class="leftcontainer">
                     <el-card :body-style="{ padding: '0px' }">
-                        <div class="photo">
-                            <img src="../../../app_src/imgs/avatar.png">
-                        </div>
-                        <div style="padding: 14px;" class="info">
-                            <span>
-                                用户姓名：{{userinfo.USER_NAME}}
-                                <br> 公司：{{userinfo.ORG_NAME}}
-                                <br> 积分：{{userinfo.SCORE}}
-                                <br> 手机：{{userinfo.MOBILE}}
-                                <br> 办公电话：{{userinfo.OFFICE}}
-                                <br> 注册邮箱：{{userinfo.USER_EMAIL}}
-                                <br> 发帖数量：{{userinfo.recordNumber}}
-                                <br> 评论数量：{{userinfo.reviewNumvber}}
-                            </span>
+                        <div >
+                            <div class="photo">
+                                <img src="../../../app_src/imgs/avatar.png">
+                            </div>
+                            <div style="padding: 14px;" class="info">
+                                <span>
+                                    用户姓名：{{userinfo.USER_NAME}}
+                                    <br> 公司：{{userinfo.ORG_NAME}}
+                                    <br> 积分：{{userinfo.SCORE}}
+                                    <br> 手机：{{userinfo.MOBILE}}
+                                    <br> 办公电话：{{userinfo.OFFICE}}
+                                    <br> 注册邮箱：{{userinfo.USER_EMAIL}}
+                                    <br> 发帖数量：{{userinfo.recordNumber}}
+                                    <br> 评论数量：{{userinfo.reviewNumvber}}
+                                </span>
+                            </div>
                         </div>
                     </el-card>
                 </div>
@@ -66,59 +68,8 @@ import { fetchMyCommunityCollectionList } from "@/app_src/api/community";
 export default {
     data() {
         return {
-            userinfo: {
-                name: "小张",
-                company: "大港油田",
-                score: "180",
-                recordNumber: "100",
-                reviewNumvber: "101"
-            },
-            myCollectionList: [
-                // {
-                //     id: 1,
-                //     writter: "小李",
-                //     type: 1,
-                //     title: "为祖国庆生",
-                //     upTime: "2018-8-8",
-                //     readNumber: 200,
-                //     offer: 200,
-                //     commentNumber: 200,
-                //     collectionTime: "2018-8-14"
-                // },
-                // {
-                //     id: 2,
-                //     writter: "小李",
-                //     type: 2,
-                //     title: "为祖国庆生",
-                //     upTime: "2018-8-8",
-                //     readNumber: 200,
-                //     offer: 200,
-                //     commentNumber: 200,
-                //     collectionTiome: "2018-8-14"
-                // },
-                // {
-                //     id: 3,
-                //     writter: "小李",
-                //     type: 3,
-                //     title: "为祖国庆生",
-                //     upTime: "2018-8-8",
-                //     readNumber: 200,
-                //     offer: 200,
-                //     commentNumber: 200,
-                //     collectionTiome: "2018-8-14"
-                // },
-                // {
-                //     id: 4,
-                //     writter: "小李",
-                //     type: 3,
-                //     title: "为祖国庆生",
-                //     upTime: "2018-8-8",
-                //     readNumber: 200,
-                //     offer: 200,
-                //     commentNumber: 200,
-                //     collectionTiome: "2018-8-14"
-                // }
-            ],
+            userinfo: {},
+            myCollectionList: [],
             queryList: {
                 USER_ID: null,
                 limit: 5,
@@ -138,7 +89,7 @@ export default {
             this.$router.push({ path: "/community/main/newscontent/" + id });
         },
         getCollectionList() {
-            this.queryList.USER_ID=this.$store.state.user.userID
+            this.queryList.USER_ID = this.$store.state.user.userID;
             fetchMyCommunityCollectionList(this.queryList).then(response => {
                 if (response.data.code === 2000) {
                     for (let i = 0; i < response.data.items.length; i++) {
@@ -172,8 +123,8 @@ export default {
                 }
             });
         },
-        getUserInfo(){
-            this.userinfo=this.$store.state.user.userinfo[0]
+        getUserInfo() {
+            this.userinfo = this.$store.state.user.userinfo[0];
         }
     },
     mounted() {
@@ -202,7 +153,7 @@ export default {
         .info {
             font-size: 20px;
             line-height: 35px;
-            font-family: "微软雅黑"
+            font-family: "微软雅黑";
         }
     }
     .rightcontainer {

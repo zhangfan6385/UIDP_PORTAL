@@ -22,7 +22,7 @@
                 </div>
                 <div>
                     <user-password-manager></user-password-manager>
-                    <apply-dialog></apply-dialog>
+                     <apply-dialog></apply-dialog> 
                     <login-dialog></login-dialog>
                     <message-dialog></message-dialog>
                     <user-info></user-info>

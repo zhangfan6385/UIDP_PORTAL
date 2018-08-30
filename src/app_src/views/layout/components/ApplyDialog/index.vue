@@ -1,39 +1,39 @@
 <template>
     <div id="apply" class="apply">
-        <el-dialog :title="dialogtitle" :visible.sync="applyDialogVisible" @close="close">
-            <el-form label-position="left" label-width="80px" ref="applyInfo" :model="applyInfo" :rules="rules">
-                <el-form-item label="用户姓名">
-                    <span>{{applyInfo.userName}}</span>
+        <el-dialog :title="dialogTitle" :visible.sync="applyDialogVisible">
+            <el-form :model="form">
+                <el-form-item label="公司名称" :label-width="formLabelWidth">
+                    <el-input v-model="userinfo.ORG_NAME" auto-complete="off" :disabled="true"></el-input>
                 </el-form-item>
-                <el-form-item label="项目类型" prop="applyType">
-                    <el-dropdown size="medium" split-button type="primary" @command="handleCommandType">
-                        {{applyType}}
-                        <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item command="服务">服务</el-dropdown-item>
-                            <el-dropdown-item command="组件">组件</el-dropdown-item>
-                        </el-dropdown-menu>
-                    </el-dropdown>
+                <el-form-item label="承担项目" :label-width="formLabelWidth">
+                    <el-select v-model="form.PROJECT_ID" placeholder="请选项目">
+                        <el-option v-for="(item,key) in projList" :key="key" :label="item.PROJECT_NAME" :value="item.PROJECT_ID">
+                        </el-option>
+                    </el-select>
                 </el-form-item>
-                <el-form-item label="申请项目" prop="applyProj">
-                    <el-dropdown size="medium" split-button type="primary" @command="handleCommandProj">
-                        {{projName}}
-                        <el-dropdown-menu slot="dropdown">
-                            <div v-for="(item,key) in projList" :key=key>
-                                <el-dropdown-item :command="item">{{item.name}}</el-dropdown-item>
-                            </div>
-                        </el-dropdown-menu>
-                    </el-dropdown>
+                <el-form-item label="用途描述" :label-width="formLabelWidth">
+                    <el-input v-model="form.USE_CONTENT" auto-complete="off"></el-input>
                 </el-form-item>
-                <el-form-item label="申请描述" prop="applyContent">
-                    <el-input type="textarea" v-model="applyInfo.applyContent"></el-input>
+                <el-form-item label="用途类型" :label-width="formLabelWidth">
+                    <el-select v-model="form.USE_TYPE" placeholder="请选用途类型">
+                        <el-option label="开发" :value="0"></el-option>
+                        <el-option label="生产" :value="1"></el-option>
+                    </el-select>
                 </el-form-item>
-                <el-form-item>
-                    <div class="formbutton">
-                        <el-button type="primary" @click="submit">提交</el-button>
-                        <el-button type="info" @click="cancel">取消</el-button>
-                    </div>
+                <el-form-item label="联系人" :label-width="formLabelWidth">
+                    <el-input v-model="form.APPLY_LINKMAN" auto-complete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="联系电话" :label-width="formLabelWidth">
+                    <el-input v-model="form.APPLY_PHONE" auto-complete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="邮箱" :label-width="formLabelWidth">
+                    <el-input v-model="form.APPLY_EMAIL" auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="cencel">取 消</el-button>
+                <el-button type="primary" @click="submit">提 交</el-button>
+            </div>
         </el-dialog>
     </div>
 </template>
@@ -45,17 +45,26 @@ import { fetchSeverComponentList } from "@/app_src/api/severcomponent";
 export default {
     data() {
         return {
-            dialogtitle: "下载申请",
+            dialogTitle: "平台申请",
             applyDialogVisible: false,
             //用户所有申请信息的表单
-            applyInfo: {
-                userID: "",
-                userName: "123",
-                applyType: "",
-                applyProj: "",
-                applyContent: "",
-                applyTime: ""
+            form: {
+                APPLY_USERID: "",
+                APPLY_ORG_NAME: "",
+                PROJECT_ID: "",
+                PROJECT_NAME: "",
+                APPLY_ORG_ID: "",
+                APPLY_RESOURCE_ID: "",
+                APPLY_TYPE: 0,
+                USE_CONTENT: "",
+                USE_TYPE: "",
+                APPLY_LINKMAN: "",
+                APPLY_PHONE: "",
+                APPLY_EMAIL: ""
             },
+            userinfo: {},
+            projList: [],
+            formLabelWidth: "120px",
             //表单验证
             rules: {
                 applyType: [
@@ -104,61 +113,46 @@ export default {
             this.applyInfo.applyProj = command.ID;
         },
         submit() {
-            //console.log(this.$store.state.user.userID);
-            if (this.$store.state.user.userID === null) {
-                this.$store.state.user.dialogLoginVisible = true;
-            } else {
-                this.$refs["applyInfo"].validate(valid => {
-                    if (valid) {
-                        console.log("提交用户信息");
-                    }
-                });
-            }
+            this.form.APPLY_USERID = this.$store.state.user.userID;
+            this.queryList.prjID = this.$store.state.user.currentProjID;
+            this.queryList.ID = this.$route.params.id;
+            fetchApply(this.form).then(response => {
+                if (response.data.code === 2000) {
+                    this.$notify({
+                        position: "bottom-right",
+                        title: "成功",
+                        message: response.data.message,
+                        type: "success",
+                        duration: 2000
+                    });
+                    this.dialogFormVisible = false;
+                } else {
+                    this.$notify({
+                        position: "bottom-right",
+                        title: "失败",
+                        message: response.data.message,
+                        type: "error",
+                        duration: 2000
+                    });
+                }
+            });
         },
-        cancel() {
+        cencel() {
             this.resetForm();
-            this.$refs["applyInfo"].resetFields();
+            this.dialogFormVisible = false;
         },
         resetForm() {
-            this.applyInfo.applyType = "";
-            this.applyInfo.applyProj = "";
-            this.applyInfo.applyContent = "";
-            this.applyInfo.applyTime = "";
+            this.form.APPLY_TYPE = 0;
+            this.form.USE_CONTENT = "";
+            this.form.USE_TYPE = "";
+            this.form.APPLY_LINKMAN = "";
+            this.form.APPLY_PHONE = "";
+            this.form.APPLY_EMAIL = "";
         },
         close() {
             this.$store.state.user.applyDialogVisible = false;
             //console.log(this.$store.state.user.applyDialogVisible);
         },
-        getSeverList() {
-            fetchSeverList().then(response => {
-                if (response.data.code === 2000) {
-                    this.projList = response.data;
-                } else {
-                    this.$notify({
-                        position: "bottom-right",
-                        title: "失败",
-                        message: response.data.message,
-                        type: "error",
-                        duration: 2000
-                    });
-                }
-            });
-        },
-        getSeverComponent() {
-            fetchSeverComponentList().then(response => {
-                if (response.data.code === 2000) {
-                    this.projList = response.data;
-                } else {
-                    this.$notify({
-                        position: "bottom-right",
-                        title: "失败",
-                        message: response.data.message,
-                        type: "error",
-                        duration: 2000
-                    });
-                }
-            });
-        }
     },
     computed: {
         GetApplyDialogVisible() {

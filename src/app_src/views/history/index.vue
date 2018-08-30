@@ -96,12 +96,47 @@
 
                         <el-table-column label="操作">
                             <template slot-scope="scope">
-                                <el-button type="text" @click="apply(row)" v-if="scope.row.CHECK_STATE!=1">申请下载</el-button>
-                                <el-button type="text" v-else-if="scope.row.CHECK_STATE===1" @click="download(row)">下载</el-button>
+                                <el-button type="text" @click="apply(scope.row)" v-if="scope.row.CHECK_STATE!=1">申请下载</el-button>
+                                <el-button type="text" v-else-if="scope.row.CHECK_STATE===1" @click="download">下载</el-button>
                             </template>
                         </el-table-column>
                     </el-table>
                 </el-card>
+                <el-dialog :title="dialogTitle" :visible.sync="dialogFormVisible">
+                    <el-form :model="form">
+                        <el-form-item label="公司名称" :label-width="formLabelWidth">
+                            <el-input v-model="userinfo.ORG_NAME" auto-complete="off" :disabled="true"></el-input>
+                        </el-form-item>
+                        <el-form-item label="承担项目" :label-width="formLabelWidth">
+                            <el-select v-model="form.PROJECT_ID" placeholder="请选项目">
+                                <el-option v-for="(item,key) in projList" :key="key" :label="item.PROJECT_NAME" :value="item.PROJECT_ID">
+                                </el-option>
+                            </el-select>
+                        </el-form-item>
+                        <el-form-item label="用途描述" :label-width="formLabelWidth">
+                            <el-input v-model="form.USE_CONTENT" auto-complete="off"></el-input>
+                        </el-form-item>
+                        <el-form-item label="用途类型" :label-width="formLabelWidth">
+                            <el-select v-model="form.USE_TYPE" placeholder="请选用途类型">
+                                <el-option label="开发" :value="0"></el-option>
+                                <el-option label="生产" :value="1"></el-option>
+                            </el-select>
+                        </el-form-item>
+                        <el-form-item label="联系人" :label-width="formLabelWidth">
+                            <el-input v-model="form.APPLY_LINKMAN" auto-complete="off"></el-input>
+                        </el-form-item>
+                        <el-form-item label="联系电话" :label-width="formLabelWidth">
+                            <el-input v-model="form.APPLY_PHONE" auto-complete="off"></el-input>
+                        </el-form-item>
+                        <el-form-item label="邮箱" :label-width="formLabelWidth">
+                            <el-input v-model="form.APPLY_EMAIL" auto-complete="off"></el-input>
+                        </el-form-item>
+                    </el-form>
+                    <div slot="footer" class="dialog-footer">
+                        <el-button @click="cencel">取 消</el-button>
+                        <el-button type="primary" @click="submit">提 交</el-button>
+                    </div>
+                </el-dialog>
             </el-col>
         </el-row>
     </div>
@@ -110,45 +145,10 @@
 
 <script>
 import { fetchGetHistoryList } from "@/app_src/api/history";
+import { fetchApply } from "@/app_src/api/apply";
 export default {
     data() {
         return {
-            // currentEdition: [
-            //     {
-            //         type: "pro",
-            //         title: "新版本",
-            //         id: 1,
-            //         content: "更新内容1",
-            //         doc: [
-            //             {
-            //                 docurl: "http://www.baidu.com",
-            //                 docName: "最新版本文档",
-            //                 time: "2018-8-20",
-            //                 size: "200MB",
-            //                 fixpaltform: "Windows7/8/10、Linux"
-            //             },
-            //             {
-            //                 docurl: "http://www.baidu.com",
-            //                 docName: "最新版本文档",
-            //                 time: "2018-8-20",
-            //                 size: "200MB",
-            //                 fixpaltform: "Windows7/8/10、Linux"
-            //             },
-            //             {
-            //                 docurl: "http://www.baidu.com",
-            //                 docName: "最新版本文档",
-            //                 time: "2018-8-20",
-            //                 size: "200MB",
-            //                 fixpaltform: "Windows7/8/10、Linux"
-            //             },
-            //             {
-            //                 docurl: "http://www.baidu.com",
-            //                 docName: "最新版本文档",
-            //                 time: "2018-8-20"
-            //             }
-            //         ]
-            //     }
-            // ],
             histroyEdition: [],
             querylist: {
                 userid: null,
@@ -157,22 +157,91 @@ export default {
                 type: 0,
                 isFirst: false
             },
-            permissionquery: {
-                userID: null
+            queryList: {
+                userid: null,
+                projectid: null,
+                resourceid: null
             },
-            permissionList: [],
             total: null,
             userPower: 0,
-            listloading: true
+            listloading: true,
+            dialogTitle: "平台申请",
+            form: {
+                APPLY_USERID: "",
+                APPLY_ORG_NAME: "",
+                PROJECT_ID: "",
+                PROJECT_NAME: "",
+                APPLY_ORG_ID: "",
+                APPLY_RESOURCE_ID: "",
+                APPLY_TYPE: 2,
+                USE_CONTENT: "",
+                USE_TYPE: "",
+                APPLY_LINKMAN: "",
+                APPLY_PHONE: "",
+                APPLY_EMAIL: ""
+            },
+            severInfo: {},
+            projList: [],
+            userinfo: {},
+            formLabelWidth: "120px",
+            dialogFormVisible:false
         };
     },
     methods: {
-        apply() {
-            if (this.$store.state.user.userID === null) {
-                this.$store.state.user.dialogLoginVisible = true;
+        apply(data) {
+            if (this.$store.state.user.userID != null) {
+                this.dialogFormVisible = true;
+                //console.log(data.PLAT_ID);
+                this.form.APPLY_RESOURCE_ID=data.PLAT_ID;
+                this.getProjInfo();
             } else {
-                this.$store.state.user.applyDialogVisible = true;
+                this.$store.state.user.dialogLoginVisible = true;
             }
+        },
+        submit() {
+            //this.queryList.projectid = this.$store.state.user.currentProjID;
+            //this.queryList.ID = this.$route.params.id;
+            fetchApply(this.form).then(response => {
+                if (response.data.code === 2000) {
+                    this.$notify({
+                        position: "bottom-right",
+                        title: "成功",
+                        message: response.data.message,
+                        type: "success",
+                        duration: 2000
+                    });
+                    this.dialogFormVisible = false;
+                } else {
+                    this.$notify({
+                        position: "bottom-right",
+                        title: "失败",
+                        message: response.data.message,
+                        type: "error",
+                        duration: 2000
+                    });
+                }
+            });
+        },
+        cencel() {
+            this.resetForm();
+            this.dialogFormVisible = false;
+        },
+        resetForm() {
+            this.form.APPLY_TYPE = 2;
+            this.form.USE_CONTENT = "";
+            this.form.USE_TYPE = "";
+            this.form.APPLY_LINKMAN = "";
+            this.form.APPLY_PHONE = "";
+            this.form.APPLY_EMAIL = "";
+            
+        },
+        getProjInfo() {
+            this.projList = this.$store.state.user.projList;
+            this.userinfo = this.$store.state.user.userinfo[0];
+            this.form.APPLY_USERID = this.userinfo.USER_ID;
+            this.form.APPLY_ORG_NAME = this.userinfo.ORG_NAME;
+            this.form.APPLY_ORG_ID = this.userinfo.ORG_ID;
+            this.form.APPLY_USERID = this.$store.state.user.userID;
         },
         changePlatform() {
             if (this.querylist.type === 0) {

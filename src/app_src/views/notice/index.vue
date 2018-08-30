@@ -14,13 +14,13 @@
                             <div slot="header" class="header">
                                 {{item.title}}
                             </div>
-                            <div class="content">
+                            <!-- <div class="content">
                                 <el-row>
                                     <el-col :span="24">
                                         <div v-html="item.content"></div>
                                     </el-col>
                                 </el-row>
-                            </div>
+                            </div> -->
                             <el-row>
                                 <el-col :span="24">
                                     <div class="foot">
@@ -101,7 +101,12 @@ export default {
 .noticecard {
     margin-top: 20px;
     .header {
-        text-align: center;
+        font-size: 18px;
+    }
+    .header:hover {
+        text-decoration: underline;
+        color: red;
+        cursor: pointer;
     }
     .content {
         padding-left: 20px;
