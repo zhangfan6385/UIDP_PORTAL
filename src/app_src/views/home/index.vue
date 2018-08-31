@@ -24,7 +24,7 @@
                         </div>
                         <hr>
                         <el-table :data="noticeList" size="mini" :show-header="false" @row-click="goToContent" height="220px">
-                            <el-table-column align="center" show-overflow-tooltip>
+                            <el-table-column  show-overflow-tooltip>
                                 <template slot-scope="scope">
                                     <span class="noticetitle">{{scope.row.title}}</span>
                                 </template>
@@ -73,7 +73,7 @@
                                     </div>
                                 </template>
                             </el-table-column>
-                            <el-table-column label="主题" show-overflow-tooltip>
+                            <el-table-column label="主题" show-overflow-tooltip >
                                 <template slot-scope="scope">
                                     <span class="communitytitle">{{scope.row.title}}</span>
                                 </template>
