@@ -10,6 +10,9 @@
                         <el-table-column prop="time" label="日期" width="120px"></el-table-column>
                     </el-table> -->
                     <el-card>
+                        <div class="backbutton">
+                            <el-button size="mini" type="primary" @click="goback">返回</el-button>
+                        </div>
                         <el-card v-for="(item,key) in  noticeList" :key="key" @click.native="goToContent(item)">
                             <div slot="header" class="header">
                                 {{item.title}}
@@ -46,93 +49,99 @@
 <script>
 import { fetchNoticeList } from "@/app_src/api/notice";
 export default {
-    data() {
-        return {
-            noticeList: [],
-            listQuery: {
-                limit: 5,
-                page: 1,
-                id: null
-            }
-        };
+  data() {
+    return {
+      noticeList: [],
+      listQuery: {
+        limit: 5,
+        page: 1,
+        id: null
+      }
+    };
+  },
+  methods: {
+    goToContent(data) {
+      let id = data.id.toString();
+      console.log(typeof id);
+      this.$router.push({ path: "noticecontent/" + id });
     },
-    methods: {
-        goToContent(data) {
-            let id = data.id.toString();
-            console.log(typeof id);
-            this.$router.push({ path: "noticecontent/" + id });
-        },
-        getNoticeList() {
-            fetchNoticeList(this.listQuery).then(response => {
-                if (response.data.code === 2000) {
-                    console.log(response.data.items);
-                    for (let i = 0; i < response.data.items.length; i++) {
-                        let longtime = response.data.items[i].CREATE_DATE;
-                        let shorttime = longtime.substring(0, 10);
-                        this.noticeList.push({
-                            title: response.data.items[i].NOTICE_TITLE,
-                            date: response.data.items[i].NOTICE_DATETIME,
-                            id: response.data.items[i].NOTICE_ID,
-                            content: response.data.items[i].NOTICE_CONTENT,
-                            writter: response.data.items[i].CREATER,
-                            time: shorttime
-                        });
-                    }
-                } else {
-                    this.$notify({
-                        position: "bottom-right",
-                        title: "失败",
-                        message: response.data.message,
-                        type: "error",
-                        duration: 2000
-                    });
-                }
+    getNoticeList() {
+      fetchNoticeList(this.listQuery).then(response => {
+        if (response.data.code === 2000) {
+          console.log(response.data.items);
+          for (let i = 0; i < response.data.items.length; i++) {
+            let longtime = response.data.items[i].CREATE_DATE;
+            let shorttime = longtime.substring(0, 10);
+            this.noticeList.push({
+              title: response.data.items[i].NOTICE_TITLE,
+              date: response.data.items[i].NOTICE_DATETIME,
+              id: response.data.items[i].NOTICE_ID,
+              content: response.data.items[i].NOTICE_CONTENT,
+              writter: response.data.items[i].CREATER,
+              time: shorttime
             });
+          }
+        } else {
+          this.$notify({
+            position: "bottom-right",
+            title: "失败",
+            message: response.data.message,
+            type: "error",
+            duration: 2000
+          });
         }
+      });
     },
-    mounted() {
-        this.getNoticeList();
+    goback() {
+      this.$router.go(-1);
     }
+  },
+  mounted() {
+    this.getNoticeList();
+  }
 };
 </script>
 
 
 <style lang="scss">
 .noticecard {
-    margin-top: 20px;
-    .header {
-        font-size: 18px;
-    }
-    .header:hover {
-        text-decoration: underline;
-        color: red;
-        cursor: pointer;
-    }
-    .content {
-        padding-left: 20px;
-        margin-top: 15px;
-        margin-left: 25px;
-        margin-right: 20px;
-        font-size: 15px;
-        line-height: 20px;
-        color: rgb(53, 49, 49);
-        text-overflow: ellipsis;
-        overflow: hidden;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 3;
-    }
-    .foot {
-        float: right;
-        font-size: 10px;
-        color: gray;
-    }
-    .page {
-        text-align: center;
-    }
-    .el-card {
-        font-family: "微软雅黑";
-    }
+  margin-top: 20px;
+  .header {
+    font-size: 18px;
+  }
+  .header:hover {
+    text-decoration: underline;
+    color: red;
+    cursor: pointer;
+  }
+  .content {
+    padding-left: 20px;
+    margin-top: 15px;
+    margin-left: 25px;
+    margin-right: 20px;
+    font-size: 15px;
+    line-height: 20px;
+    color: rgb(53, 49, 49);
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+  .foot {
+    float: right;
+    font-size: 10px;
+    color: gray;
+  }
+  .page {
+    text-align: center;
+  }
+  .el-card {
+    font-family: "微软雅黑";
+  }
+  .backbutton{
+      float:right;
+  }
 }
 </style>
 

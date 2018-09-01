@@ -43,7 +43,7 @@ export default {
   font-family: "微软雅黑";
 }
 .el-menu-item {
-  font-size: 16px;
+  font-size: 18px;
   height:53;//55
   text-align: center;
   &:link{
