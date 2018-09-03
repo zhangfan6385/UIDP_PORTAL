@@ -174,7 +174,7 @@ export default {
                 PROJECT_NAME: "",
                 APPLY_ORG_ID: "",
                 APPLY_RESOURCE_ID: "",
-                APPLY_TYPE: 2,
+                APPLY_TYPE: 0,
                 USE_CONTENT: "",
                 USE_TYPE: "",
                 APPLY_LINKMAN: "",
@@ -231,7 +231,7 @@ export default {
             this.dialogFormVisible = false;
         },
         resetForm() {
-            this.form.APPLY_TYPE = 2;
+            this.form.APPLY_TYPE = 0;
             this.form.USE_CONTENT = "";
             this.form.USE_TYPE = "";
             this.form.APPLY_LINKMAN = "";
