@@ -85,7 +85,7 @@
                         <el-table-column label="审核状态" align="center">
                             <template slot-scope="scope">
                                 <span v-if="scope.row.CHECK_STATE===-1" class="blue">未申请</span>
-                                <span v-else-if="scope.row.CHECK_STATEE===0" class="red">待审核</span>
+                                <span v-else-if="scope.row.CHECK_STATE===0" class="red">待审核</span>
                                 <span v-else-if="scope.row.CHECK_STATE===1" class="green">已通过</span>
                             </template>
                         </el-table-column>
