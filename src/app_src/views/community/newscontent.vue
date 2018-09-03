@@ -16,7 +16,7 @@
                                 <el-button size="mini" @click="uncollection">
                                     <i class="el-icon-remove"></i>取消收藏
                                 </el-button>
-                                <el-button size="mini" type="info">回复</el-button>
+                                <el-button size="mini" type="info" @click="goAnchor">回复</el-button>
                             </div>
                         </div>
                         <!--主贴头像区域-->
@@ -26,6 +26,7 @@
                                     <img src="../../../app_src/imgs/userHead.png">
                                     <div class="logo">
                                         <el-button type="primary" size="mini">楼主</el-button>
+                                        <br> {{cardcontent.USER_NAME}}
                                     </div>
                                 </div>
                             </el-col>
@@ -51,32 +52,48 @@
                                 <div class="userhead">
                                     <img src="../../../app_src/imgs/userHead.png">
                                     <div class="logo">
-                                        <el-button type="primary" size="mini">{{key+2}}}楼</el-button>
+                                        <el-button type="primary" size="mini">{{key+2}}楼</el-button>
+                                        <br> {{commit.USER_NAME}}
                                     </div>
                                 </div>
                             </el-col>
                             <!--主贴信息界面-->
                             <el-col :span="17">
                                 <div class="content">
-                                    <p v-html="cardcontent.POST_CONTENT"></p>
+                                    <p v-html="commit.CONTENT"></p>
                                 </div>
                             </el-col>
                         </el-row>
                         <div class="foot">
                             <el-row>
                                 <el-col :span="24">
-                                    发表日期：{{cardcontent.SEND_DATE}}
+                                    发表日期：{{commit.CREATE_DATE}}
                                 </el-col>
                             </el-row>
                         </div>
                     </el-card>
                     <el-card>
-                        <el-form :model="commit">
-                            <el-form-item label="用途类型" >
+                        <div slot="header" class="clearfix">
+                            <span>发表回复</span>
+                        </div>
+                        <!-- <el-form :model="commit">
+                            <el-form-item label="用途类型">
                                 <el-input v-model="commit.CONTENT"></el-input>
                             </el-form-item>
                             <el-form-item>
                                 <el-button type="primary" @click="submit">提 交</el-button>
+                            </el-form-item>
+                        </el-form> -->
+                        <el-form ref="commit" :model="commit" label-width="80px" id="commit">
+                            <el-form-item label="发表评论" :rules="rules.content">
+                                <div class="editor">
+                                    <quill-editor v-model="commit.CONTENT" ref="myQuillEditor" :options="commit.editorOption" @ready="onEditorReady($event)" height="500px"></quill-editor>
+                                </div>
+
+                                <el-form-item>
+                                    <el-button type="primary" @click="submit">确认提交</el-button>
+                                </el-form-item>
+
                             </el-form-item>
                         </el-form>
                     </el-card>
@@ -94,6 +111,7 @@ import {
     delArticle,
     commit
 } from "@/app_src/api/community";
+import { quillEditor } from "vue-quill-editor";
 export default {
     data() {
         return {
@@ -109,12 +127,21 @@ export default {
                 COLLECTION_ID: null
             },
             commit: {
-                POST_ID:'',
-                CONTENT:'',
-                FROM_UID:'',//当前登录人ID
-                TO_UID:'',//主贴ID
-                IS_RIGHT_ANSWER:null,
-                BONUS_POINTS:null
+                POST_ID: "",
+                CONTENT: "",
+                FROM_UID: "", //当前登录人ID
+                //TO_UID:'',//主贴ID
+                IS_RIGHT_ANSWER: 0,
+                BONUS_POINTS: 0
+            },
+            rules: {
+                content: [
+                    {
+                        required: true,
+                        message: "请输入详细内容",
+                        trigger: "blur"
+                    }
+                ]
             }
         };
     },
@@ -190,17 +217,44 @@ export default {
                 });
             }
         },
+        onEditorReady(editor) {},
         submit() {
-            this.commit.POST_ID=this.cardcontent.POST_ID;
-            //this.commit.FROM_UID= this.$store.state.user.userID;
-            this.commit.FROM_UID=1,
-            this.commit.TO_UID=this.cardcontent.USER_ID;         
-            commit(this.commit).then(response=>{
-                if(response.data.code===2000){
-                    console.log(response.data)
+            this.commit.POST_ID = this.cardcontent.POST_ID;
+            this.commit.FROM_UID = this.$store.state.user.userID;
+            //this.commit.FROM_UID = 1;
+            this.commit.TO_UID = this.cardcontent.USER_ID;
+            commit(this.commit).then(response => {
+                if (response.data.code === 2000) {
+                    this.$notify({
+                        position: "bottom-right",
+                        title: "发表成功",
+                        message: response.data.message,
+                        type: "success",
+                        duration: 2000
+                    });
+                    this.getCardDetail();
+                } else {
+                    this.$notify({
+                        position: "bottom-right",
+                        title: "失败",
+                        message: response.data.message,
+                        type: "error",
+                        duration: 2000
+                    });
                 }
-            })
+            });
+        },
+        goAnchor(){
+            window.location.hash="commit"
         }
+    },
+    computed: {
+        editor() {
+            return this.$refs.myQuillEditor.quill;
+        }
+    },
+    components: {
+        quillEditor
     },
     mounted() {
         this.getCardDetail();
