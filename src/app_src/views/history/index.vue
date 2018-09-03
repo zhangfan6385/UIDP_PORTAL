@@ -62,7 +62,7 @@
                                             <span>{{scope.row.CREATE_DATE}}</span>
                                         </el-form-item>
                                         <el-form-item label="文件大小">
-                                            <span>{{scope.row.size}}</span>
+                                            <span>{{scope.row.PLAT_SIZE}}</span>
                                         </el-form-item>
                                         <el-form-item label="适用平台">
                                             <span>{{scope.row.SUIT_PLAT}}</span>
@@ -75,7 +75,7 @@
                                         </el-form-item>
                                         <el-form-item label="文档下载">
                                             <div v-for="(item,key) in scope.row.children" :key="key" class="url">
-                                                <a :href="item.docurl">{{item.docName}}</a>
+                                                <a :href="urlDown+item.FILE_URL" target="_blank">{{item.FILE_NAME}}</a>
                                             </div>
                                         </el-form-item>
                                     </el-form>
@@ -97,7 +97,7 @@
                         <el-table-column label="操作">
                             <template slot-scope="scope">
                                 <el-button type="text" @click="apply(scope.row)" v-if="scope.row.CHECK_STATE!=1">申请下载</el-button>
-                                <el-button type="text" v-else-if="scope.row.CHECK_STATE===1" @click="download">下载</el-button>
+                                <el-button type="text" v-else-if="scope.row.CHECK_STATE===1" @click="download(scope.row.URL)">下载</el-button>
                             </template>
                         </el-table-column>
                     </el-table>
@@ -149,6 +149,7 @@ import { fetchApply } from "@/app_src/api/apply";
 export default {
     data() {
         return {
+            urlDown: process.env.BASE_DOWNLOAD,
             histroyEdition: [],
             querylist: {
                 userid: null,
@@ -188,6 +189,9 @@ export default {
         };
     },
     methods: {
+        download(URL){
+            window.open(this.urlDown+URL);
+        },
         apply(data) {
             if (this.$store.state.user.userID != null) {
                 this.dialogFormVisible = true;
