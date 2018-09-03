@@ -2,7 +2,7 @@ import request from '@/app_src/utils/request'
 
 export function fetchSeverComponentList(query) {
     return request({
-        url: '/apply/fetchComponentList',
+        url: 'Home/fetchComponentList',
         method: 'get',
         params: query
     })
@@ -11,7 +11,7 @@ export function fetchSeverComponentList(query) {
 
 export function fetchSeverComponentDetail(query) {
     return request({
-        url: '/apply/fetchComponentDetailList',
+        url: 'Home/fetchComponentDetailList',
         method: 'get',
         params: query
     })

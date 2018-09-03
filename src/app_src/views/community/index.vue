@@ -43,8 +43,12 @@
                             <img src="../../../app_src/imgs/title.png">
                             <br>
                             <el-table :data="scoreList">
-                                <el-table-column prop="index" label="排名" align="center"></el-table-column>
-                                <el-table-column prop="name" label="姓名" align="center"></el-table-column>
+                                <el-table-column prop="index" label="排名" align="center">
+                                    <template slot-scope="scope">
+                                        <span :class="addclass(scope.$index+1)">{{scope.$index+1}}</span>
+                                    </template>
+                                </el-table-column>
+                                <el-table-column prop="USER_NAME" label="姓名" align="center"></el-table-column>
                                 <el-table-column prop="score" label="积分" align="center"></el-table-column>
                             </el-table>
                         </div>
@@ -57,22 +61,22 @@
 
 
 <script>
-import { fetchCommunityList } from "@/app_src/api/community";
+import { fetchCommunityList, getTop } from "@/app_src/api/community";
 export default {
     data() {
         return {
             score: 1000,
             scoreList: [
-                { index: "1", name: "张1", score: 10000 },
-                { index: "2", name: "张2", score: 10000 },
-                { index: "3", name: "张3", score: 10000 },
-                { index: "4", name: "张4", score: 10000 },
-                { index: "5", name: "张5", score: 10000 },
-                { index: "6", name: "张6", score: 10000 },
-                { index: "7", name: "张7", score: 10000 },
-                { index: "8", name: "张7", score: 10000 },
-                { index: "9", name: "张7", score: 10000 },
-                { index: "10", name: "张7", score: 10000 }
+                // { index: "1", name: "张1", score: 10000 },
+                // { index: "2", name: "张2", score: 10000 },
+                // { index: "3", name: "张3", score: 10000 },
+                // { index: "4", name: "张4", score: 10000 },
+                // { index: "5", name: "张5", score: 10000 },
+                // { index: "6", name: "张6", score: 10000 },
+                // { index: "7", name: "张7", score: 10000 },
+                // { index: "8", name: "张7", score: 10000 },
+                // { index: "9", name: "张7", score: 10000 },
+                // { index: "10", name: "张7", score: 10000 }
             ],
             newslist: [
                 // {
@@ -102,6 +106,18 @@ export default {
         };
     },
     methods: {
+        addclass(i) {
+            switch (i) {
+                case 1:
+                    return "top1";
+                case 2:
+                    return "top2";
+                case 3:
+                    return "top3";
+                default:
+                    return "top";
+            }
+        },
         handleSizeChange(val) {
             console.log(`每页 ${val} 条`);
         },
@@ -112,11 +128,15 @@ export default {
             let id = row.id.toString();
             this.$router.push({ path: "/community/main/newscontent/" + id });
         },
+        //获取帖子列表
         getCommuntityList() {
             fetchCommunityList(this.listQuery1).then(response => {
                 if (response.data.code === 2000) {
                     for (let i = 0; i < response.data.items.length; i++) {
-                        let time=response.data.items[i].SEND_DATE.substring(0,10)
+                        let time = response.data.items[i].SEND_DATE.substring(
+                            0,
+                            10
+                        );
                         this.newslist.push({
                             id: response.data.items[i].POST_ID,
                             writter: response.data.items[i].CREATER,
@@ -137,11 +157,28 @@ export default {
                     });
                 }
             });
+        },
+        //  获取Top排行
+        getTopList() {
+            getTop().then(response => {
+                if (response.data.code === 2000) {
+                    this.scoreList = response.data.items;
+                } else {
+                    this.$notify({
+                        position: "bottom-right",
+                        title: "失败",
+                        message: response.data.message,
+                        type: "error",
+                        duration: 2000
+                    });
+                }
+            });
         }
     },
     mounted() {
         this.getCommuntityList();
-    },
+        this.getTopList();
+    }
 };
 </script>
 
@@ -223,6 +260,51 @@ export default {
                 height: 40px;
             }
         }
+    }
+    .top {
+        font-weight: bold;
+        color: white;
+        text-align: center;
+        width: 25px;
+        line-height: 25px;
+        background-color: #7f7f7f;
+        border-radius: 5px;
+        display: -moz-inline-box; /* css注释：for ff2 */
+        display: inline-block;
+    }
+    .top1 {
+        font-weight: bold;
+        color: white;
+        text-align: center;
+        width: 25px;
+        line-height: 25px;
+        background-color: #c00000;
+        border-radius: 5px;
+        display: -moz-inline-box; /* css注释：for ff2 */
+        display: inline-block;
+    }
+
+    .top2 {
+        font-weight: bold;
+        color: white;
+        text-align: center;
+        width: 25px;
+        line-height: 25px;
+        background-color: #00b050;
+        border-radius: 5px;
+        display: -moz-inline-box; /* css注释：for ff2 */
+        display: inline-block;
+    }
+    .top3 {
+        font-weight: bold;
+        color: white;
+        text-align: center;
+        width: 25px;
+        line-height: 25px;
+        background-color: #ffc000;
+        border-radius: 5px;
+        display: -moz-inline-box; /* css注释：for ff2 */
+        display: inline-block;
     }
 }
 </style>

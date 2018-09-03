@@ -6,14 +6,14 @@
             <el-col :span="20">
                 <div class="card">
                     <!--主楼标题按钮界面-->
-                    <el-card v-for="(card,cardIndex) in cardList" :key="cardIndex">
-                        <div slot="header" class="cardheader" v-if="cardIndex ===0">
-                            <span>{{card.cardinfo.title}}</span>
+                    <el-card>
+                        <div slot="header" class="cardheader">
+                            <span>{{cardcontent.TITLE_NAME}}</span>
                             <div class="operation">
-                                <el-button size="mini">
+                                <el-button size="mini" @click="collection">
                                     <i class="el-icon-circle-plus"></i>收藏
                                 </el-button>
-                                <el-button size="mini">
+                                <el-button size="mini" @click="uncollection">
                                     <i class="el-icon-remove"></i>取消收藏
                                 </el-button>
                                 <el-button size="mini" type="info">回复</el-button>
@@ -21,87 +21,64 @@
                         </div>
                         <!--主贴头像区域-->
                         <el-row>
-                            <el-col :span="5">
+                            <el-col :span="6">
                                 <div class="userhead">
                                     <img src="../../../app_src/imgs/userHead.png">
                                     <div class="logo">
-                                        <el-button type="primary" size="mini" v-if="cardIndex===0">楼主</el-button>
+                                        <el-button type="primary" size="mini">楼主</el-button>
                                     </div>
                                 </div>
                             </el-col>
                             <!--主贴信息界面-->
-                            <el-col :span="18">
+                            <el-col :span="17">
                                 <div class="content">
-                                    <p v-html="card.cardinfo.content"></p>
+                                    <p v-html="cardcontent.POST_CONTENT"></p>
                                 </div>
                             </el-col>
                         </el-row>
                         <div class="foot">
                             <el-row>
                                 <el-col :span="24">
-                                    发表日期：{{card.cardinfo.upTime}}
-                                    <!-- <el-button type="text" @click="getcomment(card,cardIndex)">{{mainCardMsg}}({{card.cardinfo.commentNumber}})</el-button> -->
+                                    发表日期：{{cardcontent.SEND_DATE}}
                                 </el-col>
                             </el-row>
                         </div>
-                        <!--主贴评论界面-->
-                        <!--<div class="commit" v-show="currentIndex===cardIndex">
+                    </el-card>
+                    <!--回复-->
+                    <el-card v-for="(commit,key) in cardcontent.children" :key="key">
+                        <el-row>
+                            <el-col :span="6">
+                                <div class="userhead">
+                                    <img src="../../../app_src/imgs/userHead.png">
+                                    <div class="logo">
+                                        <el-button type="primary" size="mini">{{key+2}}}楼</el-button>
+                                    </div>
+                                </div>
+                            </el-col>
+                            <!--主贴信息界面-->
+                            <el-col :span="17">
+                                <div class="content">
+                                    <p v-html="cardcontent.POST_CONTENT"></p>
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <div class="foot">
                             <el-row>
-                                <el-col>
-                                    <el-card>
-                                        <div v-for="(commit,commitIndex) in card.commitinfo" :key="commitIndex">
-                                            <el-row type="flex">
-                                                <el-col :span="3">
-                                                    <div class="commithead">
-                                                        <img src="../../../app_src/imgs/userHead.png">
-                                                    </div>
-                                                </el-col>
-                                                <el-col :span="21">
-                                                    <div class="commitcontent">
-                                                        {{card.commitinfo[commitIndex].writter}}:{{card.commitinfo[commitIndex].content}}
-                                                    </div>
-                                                </el-col>
-                                            </el-row>
-                                            <el-row>
-                                                <div class="commitfoot">
-                                                    <el-col :span="24">
-                                                        发表日期：{{card.commitinfo[commitIndex].upTime}}
-                                                        <el-button type="text" @click="commitToPerson(card.commitinfo[commitIndex],commitIndex)">回复</el-button>
-                                                    </el-col>
-                                                </div>
-                                            </el-row>
-
-                                        </div>
-                                        
-                                        <el-row>
-                                            <div class="commitfootbutton">
-                                                <el-col :span="24">
-                                                    <el-button type="info" size="mini" @click="openCommit()">{{commitcardMsg}}</el-button>
-                                                </el-col>
-                                            </div>
-                                        </el-row>
-                                        
-                                        <div v-if="commitfootinputVisibility">
-                                            <el-row>
-                                                <div class="commitfootinput">
-                                                    <el-col :span="24">
-                                                        <el-input placeholder="请输入内容" v-model="commitcontent"></el-input>
-                                                    </el-col>
-                                                </div>
-                                            </el-row>
-
-                                            <el-row>
-                                                <div class="commitfootbutton">
-                                                    <el-col :span="24">
-                                                        <el-button size="mini" type="primary">确定</el-button>
-                                                    </el-col>
-                                                </div>
-                                            </el-row>
-                                        </div>
-                                    </el-card>
+                                <el-col :span="24">
+                                    发表日期：{{cardcontent.SEND_DATE}}
                                 </el-col>
                             </el-row>
-                        </div>-->
+                        </div>
+                    </el-card>
+                    <el-card>
+                        <el-form :model="commit">
+                            <el-form-item label="用途类型" >
+                                <el-input v-model="commit.CONTENT"></el-input>
+                            </el-form-item>
+                            <el-form-item>
+                                <el-button type="primary" @click="submit">提 交</el-button>
+                            </el-form-item>
+                        </el-form>
                     </el-card>
                 </div>
             </el-col>
@@ -111,128 +88,122 @@
 
 
 <script>
+import {
+    getDetail,
+    createArticle,
+    delArticle,
+    commit
+} from "@/app_src/api/community";
 export default {
     data() {
         return {
-            cardList: [
-                {
-                    cardinfo: {
-                        id: 1,
-                        writter: "小李",
-                        type: 1,
-                        title: "为祖国庆生",
-                        upTime: "2018-8-8",
-                        readNumber: 200,
-                        offer: 200,
-                        commentNumber: 200,
-                        content: "123"
-                    },
-                    commitinfo: [
-                        {
-                            writter: "阿亮",
-                            content: "评论测试",
-                            upTime: "2018-8-12"
-                        },
-                        {
-                            writter: "小屹",
-                            content: "评论测试11",
-                            upTime: "2018-8-13"
-                        }
-                    ]
-                },
-                {
-                    cardinfo: {
-                        id: 2,
-                        writter: "小李",
-                        type: 1,
-                        title: "为祖国庆生",
-                        upTime: "2018-8-8",
-                        readNumber: 200,
-                        offer: 200,
-                        commentNumber: 200,
-                        content: "123"
-                    },
-                    commitinfo: [
-                        {
-                            writter: "阿亮",
-                            content: "评论测试",
-                            upTime: "2018-8-12"
-                        },
-                        {
-                            writter: "小屹",
-                            content: "评论测试11",
-                            upTime: "2018-8-13"
-                        }
-                    ]
-                },
-                {
-                    cardinfo: {
-                        id: 3,
-                        writter: "小李",
-                        type: 1,
-                        title: "为祖国庆生",
-                        upTime: "2018-8-8",
-                        readNumber: 200,
-                        offer: 200,
-                        commentNumber: 200,
-                        content: "123"
-                    },
-                    commitinfo: [
-                        {
-                            writter: "阿亮",
-                            content: "评论测试",
-                            upTime: "2018-8-12"
-                        },
-                        {
-                            writter: "小屹",
-                            content: "评论测试11",
-                            upTime: "2018-8-13"
-                        }
-                    ]
-                }
-            ],
-            commitVisibility: false,
-            commitfootinputVisibility: false,
-            commitcontent: "",
-            mainCardMsg: "回复",
-            commitcardMsg: "我也说一句",
-            currentIndex: null
+            cardcontent: {},
+            queryList: {
+                POST_ID: null
+            },
+            createList: {
+                POST_ID: "",
+                COLLECTION_PERSON_ID: null
+            },
+            delList: {
+                COLLECTION_ID: null
+            },
+            commit: {
+                POST_ID:'',
+                CONTENT:'',
+                FROM_UID:'',//当前登录人ID
+                TO_UID:'',//主贴ID
+                IS_RIGHT_ANSWER:null,
+                BONUS_POINTS:null
+            }
         };
     },
     methods: {
-        getId() {
-            console.log(this.$route.params.id);
+        //获取帖子内容
+        getCardDetail() {
+            this.queryList.POST_ID = this.$route.params.id;
+            getDetail(this.queryList).then(response => {
+                if (response.data.code === 2000) {
+                    this.cardcontent = response.data.items;
+                } else {
+                    this.$notify({
+                        position: "bottom-right",
+                        title: "失败",
+                        message: response.data.message,
+                        type: "error",
+                        duration: 2000
+                    });
+                }
+            });
         },
-        getcomment(data, index) {
-            console.log(this.currentIndex);
-            if (this.currentIndex === null) {
-                this.mainCardMsg = "收起回复";
-                this.currentIndex = index;
+        collection() {
+            if (this.$store.state.user.userID === null) {
+                this.$store.state.user.dialogLoginVisible = true;
             } else {
-                this.currentIndex = null;
-                this.mainCardMsg = "回复";
+                this.createList.COLLECTION_PERSON_ID = this.$store.state.user.userID;
+                this.createList.POST_ID = this.cardcontent.POST_ID;
+                createArticle(this.createList).then(response => {
+                    if (response.data.code === 2000) {
+                        this.$notify({
+                            position: "bottom-right",
+                            title: "收藏成功",
+                            message: response.data.message,
+                            type: "success",
+                            duration: 2000
+                        });
+                    } else {
+                        this.$notify({
+                            position: "bottom-right",
+                            title: "失败",
+                            message: response.data.message,
+                            type: "error",
+                            duration: 2000
+                        });
+                    }
+                });
             }
         },
-        openCommit() {
-            this.commitcontent = "";
-            this.commitfootinputVisibility = !this.commitfootinputVisibility;
-            this.justbutton();
-        },
-        justbutton() {
-            if (this.commitfootinputVisibility === true) {
-                this.commitcardMsg = "收起回复";
+        uncollection() {
+            if (this.$store.state.user.userID === null) {
+                this.$store.state.user.dialogLoginVisible = true;
             } else {
-                this.commitcardMsg = "我也说一句";
+                this.createList.COLLECTION_PERSON_ID = this.$store.state.user.userID;
+                this.createList.POST_ID = this.cardcontent.POST_ID;
+                delArticle(this.createList).then(response => {
+                    if (response.data.code === 2000) {
+                        this.$notify({
+                            position: "bottom-right",
+                            title: "取消收藏成功",
+                            message: response.data.message,
+                            type: "success",
+                            duration: 2000
+                        });
+                    } else {
+                        this.$notify({
+                            position: "bottom-right",
+                            title: "失败",
+                            message: response.data.message,
+                            type: "error",
+                            duration: 2000
+                        });
+                    }
+                });
             }
         },
-        commitToPerson(data) {
-            this.commitfootinputVisibility = true;
-            this.justbutton();
-            this.commitcontent = "回复" + data.writter + ":";
+        submit() {
+            this.commit.POST_ID=this.cardcontent.POST_ID;
+            //this.commit.FROM_UID= this.$store.state.user.userID;
+            this.commit.FROM_UID=1,
+            this.commit.TO_UID=this.cardcontent.USER_ID;         
+            commit(this.commit).then(response=>{
+                if(response.data.code===2000){
+                    console.log(response.data)
+                }
+            })
         }
     },
     mounted() {
-        this.getId();
+        this.getCardDetail();
     }
 };
 </script>
@@ -243,7 +214,6 @@ export default {
 .newscontent {
     margin-top: 10px;
     .card {
-        min-height: 300px;
         .content {
             line-height: 20px;
         }
