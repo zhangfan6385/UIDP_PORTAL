@@ -31,17 +31,17 @@
                             <span>ALL</span>
                         </li>
                         <li>
-                            <el-button size="mini" type="primary" @click="handleApply()" v-if="severInfo.CHECK_STATE!=1&&severInfo.CHECK_STATE!=0">申请</el-button>
+                            <el-button size="mini" type="primary" @click="handleApply()" v-if="severInfo.CHECK_STATE===-1">申请</el-button>
                             <el-button size="mini" type="danger" v-else-if="severInfo.CHECK_STATE===0">待审核</el-button>
-                            <el-button size="mini" type="info" v-else-if="severInfo.CHECK_STATE===1">下载</el-button>
-                            <el-button size="mini" type="primary" @click="goAnchor">查看服务码</el-button>
+                            <el-button size="mini" type="primary" disabled v-else-if="severInfo.CHECK_STATE===1">审核通过</el-button>
+                            <!-- <el-button size="mini" type="primary" @click="goAnchor">查看服务码</el-button> -->
                         </li>
                     </ul>
                 </el-card>
                 <el-card id="#anchor1" class="componentinfo" v-for="(file,key) in severInfo.children" :key="key" v-if="severInfo.CHECK_STATE===1">
                     <div style="float:left;">
                         <h5>文件下载
-                            <a :href="BASE_API2+'file.FILE_URL'">{{file.FILE_NAME}}</a>
+                            <a :href="downloadurl+file.FILE_URL" target="_blank">{{file.FILE_NAME}}</a>
                         </h5>
                         <h5>文件大小：{{file.FILE_SIZE}}</h5>
                         <h5>发布日期：{{file.CREATE_DATE}}</h5>
@@ -103,6 +103,7 @@ import { fetchApply } from "@/app_src/api/apply";
 export default {
     data() {
         return {
+            downloadurl:process.env.BASE_DOWNLOAD,
             form: {
                 APPLY_USERID: "",
                 APPLY_ORG_NAME: "",
@@ -156,7 +157,7 @@ export default {
         },
         getSever() {
             //this.queryList.userid='2a474344-0d65-48a4-8735-b8a2371160d4'
-            this.queryList.ID = this.$store.state.user.userID;
+            this.queryList.userid = this.$store.state.user.userID;
             this.queryList.projectid = this.$store.state.user.currentProjID;
             this.queryList.resourceid = this.$route.params.id;
             fetchSeverDetail(this.queryList).then(response => {
@@ -187,6 +188,7 @@ export default {
                         type: "success",
                         duration: 2000
                     });
+                    this.getSever();
                     this.dialogFormVisible = false;
                 } else {
                     this.$notify({
@@ -251,5 +253,18 @@ export default {
     float: left;
     display: block;
     margin-bottom: 5px;
+}a {
+    text-decoration: none;
+    color: blue;
+    font-size: 10px;
+    margin-right: 20px;
+}
+a:link {
+    text-decoration: none;
+    color: blue;
+}
+a:hover {
+    text-decoration: none;
+    color: blue;
 }
 </style>
