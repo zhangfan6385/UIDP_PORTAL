@@ -10,6 +10,9 @@
                         <div slot="header" class="cardheader">
                             <span>{{cardcontent.TITLE_NAME}}</span>
                             <div class="operation">
+                                <el-button size="mini" @click="delcard" type="danger">
+                                    <i class="el-icon-warning"></i>删除本帖
+                                </el-button>
                                 <el-button size="mini" @click="collection" v-if="cardcontent.COLLECTION_STATE==='0'">
                                     <i class="el-icon-circle-plus"></i>收藏
                                 </el-button>
@@ -17,7 +20,7 @@
                                     <i class="el-icon-remove"></i>取消收藏
                                 </el-button>
                                 <el-button size="mini" type="info" @click="goAnchor">回复</el-button>
-                                 <el-button size="mini" type="primary" @click="back">后退</el-button>
+                                <el-button size="mini" type="primary" @click="back">后退</el-button>
                             </div>
                         </div>
                         <!--主贴头像区域-->
@@ -69,14 +72,15 @@
                             <el-row>
                                 <el-col :span="24">
                                     发表日期：{{commit.CREATE_DATE}}
+                                    <el-button type="text" @click="delcommit(commit)">删除</el-button>
                                 </el-col>
                             </el-row>
                         </div>
                     </el-card>
                     <el-card>
-                        <div slot="header" class="clearfix">
+                        <!-- <div slot="header" class="clearfix">
                             <span>发表回复</span>
-                        </div>
+                        </div> -->
                         <!-- <el-form :model="commit">
                             <el-form-item label="用途类型">
                                 <el-input v-model="commit.CONTENT"></el-input>
@@ -86,7 +90,7 @@
                             </el-form-item>
                         </el-form> -->
                         <el-form ref="commit" :model="commit" label-width="80px" id="commit">
-                            <el-form-item label="发表评论" :rules="rules.content">
+                            <el-form-item :label="type" :rules="rules.content">
                                 <div class="editor">
                                     <quill-editor v-model="commit.CONTENT" ref="myQuillEditor" :options="commit.editorOption" @ready="onEditorReady($event)" height="500px"></quill-editor>
                                 </div>
@@ -110,23 +114,30 @@ import {
     getDetail,
     createArticle,
     delArticle,
-    commit
+    commit,
+    delcommit,
+    delcard,
+    updateLookTimes
 } from "@/app_src/api/community";
 import { quillEditor } from "vue-quill-editor";
 export default {
     data() {
         return {
             cardcontent: {},
+            type: "",
             queryList: {
                 POST_ID: null,
-                USER_ID:null,
+                USER_ID: null
             },
             createList: {
                 POST_ID: "",
                 COLLECTION_PERSON_ID: null
             },
-            delList: {
-                COLLECTION_ID: null
+            delComentList: {
+                COMMENT_ID: null
+            },
+            delCardList:{
+                POST_ID:'',
             },
             commit: {
                 POST_ID: "",
@@ -151,11 +162,16 @@ export default {
         //获取帖子内容
         getCardDetail() {
             this.queryList.POST_ID = this.$route.params.id;
-            this.queryList.USER_ID=this.$store.state.user.userID;
+            this.queryList.USER_ID = this.$store.state.user.userID;
             //this.queryList.USER_ID=1;
             getDetail(this.queryList).then(response => {
                 if (response.data.code === 2000) {
                     this.cardcontent = response.data.items;
+                    if (this.cardcontent.POST_TYPE === 3) {
+                        this.type = "回复";
+                    } else {
+                        this.type = "评论";
+                    }
                 } else {
                     this.$notify({
                         position: "bottom-right",
@@ -255,8 +271,47 @@ export default {
         goAnchor() {
             window.location.hash = "commit";
         },
-        back(){
-            this.$router.go(-1); 
+        back() {
+            this.$router.go(-1);
+        },
+        delcard() {
+            this.delCardList.POST_ID=this.cardcontent.POST_ID;
+            delcard(this.delCardList).then(response=>{
+                if(response.data.code===2000){
+                    console.log(response.data);
+                }
+            })
+        },
+        delcommit(data) {
+            this.delComentList.COMMENT_ID = data.COMMENT_ID;
+            delcommit(this.delComentList).then(response => {
+                if (response.data.code === 2000) {
+                    this.$notify({
+                        position: "bottom-right",
+                        title: "删除成功",
+                        message: response.data.message,
+                        type: "success",
+                        duration: 2000
+                    });
+                    this.getCardDetail();
+                } else {
+                    this.$notify({
+                        position: "bottom-right",
+                        title: "失败",
+                        message: response.data.message,
+                        type: "error",
+                        duration: 2000
+                    });
+                }
+            });
+        },
+        update(){
+            this.delCardList.POST_ID=this.$route.params.id;
+            updateLookTimes(this.delCardList).then(response=>{
+                if(response.data.code===2000){
+                    console.log(response.data.code);
+                }
+            })
         }
     },
     computed: {
@@ -269,6 +324,7 @@ export default {
     },
     mounted() {
         this.getCardDetail();
+        this.update();
     }
 };
 </script>

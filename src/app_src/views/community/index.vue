@@ -29,7 +29,7 @@
                             <el-table-column prop="upTime" label="发表日期" width="100px" align="center"></el-table-column>
                         </el-table>
                         <div class="page">
-                            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage1" :page-sizes="[100, 200, 300, 400]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="400">
+                            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage1" :page-sizes="[10, 20, 30, 40]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="total">
                             </el-pagination>
                         </div>
                     </el-card>
@@ -66,43 +66,20 @@ export default {
     data() {
         return {
             score: 1000,
-            scoreList: [
-                // { index: "1", name: "张1", score: 10000 },
-                // { index: "2", name: "张2", score: 10000 },
-                // { index: "3", name: "张3", score: 10000 },
-                // { index: "4", name: "张4", score: 10000 },
-                // { index: "5", name: "张5", score: 10000 },
-                // { index: "6", name: "张6", score: 10000 },
-                // { index: "7", name: "张7", score: 10000 },
-                // { index: "8", name: "张7", score: 10000 },
-                // { index: "9", name: "张7", score: 10000 },
-                // { index: "10", name: "张7", score: 10000 }
-            ],
-            newslist: [
-                // {
-                //     id: 1,
-                //     writter: "小李",
-                //     type: 1,
-                //     title: "为祖国庆生",
-                //     upTime: "2018-8-8",
-                //     readNumber: 200,
-                //     offer: 200,
-                //     commentNumber: 200,
-                //     content:
-                //         "为庆祝新中国成立69周年，学习贯彻习近平总书记在文艺座谈会上的讲话精神，展现“党的十八大”以来中国文艺大发展、大繁荣，传递正能量，提振精气神，激发广大诗人作家的创作激情，推动诗歌散文创作的更好更快发展，特举办第四届“中华情”全国诗歌散文联赛。"
-                // }
-            ],
+            scoreList: [],
+            newslist: [],
             currentPage1: 1,
             //帖子列表查询
             listQuery1: {
-                limit: 6,
+                limit: 8,
                 page: 1,
                 POST_TYPE: null,
                 USER_ID: null,
                 TITLE_NAME: null,
                 BEGIN_SEND_DATE: null,
                 END_SEND_DATE: null
-            }
+            },
+            total:null,
         };
     },
     methods: {
@@ -119,10 +96,12 @@ export default {
             }
         },
         handleSizeChange(val) {
-            console.log(`每页 ${val} 条`);
+            this.listQuery1.page = val;
+            this.getCommuntityList();
         },
         handleCurrentChange(val) {
-            console.log(`当前页: ${val}`);
+            this.listQuery1.page = val;
+            this.getCommuntityList();
         },
         getcontent(row, event, column) {
             let id = row.id.toString();
@@ -130,8 +109,10 @@ export default {
         },
         //获取帖子列表
         getCommuntityList() {
+            this.newslist=[];
             fetchCommunityList(this.listQuery1).then(response => {
                 if (response.data.code === 2000) {
+                    this.total=response.data.total;
                     for (let i = 0; i < response.data.items.length; i++) {
                         let time = response.data.items[i].SEND_DATE.substring(
                             0,
@@ -143,8 +124,8 @@ export default {
                             type: response.data.items[i].POST_TYPE,
                             title: response.data.items[i].TITLE_NAME,
                             upTime: time,
-                            offer:response.data.items[i].SCORE_POINT,
-                            commentNumber:response.data.items[i].COMMONT_COUNT,
+                            offer: response.data.items[i].SCORE_POINT,
+                            commentNumber: response.data.items[i].COMMONT_COUNT,
                             readNumber: response.data.items[i].BROWSE_NUM,
                             content: response.data.items[i].POST_CONTENT
                         });

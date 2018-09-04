@@ -82,3 +82,20 @@ export function commit(data) {
 }
 
 
+export function delcommit(data) {
+    return request({
+        url: 'communitypost/deleteComment',
+        method: 'post',
+        data
+    })
+}
+
+export function updateLookTimes(data) {
+    return request({
+        url: 'communitypost/updateComunityPostLookTimes',
+        method: 'post',
+        data
+    })
+}
+
+
