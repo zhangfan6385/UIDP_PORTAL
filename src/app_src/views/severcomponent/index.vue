@@ -36,16 +36,16 @@
                                 <li>
                                     <div class="left"><img style="width:40px;height:40px;" src="../../../app_src/imgs/feedback.png" alt=""></div>
                                     <div class="right">
-                                        <div class="right_top" @click="getcontent(component.id)">
-                                            {{component.name}}
+                                        <div class="right_top" @click="getcontent(component.COMPONENT_ID)">
+                                            {{component.COMPONENT_NAME}}
                                         </div>
                                         <div class="right_bottom_left">
                                             <span>发布者：</span>
-                                            <span>{{component.writter}}</span> &nbsp;|&nbsp;
+                                            <span>{{component.CREATER}}</span> &nbsp;|&nbsp;
                                             <span>发布时间：</span>
-                                            <span>{{component.time}}</span>
-                                            <span>调用次数：</span>
-                                            <span>{{component.download}}</span>
+                                            <span>{{component.COMPONENT_PUBLISHDATE |parseTime}}</span>
+                                            <span>下载次数：</span>
+                                            <span>{{component.DOWNLOAD_TIMES}}</span>
                                         </div>
                                     </div>
                                 </li>
@@ -111,6 +111,7 @@
 
 <script>
 import { fetchSeverComponentList } from "@/app_src/api/severcomponent";
+import { parseTime } from "@/app_src/utils/index.js";
 export default {
   data() {
     return {
@@ -140,6 +141,7 @@ export default {
       },
     };
   },
+  filters:{parseTime},
   methods: {
     addclass(i) {
       switch (i) {
@@ -194,20 +196,14 @@ export default {
     getSeverComponentList() {
       fetchSeverComponentList(this.queryList).then(response => {
         if (response.data.code === 2000) {
+          this.tableData=response.data.items;
           for (var i = 0; i < response.data.items.length; i++) {
-            let longtime=response.data.items[i].COMPONENT_PUBLISHDATE;
-            let shorttime=longtime.substring(0,10);
-            this.tableData.push({
-              name: response.data.items[i].COMPONENT_NAME,
-              id: response.data.items[i].COMPONENT_ID,
-              date: response.data.items[i].CREATE_DATE,
-              content: response.data.items[i].COMPONENT_CONTENT,
-              download:response.data.items[i].DOWNLOAD_TIMES,
-              time:shorttime,
-              writter:response.data.items[i].CREATER,
-            });
-            console.log(this.tableData[i].id)
-            if (i < 10) {
+            //let longtime=response.data.items[i].COMPONENT_PUBLISHDATE;
+            //let shorttime=longtime.substring(0,10);
+            if(i==10){
+              break;
+            }
+            else {
               this.tableDataTop.push({
                 name: response.data.items[i].COMPONENT_NAME,
                 id: response.data.items[i].COMPONENT_ID,
