@@ -106,6 +106,8 @@ export default {
                             type: response.data.items[i].POST_TYPE,
                             title: response.data.items[i].TITLE_NAME,
                             upTime: time,
+                            offer:response.data.items[i].SCORE_POINT,
+                            commentNumber:response.data.items[i].COMMONT_COUNT,
                             readNumber: response.data.items[i].BROWSE_NUM,
                             //offer: response.data.items[i].,
                             //commentNumber: response.data.items[i].,

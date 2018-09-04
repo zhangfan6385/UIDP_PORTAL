@@ -53,7 +53,7 @@
                             <el-table-column label="悬赏金额" prop="offer" align="center"></el-table-column>
                             <el-table-column label="评论人数" prop="commentNumber" align="center"></el-table-column>
                             <!-- <el-table-column label="作者" prop="writter" align="center"></el-table-column> -->
-                            <el-table-column label="发帖日期" prop="collectionTiome" align="center"></el-table-column>
+                            <el-table-column label="发帖日期" prop="upTime" align="center"></el-table-column>
                         </el-table>
                     </el-card>
                 </div>
@@ -69,19 +69,7 @@ export default {
     data() {
         return {
             userinfo: {},
-            myCollectionList: [
-                {
-                    id: 1,
-                    writter: "小李",
-                    type: 1,
-                    title: "为祖国庆生",
-                    upTime: "2018-8-8",
-                    readNumber: 200,
-                    offer: 200,
-                    commentNumber: 200,
-                    collectionTiome: "2018-8-14"
-                }
-            ],
+            myCollectionList: [],
             queryList: {
                 limit: 6,
                 page: 1,
@@ -112,7 +100,7 @@ export default {
             fetchMyCommunityList(this.queryList).then(response => {
                 if (response.data.code === 2000) {
                     for (let i = 0; i < response.data.items.length; i++) {
-                        let time = response.data.items[i].SEND_DATE.substring(
+                        let time = response.data.items[i].CREATE_DATE.substring(
                             0,
                             10
                         );
@@ -121,6 +109,8 @@ export default {
                             writter: response.data.items[i].CREATER,
                             type: response.data.items[i].POST_TYPE,
                             title: response.data.items[i].TITLE_NAME,
+                            offer:response.data.items[i].SCORE_POINT,
+                            commentNumber:response.data.items[i].COMMONT_COUNT,
                             upTime: time,
                             readNumber: response.data.items[i].BROWSE_NUM,
                             content: response.data.items[i].POST_CONTENT

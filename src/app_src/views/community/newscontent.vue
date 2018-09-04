@@ -10,13 +10,14 @@
                         <div slot="header" class="cardheader">
                             <span>{{cardcontent.TITLE_NAME}}</span>
                             <div class="operation">
-                                <el-button size="mini" @click="collection">
+                                <el-button size="mini" @click="collection" v-if="cardcontent.COLLECTION_STATE==='0'">
                                     <i class="el-icon-circle-plus"></i>收藏
                                 </el-button>
-                                <el-button size="mini" @click="uncollection">
+                                <el-button size="mini" @click="uncollection" v-else-if="cardcontent.COLLECTION_STATE==='1'">
                                     <i class="el-icon-remove"></i>取消收藏
                                 </el-button>
                                 <el-button size="mini" type="info" @click="goAnchor">回复</el-button>
+                                 <el-button size="mini" type="primary" @click="back">后退</el-button>
                             </div>
                         </div>
                         <!--主贴头像区域-->
@@ -117,7 +118,8 @@ export default {
         return {
             cardcontent: {},
             queryList: {
-                POST_ID: null
+                POST_ID: null,
+                USER_ID:null,
             },
             createList: {
                 POST_ID: "",
@@ -149,6 +151,8 @@ export default {
         //获取帖子内容
         getCardDetail() {
             this.queryList.POST_ID = this.$route.params.id;
+            this.queryList.USER_ID=this.$store.state.user.userID;
+            //this.queryList.USER_ID=1;
             getDetail(this.queryList).then(response => {
                 if (response.data.code === 2000) {
                     this.cardcontent = response.data.items;
@@ -219,33 +223,40 @@ export default {
         },
         onEditorReady(editor) {},
         submit() {
-            this.commit.POST_ID = this.cardcontent.POST_ID;
-            this.commit.FROM_UID = this.$store.state.user.userID;
-            //this.commit.FROM_UID = 1;
-            this.commit.TO_UID = this.cardcontent.USER_ID;
-            commit(this.commit).then(response => {
-                if (response.data.code === 2000) {
-                    this.$notify({
-                        position: "bottom-right",
-                        title: "发表成功",
-                        message: response.data.message,
-                        type: "success",
-                        duration: 2000
-                    });
-                    this.getCardDetail();
-                } else {
-                    this.$notify({
-                        position: "bottom-right",
-                        title: "失败",
-                        message: response.data.message,
-                        type: "error",
-                        duration: 2000
-                    });
-                }
-            });
+            if (this.$store.state.user.userID === null) {
+                dialogLoginVisible = true;
+            } else {
+                this.commit.POST_ID = this.cardcontent.POST_ID;
+                this.commit.FROM_UID = this.$store.state.user.userID;
+                //this.commit.FROM_UID = 1;
+                this.commit.TO_UID = this.cardcontent.USER_ID;
+                commit(this.commit).then(response => {
+                    if (response.data.code === 2000) {
+                        this.$notify({
+                            position: "bottom-right",
+                            title: "发表成功",
+                            message: response.data.message,
+                            type: "success",
+                            duration: 2000
+                        });
+                        this.getCardDetail();
+                    } else {
+                        this.$notify({
+                            position: "bottom-right",
+                            title: "失败",
+                            message: response.data.message,
+                            type: "error",
+                            duration: 2000
+                        });
+                    }
+                });
+            }
         },
-        goAnchor(){
-            window.location.hash="commit"
+        goAnchor() {
+            window.location.hash = "commit";
+        },
+        back(){
+            this.$router.go(-1); 
         }
     },
     computed: {

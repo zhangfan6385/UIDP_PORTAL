@@ -49,7 +49,7 @@
                                     </template>
                                 </el-table-column>
                                 <el-table-column prop="USER_NAME" label="姓名" align="center"></el-table-column>
-                                <el-table-column prop="score" label="积分" align="center"></el-table-column>
+                                <el-table-column prop="TOTAL" label="发帖量" align="center"></el-table-column>
                             </el-table>
                         </div>
                     </el-card>
@@ -143,6 +143,8 @@ export default {
                             type: response.data.items[i].POST_TYPE,
                             title: response.data.items[i].TITLE_NAME,
                             upTime: time,
+                            offer:response.data.items[i].SCORE_POINT,
+                            commentNumber:response.data.items[i].COMMONT_COUNT,
                             readNumber: response.data.items[i].BROWSE_NUM,
                             content: response.data.items[i].POST_CONTENT
                         });
