@@ -33,14 +33,14 @@
                         <li>
                             <el-button size="mini" type="primary" @click="handleApply" v-if="obj.CHECK_STATE===-1">申请</el-button>
                             <el-button size="mini" type="danger" v-else-if="obj.CHECK_STATE===0">待审核</el-button>
-                            <el-button size="mini" type="info" v-else-if="obj.CHECK_STATE===1">下载</el-button>
+                            <el-button size="mini" type="primary" v-else-if="obj.CHECK_STATE===1" @click="download(obj.URL)">下载</el-button>
                         </li>
                     </ul>
                 </el-card>
                 <el-card id="#anchor1" class="componentinfo" v-for="(file,key) in obj.children" :key="key" v-if="obj.CHECK_STATE===1">
                     <div style="float:left;">
                         <h5>文件下载
-                            <a :href="BASE_API2+'file.FILE_URL'">{{file.FILE_NAME}}</a>
+                            <a :href="BASE_API2+'file.FILE_URL'" target="_blank">{{file.FILE_NAME}}</a>
                         </h5>
                         <h5>文件大小：{{file.FILE_SIZE}}</h5>
                         <h5>发布日期：{{file.CREATE_DATE}}</h5>
@@ -106,6 +106,7 @@ import { fetchApply } from "@/app_src/api/apply";
 export default {
     data() {
         return {
+            BASE_API2:process.env.BASE_DOWNLOAD,
             gridData: [
                 {
                     projectname: "xx管理系统",
@@ -163,6 +164,9 @@ export default {
         };
     },
     methods: {
+        download(URL){
+            window.open(this.BASE_API2+URL);
+        },
         handleApply() {
             if (this.$store.state.user.userID != null) {
                 this.dialogFormVisible = true;
@@ -175,12 +179,11 @@ export default {
             alert("正在下载" + name + "文件");
         },
         getSeverComponent() {
-            this.queryList.ID = this.$store.state.user.userID;
+            this.queryList.userid = this.$store.state.user.userID;
             this.queryList.projectid = this.$store.state.user.currentProjID;
             this.queryList.resourceid = this.$route.params.id;
             fetchSeverComponentDetail(this.queryList).then(response => {
                 if (response.data.code === 2000) {
-                    console.log(response.data);
                     this.obj = response.data.items; //获取的为1个对象不是数组
                 } else {
                     this.$notify({
@@ -208,6 +211,7 @@ export default {
                         type: "success",
                         duration: 2000
                     });
+                    this.getSeverComponent() ;
                     this.dialogFormVisible = false;
                 } else {
                     this.$notify({
