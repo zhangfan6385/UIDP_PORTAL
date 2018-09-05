@@ -2,28 +2,28 @@
     <el-row type="flex">
         <el-col :span="2"> </el-col>
         <el-col :span="20">
-            <el-card shadow="never" style="height:100%">
+            <el-card shadow="never">
                 <el-card class="componentinfo" shadow="never">
-                    <div style="width:100%;padding-left:10px">
-                        <span style="font-weight:bold">{{severInfo.SERVICE_NAME}}</span>
-                        <el-button size="mini" style="float:right" type="primary" @click="back">后 退</el-button>
-                    </div>
                     <ul>
                         <li>
                             <span>服务地址：</span>
                             <span>{{severInfo.SERVICE_URL}}</span>
                         </li>
                         <li>
-                            <span>数据格式：</span>
-                            <span>{{severInfo.DATA_FORMAT}}</span>
+                            <span>返回格式：</span>
+                            <span>{{severInfo.DATAFORMAT}}</span>
                         </li>
                         <li>
-                            <span>发布日期：</span>
-                            <span>{{severInfo.SERVICE_PUBLISHDATE | parseTime}}</span>
+                            <span>创建日期：</span>
+                            <span>{{severInfo.CREATE_DATE}}</span>
                         </li>
                         <li>
                             <span>请求方式：</span>
                             <span>{{severInfo.REQUEST_METHOD}}</span>
+                        </li>
+                        <li>
+                            <span>更新时间：</span>
+                            <span>{{severInfo.SERVICE_URL}}</span>
                         </li>
                         <li>
                             <span>应用平台：</span>
@@ -31,16 +31,12 @@
                             <span>ALL</span>
                         </li>
                         <li>
-                            <span>更新日期：</span>
-                            <span>{{severInfo.SERVICE_PUBLISHDATE | parseTime}}</span>
+                            <el-button size="mini" type="primary" @click="handleApply()" v-if="severInfo.CHECK_STATE===-1">申请</el-button>
+                            <el-button size="mini" type="danger" v-else-if="severInfo.CHECK_STATE===0">待审核</el-button>
+                            <el-button size="mini" type="primary" disabled v-else-if="severInfo.CHECK_STATE===1">审核通过</el-button>
+                            <!-- <el-button size="mini" type="primary" @click="goAnchor">查看服务码</el-button> -->
                         </li>
                     </ul>
-                     <div style="text-align:center;float:left;width:45%;height:145px;padding-top:70px;">
-                            <el-button  type="primary" @click="handleApply()" v-if="severInfo.CHECK_STATE===-1">申&nbsp;请</el-button>
-                            <el-button  type="danger" v-else-if="severInfo.CHECK_STATE===0">待审核</el-button>
-                            <el-button  type="primary" disabled v-else-if="severInfo.CHECK_STATE===1">审核通过</el-button>
-                            <!-- <el-button size="mini" type="primary" @click="goAnchor">查看服务码</el-button> -->
-                        </div>
                 </el-card>
                 <el-card id="#anchor1" class="componentinfo" v-for="(file,key) in severInfo.children" :key="key" v-if="severInfo.CHECK_STATE===1">
                     <div style="float:left;">
@@ -48,10 +44,10 @@
                             <a :href="downloadurl+file.FILE_URL" target="_blank">{{file.FILE_NAME}}</a>
                         </h5>
                         <h5>文件大小：{{file.FILE_SIZE}}</h5>
-                        <h5>发布日期：{{file.CREATE_DATE | parseTime}}</h5>
+                        <h5>发布日期：{{file.CREATE_DATE}}</h5>
                     </div>
                 </el-card>
-                <el-card class="componentinfo1"  shadow="never">
+                <el-card class="componentinfo" shadow="never">
                     <span style="font-size:18px;font-weight:bold"><img style="width:20px;height:20px;" src="../../../app_src/imgs/title.png">服务介绍</span>
                     <!-- <div v-html="obj.content"></div> -->
                     <div v-html="severInfo.SERVICE_CONTENT"></div>
@@ -104,7 +100,6 @@
 <script>
 import { fetchSeverDetail } from "@/app_src/api/sever";
 import { fetchApply } from "@/app_src/api/apply";
-import { parseTime } from "@/app_src/utils/index.js";
 export default {
     data() {
         return {
@@ -143,13 +138,7 @@ export default {
             }
         };
     },
-    filters:{
-        parseTime
-    },
     methods: {
-         back() {
-            this.$router.go(-1);
-        },
         handleApply() {
             if (this.$store.state.user.userID != null) {
                 this.dialogFormVisible = true;
@@ -246,12 +235,6 @@ export default {
 <style scoped>
 .componentinfo {
     margin-bottom: 5px;
-    padding-left:30px;
-}
-.componentinfo1 {
-    margin-bottom: 5px;
-    padding-left:30px;
-    min-height: 500px;
 }
 .el-card__body {
     padding: 5px;
@@ -259,16 +242,15 @@ export default {
 
 /* .componentinfo li{float:left;width:100px;background:#CCC;margin-left:3px;line-height:30px;} */
 .componentinfo ul {
-    width: 50%;
+    width: 100%;
     list-style: none;
     margin-bottom: 20px;
     padding-left: 0px;
-    float:left; 
 }
 .componentinfo li {
     font-size: 14px;
-    width: 100%; /*如果显示三列 则width改为70px*/
-    line-height: 17px;
+    width: 45%; /*如果显示三列 则width改为70px*/
+    float: left;
     display: block;
     margin-bottom: 5px;
 }a {

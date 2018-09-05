@@ -175,7 +175,7 @@
                                             <div class="title">
                                                 组件排行
                                                 <div class="headerbutton">
-                                                    <el-button type="primary" size="mini" @click="gotonotice"> 查看更多</el-button>
+                                                    <el-button type="primary" size="mini" @click="getmore(0)"> 查看更多</el-button>
                                                 </div>
                                             </div>
                                         </el-col>
@@ -186,11 +186,11 @@
                                 <div class="parent">
                                     <el-carousel trigger="click" height="300px">
                                         <el-carousel-item>
-                                            <div id="myChart" class="myChart"></div>
+                                            <div id="myChart2" class="myChart"></div>
                                         </el-carousel-item>
-                                        <el-carousel-item>
+                                        <!-- <el-carousel-item>
                                             <div id="myChart1" class="myChart"></div>
-                                        </el-carousel-item>
+                                        </el-carousel-item> -->
                                     </el-carousel>
                                 </div>
                             </el-col>
@@ -211,7 +211,7 @@
                                             <div class="title">
                                                 服务排行
                                                 <div class="headerbutton">
-                                                    <el-button type="primary" size="mini" @click="gotonotice"> 查看更多</el-button>
+                                                    <el-button type="primary" size="mini" @click="getmore(1)"> 查看更多</el-button>
                                                 </div>
                                             </div>
                                         </el-col>
@@ -221,11 +221,11 @@
                                 <div class="parent">
                                     <el-carousel trigger="click" height="300px">
                                         <el-carousel-item>
-                                            <div id="myChart2" class="myChart"></div>
+                                            <div id="myChart" class="myChart"></div>
                                         </el-carousel-item>
-                                        <el-carousel-item>
+                                        <!-- <el-carousel-item>
                                             <div id="myChart3" class="myChart"></div>
-                                        </el-carousel-item>
+                                        </el-carousel-item> -->
                                     </el-carousel>
                                 </div>
                             </el-col>
@@ -233,6 +233,22 @@
                     </el-card>
                 </el-col>
             </el-row>
+        </div>
+        <div class="statistics">
+            <el-dialog :visible.sync="showStatistics" title="全部排行榜">
+                <el-card>
+                    <div class="box">
+                        <el-carousel trigger="click" height="300px" :initial-index="type">
+                            <el-carousel-item>
+                                <div id="allcomponentchart" class="allchart"></div>
+                            </el-carousel-item>
+                            <el-carousel-item>
+                                <div id="allseverchart" class="allchart"></div>
+                            </el-carousel-item>
+                        </el-carousel>
+                    </div>
+                </el-card>
+            </el-dialog>
         </div>
     </div>
 </template>
@@ -253,10 +269,14 @@ export default {
             severTopList: [],
             SeverComponentRankList: [],
             SeverComponentTopList: [],
+            componentAllList: [],
+            severAllList: [],
+            type:0,
+            showStatistics: false,
             //柱状图数据
             option: {
                 title: {
-                    text: "Top下载详情"
+                    text: ""
                 },
                 tooltip: {},
                 xAxis: {
@@ -271,20 +291,22 @@ export default {
                     }
                 ]
             },
-            option1: {
-                title: { text: "半年下载量详情" },
-                tooltip: {},
-                series: [
-                    {
-                        name: "月份",
-                        type: "pie",
-                        data: []
-                    }
-                ]
-            },
+            // //饼状图数据初始化
+            // option1: {
+            //     title: { text: "半年下载量详情" },
+            //     tooltip: {},
+            //     series: [
+            //         {
+            //             name: "月份",
+            //             type: "pie",
+            //             data: []
+            //         }
+            //     ]
+            // },
+            //组件柱状图数据初始化
             option2: {
                 title: {
-                    text: "Top下载详情"
+                    text: ""
                 },
                 tooltip: {},
                 xAxis: {
@@ -299,17 +321,88 @@ export default {
                     }
                 ]
             },
-            option3: {
-                title: { text: "半年下载量详情" },
-                tooltip: {},
+            componentOption: {
+                title: {
+                    text: "组件下载排行"
+                },
+                tooltip: {
+                    trigger: "axis",
+                    axisPointer: {
+                        type: "shadow"
+                    }
+                },
+                legend: {
+                    data: ["组件"]
+                },
+                grid: {
+                    left: "3%",
+                    right: "4%",
+                    bottom: "3%",
+                    containLabel: true
+                },
+                xAxis: {
+                    type: "value",
+                    boundaryGap: [0, 0.1]
+                },
+                yAxis: {
+                    type: "category",
+                    data: []
+                },
                 series: [
                     {
-                        name: "销量",
-                        type: "pie",
+                        name: "2011年",
+                        type: "bar",
                         data: []
                     }
                 ]
             },
+            severOption: {
+                title: {
+                    text: "服务下载排行"
+                },
+                tooltip: {
+                    trigger: "axis",
+                    axisPointer: {
+                        type: "shadow"
+                    }
+                },
+                legend: {
+                    data: ["组件"]
+                },
+                grid: {
+                    left: "3%",
+                    right: "4%",
+                    bottom: "3%",
+                    containLabel: true
+                },
+                xAxis: {
+                    type: "value",
+                    boundaryGap: [0, 0.1]
+                },
+                yAxis: {
+                    type: "category",
+                    data: []
+                },
+                series: [
+                    {
+                        name: "2011年",
+                        type: "bar",
+                        data: []
+                    }
+                ]
+            },
+            // option3: {
+            //     title: { text: "半年下载量详情" },
+            //     tooltip: {},
+            //     series: [
+            //         {
+            //             name: "销量",
+            //             type: "pie",
+            //             data: []
+            //         }
+            //     ]
+            // },
+
             //查询列表参数(公告,数据)
             listQuery: {
                 limit: 5,
@@ -324,28 +417,36 @@ export default {
                 TITLE_NAME: null,
                 BEGIN_SEND_DATE: null,
                 END_SEND_DATE: null
+            },
+            topQueryList: {
+                limit: 10
             }
         };
     },
     methods: {
         drawLine() {
+            //首页echarts初始化方法
             let myChart = this.$echarts.init(
+                //初始化服务柱状图
                 document.getElementById("myChart")
             );
             myChart.setOption(this.option);
-            let myChart1 = this.$echarts.init(
-                document.getElementById("myChart1")
-            );
-            myChart1.setOption(this.option1);
+
+            // let myChart1 = this.$echarts.init(//初始化服务饼状图
+            //     document.getElementById("myChart1")
+            // );
+            // myChart1.setOption(this.option1);
 
             let myChart2 = this.$echarts.init(
+                //初始化组件柱状图
                 document.getElementById("myChart2")
             );
             myChart2.setOption(this.option2);
-            let myChart3 = this.$echarts.init(
-                document.getElementById("myChart3")
-            );
-            myChart3.setOption(this.option3);
+
+            // let myChart3 = this.$echarts.init(//初始化组件饼状图
+            //     document.getElementById("myChart3")
+            // );
+            // myChart3.setOption(this.option3);
         },
         getcontent(row, event, column) {
             let id = row.id.toString();
@@ -430,33 +531,32 @@ export default {
         },
         //获取服务排名数据
         getSeverRank() {
-            fetchAlldata().then(response => {
+            fetchAlldata(this.topQueryList).then(response => {
                 if (response.data.code === 2000) {
                     this.severTopList = response.data.dtServerCountTop; //服务下载量柱状图数据
-                    for (
-                        //服务下载量饼状图数据
-                        let i = 0;
-                        i < response.data.dtServerMonth.length;
-                        i++
-                    ) {
-                        this.severRankList.push({
-                            name: response.data.dtServerMonth[i].CHECK_MONTH,
-                            value: response.data.dtServerMonth[i].TOTAL
-                        });
-                    }
+                    // for (
+                    //     //服务下载量饼状图数据
+                    //     let i = 0;
+                    //     i < response.data.dtServerMonth.length;
+                    //     i++
+                    // ) {
+                    //     this.severRankList.push({
+                    //         name: response.data.dtServerMonth[i].CHECK_MONTH,
+                    //         value: response.data.dtServerMonth[i].TOTAL
+                    //     });
+                    // }
                     this.SeverComponentTopList = response.data.dtComponentTop; //组件下载量柱状图数据
-                    for (
-                        //组件下载量饼状图数据
-                        let i = 0;
-                        i < response.data.dtComponentMonth.length;
-                        i++
-                    ) {
-                        this.SeverComponentRankList.push({
-                            name: response.data.dtComponentMonth[i].CHECK_MONTH,
-                            value: response.data.dtComponentMonth[i].TOTAL
-                        });
-                    }
-                    console.log(this.severRankList);
+                    // for (
+                    //     //组件下载量饼状图数据
+                    //     let i = 0;
+                    //     i < response.data.dtComponentMonth.length;
+                    //     i++
+                    // ) {
+                    //     this.SeverComponentRankList.push({
+                    //         name: response.data.dtComponentMonth[i].CHECK_MONTH,
+                    //         value: response.data.dtComponentMonth[i].TOTAL
+                    //     });
+                    // }
                     this.changedata();
                     this.drawLine(); //绘制echarts图
                 } else {
@@ -487,14 +587,14 @@ export default {
                     data: Severdata
                 }
             ];
-            //option1 服务饼状图数据转化
-            this.option1.series = [
-                {
-                    name: "服务下载量",
-                    type: "pie",
-                    data: this.severRankList
-                }
-            ];
+            // //option1 服务饼状图数据转化
+            // this.option1.series = [
+            //     {
+            //         name: "服务下载量",
+            //         type: "pie",
+            //         data: this.severRankList
+            //     }
+            // ];
             //option2 组件柱状图数据转化
             let Xdata1 = [];
             let Comdata = [];
@@ -502,6 +602,7 @@ export default {
                 Xdata1.push(com.COMPONENT_NAME);
                 Comdata.push(com.DOWNLOAD_TIMES);
             }
+            this.option2.xAxis.data = Xdata1;
             this.option2.series = [
                 {
                     name: "组件下载量",
@@ -509,14 +610,82 @@ export default {
                     data: Comdata
                 }
             ];
-            //option3 组件饼状图转化
-            this.option3.series = [
-                {
-                    name: "组件下载量",
-                    type: "pie",
-                    data: this.SeverComponentRankList
+            // //option3 组件饼状图转化
+            // this.option3.series = [
+            //     {
+            //         name: "组件下载量",
+            //         type: "pie",
+            //         data: this.SeverComponentRankList
+            //     }
+            // ];
+        },
+        dialogdrawline() {
+            let allcomponentchart = this.$echarts.init(
+                document.getElementById("allcomponentchart")
+            );
+            allcomponentchart.setOption(this.componentOption);
+
+            let allseverchart = this.$echarts.init(
+                document.getElementById("allseverchart")
+            );
+            allseverchart.setOption(this.severOption);
+        },
+        getalldata() {
+            fetchAlldata().then(response => {
+                if (response.data.code === 2000) {
+                    this.componentAllList = response.data.dtComponentTop;
+                    this.severAllList = response.data.dtServerCountTop;
+                    this.changeAllData();
+                    this.dialogdrawline();
+                } else {
+                    this.$notify({
+                        position: "bottom-right",
+                        title: "失败",
+                        message: response.data.message,
+                        type: "error",
+                        duration: 2000
+                    });
                 }
-            ];
+            });
+        },
+        // changeAllData() {
+        //     let ComData = [];
+        //     let ComYarry = [];
+        //     let SerData = [];
+        //     let SerYarry = [];
+        //     if (this.componentAllList != null) {
+        //         for (let i = this.componentAllList.length - 1; i > -1; i--) {
+        //             ComYarry.push(this.componentAllList[i].COMPONENT_NAME);
+        //             ComData.push(this.componentAllList[i].DOWNLOAD_TIMES);
+        //         }
+        //         this.componentOption.yAxis.data = ComYarry;
+        //         this.componentOption.series = [
+        //             {
+        //                 name: "组件下载详情",
+        //                 type: "bar",
+        //                 data: ComData
+        //             }
+        //         ];
+        //     }
+        //     if (this.severAllList != null) {
+        //         for (let i = this.severAllList.length - 1; i > -1; i--) {
+        //             SerYarry.push(this.severAllList[i].SERVICE_NAME);
+        //             SerData.push(this.severAllList[i].SERVICE_TIMES);
+        //         }
+        //         this.severOption.yAxis.data = SerYarry;
+        //         this.severOption.series = [
+        //             {
+        //                 name: "服务下载详情",
+        //                 type: "bar",
+        //                 data: SerData
+        //             }
+        //         ];
+        //     }
+        // },
+        getmore(data) {
+            this.showStatistics = true;
+            this.type=data;
+            this.getalldata();
         },
         test() {
             console.log(this.$store.state.user.userinfo);
@@ -681,6 +850,18 @@ export default {
                 left: 0;
                 bottom: 0;
                 right: 0;
+            }
+        }
+    }
+    .statistics {
+        .box {
+            min-width: 300px;
+            min-height: 300px;
+            .allchart {
+                width: 600px;
+                height: 300px;
+                margin: auto;
+                position: absolute;
             }
         }
     }
