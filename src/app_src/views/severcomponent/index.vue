@@ -34,7 +34,7 @@
                         <el-card v-for="(component,key) in tableData" :key="key" shadow="never" class="content">
                             <ul>
                                 <li>
-                                    <div class="left"><img style="width:40px;height:40px;" src="../../../app_src/imgs/feedback.png" alt=""></div>
+                                    <div class="left"><img style="width:30px;height:29px;" src="../../../app_src/imgs/comp.png" alt=""></div>
                                     <div class="right">
                                         <div class="right_top" @click="getcontent(component.COMPONENT_ID)">
                                             {{component.COMPONENT_NAME}}

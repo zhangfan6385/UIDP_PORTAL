@@ -33,7 +33,7 @@
                         <el-card  v-for="(component,key) in tableData" :key="key" shadow="never" class="content">
                             <ul>
                                 <li>
-                                    <div class="left"><img style="width:40px;height:40px;" src="../../../app_src/imgs/feedback.png" alt=""></div>
+                                    <div class="left"><img style="width:35px;height:28px;" src="../../../app_src/imgs/service.png" alt=""></div>
                                     <div class="right">
                                         <div class="right_top" @click="getcontent(component.SERVICE_ID)">
                                             {{component.SERVICE_NAME}}
@@ -295,7 +295,7 @@ li {
 .content .left {
     overflow: hidden; /*隐藏溢出图片内容*/
     transition-duration: 0.5s;
-    width: 5%;
+    width: 36px;
     height: 40px;
     /*background: green;*/
     float: left;
