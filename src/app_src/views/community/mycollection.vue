@@ -1,5 +1,5 @@
 <template>
-    <div id="mycard" class="mycard">
+    <div id="mycard" class="mycollection">
         <el-row type="flex" :gutter="20">
             <el-col :span="2"></el-col>
             <el-col :span="6">
@@ -11,11 +11,10 @@
                             </div>
                             <div style="padding: 14px;" class="info">
                                 <span>
-                                    用户姓名：{{userinfo.USER_NAME}}
+                                    姓名：{{userinfo.USER_NAME}}
                                     <br> 公司：{{userinfo.ORG_NAME}}
                                     <br> 积分：{{userinfo.SCORE}}
                                     <br> 手机：{{userinfo.MOBILE}}
-                                    <br> 办公电话：{{userinfo.OFFICE}}
                                     <br> 注册邮箱：{{userinfo.USER_EMAIL}}
                                     <br> 发帖数量：{{userinfo.recordNumber}}
                                     <br> 评论数量：{{userinfo.reviewNumvber}}
@@ -139,7 +138,7 @@ export default {
 
 
 <style lang="scss">
-.mycard {
+.mycollection {
     .leftcontainer {
         min-height: 450px;
         text-align: center;
@@ -153,7 +152,8 @@ export default {
             margin-top: 45px;
         }
         .info {
-            font-size: 20px;
+            text-align: left;
+            font-size: 18px;
             line-height: 35px;
             font-family: "微软雅黑";
         }

@@ -39,7 +39,7 @@ export default {
   }
 }
 .el-menu{
-  background: rgb(41, 10, 180);
+  background: #409EFF;
   font-family: "微软雅黑";
 }
 .el-menu-item {
@@ -47,7 +47,7 @@ export default {
   height:53;//55
   text-align: center;
   &:link{
-    border-bottom:3.5px solid rgb(41, 10, 180) !important;
+    border-bottom:3.5px solid #409EFF !important;
   }
     //  &:visited{
     //     border-bottom: 3.5px solid #eefaf3 !important;
@@ -58,7 +58,7 @@ export default {
   &:active{
     border-bottom: 3.5px solid #eefaf3 !important;
   }
-  background:rgb(41, 10, 180) !important;
+  background:#409EFF!important;
 }
 .is-active{
     border-bottom: 3.5px solid #eefaf3 !important;

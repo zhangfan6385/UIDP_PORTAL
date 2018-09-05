@@ -238,7 +238,7 @@
             <el-dialog :visible.sync="showStatistics" title="全部排行榜">
                 <el-card>
                     <div class="box">
-                        <el-carousel trigger="click" height="300px" :initial-index="type">
+                        <el-carousel trigger="click" height="350px" :initial-index="type">
                             <el-carousel-item>
                                 <div id="allcomponentchart" class="allchart"></div>
                             </el-carousel-item>
@@ -271,7 +271,7 @@ export default {
             SeverComponentTopList: [],
             componentAllList: [],
             severAllList: [],
-            type:0,
+            type: 0,
             showStatistics: false,
             //柱状图数据
             option: {
@@ -321,76 +321,120 @@ export default {
                     }
                 ]
             },
+            // componentOption: {
+            //     title: {
+            //         text: "组件下载排行"
+            //     },
+            //     tooltip: {
+            //         trigger: "axis",
+            //         axisPointer: {
+            //             type: "shadow"
+            //         }
+            //     },
+            //     legend: {
+            //         data: ["组件"]
+            //     },
+            //     grid: {
+            //         left: "3%",
+            //         right: "4%",
+            //         bottom: "3%",
+            //         containLabel: true
+            //     },
+            //     xAxis: {
+            //         type: "value",
+            //         boundaryGap: [0, 0.1]
+            //     },
+            //     yAxis: {
+            //         type: "category",
+            //         data: []
+            //     },
+            //     series: [
+            //         {
+            //             name: "2011年",
+            //             type: "bar",
+            //             data: []
+            //         }
+            //     ]
+            // },
             componentOption: {
                 title: {
-                    text: "组件下载排行"
+                    text: "组件下载统计",
+                    subtext: "大港油田",
+                    x: "center"
                 },
                 tooltip: {
-                    trigger: "axis",
-                    axisPointer: {
-                        type: "shadow"
-                    }
+                    trigger: "item",
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
                 },
                 legend: {
-                    data: ["组件"]
+                    type: "scroll",
+                    orient: "vertical",
+                    right: 10,
+                    top: 20,
+                    bottom: 20,
+                    data: [],
+
+                    selected: []
                 },
-                grid: {
-                    left: "3%",
-                    right: "4%",
-                    bottom: "3%",
-                    containLabel: true
-                },
-                xAxis: {
-                    type: "value",
-                    boundaryGap: [0, 0.1]
-                },
-                yAxis: {
-                    type: "category",
-                    data: []
-                },
-                series: [
-                    {
-                        name: "2011年",
-                        type: "bar",
-                        data: []
-                    }
-                ]
+                series: []
             },
             severOption: {
                 title: {
-                    text: "服务下载排行"
+                    text: "服务调用统计",
+                    subtext: "大港油田",
+                    x: "center"
                 },
                 tooltip: {
-                    trigger: "axis",
-                    axisPointer: {
-                        type: "shadow"
-                    }
+                    trigger: "item",
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
                 },
                 legend: {
-                    data: ["组件"]
+                    type: "scroll",
+                    orient: "vertical",
+                    right: 10,
+                    top: 20,
+                    bottom: 20,
+                    data: [],
+
+                    selected: []
                 },
-                grid: {
-                    left: "3%",
-                    right: "4%",
-                    bottom: "3%",
-                    containLabel: true
-                },
-                xAxis: {
-                    type: "value",
-                    boundaryGap: [0, 0.1]
-                },
-                yAxis: {
-                    type: "category",
-                    data: []
-                },
-                series: [
-                    {
-                        name: "2011年",
-                        type: "bar",
-                        data: []
-                    }
-                ]
+                series: []
             },
+            // severOption: {
+            //     title: {
+            //         text: "服务下载排行"
+            //     },
+            //     tooltip: {
+            //         trigger: "axis",
+            //         axisPointer: {
+            //             type: "shadow"
+            //         }
+            //     },
+            //     legend: {
+            //         data: ["组件"]
+            //     },
+            //     grid: {
+            //         left: "3%",
+            //         right: "4%",
+            //         bottom: "3%",
+            //         containLabel: true
+            //     },
+            //     xAxis: {
+            //         type: "value",
+            //         boundaryGap: [0, 0.1]
+            //     },
+            //     yAxis: {
+            //         type: "category",
+            //         data: []
+            //     },
+            //     series: [
+            //         {
+            //             name: "2011年",
+            //             type: "bar",
+            //             data: []
+            //         }
+            //     ]
+            // },
             // option3: {
             //     title: { text: "半年下载量详情" },
             //     tooltip: {},
@@ -635,7 +679,66 @@ export default {
                 if (response.data.code === 2000) {
                     this.componentAllList = response.data.dtComponentTop;
                     this.severAllList = response.data.dtServerCountTop;
-                    this.changeAllData();
+                    //饼状图数据转化
+                    let ComList = [];
+                    let ComName = [];
+                    let SerList = [];
+                    let SerName = [];
+                    if (this.componentAllList != null) {
+                        for (let i = 0; i < this.componentAllList.length; i++) {
+                            ComList.push({
+                                name: this.componentAllList[i].COMPONENT_NAME,
+                                value: this.componentAllList[i].DOWNLOAD_TIMES
+                            });
+                            ComName.push(
+                                this.componentAllList[i].COMPONENT_NAME
+                            );
+                        }
+                        this.componentOption.legend.data = ComName;
+                        this.componentOption.series = [
+                            {
+                                name: "组件下载量",
+                                type: "pie",
+                                radius: "55%",
+                                center: ["40%", "50%"],
+                                data: ComList,
+                                itemStyle: {
+                                    emphasis: {
+                                        shadowBlur: 10,
+                                        shadowOffsetX: 0,
+                                        shadowColor: "rgba(0, 0, 0, 0.5)"
+                                    }
+                                }
+                            }
+                        ];
+                        if (this.severAllList != null) {
+                            for (let i = 0; i < this.severAllList.length; i++) {
+                                SerList.push({
+                                    name: this.severAllList[i].SERVICE_NAME,
+                                    value: this.severAllList[i].SERVICE_TIMES
+                                });
+                                SerName.push(this.severAllList[i].SERVICE_NAME);
+                            }
+                            this.severOption.legend.data = SerName;
+                            this.severOption.series = [
+                                {
+                                    name: "组件下载量",
+                                    type: "pie",
+                                    radius: "55%",
+                                    center: ["40%", "50%"],
+                                    data: SerList,
+                                    itemStyle: {
+                                        emphasis: {
+                                            shadowBlur: 10,
+                                            shadowOffsetX: 0,
+                                            shadowColor: "rgba(0, 0, 0, 0.5)"
+                                        }
+                                    }
+                                }
+                            ];
+                        }
+                    }
+                    //this.changeAllData();
                     this.dialogdrawline();
                 } else {
                     this.$notify({
@@ -684,7 +787,7 @@ export default {
         // },
         getmore(data) {
             this.showStatistics = true;
-            this.type=data;
+            this.type = data;
             this.getalldata();
         },
         test() {

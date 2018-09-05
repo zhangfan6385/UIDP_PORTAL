@@ -10,11 +10,10 @@
                         </div>
                         <div style="padding: 14px;" class="info">
                             <span>
-                                用户姓名：{{userinfo.USER_NAME}}
+                                姓名：{{userinfo.USER_NAME}}
                                 <br> 公司：{{userinfo.ORG_NAME}}
                                 <br> 积分：{{userinfo.SCORE}}
                                 <br> 手机：{{userinfo.MOBILE}}
-                                <br> 办公电话：{{userinfo.OFFICE}}
                                 <br> 注册邮箱：{{userinfo.USER_EMAIL}}
                                 <br> 发帖数量：{{userinfo.recordNumber}}
                                 <br> 评论数量：{{userinfo.reviewNumvber}}
@@ -149,7 +148,8 @@ export default {
             margin-top: 45px;
         }
         .info {
-            font-size: 20px;
+            text-align: left;
+            font-size: 18px;
             line-height: 35px;
             font-family: "微软雅黑";
         }
