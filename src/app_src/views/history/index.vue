@@ -44,8 +44,11 @@
             <el-col :span="20">
                 <el-card>
                     <div class="title">
-                        历史版本
-                        <el-button type="primary" size="mini" class="changePlatform" @click="changePlatform">切换平台</el-button>
+                        {{dataName}}
+                        <el-button type="primary" size="mini" class="changePlatform" @click="back">后   退</el-button>
+                        
+                        <el-button type="primary" size="mini" class="changePlatform" @click="changePlatform">切换平台</el-button>   
+                         
                     </div>
                     <el-table :data="histroyEdition" height="450px" :v-loading="listloading">
                         <el-table-column type="expand">
@@ -155,9 +158,10 @@ export default {
                 userid: null,
                 projectid: null,
                 resouseid: null,
-                type: 0,
+                platType: 0,
                 isFirst: false
             },
+            dataName:'C#版本列表',
             queryList: {
                 userid: null,
                 projectid: null,
@@ -189,6 +193,9 @@ export default {
         };
     },
     methods: {
+         back() {
+            this.$router.go(-1);
+        },
         download(URL){
             window.open(this.urlDown+URL);
         },
@@ -248,15 +255,24 @@ export default {
             this.form.APPLY_USERID = this.$store.state.user.userID;
         },
         changePlatform() {
-            if (this.querylist.type === 0) {
-                this.querylist.type = 1;
+            if (this.querylist.platType === 0) {
+                this.querylist.platType = 1;
+                this.dataName='Go版本列表'
             } else {
-                this.querylist.type = 0;
+                this.querylist.platType = 0;
+                 this.dataName='C#版本列表';
             }
             this.FetchHistoryList();
         },
         getHistoryList() {
-            this.querylist.type = this.$store.state.user.platformIndex;
+            this.querylist.platType = this.$store.state.user.platformIndex;
+            
+            if(this.querylist.platType==0){
+                    this.dataName='C#版本列表';
+            }
+            else{
+                    this.dataName='Go版本列表'
+            }
             this.querylist.projectid = this.$store.state.user.currentProjID;
             this.querylist.userid = this.$store.state.user.userID;
             this.FetchHistoryList();
@@ -316,11 +332,13 @@ export default {
         font-family: "微软雅黑";
     }
     .title {
+        text-align: center;
         font-weight: bold;
         font-size: 20px;
         margin-bottom: 15px;
         .changePlatform {
             float: right;
+            margin-right: 5px;
         }
     }
     .blue {

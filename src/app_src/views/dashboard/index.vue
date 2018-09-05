@@ -8,20 +8,26 @@
             <el-carousel-item>
               <div class="cSharpPlatform">
                 <el-row>
-                  <el-col :span="12">
+                  <el-col :span="24">
                     <div class="info">
                       <div class="title">
                         C#平台
                       </div>
                       <div class="content">
+                      <div style="width:45%;float:left;">
+                        最新版本：{{charpData.version}}<br> 大小：{{charpData.size}}<br>
                         运行环境：.Net Core 2.0<br> 运行服务器：Windows Server 2008 sp1
                       </div>
-                      <div class="button">
-                        <el-button type="info" @click="goToHistory(0)">历史版本</el-button>
+                      <div style="float:left;margin-left:80px">
+                        <img src="../../imgs/sharplogo2.png" style="width:150px;height:120px;" />
+                      </div>
+                      </div>
+                      <div class="button" style="clear:both;padding-top:10px">
+                        <el-button type="primary" @click="goToHistory(0)">点击下载</el-button>
                       </div>
                     </div>
                   </el-col>
-                  <el-col :span="12">
+                  <!-- <el-col :span="12">
                     <div class="table">
                       <div class="tabletitle">
                         当前版本
@@ -36,27 +42,33 @@
                       </div>
                     </div>
 
-                  </el-col>
+                  </el-col> -->
                 </el-row>
               </div>
             </el-carousel-item>
             <el-carousel-item>
               <div class="GOPlatform">
                 <el-row>
-                  <el-col :span="12">
+                  <el-col :span="24">
                     <div class="info">
                       <div class="title">
                         GOLANG平台
                       </div>
                       <div class="content">
-                        运行环境：.Net Core 2.0<br> 运行服务器：Windows Server 2008 sp1
+                        <div style="width:45%;float:left;">
+                        最新版本：{{goData.version}}<br> 大小：{{goData.size}}<br>
+                        运行环境：go1.7.4<br> 运行服务器：Windows Server 2008 sp1
+                        </div>
                       </div>
-                      <div class="button">
-                        <el-button type="info" @click="goToHistory(1)">历史版本</el-button>
+                      <div style="float:left;margin-left:80px">
+                        <img src="../../imgs/gologo.png" style="width:150px;height:120px;" />
+                      </div>
+                      <div class="button" style="clear:both;padding-top:10px">
+                        <el-button type="primary" @click="goToHistory(1)">点击下载</el-button>
                       </div>
                     </div>
                   </el-col>
-                  <el-col :span="12">
+                  <!-- <el-col :span="12">
                     <div class="table">
                       <div class="tabletitle">
                         当前版本
@@ -70,7 +82,7 @@
                         </div>
                       </div>
                     </div>
-                  </el-col>
+                  </el-col> -->
                 </el-row>
               </div>
             </el-carousel-item>
@@ -238,6 +250,14 @@ export default {
             index: 0,
             CSharpCurrentList: [],
             CSharp: {},
+            charpData:{
+              version:'v1.0',
+              size:'10M'
+            },
+            goData:{
+              version:'v1.0',
+              size:'10M'
+            },
             GOCurrentList: [],
             GOCurrent: {},
             querylist: {
@@ -285,7 +305,6 @@ export default {
         },
         goToHistory(data) {
             this.$store.state.user.platformIndex = data;
-            console.log(this.$store.state.user.platformIndex);
             this.$router.push({ path: "/history" });
         },
         getCurrent() {
@@ -298,6 +317,8 @@ export default {
             fetchGetHistoryList(this.querylist).then(response => {
                 if (response.data.code === 2000) {
                     this.CSharp = response.data.items;
+                    this.charpData.size=response.data.items[0].PLAT_SIZE;
+                    this.charpData.version=response.data.items[0].PLAT_VERSION;
                     if (this.CSharp.PLAT_PUBLISHDATE != null) {
                         this.CSharp.PLAT_PUBLISHDATE = this.CSharp.PLAT_PUBLISHDATE.substring(
                             0,
@@ -305,7 +326,6 @@ export default {
                         );
                     }
                     this.CSharpCurrentList.push(response.data.items);
-                    console.log(this.CSharpCurrentList);
                     // for (let i = 0; i < response.data.items.length; i++) {
                     //     let longtime = response.data.items[i].CREATE_DATE;
                     //     let shorttime = longtime.substring(0, 10);
@@ -327,6 +347,8 @@ export default {
             fetchGetHistoryList(this.querylist1).then(response => {
                 if (response.data.code === 2000) {
                     this.GOCurrent = response.data.items;
+                    this.goData.size=response.data.items[0].PLAT_SIZE;
+                    this.goData.version=response.data.items[0].PLAT_VERSION;
                     this.GOCurrentList.push(response.data.items);
                     if (this.GOCurrent.PLAT_PUBLISHDATE != null) {
                         this.GOCurrent.PLAT_PUBLISHDATE = this.GOCurrent.PLAT_PUBLISHDATE.substring(
@@ -334,7 +356,6 @@ export default {
                             10
                         );
                     }
-                    console.log(this.GOCurrentList);
                     // for (let i = 0; i < response.data.items.length; i++) {
                     //     let longtime = response.data.items[i].CREATE_DATE;
                     //     let shorttime = longtime.substring(0, 10);
@@ -354,7 +375,6 @@ export default {
         apply(data) {
             if (this.$store.state.user.userID != null) {
                 this.dialogFormVisible = true;
-                console.log(data.PLAT_ID);
                 this.form.APPLY_RESOURCE_ID = data.PLAT_ID;
                 this.getProjInfo();
             } else {
@@ -421,7 +441,7 @@ export default {
         margin-top: 20px;
         .cSharpPlatform {
             border-radius: 0.83em;
-            background-image: url(../../../app_src/imgs/CSharpBackground.jpg);
+            background-image: url(../../../app_src/imgs/CSharpBackground.jpg);//url(../../../app_src/imgs/CSharpBackground.jpg);
             background-repeat: no-repeat;
             background-size: 100% 100%;
             -moz-background-size: 100% 100%;
@@ -429,7 +449,7 @@ export default {
             height: 95%;
             .info {
                 margin-left: 10%;
-                margin-top: 45%;
+                margin-top: 20%;
             }
             .title {
                 text-align: center;
@@ -483,10 +503,10 @@ export default {
         min-height: 95%;
         .info {
             margin-left: 10%;
-            margin-top: 45%;
+            margin-top: 20%;
         }
         .title {
-            margin-left: 50px;
+           text-align: center;
             font-size: 30px;
             font-weight: bold;
         }
