@@ -4,6 +4,10 @@
         <el-col :span="20">
             <el-card class="box-card">
                 <el-card class="componentinfo">
+                    <div style="width:100%;padding-left:10px">
+                        <span style="font-weight:bold">{{obj.COMPONENT_NAME}}</span>
+                        <el-button size="mini" style="float:right" type="primary" @click="back">后 退</el-button>
+                    </div>
                     <ul>
                         <li>
                             <span>版　　本：</span>
@@ -14,12 +18,12 @@
                             <span>{{obj.SOFTWARE_LANGUAGE}}</span>
                         </li>
                         <li>
-                            <span>上传人：</span>
+                            <span>上 传 人：</span>
                             <span>{{obj.CREATER}}</span>
                         </li>
                         <li>
                             <span>更新时间：</span>
-                            <span>{{obj.CREATE_DATE}}</span>
+                            <span>{{obj.CREATE_DATE | parseTime}}</span>
                         </li>
                         <li>
                             <span>应用平台：</span>
@@ -30,12 +34,13 @@
                             <span>软件大小：</span>
                             <span>{{obj.COMPONENT_SIZE}}</span>
                         </li>
-                        <li>
-                            <el-button size="mini" type="primary" @click="handleApply" v-if="obj.CHECK_STATE===-1">申请</el-button>
-                            <el-button size="mini" type="danger" v-else-if="obj.CHECK_STATE===0">待审核</el-button>
-                            <el-button size="mini" type="primary" v-else-if="obj.CHECK_STATE===1" @click="download(obj.URL)">下载</el-button>
-                        </li>
+                        
                     </ul>
+                    <div style="text-align:center;float:left;width:45%;height:145px;padding-top:70px;"> 
+                            <el-button  type="primary" @click="handleApply" v-if="obj.CHECK_STATE===-1">申 请</el-button>
+                            <el-button  type="danger" v-else-if="obj.CHECK_STATE===0">待审核</el-button>
+                            <el-button  type="primary" v-else-if="obj.CHECK_STATE===1" @click="download(obj.URL)">下 载</el-button>
+                        </div>
                 </el-card>
                 <el-card id="#anchor1" class="componentinfo" v-for="(file,key) in obj.children" :key="key" v-if="obj.CHECK_STATE===1">
                     <div style="float:left;">
@@ -43,10 +48,10 @@
                             <a :href="downloadurl+file.FILE_URL" target="_blank">{{file.FILE_NAME}}</a>
                         </h5>
                         <h5>文件大小：{{file.FILE_SIZE}}</h5>
-                        <h5>发布日期：{{file.CREATE_DATE}}</h5>
+                        <h5>发布日期：{{file.CREATE_DATE | parseTime}}</h5>
                     </div>
                 </el-card>
-                <el-card class="componentinfo">
+                <el-card class="componentinfo1">
                     组件简介
                     <div v-html="obj.COMPONENT_CONTENT"></div>
                 </el-card>
@@ -103,7 +108,11 @@
 <script>
 import { fetchSeverComponentDetail } from "@/app_src/api/severcomponent";
 import { fetchApply } from "@/app_src/api/apply";
+import { parseTime } from "@/app_src/utils/index.js";
 export default {
+    filters:{
+        parseTime
+    },
     data() {
         return {
             downloadurl:process.env.BASE_DOWNLOAD,
@@ -164,6 +173,9 @@ export default {
         };
     },
     methods: {
+         back() {
+            this.$router.go(-1);
+        },
         download(URL){
             window.open(this.BASE_API2+URL);
         },
@@ -255,18 +267,25 @@ export default {
 .componentinfo {
     margin-bottom: 15px;
     padding-bottom: 10px;
+    padding-left:30px;
+}
+.componentinfo1 {
+    margin-bottom: 5px;
+    padding-left:30px;
+    min-height: 500px;
 }
 /* .componentinfo li{float:left;width:100px;background:#CCC;margin-left:3px;line-height:30px;} */
 .componentinfo ul {
-    width: 100%;
+    width: 50%;
     list-style: none;
     margin-bottom: 20px;
     padding-left: 0px;
+    float:left; 
 }
 .componentinfo li {
     font-size: 14px;
     width: 45%; /*如果显示三列 则width改为70px*/
-    float: left;
+    line-height: 17px;
     display: block;
     margin: 5px;
 }
