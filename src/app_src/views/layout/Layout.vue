@@ -26,7 +26,7 @@
                 </div>
                 <div>
                     <user-password-manager></user-password-manager>
-                    <apply-dialog></apply-dialog>
+                    <!-- <apply-dialog></apply-dialog> -->
                     <login-dialog></login-dialog>
                     <message-dialog></message-dialog>
                     <user-info></user-info>
@@ -49,7 +49,7 @@ import {
   HeaderSet,
   Topbar,
   LoginDialog,
-  ApplyDialog,
+  //ApplyDialog,
   MessageDialog
 } from "./components";
 import userPasswordManager from "@/app_src/views/layout/components/LoginDialog/userPasswordManager";
@@ -74,7 +74,7 @@ export default {
     userPasswordManager,
     projectInfo,
     userInfo,
-    ApplyDialog
+    //ApplyDialog
   },
   mixins: [ResizeMixin],
   computed: {

@@ -141,7 +141,7 @@ export default {
                     return false;
                 }
             });
-        }
+        },
         // handleLogin() {
         //     this.loading = true;
         //     if ( this.$store.state.user.length != 0) {
@@ -163,7 +163,7 @@ export default {
         getLoginVisible(data) {
             this.dialogLoginVisible = data;
         }
-    }
+    },
 };
 </script>
 
