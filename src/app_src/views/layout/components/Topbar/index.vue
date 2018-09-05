@@ -8,9 +8,6 @@
                 </el-col>
             </el-row>
         </el-menu>   
-        <div class="copyright">
-            版权所有：©大港油田集团责任有限公司信息中心
-        </div>
     </div>
 </template>
 

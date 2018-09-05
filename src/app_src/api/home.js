@@ -4,6 +4,6 @@ export function fetchAlldata(data){
     return request({
         url:'Home/fetchCountList',
         method:'get',
-        params:data,
+        params:data
     })
 }
