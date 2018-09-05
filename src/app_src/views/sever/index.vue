@@ -24,13 +24,13 @@
             </el-col>
             <el-col :span="14">
                 <div class="grid-content bg-purple">
-                    <el-card class="box-card" shadow="never">
+                    <el-card class="box-card" shadow="never" style="min-height:600px" >
                         <div class="filter-container">
-                            <el-input style="width: 420px;" class="filter-item">
+                            <el-input style="width: 420px;" v-model="queryList.name" class="filter-item">
                             </el-input>
-                            <el-button class="filter-item" type="primary" icon="el-icon-search">搜索</el-button>
+                            <el-button class="filter-item" type="primary" icon="el-icon-search" @click="getSeverList">搜索</el-button>
                         </div>
-                        <el-card v-for="(component,key) in tableData" :key="key" shadow="never" class="content">
+                        <el-card  v-for="(component,key) in tableData" :key="key" shadow="never" class="content">
                             <ul>
                                 <li>
                                     <div class="left"><img style="width:40px;height:40px;" src="../../../app_src/imgs/feedback.png" alt=""></div>
@@ -142,7 +142,13 @@ export default {
             },
             queryList: {
                 limit: 10,
-                page: 1
+                page: 1,
+                name:''
+            },
+            queryList1: {
+                limit: 10,
+                page: 1,
+                name:''
             }
         };
     },
@@ -208,6 +214,20 @@ export default {
             fetchSeverList(this.queryList).then(response => {
                 if (response.data.code === 2000) {
                     this.tableData = response.data.items;
+                } else {
+                    this.$notify({
+                        position: "bottom-right",
+                        title: "失败",
+                        message: response.data.message,
+                        type: "error",
+                        duration: 2000
+                    });
+                }
+            });
+        },
+        getSeverListTop() {
+            fetchSeverList(this.queryList1).then(response => {
+                if (response.data.code === 2000) {
                     for (var i = 0; i < response.data.items.length; i++) {
                         if (i == 10) {
                             break;
@@ -233,11 +253,12 @@ export default {
             });
         },
         getmore() {
-            this.queryList.limit += 5;
+            this.queryList.limit += 10;
             this.getSeverList();
         }
     },
     mounted() {
+        this.getSeverListTop();
         this.getSeverList();
     }
 };

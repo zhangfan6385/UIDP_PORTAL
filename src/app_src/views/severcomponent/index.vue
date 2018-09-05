@@ -25,11 +25,11 @@
             </el-col>
             <el-col :span="14">
                 <div class="grid-content bg-purple">
-                    <el-card class="box-card" shadow="never">
+                    <el-card class="box-card" shadow="never" style="min-height:600px">
                         <div class="filter-container">
-                            <el-input style="width: 420px;" class="filter-item">
+                            <el-input style="width: 420px;" v-model="queryList.name" class="filter-item">
                             </el-input>
-                            <el-button class="filter-item" type="primary" icon="el-icon-search">搜索</el-button>
+                            <el-button class="filter-item" type="primary" @click="getSeverComponentList" icon="el-icon-search">搜索</el-button>
                         </div>
                         <el-card v-for="(component,key) in tableData" :key="key" shadow="never" class="content">
                             <ul>
@@ -137,8 +137,14 @@ export default {
       },
       queryList: {
         limit: 10,
-        page: 1
+        page: 1,
+        name:''
       },
+      queryList1: {
+        limit: 10,
+        page: 1,
+        name:''
+      }
     };
   },
   filters:{parseTime},
@@ -197,9 +203,21 @@ export default {
       fetchSeverComponentList(this.queryList).then(response => {
         if (response.data.code === 2000) {
           this.tableData=response.data.items;
+        } else {
+          this.$notify({
+            position: "bottom-right",
+            title: "失败",
+            message: response.data.message,
+            type: "error",
+            duration: 2000
+          });
+        }
+      });
+    },
+    getSeverComponentListTop() {
+      fetchSeverComponentList(this.queryList1).then(response => {
+        if (response.data.code === 2000) {
           for (var i = 0; i < response.data.items.length; i++) {
-            //let longtime=response.data.items[i].COMPONENT_PUBLISHDATE;
-            //let shorttime=longtime.substring(0,10);
             if(i==10){
               break;
             }
@@ -225,8 +243,8 @@ export default {
       });
     },
     getmore() {
-      this.queryList.limit += 5;
-      this.getSeverList();
+      this.queryList.limit += 10;
+      this.getSeverComponentList();
     },
     test() {
       for (var i = 0; i < this.list1.items.length; i++) {
@@ -248,6 +266,7 @@ export default {
     }
   },
   mounted() {
+    this.getSeverComponentListTop();
     this.getSeverComponentList();
   }
 };

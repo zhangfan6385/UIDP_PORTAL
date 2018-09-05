@@ -4,7 +4,7 @@
         <el-col :span="20">
             <el-card class="box-card">
                 <el-card class="componentinfo">
-                    <div style="width:100%">
+                    <div style="width:100%;padding-left:10px">
                         <span style="font-weight:bold">{{obj.COMPONENT_NAME}}</span>
                         <el-button size="mini" style="float:right" type="primary" @click="back">后 退</el-button>
                     </div>

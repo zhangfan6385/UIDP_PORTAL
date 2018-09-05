@@ -4,7 +4,7 @@
         <el-col :span="20">
             <el-card shadow="never" style="height:100%">
                 <el-card class="componentinfo" shadow="never">
-                    <div style="width:100%">
+                    <div style="width:100%;padding-left:10px">
                         <span style="font-weight:bold">{{severInfo.SERVICE_NAME}}</span>
                         <el-button size="mini" style="float:right" type="primary" @click="back">后 退</el-button>
                     </div>
