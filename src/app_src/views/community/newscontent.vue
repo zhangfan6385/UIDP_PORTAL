@@ -136,8 +136,8 @@ export default {
             delComentList: {
                 COMMENT_ID: null
             },
-            delCardList:{
-                POST_ID:'',
+            delCardList: {
+                POST_ID: ""
             },
             commit: {
                 POST_ID: "",
@@ -275,12 +275,27 @@ export default {
             this.$router.go(-1);
         },
         delcard() {
-            this.delCardList.POST_ID=this.cardcontent.POST_ID;
-            delcard(this.delCardList).then(response=>{
-                if(response.data.code===2000){
-                    console.log(response.data);
+            this.delCardList.POST_ID = this.cardcontent.POST_ID;
+            delcard(this.delCardList).then(response => {
+                if (response.data.code === 2000) {
+                    this.$notify({
+                        position: "bottom-right",
+                        title: "删帖成功",
+                        message: response.data.message,
+                        type: "success",
+                        duration: 2000
+                    });
+                    this.$router.push({ path: "/community/main/index" });
+                } else {
+                    this.$notify({
+                        position: "bottom-right",
+                        title: "删帖失败",
+                        message: response.data.message,
+                        type: "error",
+                        duration: 2000
+                    });
                 }
-            })
+            });
         },
         delcommit(data) {
             this.delComentList.COMMENT_ID = data.COMMENT_ID;
@@ -305,13 +320,9 @@ export default {
                 }
             });
         },
-        update(){
-            this.delCardList.POST_ID=this.$route.params.id;
-            updateLookTimes(this.delCardList).then(response=>{
-                if(response.data.code===2000){
-                    console.log(response.data.code);
-                }
-            })
+        update() {
+            this.delCardList.POST_ID = this.$route.params.id;
+            updateLookTimes(this.delCardList)
         }
     },
     computed: {

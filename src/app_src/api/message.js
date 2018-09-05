@@ -10,7 +10,7 @@ export function fetchMessageList(query) {
 
 export function fetchCheckInfo(data) {
     return request({
-        url: '',
+        url: 'Apply/upadateApplyRecord',
         method: 'post',
         data
     })

@@ -1,209 +1,240 @@
 <template>
-  <div id="home" class="home">
-    <div class="row1">
-      <el-row :gutter="20" type="flex">
-        <el-col :span="2"></el-col>
-        <el-col :span="10">
-          <el-card>
-            <div class="header">
-              <el-row>
-                <el-col :span="2">
-                  <img src="../../../app_src/imgs/notice.png" title="公告">
+    <div id="home" class="home">
+        <div class="row1">
+            <el-row :gutter="20" type="flex">
+                <el-col :span="2"></el-col>
+                <el-col :span="10">
+                    <el-card>
+                        <div class="header">
+                            <el-row>
+                                <el-col :span="2">
+                                    <img src="../../../app_src/imgs/notice.png" title="公告">
+                                </el-col>
+
+                                <el-col :span="22">
+                                    <div class="title">
+                                        公告
+                                        <div class="headerbutton">
+                                            <el-button type="primary" size="mini" @click="gotonotice"> 查看更多</el-button>
+                                            <!-- <el-button type="primary" size="mini" @click="test"> 全局数据展示</el-button> -->
+                                        </div>
+                                    </div>
+                                </el-col>
+                            </el-row>
+                        </div>
+                        <hr>
+                        <el-table :data="noticeList" :show-header="false" @row-click="goToContent" height="300px">
+                            <el-table-column show-overflow-tooltip>
+                                <template slot-scope="scope">
+                                    <span class="noticetitle">{{scope.row.title}}</span>
+                                </template>
+                            </el-table-column>
+                            <!-- <el-table-column  prop="writter" align="center"></el-table-column> -->
+                            <el-table-column align="center" width="100px">
+                                <template slot-scope="scope">
+                                    <span class="noticetitle">{{scope.row.time}}</span>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                    </el-card>
                 </el-col>
 
-                <el-col :span="22">
-                  <div class="title">
-                    公告
-                    <div class="headerbutton">
-                      <el-button type="primary" size="mini" @click="gotonotice"> 查看更多</el-button>
-                      <!-- <el-button type="primary" size="mini" @click="test"> 全局数据展示</el-button> -->
-                    </div>
-                  </div>
-                </el-col>
-              </el-row>
-            </div>
-            <hr>
-            <el-table :data="noticeList"  :show-header="false" @row-click="goToContent" height="300px">
-              <el-table-column show-overflow-tooltip>
-                <template slot-scope="scope">
-                  <span class="noticetitle">{{scope.row.title}}</span>
-                </template>
-              </el-table-column>
-              <!-- <el-table-column  prop="writter" align="center"></el-table-column> -->
-              <el-table-column align="center" width="100px">
-                <template slot-scope="scope">
-                  <span class="noticetitle">{{scope.row.time}}</span>
-                </template>
-              </el-table-column>
-            </el-table>
-          </el-card>
-        </el-col>
-
-        <el-col :span="10">
-          <el-card>
-            <div class="header">
-              <el-row>
-                <el-col :span="2">
-                  <img src="../../../app_src/imgs/message.png" title="公告">
-                </el-col>
-                <el-col :span="22">
-                  <div class="title">
-                    最新发帖
-                    <div class="headerbutton">
-                      <el-button type="primary" size="mini" @click="goToCommunity"> 论坛首页</el-button>
-                    </div>
-                  </div>
-                </el-col>
-              </el-row>
-            </div>
-            <hr>
-            <el-table :data="newslist" @row-click="getcontent" :show-header="false" height="300px">
-              <el-table-column label="类型" width="50px" align="center">
-                <template slot-scope="scope">
-                  <div class="newslogo">
-                    <span v-if="scope.row.type===1">
-                      <img src="../../../app_src/imgs/shakehande.png" title="经验分享">
-                    </span>
-                    <span v-else-if="scope.row.type===2">
-                      <img src="../../../app_src/imgs/feedback.png" title="问题反馈">
-                    </span>
-                    <span v-else-if="scope.row.type===3">
-                      <img src="../../../app_src/imgs/help.png" title="问题求助">
-                    </span>
-                  </div>
-                </template>
-              </el-table-column>
-              <el-table-column label="主题" show-overflow-tooltip>
-                <template slot-scope="scope">
-                  <span class="communitytitle">{{scope.row.title}}</span>
-                </template>
-              </el-table-column>
-              <el-table-column label="发帖时间" show-overflow-tooltip width="100px">
-                <template slot-scope="scope">
-                  <span class="communitytitle">{{scope.row.upTime}}</span>
-                </template>
-              </el-table-column>
-              <!-- <el-table-column prop="readNumber" label="阅读量" width="100px" align="center"></el-table-column>
+                <el-col :span="10">
+                    <el-card>
+                        <div class="header">
+                            <el-row>
+                                <el-col :span="2">
+                                    <img src="../../../app_src/imgs/message.png" title="公告">
+                                </el-col>
+                                <el-col :span="22">
+                                    <div class="title">
+                                        最新发帖
+                                        <div class="headerbutton">
+                                            <el-button type="primary" size="mini" @click="goToCommunity">查看更多</el-button>
+                                        </div>
+                                    </div>
+                                </el-col>
+                            </el-row>
+                        </div>
+                        <hr>
+                        <el-table :data="newslist" @row-click="getcontent" :show-header="false" height="300px">
+                            <el-table-column label="类型" width="50px" align="center">
+                                <template slot-scope="scope">
+                                    <div class="newslogo">
+                                        <span v-if="scope.row.type===1">
+                                            <img src="../../../app_src/imgs/shakehande.png" title="经验分享">
+                                        </span>
+                                        <span v-else-if="scope.row.type===2">
+                                            <img src="../../../app_src/imgs/feedback.png" title="问题反馈">
+                                        </span>
+                                        <span v-else-if="scope.row.type===3">
+                                            <img src="../../../app_src/imgs/help.png" title="问题求助">
+                                        </span>
+                                    </div>
+                                </template>
+                            </el-table-column>
+                            <el-table-column label="主题" show-overflow-tooltip>
+                                <template slot-scope="scope">
+                                    <span class="communitytitle">{{scope.row.title}}</span>
+                                </template>
+                            </el-table-column>
+                            <el-table-column label="发帖时间" show-overflow-tooltip width="100px">
+                                <template slot-scope="scope">
+                                    <span class="communitytitle">{{scope.row.upTime}}</span>
+                                </template>
+                            </el-table-column>
+                            <!-- <el-table-column prop="readNumber" label="阅读量" width="100px" align="center"></el-table-column>
                             <el-table-column prop="offer" label="悬赏金额" width="100px" align="center"></el-table-column>
                             <el-table-column prop="commentNumber" label="评论人数" width="100px" align="center"></el-table-column>
                             <el-table-column prop="writter" label="作者" width="100px" align="center"></el-table-column>
                             <el-table-column prop="upTime" label="发表日期" width="100px" align="center"></el-table-column> -->
-            </el-table>
-          </el-card>
-        </el-col>
-      </el-row>
-    </div>
-
-    <div class="row2">
-      <el-row type="flex">
-        <el-col :span="2"></el-col>
-        <el-col :span="20">
-          <div class="logocard">
-            <el-card>
-              <el-row>
-                <el-col :span="1">
-                  <img src="../../../app_src/imgs/computer.png" title="公告">
+                        </el-table>
+                    </el-card>
                 </el-col>
-                <el-col :span="23">
-                  开发平台
-                </el-col>
-
-              </el-row>
-              <el-row type="flex">
-                <el-col :span="2"></el-col>
-                <el-col :span="3">
-
-                  <div class="platform">
-                    <img src="../../../app_src/imgs/platform.png" title="c#平台" @click="GOplatform1(0)">
-                  </div>
-                </el-col>
-                <el-col :span="6">
-                  <el-col>
-                    <div class="title">
-                      C#平台
-                    </div>
-                  </el-col>
-                  <el-col>
-                    <div class="content">
-                      前端：Vue 2.0+elementUI
-                      <br> 后端：.NET Core2.0+Web API
-                    </div>
-                  </el-col>
-                </el-col>
-                <el-col :span="2"></el-col>
-                <el-col :span="3">
-                  <div class="platform">
-                    <img src="../../../app_src/imgs/GOplatform.png" title="GO平台" @click="GOplatform1(1)">
-                  </div>
-                </el-col>
-
-                <el-col :span="6">
-                  <el-col>
-                    <div class="title">
-                      GOLANG平台
-                    </div>
-                  </el-col>
-                  <el-col>
-                    <div class="content">
-                      前端：Vue 2.0+elementUI
-                      <br> 后端：.NET Core2.0+Web API
-                    </div>
-                  </el-col>
-                </el-col>
-                <el-col :span="3"></el-col>
-              </el-row>
-
-            </el-card>
-          </div>
-        </el-col>
-      </el-row>
-    </div>
-
-    <div class="row3">
-      <el-row :gutter="20" type="flex">
-        <el-col :span="2"></el-col>
-        <el-col :span="10">
-          <el-card>
-            <el-row type="flex">
-              <el-col :span="2"></el-col>
-              <el-col :span="20">
-                <div class="parent">
-                  <el-carousel trigger="click" height="300px">
-                    <el-carousel-item>
-                      <div id="myChart" class="myChart"></div>
-                    </el-carousel-item>
-                    <el-carousel-item>
-                      <div id="myChart1" class="myChart"></div>
-                    </el-carousel-item>
-                  </el-carousel>
-                </div>
-              </el-col>
             </el-row>
-          </el-card>
-        </el-col>
+        </div>
 
-        <el-col :span="10">
-          <el-card>
+        <div class="row2">
             <el-row type="flex">
-              <el-col :span="2"></el-col>
-              <el-col :span="20">
-                <div class="parent">
-                  <el-carousel trigger="click" height="300px">
-                    <el-carousel-item>
-                      <div id="myChart2" class="myChart"></div>
-                    </el-carousel-item>
-                    <el-carousel-item>
-                      <div id="myChart3" class="myChart"></div>
-                    </el-carousel-item>
-                  </el-carousel>
-                </div>
-              </el-col>
+                <el-col :span="2"></el-col>
+                <el-col :span="20">
+                    <div class="logocard">
+                        <el-card>
+                            <el-row>
+                                <el-col :span="1">
+                                    <img src="../../../app_src/imgs/computer.png" title="公告">
+                                </el-col>
+                                <el-col :span="23">
+                                    开发平台
+                                </el-col>
+
+                            </el-row>
+                            <el-row type="flex">
+                                <el-col :span="2"></el-col>
+                                <el-col :span="3">
+
+                                    <div class="platform">
+                                        <img src="../../../app_src/imgs/platform.png" title="c#平台" @click="GOplatform1(0)">
+                                    </div>
+                                </el-col>
+                                <el-col :span="6">
+                                    <el-col>
+                                        <div class="title">
+                                            C#平台
+                                        </div>
+                                    </el-col>
+                                    <el-col>
+                                        <div class="content">
+                                            前端：Vue 2.0+elementUI
+                                            <br> 后端：.NET Core2.0+Web API
+                                        </div>
+                                    </el-col>
+                                </el-col>
+                                <el-col :span="2"></el-col>
+                                <el-col :span="3">
+                                    <div class="platform">
+                                        <img src="../../../app_src/imgs/GOplatform.png" title="GO平台" @click="GOplatform1(1)">
+                                    </div>
+                                </el-col>
+
+                                <el-col :span="6">
+                                    <el-col>
+                                        <div class="title">
+                                            GOLANG平台
+                                        </div>
+                                    </el-col>
+                                    <el-col>
+                                        <div class="content">
+                                            前端：Vue 2.0+elementUI
+                                            <br> 后端：.NET Core2.0+Web API
+                                        </div>
+                                    </el-col>
+                                </el-col>
+                                <el-col :span="3"></el-col>
+                            </el-row>
+
+                        </el-card>
+                    </div>
+                </el-col>
             </el-row>
-          </el-card>
-        </el-col>
-      </el-row>
+        </div>
+
+        <div class="row3">
+            <el-row :gutter="20" type="flex">
+                <el-col :span="2"></el-col>
+                <el-col :span="10">
+                    <el-card>
+                        <el-row type="flex">
+                            <el-col :span="24">
+                                <div class="header">
+                                    <el-row type="flex">
+                                        <el-col :span="2">
+                                            <img src="../../../app_src/imgs/component.png" title="组件">
+                                        </el-col>
+                                        <el-col :span="22">
+                                            <div class="title">
+                                                组件排行
+                                                <div class="headerbutton">
+                                                    <el-button type="primary" size="mini" @click="gotonotice"> 查看更多</el-button>
+                                                </div>
+                                            </div>
+                                        </el-col>
+                                    </el-row>
+
+                                </div>
+                                <hr>
+                                <div class="parent">
+                                    <el-carousel trigger="click" height="300px">
+                                        <el-carousel-item>
+                                            <div id="myChart" class="myChart"></div>
+                                        </el-carousel-item>
+                                        <el-carousel-item>
+                                            <div id="myChart1" class="myChart"></div>
+                                        </el-carousel-item>
+                                    </el-carousel>
+                                </div>
+                            </el-col>
+                        </el-row>
+                    </el-card>
+                </el-col>
+
+                <el-col :span="10">
+                    <el-card>
+                        <el-row type="flex">
+                            <el-col :span="24">
+                                <div class="header">
+                                    <el-row>
+                                        <el-col :span="2">
+                                            <img src="../../../app_src/imgs/sever.png" title="服务">
+                                        </el-col>
+                                        <el-col :span="22">
+                                            <div class="title">
+                                                服务排行
+                                                <div class="headerbutton">
+                                                    <el-button type="primary" size="mini" @click="gotonotice"> 查看更多</el-button>
+                                                </div>
+                                            </div>
+                                        </el-col>
+                                    </el-row>
+                                </div>
+                                <hr>
+                                <div class="parent">
+                                    <el-carousel trigger="click" height="300px">
+                                        <el-carousel-item>
+                                            <div id="myChart2" class="myChart"></div>
+                                        </el-carousel-item>
+                                        <el-carousel-item>
+                                            <div id="myChart3" class="myChart"></div>
+                                        </el-carousel-item>
+                                    </el-carousel>
+                                </div>
+                            </el-col>
+                        </el-row>
+                    </el-card>
+                </el-col>
+            </el-row>
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -336,8 +367,10 @@ export default {
         //获取通知列表
         getNoticeList() {
             fetchNoticeList(this.listQuery).then(response => {
-                if (response.data.code === 2000) {
-                    //console.log(response.data.items);
+                if (
+                    response.data.code === 2000 &&
+                    response.data.items != null
+                ) {
                     for (let i = 0; i < response.data.items.length; i++) {
                         let longtime = response.data.items[i].CREATE_DATE;
                         let shorttime = longtime.substring(0, 10);
@@ -362,12 +395,18 @@ export default {
             });
         },
 
-        //获取论坛列表 
+        //获取论坛列表
         getCommuntityList() {
             fetchCommunityList(this.listQuery1).then(response => {
-                if (response.data.code === 2000) {
+                if (
+                    response.data.code === 2000 &&
+                    response.data.items != null
+                ) {
                     for (let i = 0; i < response.data.items.length; i++) {
-                      var time=response.data.items[i].SEND_DATE.substring(0,10)
+                        var time = response.data.items[i].SEND_DATE.substring(
+                            0,
+                            10
+                        );
                         this.newslist.push({
                             id: response.data.items[i].POST_ID,
                             writter: response.data.items[i].CREATER,

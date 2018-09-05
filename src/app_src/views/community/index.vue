@@ -21,7 +21,11 @@
                                     </div>
                                 </template>
                             </el-table-column>
-                            <el-table-column prop="title" label="主题" align="center" show-overflow-tooltip></el-table-column>
+                            <el-table-column label="主题" align="center" show-overflow-tooltip>
+                                <template slot-scope="scope">
+                                    <span class="newstitle">{{scope.row.title}}</span>
+                                </template>
+                            </el-table-column>
                             <el-table-column prop="readNumber" label="阅读量" width="100px" align="center"></el-table-column>
                             <el-table-column prop="offer" label="悬赏金额" width="100px" align="center"></el-table-column>
                             <el-table-column prop="commentNumber" label="评论人数" width="100px" align="center"></el-table-column>
@@ -79,7 +83,7 @@ export default {
                 BEGIN_SEND_DATE: null,
                 END_SEND_DATE: null
             },
-            total:null,
+            total: null
         };
     },
     methods: {
@@ -109,10 +113,10 @@ export default {
         },
         //获取帖子列表
         getCommuntityList() {
-            this.newslist=[];
+            this.newslist = [];
             fetchCommunityList(this.listQuery1).then(response => {
                 if (response.data.code === 2000) {
-                    this.total=response.data.total;
+                    this.total = response.data.total;
                     for (let i = 0; i < response.data.items.length; i++) {
                         let time = response.data.items[i].SEND_DATE.substring(
                             0,
@@ -230,6 +234,11 @@ export default {
         }
         .pageclass {
             text-align: center;
+        }
+        .newstitle:hover {
+            text-decoration: underline;
+            color: red;
+            cursor: pointer;
         }
     }
     .MainContainer {

@@ -90,6 +90,14 @@ export function delcommit(data) {
     })
 }
 
+export function delcard(data) {
+    return request({
+        url: 'communitypost/deletePost',
+        method: 'post',
+        data
+    })
+}
+
 export function updateLookTimes(data) {
     return request({
         url: 'communitypost/updateComunityPostLookTimes',

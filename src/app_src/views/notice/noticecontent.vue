@@ -7,6 +7,9 @@
                     <el-card v-for="(ele,key) in notice" :key="key">
                         <div slot="header" class="header">
                             {{ele.NOTICE_TITLE}}
+                            <div class="back">
+                                <el-button type="primary" @click="back" size="mini">后退</el-button>
+                            </div>
                         </div>
                         <div class="content">
                             <el-row>
@@ -41,12 +44,12 @@ import { fetchNoticeList } from "@/app_src/api/notice";
 export default {
     data() {
         return {
-            notice:'',
+            notice: "",
             listQuery: {
                 id: null,
                 limit: 5,
                 page: 1
-            },
+            }
         };
     },
     methods: {
@@ -54,8 +57,8 @@ export default {
             this.listQuery.id = this.$route.params.id;
             fetchNoticeList(this.listQuery).then(response => {
                 if (response.data.code === 2000) {
-                    this.notice=response.data.items;
-                    console.log(this.notice)
+                    this.notice = response.data.items;
+                    console.log(this.notice);
                 } else {
                     this.$notify({
                         position: "bottom-right",
@@ -67,6 +70,9 @@ export default {
                 }
             });
         },
+        back() {
+            this.$router.go(-1);
+        }
     },
     mounted() {
         this.getNoticeList();
@@ -92,8 +98,11 @@ export default {
         font-size: 12px;
         color: gray;
     }
-}
-.el-card {
-    font-family: "微软雅黑";
+    .back {
+        float: right;
+    }
+    .el-card {
+        font-family: "微软雅黑";
+    }
 }
 </style>

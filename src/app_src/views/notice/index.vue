@@ -1,57 +1,50 @@
 <template>
-  <div id="notice" class="notice">
-    <el-row type="flex" :gutter="20">
-      <el-col :span="2"></el-col>
-      <el-col :span="20">
-        <div class="noticecard">
-          <!-- <el-table :data="noticeList" style="width: 100%" @row-click="goToContent">
+    <div id="notice" class="notice">
+        <el-row type="flex" :gutter="20">
+            <el-col :span="2"></el-col>
+            <el-col :span="20">
+                <div class="noticecard">
+                    <!-- <el-table :data="noticeList" style="width: 100%" @row-click="goToContent">
                         <el-table-column prop="title" label="标题" :show-overflow-tooltip="true"></el-table-column>
                         <el-table-column prop="writter" width="120px" label="发布人"></el-table-column>
                         <el-table-column prop="time" label="日期" width="120px"></el-table-column>
                     </el-table> -->
-          <el-card>
-            <el-row>
-              <el-col>
-                <div class="backbutton">
-                  <el-button size="mini" type="primary" @click="goback">返回</el-button>
+                    <el-card>
+                        <el-row>
+                            <el-col>
+                                <div class="backbutton">
+                                    <el-button size="mini" type="primary" @click="goback">返回</el-button>
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <el-row>
+                            <el-col>
+                                <el-card v-for="(item,key) in  noticeList" :key="key" @click.native="goToContent(item)">
+                                    <el-row>
+                                        <el-col :span="24">
+                                            <div class="header">
+                                                {{item.title}}
+                                            </div>
+                                            <div class="foot">
+                                                作者:{{item.writter}} 发表日期：{{item.time}}
+                                            </div>
+
+                                        </el-col>
+                                    </el-row>
+
+                                </el-card>
+                            </el-col>
+                        </el-row>
+
+                        <div class="page">
+                            <el-pagination background layout="prev, pager, next" :total="1000" @current-change="getlist">
+                            </el-pagination>
+                        </div>
+                    </el-card>
                 </div>
-              </el-col>
-            </el-row>
-            <el-row>
-              <el-col>
-                <el-card v-for="(item,key) in  noticeList" :key="key" @click.native="goToContent(item)">
-                  <div slot="header" class="header">
-                    {{item.title}}
-                  </div>
-                  <!-- <div class="content">
-                                <el-row>
-                                    <el-col :span="24">
-                                        <div v-html="item.content"></div>
-                                    </el-col>
-                                </el-row>
-                            </div> -->
-                  <el-row>
-                    <el-col :span="24">
-                      <div class="foot">
-                        作者:{{item.writter}} 发表日期：{{item.time}}
-                      </div>
-
-                    </el-col>
-                  </el-row>
-
-                </el-card>
-              </el-col>
-            </el-row>
-
-            <div class="page">
-              <el-pagination background layout="prev, pager, next" :total="1000">
-              </el-pagination>
-            </div>
-          </el-card>
-        </div>
-      </el-col>
-    </el-row>
-  </div>
+            </el-col>
+        </el-row>
+    </div>
 </template>
 
 
@@ -71,13 +64,11 @@ export default {
     methods: {
         goToContent(data) {
             let id = data.id.toString();
-            console.log(typeof id);
             this.$router.push({ path: "noticecontent/" + id });
         },
         getNoticeList() {
             fetchNoticeList(this.listQuery).then(response => {
                 if (response.data.code === 2000) {
-                    console.log(response.data.items);
                     for (let i = 0; i < response.data.items.length; i++) {
                         let longtime = response.data.items[i].CREATE_DATE;
                         let shorttime = longtime.substring(0, 10);
@@ -103,6 +94,10 @@ export default {
         },
         goback() {
             this.$router.go(-1);
+        },
+        getlist(val){
+            this.listQuery.page=2;
+            this.getNoticeList();
         }
     },
     mounted() {
@@ -116,7 +111,7 @@ export default {
 .noticecard {
     margin-top: 20px;
     .header {
-        font-size: 18px;
+        font-size: 16px;
     }
     .header:hover {
         text-decoration: underline;

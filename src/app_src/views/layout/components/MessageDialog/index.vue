@@ -44,6 +44,9 @@ export default {
                 limit:5,
                 page:1,
                 userId:'',
+            },
+            checkList:{
+                RECORD_ID:'',
             }
         };
     },
