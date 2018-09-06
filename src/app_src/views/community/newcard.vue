@@ -139,9 +139,6 @@ export default {
   .el-card {
     min-height: 500px;
   }
-  .editor {
-    min-height: 500px;
-  }
 }
 </style>
 

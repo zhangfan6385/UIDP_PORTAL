@@ -94,11 +94,9 @@
                                 <div class="editor">
                                     <quill-editor v-model="commit.CONTENT" ref="myQuillEditor" :options="commit.editorOption" @ready="onEditorReady($event)" height="500px"></quill-editor>
                                 </div>
-
                                 <el-form-item>
                                     <el-button type="primary" @click="submit">确认提交</el-button>
                                 </el-form-item>
-
                             </el-form-item>
                         </el-form>
                     </el-card>
@@ -214,37 +212,42 @@ export default {
             if (this.$store.state.user.userID === null) {
                 this.$store.state.user.dialogLoginVisible = true;
             } else {
-                this.createList.COLLECTION_PERSON_ID = this.$store.state.user.userID;
-                this.createList.POST_ID = this.cardcontent.POST_ID;
-                delArticle(this.createList).then(response => {
-                    if (response.data.code === 2000) {
-                        this.$notify({
-                            position: "bottom-right",
-                            title: "取消收藏成功",
-                            message: response.data.message,
-                            type: "success",
-                            duration: 2000
-                        });
-                    } else {
-                        this.$notify({
-                            position: "bottom-right",
-                            title: "失败",
-                            message: response.data.message,
-                            type: "error",
-                            duration: 2000
-                        });
-                    }
+                this.$confirm("您确定取消收藏本帖吗?", "提示", {
+                    confirmButtonText: "确定",
+                    cancelButtonText: "取消",
+                    type: "warning"
+                }).then(() => {
+                    this.createList.COLLECTION_PERSON_ID = this.$store.state.user.userID;
+                    this.createList.POST_ID = this.cardcontent.POST_ID;
+                    delArticle(this.createList).then(response => {
+                        if (response.data.code === 2000) {
+                            this.$notify({
+                                position: "bottom-right",
+                                title: "取消收藏成功",
+                                message: response.data.message,
+                                type: "success",
+                                duration: 2000
+                            });
+                        } else {
+                            this.$notify({
+                                position: "bottom-right",
+                                title: "失败",
+                                message: response.data.message,
+                                type: "error",
+                                duration: 2000
+                            });
+                        }
+                    });
                 });
             }
         },
         onEditorReady(editor) {},
         submit() {
             if (this.$store.state.user.userID === null) {
-                dialogLoginVisible = true;
+                this.$store.state.user.dialogLoginVisible = true;
             } else {
                 this.commit.POST_ID = this.cardcontent.POST_ID;
                 this.commit.FROM_UID = this.$store.state.user.userID;
-                //this.commit.FROM_UID = 1;
                 this.commit.TO_UID = this.cardcontent.USER_ID;
                 commit(this.commit).then(response => {
                     if (response.data.code === 2000) {
@@ -275,54 +278,66 @@ export default {
             this.$router.go(-1);
         },
         delcard() {
-            this.delCardList.POST_ID = this.cardcontent.POST_ID;
-            delcard(this.delCardList).then(response => {
-                if (response.data.code === 2000) {
-                    this.$notify({
-                        position: "bottom-right",
-                        title: "删帖成功",
-                        message: response.data.message,
-                        type: "success",
-                        duration: 2000
-                    });
-                    this.$router.push({ path: "/community/main/index" });
-                } else {
-                    this.$notify({
-                        position: "bottom-right",
-                        title: "删帖失败",
-                        message: response.data.message,
-                        type: "error",
-                        duration: 2000
-                    });
-                }
+            this.$confirm("您确定删除本帖吗?", "提示", {
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                type: "warning"
+            }).then(() => {
+                this.delCardList.POST_ID = this.cardcontent.POST_ID;
+                delcard(this.delCardList).then(response => {
+                    if (response.data.code === 2000) {
+                        this.$notify({
+                            position: "bottom-right",
+                            title: "删帖成功",
+                            message: response.data.message,
+                            type: "success",
+                            duration: 2000
+                        });
+                        this.$router.push({ path: "/community/main/index" });
+                    } else {
+                        this.$notify({
+                            position: "bottom-right",
+                            title: "删帖失败",
+                            message: response.data.message,
+                            type: "error",
+                            duration: 2000
+                        });
+                    }
+                });
             });
         },
         delcommit(data) {
-            this.delComentList.COMMENT_ID = data.COMMENT_ID;
-            delcommit(this.delComentList).then(response => {
-                if (response.data.code === 2000) {
-                    this.$notify({
-                        position: "bottom-right",
-                        title: "删除成功",
-                        message: response.data.message,
-                        type: "success",
-                        duration: 2000
-                    });
-                    this.getCardDetail();
-                } else {
-                    this.$notify({
-                        position: "bottom-right",
-                        title: "失败",
-                        message: response.data.message,
-                        type: "error",
-                        duration: 2000
-                    });
-                }
+            this.$confirm("您确定删除本条评论吗?", "提示", {
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                type: "warning"
+            }).then(() => {
+                this.delComentList.COMMENT_ID = data.COMMENT_ID;
+                delcommit(this.delComentList).then(response => {
+                    if (response.data.code === 2000) {
+                        this.$notify({
+                            position: "bottom-right",
+                            title: "删除成功",
+                            message: response.data.message,
+                            type: "success",
+                            duration: 2000
+                        });
+                        this.getCardDetail();
+                    } else {
+                        this.$notify({
+                            position: "bottom-right",
+                            title: "失败",
+                            message: response.data.message,
+                            type: "error",
+                            duration: 2000
+                        });
+                    }
+                });
             });
         },
         update() {
             this.delCardList.POST_ID = this.$route.params.id;
-            updateLookTimes(this.delCardList)
+            updateLookTimes(this.delCardList);
         }
     },
     computed: {
@@ -406,6 +421,9 @@ export default {
     }
     .post {
         margin-top: 20px;
+    }
+    .editor{
+        min-height: 300px;
     }
 }
 </style>
