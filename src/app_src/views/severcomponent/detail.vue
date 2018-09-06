@@ -34,13 +34,13 @@
                             <span>软件大小：</span>
                             <span>{{obj.COMPONENT_SIZE}}</span>
                         </li>
-                        
+
                     </ul>
-                    <div style="text-align:center;float:left;width:45%;height:145px;padding-top:70px;"> 
-                            <el-button  type="primary" @click="handleApply" v-if="obj.CHECK_STATE===-1">申 请</el-button>
-                            <el-button  type="danger" v-else-if="obj.CHECK_STATE===0">待审核</el-button>
-                            <el-button  type="primary" v-else-if="obj.CHECK_STATE===1" @click="download(obj.URL)">下 载</el-button>
-                        </div>
+                    <div style="text-align:center;float:left;width:45%;height:145px;padding-top:70px;">
+                        <el-button type="primary" @click="handleApply" v-if="obj.CHECK_STATE===-1">申 请</el-button>
+                        <el-button type="danger" v-else-if="obj.CHECK_STATE===0">待审核</el-button>
+                        <el-button type="primary" v-else-if="obj.CHECK_STATE===1" @click="download(obj.URL)">下 载</el-button>
+                    </div>
                 </el-card>
                 <el-card id="#anchor1" class="componentinfo" v-for="(file,key) in obj.children" :key="key" v-if="obj.CHECK_STATE===1">
                     <div style="float:left;">
@@ -67,37 +67,38 @@
             </el-dialog>
 
             <el-dialog :title="dialogTitle" :visible.sync="dialogFormVisible">
-                <el-form :model="form">
+                <el-form :model="form" :rules="rules" ref="form">
                     <el-form-item label="公司名称" :label-width="formLabelWidth">
                         <el-input v-model="userinfo.ORG_NAME" auto-complete="off" :disabled="true"></el-input>
                     </el-form-item>
                     <el-form-item label="承担项目" :label-width="formLabelWidth">
-                        <el-select v-model="form.PROJECT_ID" placeholder="请选项目">
-                            <el-option v-for="(item,key) in projList" :key="key" :label="item.PROJECT_NAME" :value="item.PROJECT_ID">
-                            </el-option>
-                        </el-select>
+                        <!-- <el-select v-model="form.PROJECT_ID" placeholder="请选项目">
+                                <el-option v-for="(item,key) in projList" :key="key" :label="item.PROJECT_NAME" :value="item.PROJECT_ID">
+                                </el-option>
+                            </el-select> -->
+                        <el-input v-model="form.PROJECT_NAME" :disabled="true"></el-input>
                     </el-form-item>
-                    <el-form-item label="用途描述" :label-width="formLabelWidth">
+                    <el-form-item label="用途描述" prop="USE_CONTENT" :label-width="formLabelWidth">
                         <el-input v-model="form.USE_CONTENT" auto-complete="off"></el-input>
                     </el-form-item>
-                    <el-form-item label="用途类型" :label-width="formLabelWidth">
+                    <el-form-item label="用途类型" prop="USE_TYPE" :label-width="formLabelWidth">
                         <el-select v-model="form.USE_TYPE" placeholder="请选用途类型">
                             <el-option label="开发" :value="0"></el-option>
                             <el-option label="生产" :value="1"></el-option>
                         </el-select>
                     </el-form-item>
-                    <el-form-item label="联系人" :label-width="formLabelWidth">
+                    <el-form-item label="联系人" prop="APPLY_LINKMAN" :label-width="formLabelWidth">
                         <el-input v-model="form.APPLY_LINKMAN" auto-complete="off"></el-input>
                     </el-form-item>
-                    <el-form-item label="联系电话" :label-width="formLabelWidth">
+                    <el-form-item label="联系电话" prop="APPLY_PHONE" :label-width="formLabelWidth">
                         <el-input v-model="form.APPLY_PHONE" auto-complete="off"></el-input>
                     </el-form-item>
-                    <el-form-item label="邮箱" :label-width="formLabelWidth">
+                    <el-form-item label="邮箱" prop="APPLY_EMAIL" :label-width="formLabelWidth">
                         <el-input v-model="form.APPLY_EMAIL" auto-complete="off"></el-input>
                     </el-form-item>
                 </el-form>
                 <div slot="footer" class="dialog-footer">
-                    <el-button @click="cencel">取 消</el-button>
+                    <el-button @click="cencel()">取 消</el-button>
                     <el-button type="primary" @click="submit">提 交</el-button>
                 </div>
             </el-dialog>
@@ -110,34 +111,13 @@ import { fetchSeverComponentDetail } from "@/app_src/api/severcomponent";
 import { fetchApply } from "@/app_src/api/apply";
 import { parseTime } from "@/app_src/utils/index.js";
 export default {
-    filters:{
+    filters: {
         parseTime
     },
     data() {
         return {
-            downloadurl:process.env.BASE_DOWNLOAD,
-            gridData: [
-                {
-                    projectname: "xx管理系统",
-                    applaydate: "2018-08-02",
-                    purpose: "开发"
-                },
-                {
-                    projectname: "xx管理系统",
-                    applaydate: "2018-07-04",
-                    purpose: "生产"
-                },
-                {
-                    projectname: "xx管理系统",
-                    applaydate: "2018-06-21",
-                    purpose: "开发"
-                },
-                {
-                    projectname: "xx管理系统",
-                    applaydate: "2018-05-04",
-                    purpose: "生产"
-                }
-            ],
+            downloadurl: process.env.BASE_DOWNLOAD,
+            gridData: [],
             form: {
                 APPLY_USERID: "",
                 APPLY_ORG_NAME: "",
@@ -169,15 +149,57 @@ export default {
                 userid: null,
                 projectid: null,
                 resourceid: null
+            },
+            rules: {
+                USE_CONTENT: [
+                    {
+                        required: true,
+                        message: "内容不能为空",
+                        trigger: "blur"
+                    }
+                ],
+                USE_TYPE: [
+                    {
+                        required: true,
+                        message: "类型不能为空",
+                        trigger: "blur"
+                    }
+                ],
+                APPLY_LINKMAN: [
+                    {
+                        required: true,
+                        message: "联系人不能为空",
+                        trigger: "blur"
+                    }
+                ],
+                APPLY_PHONE: [
+                    {
+                        required: true,
+                        message: "电话不能为空",
+                        trigger: "blur"
+                    }
+                ],
+                APPLY_EMAIL: [
+                    {
+                        required: true,
+                        message: "邮箱不能为空",
+                        trigger: "blur"
+                    },
+                    {
+                        type: "email",
+                        message: "请输入正确的邮箱地址",
+                        trigger: "blur,changer"
+                    }
+                ]
             }
         };
     },
     methods: {
-         back() {
+        back() {
             this.$router.go(-1);
         },
-        download(URL){
-            window.open(this.BASE_API2+URL);
+        download(URL) {
+            window.open(this.BASE_API2 + URL);
         },
         handleApply() {
             if (this.$store.state.user.userID != null) {
@@ -212,32 +234,35 @@ export default {
             this.obj = this.list1.items;
         },
         submit() {
-            //this.queryList.prjID = this.$store.state.user.currentProjID;
-            //this.queryList.ID = this.$route.params.id;
-            fetchApply(this.form).then(response => {
-                if (response.data.code === 2000) {
-                    this.$notify({
-                        position: "bottom-right",
-                        title: "成功",
-                        message: response.data.message,
-                        type: "success",
-                        duration: 2000
-                    });
-                    this.getSeverComponent() ;
-                    this.dialogFormVisible = false;
-                } else {
-                    this.$notify({
-                        position: "bottom-right",
-                        title: "失败",
-                        message: response.data.message,
-                        type: "error",
-                        duration: 2000
+            this.$refs.form.validate(valid => {
+                if (valid) {
+                    fetchApply(this.form).then(response => {
+                        if (response.data.code === 2000) {
+                            this.$notify({
+                                position: "bottom-right",
+                                title: "成功",
+                                message: response.data.message,
+                                type: "success",
+                                duration: 2000
+                            });
+                            this.getSeverComponent();
+                            this.dialogFormVisible = false;
+                        } else {
+                            this.$notify({
+                                position: "bottom-right",
+                                title: "失败",
+                                message: response.data.message,
+                                type: "error",
+                                duration: 2000
+                            });
+                        }
                     });
                 }
             });
         },
         cencel() {
             this.resetForm();
+            this.$refs.form.resetFields();
             this.dialogFormVisible = false;
         },
         resetForm() {
@@ -249,12 +274,12 @@ export default {
             this.form.APPLY_EMAIL = "";
         },
         getProjInfo() {
-            this.projList = this.$store.state.user.projList;
+            this.form.PROJECT_ID = this.$store.state.user.currentProjID;
+            this.form.PROJECT_NAME = this.$store.state.user.currentProjName;
             this.userinfo = this.$store.state.user.userinfo[0];
             this.form.APPLY_USERID = this.userinfo.USER_ID;
             this.form.APPLY_ORG_NAME = this.userinfo.ORG_NAME;
             this.form.APPLY_ORG_ID = this.userinfo.ORG_ID;
-            this.form.APPLY_RESOURCE_ID = this.$route.params.id;
             this.form.APPLY_USERID = this.$store.state.user.userID;
         }
     },
@@ -267,11 +292,11 @@ export default {
 .componentinfo {
     margin-bottom: 15px;
     padding-bottom: 10px;
-    padding-left:30px;
+    padding-left: 30px;
 }
 .componentinfo1 {
     margin-bottom: 5px;
-    padding-left:30px;
+    padding-left: 30px;
     min-height: 500px;
 }
 /* .componentinfo li{float:left;width:100px;background:#CCC;margin-left:3px;line-height:30px;} */
@@ -280,7 +305,7 @@ export default {
     list-style: none;
     margin-bottom: 20px;
     padding-left: 0px;
-    float:left; 
+    float: left;
 }
 .componentinfo li {
     font-size: 14px;

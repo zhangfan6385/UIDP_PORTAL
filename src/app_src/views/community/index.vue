@@ -33,7 +33,7 @@
                             <el-table-column prop="upTime" label="发表日期" width="100px" align="center"></el-table-column>
                         </el-table>
                         <div class="page">
-                            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage1" :page-sizes="[10, 20, 30, 40]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="total">
+                            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="listQuery1.page" :page-sizes="[8, 15, 20, 25]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="total">
                             </el-pagination>
                         </div>
                     </el-card>
@@ -100,7 +100,7 @@ export default {
             }
         },
         handleSizeChange(val) {
-            this.listQuery1.page = val;
+            this.listQuery1.limit = val;
             this.getCommuntityList();
         },
         handleCurrentChange(val) {

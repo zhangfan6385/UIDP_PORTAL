@@ -15,8 +15,6 @@
                                 <br> 积分：{{userinfo.SCORE}}
                                 <br> 手机：{{userinfo.MOBILE}}
                                 <br> 注册邮箱：{{userinfo.USER_EMAIL}}
-                                <br> 发帖数量：{{userinfo.recordNumber}}
-                                <br> 评论数量：{{userinfo.reviewNumvber}}
                             </span>
                         </div>
                     </el-card>
@@ -82,10 +80,12 @@ export default {
     },
     methods: {
         handleSizeChange(val) {
-            console.log(`每页 ${val} 条`);
+            this.queryList.limit = val;
+            this.getMyCard();
         },
         handleCurrentChange(val) {
-            console.log(`当前页: ${val}`);
+            this.queryList.page = val;
+            this.getMyCard();
         },
         getcontent(data) {
             var id = data.id.toString();
@@ -108,8 +108,8 @@ export default {
                             writter: response.data.items[i].CREATER,
                             type: response.data.items[i].POST_TYPE,
                             title: response.data.items[i].TITLE_NAME,
-                            offer:response.data.items[i].SCORE_POINT,
-                            commentNumber:response.data.items[i].COMMONT_COUNT,
+                            offer: response.data.items[i].SCORE_POINT,
+                            commentNumber: response.data.items[i].COMMONT_COUNT,
                             upTime: time,
                             readNumber: response.data.items[i].BROWSE_NUM,
                             content: response.data.items[i].POST_CONTENT

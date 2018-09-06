@@ -14,13 +14,12 @@
                         C#平台
                       </div>
                       <div class="content">
-                      <div style="width:45%;float:left;">
-                        最新版本：{{charpData.version}}<br> 大小：{{charpData.size}}<br>
-                        运行环境：.Net Core 2.0<br> 运行服务器：Windows Server 2008 sp1
-                      </div>
-                      <div style="float:left;margin-left:80px">
-                        <img src="../../imgs/sharplogo2.png" style="width:150px;height:120px;" />
-                      </div>
+                        <div style="width:45%;float:left;">
+                          最新版本：{{charpData.version}}<br> 大小：{{charpData.size}}<br> 运行环境：.Net Core 2.0<br> 运行服务器：Windows Server 2008 sp1
+                        </div>
+                        <div style="float:left;margin-left:80px">
+                          <img src="../../imgs/sharplogo2.png" style="width:150px;height:120px;" />
+                        </div>
                       </div>
                       <div class="button" style="clear:both;padding-top:10px">
                         <el-button type="primary" @click="goToHistory(0)">点击下载</el-button>
@@ -56,8 +55,8 @@
                       </div>
                       <div class="content">
                         <div style="width:45%;float:left;">
-                        最新版本：{{goData.version}}<br> 大小：{{goData.size}}<br>
-                        运行环境：go1.7.4<br> 运行服务器：Windows Server 2008 sp1
+                          最新版本：{{goData.version}}<br> 大小：{{goData.size}}<br> 运行环境：go1.7.4
+                          <br> 运行服务器：Windows Server 2008 sp1
                         </div>
                       </div>
                       <div style="float:left;margin-left:80px">
@@ -250,13 +249,13 @@ export default {
             index: 0,
             CSharpCurrentList: [],
             CSharp: {},
-            charpData:{
-              version:'v1.0',
-              size:'10M'
+            charpData: {
+                version: "v1.0",
+                size: "10M"
             },
-            goData:{
-              version:'v1.0',
-              size:'10M'
+            goData: {
+                version: "v1.0",
+                size: "10M"
             },
             GOCurrentList: [],
             GOCurrent: {},
@@ -317,8 +316,9 @@ export default {
             fetchGetHistoryList(this.querylist).then(response => {
                 if (response.data.code === 2000) {
                     this.CSharp = response.data.items;
-                    this.charpData.size=response.data.items[0].PLAT_SIZE;
-                    this.charpData.version=response.data.items[0].PLAT_VERSION;
+                    this.charpData.size = response.data.items[0].PLAT_SIZE;
+                    this.charpData.version =
+                        response.data.items[0].PLAT_VERSION;
                     if (this.CSharp.PLAT_PUBLISHDATE != null) {
                         this.CSharp.PLAT_PUBLISHDATE = this.CSharp.PLAT_PUBLISHDATE.substring(
                             0,
@@ -347,8 +347,8 @@ export default {
             fetchGetHistoryList(this.querylist1).then(response => {
                 if (response.data.code === 2000) {
                     this.GOCurrent = response.data.items;
-                    this.goData.size=response.data.items[0].PLAT_SIZE;
-                    this.goData.version=response.data.items[0].PLAT_VERSION;
+                    this.goData.size = response.data.items[0].PLAT_SIZE;
+                    this.goData.version = response.data.items[0].PLAT_VERSION;
                     this.GOCurrentList.push(response.data.items);
                     if (this.GOCurrent.PLAT_PUBLISHDATE != null) {
                         this.GOCurrent.PLAT_PUBLISHDATE = this.GOCurrent.PLAT_PUBLISHDATE.substring(
@@ -441,7 +441,7 @@ export default {
         margin-top: 20px;
         .cSharpPlatform {
             border-radius: 0.83em;
-            background-image: url(../../../app_src/imgs/csharp2.jpg);//url(../../../app_src/imgs/CSharpBackground.jpg);
+            background-image: url(../../../app_src/imgs/csharp2.jpg); //url(../../../app_src/imgs/CSharpBackground.jpg);
             background-repeat: no-repeat;
             background-size: 100% 100%;
             -moz-background-size: 100% 100%;
@@ -506,7 +506,7 @@ export default {
             margin-top: 20%;
         }
         .title {
-           text-align: center;
+            text-align: center;
             font-size: 30px;
             font-weight: bold;
         }

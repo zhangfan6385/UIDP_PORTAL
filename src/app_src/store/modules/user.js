@@ -7,6 +7,7 @@ const user = {
   state: {
     //userInfo
     userID: null,
+    usertype:null,
     status: '',
     code: '',
     token: getToken(),
@@ -71,6 +72,9 @@ const user = {
     SET_USER_INFO: (state, userinfo) => {
       state.userinfo = userinfo
     },
+    SET_USER_TYPE:(state,usertype)=>{
+      state.usertype=usertype
+    }
     // SET_INTRODUCTION: (state, introduction) => {
     //   state.introduction = introduction
     // },
@@ -167,11 +171,12 @@ const user = {
         loginByUsername(userInfo.username, userInfo.password).then(response => {
           if (response.data.code === 2000) {
             const data = response.data
-            console.log(response.data.token)
+            //console.log(response.data.token)
             // commit('SET_USER_NAME', data.userName)
             // commit('SET_CODE', data.userCode)
             // commit('SET_TOKEN', data.token)
             commit('SET_USER_INFO', data.userInfo)
+            commit('SET_USER_TYPE',data.userInfo[0].AUTHENTICATION_TYPE)
             commit('SET_PROJLIST', data.projectInfo)
             commit('SET_USER_ID',data.userInfo[0].USER_ID)
             setToken(response.data.token)
@@ -185,7 +190,7 @@ const user = {
         })
       })
     },
-    //获取用户消息
+    //获取审核消息
     GetUserMsg({ commit }, mesinfo) {
       return new Promise((resolve, reject) => {
         fetchMessageList(mesinfo).then(response => {

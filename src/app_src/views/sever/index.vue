@@ -24,13 +24,13 @@
             </el-col>
             <el-col :span="14">
                 <div class="grid-content bg-purple">
-                    <el-card class="box-card" shadow="never" style="min-height:600px" >
+                    <el-card class="box-card" shadow="never" style="min-height:600px">
                         <div class="filter-container">
                             <el-input style="width: 420px;" v-model="queryList.name" class="filter-item">
                             </el-input>
                             <el-button class="filter-item" type="primary" icon="el-icon-search" @click="getSeverList">搜索</el-button>
                         </div>
-                        <el-card  v-for="(component,key) in tableData" :key="key" shadow="never" class="content">
+                        <el-card v-for="(component,key) in tableData" :key="key" shadow="never" class="content">
                             <ul>
                                 <li>
                                     <div class="left"><img style="width:35px;height:28px;" src="../../../app_src/imgs/service.png" alt=""></div>
@@ -143,12 +143,12 @@ export default {
             queryList: {
                 limit: 10,
                 page: 1,
-                name:''
+                name: ""
             },
             queryList1: {
                 limit: 10,
                 page: 1,
-                name:''
+                name: ""
             }
         };
     },
@@ -169,10 +169,12 @@ export default {
             }
         },
         handleSizeChange(val) {
-            console.log(`每页 ${val} 条`);
+            this.queryList.limit = val;
+            this.getSeverList();
         },
         handleCurrentChange(val) {
-            console.log(`当前页: ${val}`);
+            this.queryList.page = val;
+            this.getSeverList();
         },
         handleDetail(index, row) {
             this.dialogDetailVisible = true;

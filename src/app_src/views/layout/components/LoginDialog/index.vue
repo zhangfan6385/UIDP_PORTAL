@@ -33,6 +33,7 @@
 <script>
 import { loginByUsername } from "@/app_src/api/login";
 import waves from "@/app_src/directive/waves"; // 水波纹指令
+import { Message } from 'element-ui'
 export default {
     data() {
         const validatePassword = (rule, value, callback) => {
@@ -43,7 +44,7 @@ export default {
             }
         };
         const validateUsername = (rule, value, callback) => {
-            if (value.length < 6) {
+            if (value.length < 0) {
                 callback(new Error("账号不能为空！"));
             } else {
                 callback();
@@ -74,8 +75,8 @@ export default {
                 ]
             },
             msgform: {
-                limit: 1,
-                page: 5,
+                limit: 5,
+                page: 1,
                 userId: ""
             }
         };
@@ -121,11 +122,13 @@ export default {
                                     "GetUserMsg",
                                     this.msgform
                                 );
+                                this.loading = false;
                             } else {
                                 this.listLoading = false;
                                 this.$notify({
                                     position: "bottom-right",
                                     title: "失败",
+                                    message:"登录失败",
                                     type: "error",
                                     duration: 2000
                                 });

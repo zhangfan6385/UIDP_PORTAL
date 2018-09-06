@@ -101,10 +101,10 @@ export default {
             this.applyInfo.applyType = command;
             //下一步发出请求查询对应的项目信息
             if (command === "服务") {
-                console.log("1");
+                //console.log("1");
                 this.getSeverList();
             } else if (command === "组件") {
-                console.log("2");
+                //console.log("2");
                 this.getSeverComponent();
             }
         },

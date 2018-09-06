@@ -5,7 +5,7 @@
             <el-col :span="6">
                 <div class="leftcontainer">
                     <el-card :body-style="{ padding: '0px' }">
-                        <div >
+                        <div>
                             <div class="photo">
                                 <img src="../../../app_src/imgs/avatar.png">
                             </div>
@@ -16,8 +16,6 @@
                                     <br> 积分：{{userinfo.SCORE}}
                                     <br> 手机：{{userinfo.MOBILE}}
                                     <br> 注册邮箱：{{userinfo.USER_EMAIL}}
-                                    <br> 发帖数量：{{userinfo.recordNumber}}
-                                    <br> 评论数量：{{userinfo.reviewNumvber}}
                                 </span>
                             </div>
                         </div>
@@ -78,10 +76,12 @@ export default {
     },
     methods: {
         handleSizeChange(val) {
-            console.log(`每页 ${val} 条`);
+            this.queryList.limit = val;
+            this.getCollectionList();
         },
         handleCurrentChange(val) {
-            console.log(`当前页: ${val}`);
+            this.queryList.page = val;
+            this.getCollectionList();
         },
         getcontent(data) {
             var id = data.id.toString();
@@ -105,8 +105,8 @@ export default {
                             type: response.data.items[i].POST_TYPE,
                             title: response.data.items[i].TITLE_NAME,
                             upTime: time,
-                            offer:response.data.items[i].SCORE_POINT,
-                            commentNumber:response.data.items[i].COMMONT_COUNT,
+                            offer: response.data.items[i].SCORE_POINT,
+                            commentNumber: response.data.items[i].COMMONT_COUNT,
                             readNumber: response.data.items[i].BROWSE_NUM,
                             //offer: response.data.items[i].,
                             //commentNumber: response.data.items[i].,

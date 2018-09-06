@@ -37,7 +37,7 @@
                         </el-row>
 
                         <div class="page">
-                            <el-pagination background layout="prev, pager, next" :total="1000" @current-change="getlist">
+                            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-sizes="[6, 15, 20, 25]" :page-size="100" :current-page="currentPage1" layout="total, sizes, prev, pager, next, jumper" :total="total">
                             </el-pagination>
                         </div>
                     </el-card>
@@ -54,8 +54,10 @@ export default {
     data() {
         return {
             noticeList: [],
+            total:1,
+            currentPage1:1,
             listQuery: {
-                limit: 5,
+                limit: 6,
                 page: 1,
                 id: null
             }
@@ -69,6 +71,7 @@ export default {
         getNoticeList() {
             fetchNoticeList(this.listQuery).then(response => {
                 if (response.data.code === 2000) {
+                    this.total = response.data.total;
                     for (let i = 0; i < response.data.items.length; i++) {
                         let longtime = response.data.items[i].CREATE_DATE;
                         let shorttime = longtime.substring(0, 10);
@@ -95,8 +98,14 @@ export default {
         goback() {
             this.$router.go(-1);
         },
-        getlist(val){
-            this.listQuery.page=2;
+        handleCurrentChange(val) {
+            this.listQuery.page = val;
+            this.noticeList = [];
+            this.getNoticeList();
+        },
+        handleSizeChange(val) {
+            this.listQuery.limit = val;
+            this.noticeList = [];
             this.getNoticeList();
         }
     },

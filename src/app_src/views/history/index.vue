@@ -45,10 +45,10 @@
                 <el-card>
                     <div class="title">
                         {{dataName}}
-                        <el-button type="primary" size="mini" class="changePlatform" @click="back">后   退</el-button>
-                        
-                        <el-button type="primary" size="mini" class="changePlatform" @click="changePlatform">切换平台</el-button>   
-                         
+                        <el-button type="primary" size="mini" class="changePlatform" @click="back">后 退</el-button>
+
+                        <el-button type="primary" size="mini" class="changePlatform" @click="changePlatform">切换平台</el-button>
+
                     </div>
                     <el-table :data="histroyEdition" height="450px" :v-loading="listloading">
                         <el-table-column type="expand">
@@ -106,32 +106,33 @@
                     </el-table>
                 </el-card>
                 <el-dialog :title="dialogTitle" :visible.sync="dialogFormVisible">
-                    <el-form :model="form">
+                    <el-form :model="form" :rules="rules" ref="form">
                         <el-form-item label="公司名称" :label-width="formLabelWidth">
                             <el-input v-model="userinfo.ORG_NAME" auto-complete="off" :disabled="true"></el-input>
                         </el-form-item>
                         <el-form-item label="承担项目" :label-width="formLabelWidth">
-                            <el-select v-model="form.PROJECT_ID" placeholder="请选项目">
+                            <!-- <el-select v-model="form.PROJECT_ID" placeholder="请选项目">
                                 <el-option v-for="(item,key) in projList" :key="key" :label="item.PROJECT_NAME" :value="item.PROJECT_ID">
                                 </el-option>
-                            </el-select>
+                            </el-select> -->
+                            <el-input v-model="form.PROJECT_NAME" :disabled="true"></el-input>
                         </el-form-item>
-                        <el-form-item label="用途描述" :label-width="formLabelWidth">
+                        <el-form-item label="用途描述" prop="USE_CONTENT" :label-width="formLabelWidth">
                             <el-input v-model="form.USE_CONTENT" auto-complete="off"></el-input>
                         </el-form-item>
-                        <el-form-item label="用途类型" :label-width="formLabelWidth">
+                        <el-form-item label="用途类型" prop="USE_TYPE" :label-width="formLabelWidth">
                             <el-select v-model="form.USE_TYPE" placeholder="请选用途类型">
                                 <el-option label="开发" :value="0"></el-option>
                                 <el-option label="生产" :value="1"></el-option>
                             </el-select>
                         </el-form-item>
-                        <el-form-item label="联系人" :label-width="formLabelWidth">
+                        <el-form-item label="联系人" prop="APPLY_LINKMAN" :label-width="formLabelWidth">
                             <el-input v-model="form.APPLY_LINKMAN" auto-complete="off"></el-input>
                         </el-form-item>
-                        <el-form-item label="联系电话" :label-width="formLabelWidth">
+                        <el-form-item label="联系电话" prop="APPLY_PHONE" :label-width="formLabelWidth">
                             <el-input v-model="form.APPLY_PHONE" auto-complete="off"></el-input>
                         </el-form-item>
-                        <el-form-item label="邮箱" :label-width="formLabelWidth">
+                        <el-form-item label="邮箱" prop="APPLY_EMAIL" :label-width="formLabelWidth">
                             <el-input v-model="form.APPLY_EMAIL" auto-complete="off"></el-input>
                         </el-form-item>
                     </el-form>
@@ -161,7 +162,7 @@ export default {
                 platType: 0,
                 isFirst: false
             },
-            dataName:'C#版本列表',
+            dataName: "C#版本列表",
             queryList: {
                 userid: null,
                 projectid: null,
@@ -189,52 +190,97 @@ export default {
             projList: [],
             userinfo: {},
             formLabelWidth: "120px",
-            dialogFormVisible:false
+            dialogFormVisible: false,
+            rules: {
+                USE_CONTENT: [
+                    {
+                        required: true,
+                        message: "内容不能为空",
+                        trigger: "blur"
+                    }
+                ],
+                USE_TYPE: [
+                    {
+                        required: true,
+                        message: "类型不能为空",
+                        trigger: "blur"
+                    }
+                ],
+                APPLY_LINKMAN: [
+                    {
+                        required: true,
+                        message: "联系人不能为空",
+                        trigger: "blur"
+                    }
+                ],
+                APPLY_PHONE: [
+                    {
+                        required: true,
+                        message: "电话不能为空",
+                        trigger: "blur"
+                    }
+                ],
+                APPLY_EMAIL: [
+                    {
+                        required: true,
+                        message: "邮箱不能为空",
+                        trigger: "blur"
+                    },
+                    {
+                        type: "email",
+                        message: "请输入正确的邮箱地址",
+                        trigger: "blur,changer"
+                    }
+                ]
+            }
         };
     },
     methods: {
-         back() {
+        back() {
             this.$router.go(-1);
         },
-        download(URL){
-            window.open(this.urlDown+URL);
+        download(URL) {
+            window.open(this.urlDown + URL);
         },
         apply(data) {
             if (this.$store.state.user.userID != null) {
                 this.dialogFormVisible = true;
                 //console.log(data.PLAT_ID);
-                this.form.APPLY_RESOURCE_ID=data.PLAT_ID;
+                this.form.APPLY_RESOURCE_ID = data.PLAT_ID;
                 this.getProjInfo();
             } else {
                 this.$store.state.user.dialogLoginVisible = true;
             }
         },
         submit() {
-            //this.queryList.projectid = this.$store.state.user.currentProjID;
-            //this.queryList.ID = this.$route.params.id;
-            fetchApply(this.form).then(response => {
-                if (response.data.code === 2000) {
-                    this.$notify({
-                        position: "bottom-right",
-                        title: "成功",
-                        message: response.data.message,
-                        type: "success",
-                        duration: 2000
-                    });
-                    this.dialogFormVisible = false;
-                } else {
-                    this.$notify({
-                        position: "bottom-right",
-                        title: "失败",
-                        message: response.data.message,
-                        type: "error",
-                        duration: 2000
+            this.$refs.form.validate(valid => {
+                if (valid) {
+                    fetchApply(this.form).then(response => {
+                        if (response.data.code === 2000) {
+                            this.$notify({
+                                position: "bottom-right",
+                                title: "成功",
+                                message: response.data.message,
+                                type: "success",
+                                duration: 2000
+                            });
+                            this.dialogFormVisible = false;
+                        } else {
+                            this.$notify({
+                                position: "bottom-right",
+                                title: "失败",
+                                message: response.data.message,
+                                type: "error",
+                                duration: 2000
+                            });
+                        }
                     });
                 }
             });
         },
         cencel() {
             this.resetForm();
+            this.$refs.form.resetFields();
             this.dialogFormVisible = false;
         },
         resetForm() {
@@ -244,10 +290,11 @@ export default {
             this.form.APPLY_LINKMAN = "";
             this.form.APPLY_PHONE = "";
             this.form.APPLY_EMAIL = "";
-            
         },
         getProjInfo() {
-            this.projList = this.$store.state.user.projList;
+            //this.projList = this.$store.state.user.projList;
+            this.form.PROJECT_ID = this.$store.state.user.currentProjID;
+            this.form.PROJECT_NAME = this.$store.state.user.currentProjName;
             this.userinfo = this.$store.state.user.userinfo[0];
             this.form.APPLY_USERID = this.userinfo.USER_ID;
             this.form.APPLY_ORG_NAME = this.userinfo.ORG_NAME;
@@ -257,21 +304,20 @@ export default {
         changePlatform() {
             if (this.querylist.platType === 0) {
                 this.querylist.platType = 1;
-                this.dataName='Go版本列表'
+                this.dataName = "Go版本列表";
             } else {
                 this.querylist.platType = 0;
-                 this.dataName='C#版本列表';
+                this.dataName = "C#版本列表";
             }
             this.FetchHistoryList();
         },
         getHistoryList() {
             this.querylist.platType = this.$store.state.user.platformIndex;
-            
-            if(this.querylist.platType==0){
-                    this.dataName='C#版本列表';
-            }
-            else{
-                    this.dataName='Go版本列表'
+
+            if (this.querylist.platType == 0) {
+                this.dataName = "C#版本列表";
+            } else {
+                this.dataName = "Go版本列表";
             }
             this.querylist.projectid = this.$store.state.user.currentProjID;
             this.querylist.userid = this.$store.state.user.userID;

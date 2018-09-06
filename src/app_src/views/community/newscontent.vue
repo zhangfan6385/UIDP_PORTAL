@@ -10,7 +10,7 @@
                         <div slot="header" class="cardheader">
                             <span>{{cardcontent.TITLE_NAME}}</span>
                             <div class="operation">
-                                <el-button size="mini" @click="delcard" type="danger">
+                                <el-button size="mini" @click="delcard" type="danger" v-if="userType===1">
                                     <i class="el-icon-warning"></i>删除本帖
                                 </el-button>
                                 <el-button size="mini" @click="collection" v-if="cardcontent.COLLECTION_STATE==='0'">
@@ -44,7 +44,7 @@
                         <div class="foot">
                             <el-row>
                                 <el-col :span="24">
-                                    发表日期：{{cardcontent.SEND_DATE}}
+                                    发表日期：{{cardcontent.SEND_DATE|parseTime}}
                                 </el-col>
                             </el-row>
                         </div>
@@ -71,8 +71,8 @@
                         <div class="foot">
                             <el-row>
                                 <el-col :span="24">
-                                    发表日期：{{commit.CREATE_DATE}}
-                                    <el-button type="text" @click="delcommit(commit)">删除</el-button>
+                                    发表日期：{{commit.CREATE_DATE|parseTime}}
+                                    <el-button type="text" @click="delcommit(commit)" v-if="userType===1">删除</el-button>
                                 </el-col>
                             </el-row>
                         </div>
@@ -118,11 +118,13 @@ import {
     updateLookTimes
 } from "@/app_src/api/community";
 import { quillEditor } from "vue-quill-editor";
+import { parseTime } from "@/app_src/utils/index.js";
 export default {
     data() {
         return {
             cardcontent: {},
             type: "",
+            userType:'',
             queryList: {
                 POST_ID: null,
                 USER_ID: null
@@ -338,7 +340,14 @@ export default {
         update() {
             this.delCardList.POST_ID = this.$route.params.id;
             updateLookTimes(this.delCardList);
+        },
+        getUserType(){
+            this.userType=this.$store.state.user.usertype;
+            console.log(this.userType)
         }
+    },
+    filters: {
+        parseTime
     },
     computed: {
         editor() {
@@ -351,6 +360,7 @@ export default {
     mounted() {
         this.getCardDetail();
         this.update();
+        this.getUserType();
     }
 };
 </script>

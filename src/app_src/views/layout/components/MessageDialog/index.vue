@@ -6,24 +6,38 @@
                     <el-table-column type="expand">
                         <template template slot-scope="props">
                             <el-form label-position="left" inline class="demo-table-expand">
-                                <el-form-item label="标题">
-                                    <span>{{ props.row.name }}</span>
-                                </el-form-item>
-                                <el-form-item label="审核状态">
-                                    <span>{{ props.row.shop }}</span>
-                                </el-form-item>
-                                <el-form-item label="审核时间">
-                                    <span>{{ props.row.id }}</span>
-                                </el-form-item>
-                                <el-form-item label="审核内容">
-                                    <span>{{ props.row.shopId }}</span>
-                                </el-form-item>
+                                <el-col :span="8">
+                                    <el-form-item label="标题">
+                                        <span>{{ props.row.RECORD_TITLE }}</span>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :span="8">
+                                    <el-form-item label="审核内容">
+                                        <span>{{ props.row.RECORD_CONTENT }}</span>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :span="8">
+                                    <el-form-item label="申请ID">
+                                        <span>{{ props.row.RECORD_CONTENT }}</span>
+                                    </el-form-item>
+                                </el-col>
+
                             </el-form>
                         </template>
                     </el-table-column>
-                    <el-table-column label="标题"></el-table-column>
-                    <el-table-column label="审核状态"></el-table-column>
-                    <el-table-column label="审核时间"></el-table-column>
+                    <el-table-column label="阅读状态">
+                        <template slot-scope="scope">
+                            <span v-if="scope.row.RECORD_ISREAD===0" class="noread">未读</span>
+                            <span v-if="scope.row.RECORD_ISREAD!=0" class="read">已读</span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column prop="RECORD_TITLE" label="标题"></el-table-column>
+                    <el-table-column prop="CREATER" label="创建人"></el-table-column>
+                    <el-table-column label="审核时间" width="150px">
+                        <template slot-scope="scope">
+                            {{scope.row.CREATE_DATE | parseTime}}
+                        </template>
+                    </el-table-column>
                 </el-table>
             </el-card>
 
@@ -35,18 +49,19 @@
 
 <script>
 import { fetchCheckInfo, fetchMessageList } from "@/app_src/api/message";
+import { parseTime } from "@/app_src/utils/index.js";
 export default {
     data() {
         return {
             messagetipVisibile: false,
             messageList: [],
-            querylist:{
-                limit:5,
-                page:1,
-                userId:'',
+            querylist: {
+                limit: 5,
+                page: 1,
+                userId: ""
             },
-            checkList:{
-                RECORD_ID:'',
+            checkList: {
+                RECORD_ID: ""
             }
         };
     },
@@ -55,9 +70,9 @@ export default {
             this.$store.state.user.messageDialogVisible = false;
         },
         sign(row) {
-            console.log(row.id);
-            if (row.id != "12987125") {
-                fetchCheckInfo(row.id).then(response => {
+            if (row.RECORD_ISREAD === 0) {
+                this.checkList.RECORD_ID = row.RECORD_ID;
+                fetchCheckInfo(this.checkList).then(response => {
                     if (response.data.code === 2000) {
                         this.$notify({
                             position: "bottom-right",
@@ -76,14 +91,15 @@ export default {
                         });
                     }
                 });
-            } else {
-                console.log("bu");
             }
         }
     },
+    filters: {
+        parseTime
+    },
     computed: {
         getMesListChange() {
-            return this.$store.state.user.messageList;
+            return this.$store.state.user.msgInfo;
         },
         getMesVisiblie() {
             return this.$store.state.user.messageDialogVisible;
@@ -102,6 +118,21 @@ export default {
     }
 };
 </script>
+
+
+<style lang="scss" scoped>
+.messagetip{
+    .noread{
+        color: red;
+        font-weight: bold;
+    }
+    .read{
+        color:greenyellow;
+        font-weight: bold;
+    }
+}
+</style>
+
 
        
     

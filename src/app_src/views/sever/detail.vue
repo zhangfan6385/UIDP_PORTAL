@@ -35,12 +35,12 @@
                             <span>{{severInfo.SERVICE_PUBLISHDATE | parseTime}}</span>
                         </li>
                     </ul>
-                     <div style="text-align:center;float:left;width:45%;height:145px;padding-top:70px;">
-                            <el-button  type="primary" @click="handleApply()" v-if="severInfo.CHECK_STATE===-1">申&nbsp;请</el-button>
-                            <el-button  type="danger" v-else-if="severInfo.CHECK_STATE===0">待审核</el-button>
-                            <el-button  type="primary" disabled v-else-if="severInfo.CHECK_STATE===1">审核通过</el-button>
-                            <!-- <el-button size="mini" type="primary" @click="goAnchor">查看服务码</el-button> -->
-                        </div>
+                    <div style="text-align:center;float:left;width:45%;height:145px;padding-top:70px;">
+                        <el-button type="primary" @click="handleApply()" v-if="severInfo.CHECK_STATE===-1">申&nbsp;请</el-button>
+                        <el-button type="danger" v-else-if="severInfo.CHECK_STATE===0">待审核</el-button>
+                        <el-button type="primary" disabled v-else-if="severInfo.CHECK_STATE===1">审核通过</el-button>
+                        <!-- <el-button size="mini" type="primary" @click="goAnchor">查看服务码</el-button> -->
+                    </div>
                 </el-card>
                 <el-card id="#anchor1" class="componentinfo" v-for="(file,key) in severInfo.children" :key="key" v-if="severInfo.CHECK_STATE===1">
                     <div style="float:left;">
@@ -51,7 +51,7 @@
                         <h5>发布日期：{{file.CREATE_DATE | parseTime}}</h5>
                     </div>
                 </el-card>
-                <el-card class="componentinfo1"  shadow="never">
+                <el-card class="componentinfo1" shadow="never">
                     <span style="font-size:18px;font-weight:bold"><img style="width:20px;height:20px;" src="../../../app_src/imgs/title.png">服务介绍</span>
                     <!-- <div v-html="obj.content"></div> -->
                     <div v-html="severInfo.SERVICE_CONTENT"></div>
@@ -63,32 +63,33 @@
             </el-dialog>
 
             <el-dialog :title="dialogTitle" :visible.sync="dialogFormVisible">
-                <el-form :model="form">
+                <el-form :model="form" :rules="rules" ref="form">
                     <el-form-item label="公司名称" :label-width="formLabelWidth">
                         <el-input v-model="userinfo.ORG_NAME" auto-complete="off" :disabled="true"></el-input>
                     </el-form-item>
                     <el-form-item label="承担项目" :label-width="formLabelWidth">
-                        <el-select v-model="form.PROJECT_ID" placeholder="请选项目">
-                            <el-option v-for="(item,key) in projList" :key="key" :label="item.PROJECT_NAME" :value="item.PROJECT_ID">
-                            </el-option>
-                        </el-select>
+                        <!-- <el-select v-model="form.PROJECT_ID" placeholder="请选项目">
+                                <el-option v-for="(item,key) in projList" :key="key" :label="item.PROJECT_NAME" :value="item.PROJECT_ID">
+                                </el-option>
+                            </el-select> -->
+                        <el-input v-model="form.PROJECT_NAME" :disabled="true"></el-input>
                     </el-form-item>
-                    <el-form-item label="用途描述" :label-width="formLabelWidth">
+                    <el-form-item label="用途描述" prop="USE_CONTENT" :label-width="formLabelWidth">
                         <el-input v-model="form.USE_CONTENT" auto-complete="off"></el-input>
                     </el-form-item>
-                    <el-form-item label="用途类型" :label-width="formLabelWidth">
+                    <el-form-item label="用途类型" prop="USE_TYPE" :label-width="formLabelWidth">
                         <el-select v-model="form.USE_TYPE" placeholder="请选用途类型">
                             <el-option label="开发" :value="0"></el-option>
                             <el-option label="生产" :value="1"></el-option>
                         </el-select>
                     </el-form-item>
-                    <el-form-item label="联系人" :label-width="formLabelWidth">
+                    <el-form-item label="联系人" prop="APPLY_LINKMAN" :label-width="formLabelWidth">
                         <el-input v-model="form.APPLY_LINKMAN" auto-complete="off"></el-input>
                     </el-form-item>
-                    <el-form-item label="联系电话" :label-width="formLabelWidth">
+                    <el-form-item label="联系电话" prop="APPLY_PHONE" :label-width="formLabelWidth">
                         <el-input v-model="form.APPLY_PHONE" auto-complete="off"></el-input>
                     </el-form-item>
-                    <el-form-item label="邮箱" :label-width="formLabelWidth">
+                    <el-form-item label="邮箱" prop="APPLY_EMAIL" :label-width="formLabelWidth">
                         <el-input v-model="form.APPLY_EMAIL" auto-complete="off"></el-input>
                     </el-form-item>
                 </el-form>
@@ -108,7 +109,7 @@ import { parseTime } from "@/app_src/utils/index.js";
 export default {
     data() {
         return {
-            downloadurl:process.env.BASE_DOWNLOAD,
+            downloadurl: process.env.BASE_DOWNLOAD,
             form: {
                 APPLY_USERID: "",
                 APPLY_ORG_NAME: "",
@@ -140,14 +141,56 @@ export default {
                 userid: null,
                 projectid: null,
                 resourceid: null
+            },
+            rules: {
+                USE_CONTENT: [
+                    {
+                        required: true,
+                        message: "内容不能为空",
+                        trigger: "blur"
+                    }
+                ],
+                USE_TYPE: [
+                    {
+                        required: true,
+                        message: "类型不能为空",
+                        trigger: "blur"
+                    }
+                ],
+                APPLY_LINKMAN: [
+                    {
+                        required: true,
+                        message: "联系人不能为空",
+                        trigger: "blur"
+                    }
+                ],
+                APPLY_PHONE: [
+                    {
+                        required: true,
+                        message: "电话不能为空",
+                        trigger: "blur"
+                    }
+                ],
+                APPLY_EMAIL: [
+                    {
+                        required: true,
+                        message: "邮箱不能为空",
+                        trigger: "blur"
+                    },
+                    {
+                        type: "email",
+                        message: "请输入正确的邮箱地址",
+                        trigger:"blur,changer"
+                    }
+                ]
             }
         };
     },
-    filters:{
+    filters: {
         parseTime
     },
     methods: {
-         back() {
+        back() {
             this.$router.go(-1);
         },
         handleApply() {
@@ -190,30 +233,35 @@ export default {
         submit() {
             //this.queryList.prjID = this.$store.state.user.currentProjID;
             //this.queryList.ID = this.$route.params.id;
-            fetchApply(this.form).then(response => {
-                if (response.data.code === 2000) {
-                    this.$notify({
-                        position: "bottom-right",
-                        title: "成功",
-                        message: response.data.message,
-                        type: "success",
-                        duration: 2000
-                    });
-                    this.getSever();
-                    this.dialogFormVisible = false;
-                } else {
-                    this.$notify({
-                        position: "bottom-right",
-                        title: "失败",
-                        message: response.data.message,
-                        type: "error",
-                        duration: 2000
+            this.$refs.form.validate(valid => {
+                if (valid) {
+                    fetchApply(this.form).then(response => {
+                        if (response.data.code === 2000) {
+                            this.$notify({
+                                position: "bottom-right",
+                                title: "成功",
+                                message: response.data.message,
+                                type: "success",
+                                duration: 2000
+                            });
+                            this.getSever();
+                            this.dialogFormVisible = false;
+                        } else {
+                            this.$notify({
+                                position: "bottom-right",
+                                title: "失败",
+                                message: response.data.message,
+                                type: "error",
+                                duration: 2000
+                            });
+                        }
                     });
                 }
             });
         },
         cencel() {
             this.resetForm();
+            this.$refs.form.resetFields();
             this.dialogFormVisible = false;
         },
         resetForm() {
@@ -226,15 +274,16 @@ export default {
         },
         test() {
             this.severInfo = this.list1.items;
-            console.log(this.severInfo);
+            //console.log(this.severInfo);
         },
         getProjInfo() {
-            this.projList = this.$store.state.user.projList;
+            //this.projList = this.$store.state.user.projList;
+            this.form.PROJECT_ID = this.$store.state.user.currentProjID;
+            this.form.PROJECT_NAME = this.$store.state.user.currentProjName;
             this.userinfo = this.$store.state.user.userinfo[0];
             this.form.APPLY_USERID = this.userinfo.USER_ID;
             this.form.APPLY_ORG_NAME = this.userinfo.ORG_NAME;
             this.form.APPLY_ORG_ID = this.userinfo.ORG_ID;
-            this.form.APPLY_RESOURCE_ID = this.$route.params.id;
             this.form.APPLY_USERID = this.$store.state.user.userID;
         }
     },
@@ -246,11 +295,11 @@ export default {
 <style scoped>
 .componentinfo {
     margin-bottom: 5px;
-    padding-left:30px;
+    padding-left: 30px;
 }
 .componentinfo1 {
     margin-bottom: 5px;
-    padding-left:30px;
+    padding-left: 30px;
     min-height: 500px;
 }
 .el-card__body {
@@ -263,7 +312,7 @@ export default {
     list-style: none;
     margin-bottom: 20px;
     padding-left: 0px;
-    float:left; 
+    float: left;
 }
 .componentinfo li {
     font-size: 14px;
@@ -271,7 +320,8 @@ export default {
     line-height: 17px;
     display: block;
     margin-bottom: 5px;
-}a {
+}
+a {
     text-decoration: none;
     color: blue;
     font-size: 10px;

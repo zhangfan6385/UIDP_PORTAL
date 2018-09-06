@@ -814,8 +814,6 @@ export default {
         },
         test() {
             console.log(this.$store.state.user.userinfo);
-            console.log(this.$store.state.user.projList);
-            console.log(this.$store.state.user.msgInfo);
         }
     },
     mounted() {

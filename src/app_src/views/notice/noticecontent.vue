@@ -58,7 +58,7 @@ export default {
             fetchNoticeList(this.listQuery).then(response => {
                 if (response.data.code === 2000) {
                     this.notice = response.data.items;
-                    console.log(this.notice);
+                    //console.log(this.notice);
                 } else {
                     this.$notify({
                         position: "bottom-right",
