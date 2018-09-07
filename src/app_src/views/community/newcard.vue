@@ -37,8 +37,6 @@
                             <el-form-item label="详细" :rules="rules.POST_CONTENT">
                                 <div class="editor">
                                     <quill-editor v-model="newcard.POST_CONTENT" ref="myQuillEditor" :options="newcard.editorOption" @ready="onEditorReady($event)" @blur="onEditorBlur($event)" @focus="onEditorFocus($event)" height="500px">
-                                        <!-- <div id="toolbar" slot="toolbar">
-                                        </div> -->
                                     </quill-editor>
                                 </div>
 

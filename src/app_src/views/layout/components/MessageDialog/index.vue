@@ -2,45 +2,50 @@
     <div id="messagetip" class="messagetip">
         <el-dialog :visible.sync="messagetipVisibile" title="信息提示" center @close="close">
             <el-card>
-                <el-table :data="messageList" @expand-change="sign">
-                    <el-table-column type="expand">
-                        <template template slot-scope="props">
-                            <el-form label-position="left" inline class="demo-table-expand">
-                                <el-col :span="8">
-                                    <el-form-item label="标题">
-                                        <span v-html="props.row.RECORD_TITLE"></span>
-                                    </el-form-item>
-                                </el-col>
-                                <el-col :span="8">
-                                    <el-form-item label="审核内容">
-                                        <span v-html="props.row.RECORD_CONTENT"></span>
-                                    </el-form-item>
-                                </el-col>
-                                <el-col :span="8">
-                                    <el-form-item label="申请ID">
-                                        <span>{{ props.row.RECORD_ID }}</span>
-                                    </el-form-item>
-                                </el-col>
+                <el-card>
+                    <el-table :data="messageList" @expand-change="sign">
+                        <el-table-column type="expand">
+                            <template template slot-scope="props">
+                                <el-form label-position="left" inline class="demo-table-expand">
+                                    <el-col :span="8">
+                                        <el-form-item label="标题">
+                                            <span v-html="props.row.RECORD_TITLE"></span>
+                                        </el-form-item>
+                                    </el-col>
+                                    <el-col :span="8">
+                                        <el-form-item label="审核内容">
+                                            <span v-html="props.row.RECORD_CONTENT"></span>
+                                        </el-form-item>
+                                    </el-col>
+                                    <el-col :span="8">
+                                        <el-form-item label="申请ID">
+                                            <span>{{ props.row.RECORD_ID }}</span>
+                                        </el-form-item>
+                                    </el-col>
 
-                            </el-form>
-                        </template>
-                    </el-table-column>
-                    <el-table-column label="阅读状态">
-                        <template slot-scope="scope">
-                            <span v-if="scope.row.RECORD_ISREAD===0" class="noread">未读</span>
-                            <span v-if="scope.row.RECORD_ISREAD!=0" class="read">已读</span>
-                        </template>
-                    </el-table-column>
-                    <el-table-column prop="RECORD_TITLE" label="标题"></el-table-column>
-                    <el-table-column prop="CREATER" label="创建人"></el-table-column>
-                    <el-table-column label="审核时间" width="150px">
-                        <template slot-scope="scope">
-                            {{scope.row.CREATE_DATE | parseTime}}
-                        </template>
-                    </el-table-column>
-                </el-table>
+                                </el-form>
+                            </template>
+                        </el-table-column>
+                        <el-table-column label="阅读状态">
+                            <template slot-scope="scope">
+                                <span v-if="scope.row.RECORD_ISREAD===0" class="noread">未读</span>
+                                <span v-if="scope.row.RECORD_ISREAD!=0" class="read">已读</span>
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="RECORD_TITLE" label="标题"></el-table-column>
+                        <el-table-column prop="CREATER" label="创建人"></el-table-column>
+                        <el-table-column label="审核时间" width="150px">
+                            <template slot-scope="scope">
+                                {{scope.row.CREATE_DATE | parseTime}}
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                </el-card>
+                <div class="page">
+                    <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="msgform.page" :page-sizes="[5, 15, 20, 25]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="total">
+                    </el-pagination>
+                </div>
             </el-card>
-
         </el-dialog>
     </div>
 </template>
@@ -54,6 +59,7 @@ export default {
     data() {
         return {
             messagetipVisibile: false,
+            total:'',
             messageList: [],
             checkList: {
                 RECORD_ID: ""
@@ -94,6 +100,16 @@ export default {
                     }
                 });
             }
+        },
+        handleSizeChange(val) {
+            this.msgform.limit = val;
+            this.msgform.userId = this.$store.state.user.userinfo[0].USER_ID;
+            this.$store.dispatch("GetUserMsg", this.msgform);
+        },
+        handleCurrentChange(val) {
+            this.msgform.page = val;
+            this.msgform.userId = this.$store.state.user.userinfo[0].USER_ID;
+            this.$store.dispatch("GetUserMsg", this.msgform);
         }
     },
     filters: {
@@ -106,6 +122,9 @@ export default {
         getReadCount() {
             return this.$store.state.user.noReadCount;
         },
+        getTotal() {
+            return this.$store.state.user.total;
+        },
         getMesVisiblie() {
             return this.$store.state.user.messageDialogVisible;
         }
@@ -116,6 +135,9 @@ export default {
         },
         getReadCount(data) {
             this.messageList = this.$store.state.user.msgInfo;
+        },
+        getTotal(data) {
+            this.total=data
         },
         getMesVisiblie(data) {
             this.messagetipVisibile = data;
@@ -137,6 +159,9 @@ export default {
     .read {
         color: greenyellow;
         font-weight: bold;
+    }
+    .page{
+        text-align: center;
     }
 }
 </style>

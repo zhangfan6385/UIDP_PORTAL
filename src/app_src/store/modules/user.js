@@ -21,6 +21,7 @@ const user = {
     //Msg Info
     msgInfo: '',
     noReadCount: '',
+    total:'',
     //global params
     dashboardindex: '',
     platformIndex: '',
@@ -68,6 +69,9 @@ const user = {
     },
     SET_NOREADCOUNT: (state, noReadCount) => {
       state.noReadCount = noReadCount
+    },
+    SET_TOTAL:(state,total)=>{
+      state.total=total
     },
     SET_USER_INFO: (state, userinfo) => {
       state.userinfo = userinfo
@@ -198,6 +202,7 @@ const user = {
             const data = response.data
             commit('SET_MSGINFO', data.items)
             commit('SET_NOREADCOUNT', data.noReadCount)
+            commit('SET_TOTAL',data.total)
             //this.$store.dispatch('GetUserMsg')
             resolve(response)
           } else {
