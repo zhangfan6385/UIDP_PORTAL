@@ -1,55 +1,58 @@
 <template>
-  <div id="newcard" class="newcard">
-    <el-row :gutter="20" type="flex">
-      <el-col :span="2"></el-col>
-      <el-col :span="20">
-        <div class="mainform">
-          <el-card>
-            <el-form ref="newcard" :model="newcard" label-width="80px">
-              <el-form-item label="标题" prop="TITLE_NAME" :rules="rules.TITLE_NAME">
-                <el-input v-model="newcard.TITLE_NAME"></el-input>
-              </el-form-item>
-              <el-row type="flex">
-                <el-col :span="10">
-                  <el-form-item label="帖子类型" prop="POST_TYPE" :rules="rules.POST_TYPE">
-                    <el-radio v-model="newcard.POST_TYPE" label="1">经验分享</el-radio>
-                    <el-radio v-model="newcard.POST_TYPE" label="2">问题反馈</el-radio>
-                    <el-radio v-model="newcard.POST_TYPE" label="3">求助</el-radio>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="2"></el-col>
+    <div id="newcard" class="newcard">
+        <el-row :gutter="20" type="flex">
+            <el-col :span="2"></el-col>
+            <el-col :span="20">
+                <div class="mainform">
+                    <el-card>
+                        <el-form ref="newcard" :model="newcard" label-width="80px">
+                            <el-form-item label="标题" prop="TITLE_NAME" :rules="rules.TITLE_NAME">
+                                <el-input v-model="newcard.TITLE_NAME"></el-input>
+                            </el-form-item>
+                            <el-row type="flex">
+                                <el-col :span="10">
+                                    <el-form-item label="帖子类型" prop="POST_TYPE" :rules="rules.POST_TYPE">
+                                        <el-radio v-model="newcard.POST_TYPE" label="1">经验分享</el-radio>
+                                        <el-radio v-model="newcard.POST_TYPE" label="2">问题反馈</el-radio>
+                                        <el-radio v-model="newcard.POST_TYPE" label="3">求助</el-radio>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :span="2"></el-col>
 
-                <el-col :span="6">
-                  <div v-if="this.newcard.POST_TYPE==='3'">
-                    <el-form-item label="所需积分" prop="SCORE_POINT" :rules="rules.SCORE_POINT">
-                      <el-input v-model="newcard.SCORE_POINT"></el-input>
-                    </el-form-item>
-                  </div>
+                                <el-col :span="6">
+                                    <div v-if="this.newcard.POST_TYPE==='3'">
+                                        <el-form-item label="所需积分" prop="SCORE_POINT" :rules="rules.SCORE_POINT">
+                                            <el-input v-model="newcard.SCORE_POINT"></el-input>
+                                        </el-form-item>
+                                    </div>
 
-                  <div v-else-if="this.newcard.POST_TYPE==='1'">
-                    <el-form-item label="悬赏积分" prop="SCORE_POINT" :rules="rules.score">
-                      <el-input v-model="newcard.SCORE_POINT"></el-input>
-                    </el-form-item>
-                  </div>
-                </el-col>
-              </el-row>
+                                    <div v-else-if="this.newcard.POST_TYPE==='1'">
+                                        <el-form-item label="悬赏积分" prop="SCORE_POINT" :rules="rules.score">
+                                            <el-input v-model="newcard.SCORE_POINT"></el-input>
+                                        </el-form-item>
+                                    </div>
+                                </el-col>
+                            </el-row>
 
-              <el-form-item label="详细" :rules="rules.POST_CONTENT">
-                <div class="editor">
-                  <quill-editor v-model="newcard.POST_CONTENT" ref="myQuillEditor" :options="newcard.editorOption" @ready="onEditorReady($event)" height="500px"></quill-editor>
+                            <el-form-item label="详细" :rules="rules.POST_CONTENT">
+                                <div class="editor">
+                                    <quill-editor v-model="newcard.POST_CONTENT" ref="myQuillEditor" :options="newcard.editorOption" @ready="onEditorReady($event)" @blur="onEditorBlur($event)" @focus="onEditorFocus($event)" height="500px">
+                                        <!-- <div id="toolbar" slot="toolbar">
+                                        </div> -->
+                                    </quill-editor>
+                                </div>
+
+                                <el-form-item>
+                                    <el-button type="primary" @click="onSubmit">确认提交</el-button>
+                                </el-form-item>
+
+                            </el-form-item>
+                        </el-form>
+                    </el-card>
                 </div>
-
-                <el-form-item>
-                  <el-button type="primary" @click="onSubmit">确认提交</el-button>
-                </el-form-item>
-
-              </el-form-item>
-            </el-form>
-          </el-card>
-        </div>
-      </el-col>
-    </el-row>
-  </div>
+            </el-col>
+        </el-row>
+    </div>
 </template>
 
 

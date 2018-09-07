@@ -22,7 +22,7 @@ export default {
         { path: "/dashboard", name: "开发平台" },
         { path: "/severcomponent", name: "组件目录" },
         { path: "/sever", name: "服务目录" },
-        { path: "/community", name: "社区" }
+        { path: "/community", name: "开发社区" }
       ]
     };
   }

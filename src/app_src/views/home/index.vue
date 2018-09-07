@@ -50,7 +50,7 @@
                                     <div class="title">
                                         最新发帖
                                         <div class="headerbutton">
-                                            <el-button type="primary" size="mini" @click="goToCommunity">查看更多</el-button>
+                                            <el-button type="primary" size="mini" @click="goToCommunity">进入论坛</el-button>
                                         </div>
                                     </div>
                                 </el-col>
@@ -469,18 +469,8 @@ export default {
 
             //查询列表参数(公告,数据)
             listQuery: {
-                limit: 5,
-                page: 1
-            },
-            //帖子查询参数
-            listQuery1: {
                 limit: 6,
-                page: 1,
-                POST_TYPE: null,
-                USER_ID: null,
-                TITLE_NAME: null,
-                BEGIN_SEND_DATE: null,
-                END_SEND_DATE: null
+                page: 1
             },
             topQueryList: {
                 limit: 10
@@ -562,7 +552,7 @@ export default {
 
         //获取论坛列表
         getCommuntityList() {
-            fetchCommunityList(this.listQuery1).then(response => {
+            fetchCommunityList(this.listQuery).then(response => {
                 if (
                     response.data.code === 2000 &&
                     response.data.items != null

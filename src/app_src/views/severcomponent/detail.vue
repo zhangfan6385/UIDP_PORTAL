@@ -38,13 +38,14 @@
                     </ul>
                     <div style="text-align:center;float:left;width:45%;height:145px;padding-top:70px;">
                         <el-button type="primary" @click="handleApply" v-if="obj.CHECK_STATE===-1">申 请</el-button>
-                        <el-button type="danger" v-else-if="obj.CHECK_STATE===0">待审核</el-button>
+                        <el-button type="danger" @click="doNothing" v-else-if="obj.CHECK_STATE===0">待审核</el-button>
                         <el-button type="primary" v-else-if="obj.CHECK_STATE===1" @click="download(obj.URL)">下 载</el-button>
+                        <!-- <el-button type="danger" @click="handleApply" v-if="obj.CHECK_STATE===2">已驳回</el-button> -->
                     </div>
                 </el-card>
                 <el-card id="#anchor1" class="componentinfo" v-for="(file,key) in obj.children" :key="key" v-if="obj.CHECK_STATE===1">
                     <div style="float:left;">
-                        <h5>文件下载
+                        <h5>文件下载:
                             <a :href="downloadurl+file.FILE_URL" target="_blank">{{file.FILE_NAME}}</a>
                         </h5>
                         <h5>文件大小：{{file.FILE_SIZE}}</h5>
@@ -199,8 +200,9 @@ export default {
             this.$router.go(-1);
         },
         download(URL) {
-            window.open(this.BASE_API2 + URL);
+            window.open(this.downloadurl + URL);
         },
+        doNothing(){},
         handleApply() {
             if (this.$store.state.user.userID != null) {
                 this.dialogFormVisible = true;
@@ -229,9 +231,6 @@ export default {
                     });
                 }
             });
-        },
-        test() {
-            this.obj = this.list1.items;
         },
         submit() {
             this.$refs.form.validate(valid => {
@@ -274,6 +273,7 @@ export default {
             this.form.APPLY_EMAIL = "";
         },
         getProjInfo() {
+            this.form.APPLY_RESOURCE_ID=this.$route.params.id
             this.form.PROJECT_ID = this.$store.state.user.currentProjID;
             this.form.PROJECT_NAME = this.$store.state.user.currentProjName;
             this.userinfo = this.$store.state.user.userinfo[0];

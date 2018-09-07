@@ -119,7 +119,7 @@ export default {
             return this.$store.state.user.userID;
         },
         getMstCount(){
-            return this.$store.state.user.total
+            return this.$store.state.user.noReadCount
         }
     },
     watch: {
@@ -225,7 +225,9 @@ export default {
             border-radius: 10px;
             vertical-align: middle;
         }
-
+        .user-avatar:hover{
+            cursor: pointer;
+        }
         .avatar-container {
             height: 40px;
             //margin-right: 30px;

@@ -20,7 +20,7 @@ const user = {
     projList: [],
     //Msg Info
     msgInfo: '',
-    total: '',
+    noReadCount: '',
     //global params
     dashboardindex: '',
     platformIndex: '',
@@ -66,8 +66,8 @@ const user = {
     SET_MSGINFO: (state, msgInfo) => {
       state.msgInfo = msgInfo
     },
-    SET_TOTAL: (state, total) => {
-      state.total = total
+    SET_NOREADCOUNT: (state, noReadCount) => {
+      state.noReadCount = noReadCount
     },
     SET_USER_INFO: (state, userinfo) => {
       state.userinfo = userinfo
@@ -197,7 +197,7 @@ const user = {
           if (response.data.code === 2000) {
             const data = response.data
             commit('SET_MSGINFO', data.items)
-            commit('SET_TOTAL', data.total)
+            commit('SET_NOREADCOUNT', data.noReadCount)
             //this.$store.dispatch('GetUserMsg')
             resolve(response)
           } else {
@@ -253,8 +253,8 @@ const user = {
     LogOut({ commit, state }) {
       return new Promise((resolve, reject) => {
         // logout(state.token).then(() => {
-        commit('SET_TOKEN', '')
-        commit('SET_ROLES', [])
+        commit('SET_TOKEN', null)
+        //commit('SET_ROLES', [])
         removeToken()
         resolve()
         // }).catch(error => {
@@ -266,7 +266,7 @@ const user = {
     // 前端 登出
     FedLogOut({ commit }) {
       return new Promise(resolve => {
-        commit('SET_TOKEN', '')
+        commit('SET_TOKEN', null)
         removeToken()
         resolve()
       })

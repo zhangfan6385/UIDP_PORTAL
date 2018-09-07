@@ -260,6 +260,7 @@ export default {
                             type: "success",
                             duration: 2000
                         });
+                        this.commit.CONTENT='';
                         this.getCardDetail();
                     } else {
                         this.$notify({

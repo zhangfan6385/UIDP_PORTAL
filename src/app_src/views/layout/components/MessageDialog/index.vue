@@ -8,17 +8,17 @@
                             <el-form label-position="left" inline class="demo-table-expand">
                                 <el-col :span="8">
                                     <el-form-item label="标题">
-                                        <span>{{ props.row.RECORD_TITLE }}</span>
+                                        <span v-html="props.row.RECORD_TITLE"></span>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="8">
                                     <el-form-item label="审核内容">
-                                        <span>{{ props.row.RECORD_CONTENT }}</span>
+                                        <span v-html="props.row.RECORD_CONTENT"></span>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="8">
                                     <el-form-item label="申请ID">
-                                        <span>{{ props.row.RECORD_CONTENT }}</span>
+                                        <span>{{ props.row.RECORD_ID }}</span>
                                     </el-form-item>
                                 </el-col>
 
@@ -55,13 +55,13 @@ export default {
         return {
             messagetipVisibile: false,
             messageList: [],
-            querylist: {
+            checkList: {
+                RECORD_ID: ""
+            },
+            msgform: {
                 limit: 5,
                 page: 1,
                 userId: ""
-            },
-            checkList: {
-                RECORD_ID: ""
             }
         };
     },
@@ -81,6 +81,8 @@ export default {
                             type: "succes",
                             duration: 2000
                         });
+                        this.msgform.userId = this.$store.state.user.userinfo[0].USER_ID;
+                        this.$store.dispatch("GetUserMsg", this.msgform);
                     } else {
                         this.$notify({
                             position: "bottom-right",
@@ -101,6 +103,9 @@ export default {
         getMesListChange() {
             return this.$store.state.user.msgInfo;
         },
+        getReadCount() {
+            return this.$store.state.user.noReadCount;
+        },
         getMesVisiblie() {
             return this.$store.state.user.messageDialogVisible;
         }
@@ -108,6 +113,9 @@ export default {
     watch: {
         getMesListChange(data) {
             this.messageList = data;
+        },
+        getReadCount(data) {
+            this.messageList = this.$store.state.user.msgInfo;
         },
         getMesVisiblie(data) {
             this.messagetipVisibile = data;
@@ -121,13 +129,13 @@ export default {
 
 
 <style lang="scss" scoped>
-.messagetip{
-    .noread{
+.messagetip {
+    .noread {
         color: red;
         font-weight: bold;
     }
-    .read{
-        color:greenyellow;
+    .read {
+        color: greenyellow;
         font-weight: bold;
     }
 }

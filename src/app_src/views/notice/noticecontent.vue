@@ -22,13 +22,15 @@
                             <el-col :span="24">
                                 <!-- 附件下载：<a :href="notice.filename">{{notice.fileurl}}</a> -->
                                 附件下载：
-                                <a :href="item.FIILE_URL" v-for="(item,key) in ele.children" :key="key">{{item.FILE_NAME}}</a>
+                                <div class="fliter" v-for="(item,key) in ele.children" :key="key">
+                                    <el-button @click="downLoad(item)" type="primary" size="text">{{item.FILE_NAME}}</el-button>
+                                </div>
                             </el-col>
                         </el-row>
                         <div class="foot">
                             <el-row>
                                 <el-col :span="24">
-                                    作者：{{ele.CREATER}},发布时间：{{ele.CREATE_DATE}}
+                                    作者：{{ele.CREATER}},发布时间：{{ele.CREATE_DATE|parseTime}}
                                 </el-col>
                             </el-row>
                         </div>
@@ -41,9 +43,11 @@
 
 <script>
 import { fetchNoticeList } from "@/app_src/api/notice";
+import { parseTime } from "@/app_src/utils/index.js";
 export default {
     data() {
         return {
+            urlDown: process.env.BASE_DOWNLOAD,
             notice: "",
             listQuery: {
                 id: null,
@@ -70,12 +74,19 @@ export default {
                 }
             });
         },
+        downLoad(data) {
+            //console.log(data);
+            window.open(this.urlDown + data.FILE_URL);
+        },
         back() {
             this.$router.go(-1);
         }
     },
     mounted() {
         this.getNoticeList();
+    },
+    filters: {
+        parseTime
     }
 };
 </script>
@@ -92,6 +103,7 @@ export default {
     }
     .content {
         font-size: 18px;
+        line-height: 23px;
     }
     .foot {
         float: right;
@@ -103,6 +115,17 @@ export default {
     }
     .el-card {
         font-family: "微软雅黑";
+    }
+    .fliter {
+        color: blue;
+        text-decoration: underline;
+        margin-top: 10px;
+        margin-bottom: 15px;
+    }
+    .fliter:hover {
+        text-decoration: underline;
+        color: red;
+        cursor: pointer;
     }
 }
 </style>

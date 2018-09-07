@@ -90,6 +90,7 @@
                                 <span v-if="scope.row.CHECK_STATE===-1" class="blue">未申请</span>
                                 <span v-else-if="scope.row.CHECK_STATE===0" class="red">待审核</span>
                                 <span v-else-if="scope.row.CHECK_STATE===1" class="green">已通过</span>
+                                <span v-else-if="scope.row.CHECK_STATE===2" class="red">已驳回</span>
                             </template>
                         </el-table-column>
                         <el-table-column prop="PLAT_NAME" label="名称" align="center"></el-table-column>
