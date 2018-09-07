@@ -7,19 +7,14 @@
                         <el-table-column type="expand">
                             <template template slot-scope="props">
                                 <el-form label-position="left" inline class="demo-table-expand">
-                                    <el-col :span="8">
+                                    <el-col :span="24">
                                         <el-form-item label="标题">
                                             <span v-html="props.row.RECORD_TITLE"></span>
                                         </el-form-item>
                                     </el-col>
-                                    <el-col :span="8">
+                                    <el-col :span="24">
                                         <el-form-item label="审核内容">
-                                            <span v-html="props.row.RECORD_CONTENT"></span>
-                                        </el-form-item>
-                                    </el-col>
-                                    <el-col :span="8">
-                                        <el-form-item label="申请ID">
-                                            <span>{{ props.row.RECORD_ID }}</span>
+                                            <div v-html="props.row.RECORD_CONTENT"></div>
                                         </el-form-item>
                                     </el-col>
 
