@@ -30,7 +30,9 @@
                                     <img src="../../../app_src/imgs/userHead.png">
                                     <div class="logo">
                                         <el-button type="primary" size="mini">楼主</el-button>
-                                        <br> {{cardcontent.USER_NAME}}
+                                        <div class="username">
+                                            {{cardcontent.USER_NAME}}
+                                        </div>
                                     </div>
                                 </div>
                             </el-col>
@@ -57,7 +59,9 @@
                                     <img src="../../../app_src/imgs/userHead.png">
                                     <div class="logo">
                                         <el-button type="primary" size="mini">{{key+2}}楼</el-button>
-                                        <br> {{commit.USER_NAME}}
+                                        <div class="username">
+                                            {{commit.USER_NAME}}
+                                        </div>
                                     </div>
                                 </div>
                             </el-col>
@@ -124,7 +128,7 @@ export default {
         return {
             cardcontent: {},
             type: "",
-            userType:'',
+            userType: "",
             queryList: {
                 POST_ID: null,
                 USER_ID: null
@@ -260,7 +264,7 @@ export default {
                             type: "success",
                             duration: 2000
                         });
-                        this.commit.CONTENT='';
+                        this.commit.CONTENT = "";
                         this.getCardDetail();
                     } else {
                         this.$notify({
@@ -342,9 +346,8 @@ export default {
             this.delCardList.POST_ID = this.$route.params.id;
             updateLookTimes(this.delCardList);
         },
-        getUserType(){
-            this.userType=this.$store.state.user.usertype;
-            console.log(this.userType)
+        getUserType() {
+            this.userType = this.$store.state.user.usertype;
         }
     },
     filters: {
@@ -353,6 +356,16 @@ export default {
     computed: {
         editor() {
             return this.$refs.myQuillEditor.quill;
+        },
+        getCurrentUserId() {
+            return this.$store.state.user.userID;
+        }
+    },
+    watch: {
+        getCurrentUserId(data) {
+            if (data != null) {
+                this.getCardDetail();
+            }
         }
     },
     components: {
@@ -401,6 +414,12 @@ export default {
             margin-top: 20px;
         }
     }
+    .username{
+        margin-top: 20px;
+        font-weight: bold;
+        font-family: '微软雅黑';
+        font-size: 15px;
+    }
     .commit {
         margin-top: 35px;
     }
@@ -433,7 +452,7 @@ export default {
     .post {
         margin-top: 20px;
     }
-    .editor{
+    .editor {
         min-height: 300px;
     }
 }

@@ -38,7 +38,7 @@
                     <div style="text-align:center;float:left;width:45%;height:145px;padding-top:70px;">
                         <el-button type="primary" @click="handleApply()" v-if="severInfo.CHECK_STATE===-1">申&nbsp;请</el-button>
                         <el-button type="danger" @click="doNothing" v-else-if="severInfo.CHECK_STATE===0">待审核</el-button>
-                        <el-button type="primary"  v-else-if="severInfo.CHECK_STATE===1" >通过</el-button>
+                        <el-button type="primary" v-else-if="severInfo.CHECK_STATE===1">通过</el-button>
                         <!-- <el-button type="danger" @click="handleApply()" v-if="severInfo.CHECK_STATE===2">已驳回</el-button> -->
                         <!-- <el-button size="mini" type="primary" @click="goAnchor">查看服务码</el-button> -->
                     </div>
@@ -181,7 +181,7 @@ export default {
                     {
                         type: "email",
                         message: "请输入正确的邮箱地址",
-                        trigger:"blur,changer"
+                        trigger: "blur,changer"
                     }
                 ]
             }
@@ -194,7 +194,7 @@ export default {
         back() {
             this.$router.go(-1);
         },
-        doNothing(){},
+        doNothing() {},
         handleApply() {
             if (this.$store.state.user.userID != null) {
                 this.dialogFormVisible = true;
@@ -280,7 +280,7 @@ export default {
         },
         getProjInfo() {
             //this.projList = this.$store.state.user.projList;
-            this.form.APPLY_RESOURCE_ID=this.$route.params.id
+            this.form.APPLY_RESOURCE_ID = this.$route.params.id;
             this.form.PROJECT_ID = this.$store.state.user.currentProjID;
             this.form.PROJECT_NAME = this.$store.state.user.currentProjName;
             this.userinfo = this.$store.state.user.userinfo[0];
@@ -292,6 +292,18 @@ export default {
     },
     mounted() {
         this.getSever();
+    },
+    computed: {
+        getCurrentProjId() {
+            return this.$store.state.user.currentProjID;
+        }
+    },
+    watch: {
+        getCurrentProjId(data) {
+            if (data != null) {
+                this.getSever();
+            }
+        }
     }
 };
 </script>

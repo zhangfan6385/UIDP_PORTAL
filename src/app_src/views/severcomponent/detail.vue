@@ -202,7 +202,7 @@ export default {
         download(URL) {
             window.open(this.downloadurl + URL);
         },
-        doNothing(){},
+        doNothing() {},
         handleApply() {
             if (this.$store.state.user.userID != null) {
                 this.dialogFormVisible = true;
@@ -273,7 +273,7 @@ export default {
             this.form.APPLY_EMAIL = "";
         },
         getProjInfo() {
-            this.form.APPLY_RESOURCE_ID=this.$route.params.id
+            this.form.APPLY_RESOURCE_ID = this.$route.params.id;
             this.form.PROJECT_ID = this.$store.state.user.currentProjID;
             this.form.PROJECT_NAME = this.$store.state.user.currentProjName;
             this.userinfo = this.$store.state.user.userinfo[0];
@@ -285,6 +285,18 @@ export default {
     },
     mounted() {
         this.getSeverComponent();
+    },
+    computed: {
+        getCurrentProjId() {
+            return this.$store.state.user.currentProjID;
+        }
+    },
+    watch: {
+        getCurrentProjId(data) {
+            if (data != null) {
+                this.getSeverComponent();
+            }
+        }
     }
 };
 </script>

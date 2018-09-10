@@ -276,6 +276,7 @@ export default {
                             });
                         }
                     });
+                    this.resetForm();
                 }
             });
         },
@@ -348,6 +349,18 @@ export default {
         },
         test() {
             this.histroyEdition = this.list1.items;
+        }
+    },
+    computed:{
+        getCurrentProjId(){
+            return this.$store.state.user.currentProjID;
+        }
+    },
+    watch:{
+        getCurrentProjId(data){
+            if(data!=null){
+                this.getHistoryList();
+            }
         }
     },
     mounted() {
