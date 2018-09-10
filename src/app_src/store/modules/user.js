@@ -7,7 +7,8 @@ const user = {
   state: {
     //userInfo
     userID: null,
-    usertype:null,
+    roleLv:'',
+    usertype: null,
     status: '',
     code: '',
     token: getToken(),
@@ -21,7 +22,7 @@ const user = {
     //Msg Info
     msgInfo: '',
     noReadCount: '',
-    total:'',
+    total: '',
     //global params
     dashboardindex: '',
     platformIndex: '',
@@ -70,14 +71,17 @@ const user = {
     SET_NOREADCOUNT: (state, noReadCount) => {
       state.noReadCount = noReadCount
     },
-    SET_TOTAL:(state,total)=>{
-      state.total=total
+    SET_TOTAL: (state, total) => {
+      state.total = total
     },
     SET_USER_INFO: (state, userinfo) => {
       state.userinfo = userinfo
     },
-    SET_USER_TYPE:(state,usertype)=>{
-      state.usertype=usertype
+    SET_USER_TYPE: (state, usertype) => {
+      state.usertype = usertype
+    },
+    SET_ROLE_LV:(state,roleLv)=>{
+      state.roleLv=roleLv
     }
     // SET_INTRODUCTION: (state, introduction) => {
     //   state.introduction = introduction
@@ -175,15 +179,24 @@ const user = {
         loginByUsername(userInfo.username, userInfo.password).then(response => {
           if (response.data.code === 2000) {
             const data = response.data
+            if (userInfo.username === 'admin') {
+              commit('SET_USER_INFO', data.userInfo)
+              commit('SET_USER_ID', '超级管理员')
+              commit('SET_ROLE_LV',response.data.roleLevel);
+            }
+            else {
+              commit('SET_USER_INFO', data.userInfo)
+              commit('SET_USER_TYPE', data.userInfo[0].AUTHENTICATION_TYPE)
+              commit('SET_PROJLIST', data.projectInfo)
+              commit('SET_USER_ID', data.userInfo[0].USER_ID)
+              commit('SET_ROLE_LV',response.data.roleLevel);
+            }
+            setToken(response.data.token);
+            
             //console.log(response.data.token)
             // commit('SET_USER_NAME', data.userName)
             // commit('SET_CODE', data.userCode)
             // commit('SET_TOKEN', data.token)
-            commit('SET_USER_INFO', data.userInfo)
-            commit('SET_USER_TYPE',data.userInfo[0].AUTHENTICATION_TYPE)
-            commit('SET_PROJLIST', data.projectInfo)
-            commit('SET_USER_ID',data.userInfo[0].USER_ID)
-            setToken(response.data.token)
             //this.$store.dispatch('GetUserMsg')
             resolve(response)
           } else {
@@ -202,7 +215,7 @@ const user = {
             const data = response.data
             commit('SET_MSGINFO', data.items)
             commit('SET_NOREADCOUNT', data.noReadCount)
-            commit('SET_TOTAL',data.total)
+            commit('SET_TOTAL', data.total)
             //this.$store.dispatch('GetUserMsg')
             resolve(response)
           } else {

@@ -16,7 +16,7 @@
                                         公告
                                         <div class="headerbutton">
                                             <el-button type="primary" size="mini" @click="gotonotice"> 查看更多</el-button>
-                                            <!-- <el-button type="primary" size="mini" @click="test"> 全局数据展示</el-button> -->
+                                            <el-button type="primary" size="mini" @click="test"> 全局数据展示</el-button> 
                                         </div>
                                     </div>
                                 </el-col>

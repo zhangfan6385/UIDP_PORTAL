@@ -368,7 +368,7 @@ export default {
             updateLookTimes(this.delCardList);
         },
         getUserType() {
-            this.userType = this.$store.state.user.usertype;
+            this.userType = this.$store.state.user.roleLv;
         }
     },
     filters: {

@@ -11,7 +11,7 @@
                         <svg-icon icon-class="user" />
                     </span>
                     <el-input name="username" type="text" v-model="loginForm.username" autoComplete="on" placeholder="账号" />
-                    
+
                 </el-form-item>
                 <el-form-item prop="password">
                     <span class="svg-container">
@@ -33,7 +33,7 @@
 <script>
 import { loginByUsername } from "@/app_src/api/login";
 import waves from "@/app_src/directive/waves"; // 水波纹指令
-import { Message } from 'element-ui'
+import { Message } from "element-ui";
 export default {
     data() {
         const validatePassword = (rule, value, callback) => {
@@ -112,23 +112,29 @@ export default {
                     this.$store
                         .dispatch("LoginByUsername", this.loginForm)
                         .then(response => {
-                            if (
-                                response.data.code === 2000 &&
-                                response.data.projectInfo.length != 0
-                            ) {
-                                this.$store.state.user.dialogProjectInfoVisible = true;
-                                this.msgform.userId = this.$store.state.user.userinfo[0].USER_ID;
-                                this.$store.dispatch(
-                                    "GetUserMsg",
-                                    this.msgform
-                                );
-                                this.loading = false;
+                            if (response.data.code === 2000) {
+                                console.log(1);
+                                if (response.data.roleLevel === 1) {
+                                    this.loading = false;
+                                    this.dialogLoginVisible=false;
+                                    this.$store.state.user.dialogLoginVisible = false;
+                                } else if (
+                                    response.data.projectInfo.length != 0
+                                ) {
+                                    this.$store.state.user.dialogProjectInfoVisible = true;
+                                    this.msgform.userId = this.$store.state.user.userinfo[0].USER_ID;
+                                    this.$store.dispatch(
+                                        "GetUserMsg",
+                                        this.msgform
+                                    );
+                                    this.loading = false;
+                                }
                             } else {
                                 this.listLoading = false;
                                 this.$notify({
                                     position: "bottom-right",
                                     title: "失败",
-                                    message:"登录失败",
+                                    message: "登录失败",
                                     type: "error",
                                     duration: 2000
                                 });
@@ -144,7 +150,7 @@ export default {
                     return false;
                 }
             });
-        },
+        }
         // handleLogin() {
         //     this.loading = true;
         //     if ( this.$store.state.user.length != 0) {
@@ -166,7 +172,7 @@ export default {
         getLoginVisible(data) {
             this.dialogLoginVisible = data;
         }
-    },
+    }
 };
 </script>
 
