@@ -96,7 +96,9 @@
                         <el-form ref="commit" :model="commit" label-width="80px" id="commit">
                             <el-form-item :label="type" :rules="rules.content">
                                 <div class="editor">
-                                    <quill-editor v-model="commit.CONTENT" ref="myQuillEditor" :options="commit.editorOption" @ready="onEditorReady($event)" height="500px"></quill-editor>
+                                    <!-- <quill-editor v-model="commit.CONTENT" ref="myQuillEditor" :options="commit.editorOption" @ready="onEditorReady($event)" height="500px"></quill-editor> -->
+                                    <quillEditor @listenToEditorChange="EditorChange" v-bind:content="commit.CONTENT" v-bind:apiUrl="urlPicUpload">
+                                    </quillEditor>
                                 </div>
                                 <el-form-item>
                                     <el-button type="primary" @click="submit">确认提交</el-button>
@@ -121,11 +123,13 @@ import {
     delcard,
     updateLookTimes
 } from "@/app_src/api/community";
-import { quillEditor } from "vue-quill-editor";
+//import { quillEditor } from "vue-quill-editor";
 import { parseTime } from "@/app_src/utils/index.js";
+import quillEditor from "@/app_src/components/QuillEditor";
 export default {
     data() {
         return {
+            urlPicUpload: process.env.BASE_API + "home/uploadCommunityPic",
             cardcontent: {},
             type: "",
             userType: "",
@@ -162,7 +166,13 @@ export default {
             }
         };
     },
+     components: {
+        quillEditor
+    },
     methods: {
+        EditorChange(data){
+            this.commit.CONTENT=data.editorContent
+        },
         //获取帖子内容
         getCardDetail() {
             this.queryList.POST_ID = this.$route.params.id;
@@ -248,6 +258,16 @@ export default {
             }
         },
         onEditorReady(editor) {},
+          resetTemp(){  
+             this.commit={
+                POST_ID: "",
+                CONTENT: "",
+                FROM_UID: "", //当前登录人ID
+                //TO_UID:'',//主贴ID
+                IS_RIGHT_ANSWER: 0,
+                BONUS_POINTS: 0
+            }
+        },
         submit() {
             if (this.$store.state.user.userID === null) {
                 this.$store.state.user.dialogLoginVisible = true;
@@ -266,6 +286,7 @@ export default {
                         });
                         this.commit.CONTENT = "";
                         this.getCardDetail();
+                        this.resetTemp();
                     } else {
                         this.$notify({
                             position: "bottom-right",
@@ -354,9 +375,9 @@ export default {
         parseTime
     },
     computed: {
-        editor() {
-            return this.$refs.myQuillEditor.quill;
-        },
+        // editor() {
+        //     return this.$refs.myQuillEditor.quill;
+        // },
         getCurrentUserId() {
             return this.$store.state.user.userID;
         }

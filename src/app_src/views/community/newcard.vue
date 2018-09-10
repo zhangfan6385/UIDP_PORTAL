@@ -37,8 +37,10 @@
                             <el-form-item label="详细" :rules="rules.POST_CONTENT">
 
                                 <div class="editor">
-                                    <quill-editor v-model="newcard.POST_CONTENT" ref="myQuillEditor" :options="newcard.editorOption" @ready="onEditorReady($event)" @blur="onEditorBlur($event)" @focus="onEditorFocus($event)" height="500px">
-                                    </quill-editor>
+                                    <!-- <quill-editor v-model="newcard.POST_CONTENT" ref="myQuillEditor" :options="newcard.editorOption" @ready="onEditorReady($event)" @blur="onEditorBlur($event)" @focus="onEditorFocus($event)" height="500px">
+                                    </quill-editor> -->
+                                    <quillEditor @listenToEditorChange="EditorChange" v-bind:content="newcard.POST_CONTENT" v-bind:apiUrl="urlPicUpload">
+                                    </quillEditor>
                                 </div>
 
                                 <el-form-item>
@@ -57,11 +59,13 @@
 
 
 <script>
-import { quillEditor } from "vue-quill-editor";
+// import { quillEditor } from "vue-quill-editor";
+import quillEditor from "@/app_src/components/QuillEditor";
 import { createCard } from "@/app_src/api/community";
 export default {
     data() {
         return {
+            urlPicUpload: process.env.BASE_API + "home/uploadCommunityPic",
             newcard: {
                 USER_ID: "",
                 USER_NAME: "",
@@ -101,8 +105,26 @@ export default {
             }
         };
     },
+      components: {
+        quillEditor
+    },
     methods: {
-        onEditorReady(editor) {},
+        // onEditorReady(editor) {},
+          EditorChange(data){
+            this.newcard.POST_CONTENT=data.editorContent
+        },
+          resetTemp(){  
+             this.newcard={
+                USER_ID: "",
+                USER_NAME: "",
+                TITLE_NAME: "",
+                POST_TYPE: "",
+                POST_CONTENT: "",
+                //editorOption: {},
+                SCORE_POINT: 0,
+                CREATER: ""
+            }
+        },
         onSubmit() {
             //提交
             //this.$refs.infoForm.validate，这是表单验证
@@ -122,6 +144,7 @@ export default {
                                     duration: 2000
                                 });
                                 this.$router.push("/community/main/index");
+                                this.resetTemp()
                             } else {
                                 this.$notify({
                                     position: "bottom-right",
@@ -140,9 +163,9 @@ export default {
         }
     },
     computed: {
-        editor() {
-            return this.$refs.myQuillEditor.quill;
-        }
+        // editor() {
+        //     return this.$refs.myQuillEditor.quill;
+        // }
     },
     components: {
         quillEditor
