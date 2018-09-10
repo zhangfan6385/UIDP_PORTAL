@@ -380,12 +380,20 @@ export default {
         // },
         getCurrentUserId() {
             return this.$store.state.user.userID;
+        },
+        getCurrentRoleLv(){
+            return this.$store.state.user.roleLv
         }
     },
     watch: {
         getCurrentUserId(data) {
             if (data != null) {
                 this.getCardDetail();
+            }
+        },
+        getCurrentRoleLv(data){
+            if(data!=null){
+                this.userType=data
             }
         }
     },
