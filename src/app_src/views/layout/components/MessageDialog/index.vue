@@ -54,7 +54,7 @@ export default {
     data() {
         return {
             messagetipVisibile: false,
-            total:'',
+            total:0,
             messageList: [],
             checkList: {
                 RECORD_ID: ""
@@ -105,6 +105,14 @@ export default {
             this.msgform.page = val;
             this.msgform.userId = this.$store.state.user.userinfo[0].USER_ID;
             this.$store.dispatch("GetUserMsg", this.msgform);
+        },
+        getMesList(){
+            if(this.getMesListChange!=null){
+                this.messageList=this.getMesListChange;
+                this.total=this.getTotal;
+            }else{
+                this.messageList=[];
+            }
         }
     },
     filters: {
@@ -139,7 +147,7 @@ export default {
         }
     },
     mounted() {
-        //this.getMesList();
+        this.getMesList();
     }
 };
 </script>

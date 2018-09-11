@@ -108,27 +108,19 @@ export default {
     },
     methods: {
         getList() {
-            // this.listLoading = true
-            //   getProjectInfo(this.listQuery).then(response => {
-            //     if (response.data.code === 2000) {
-            //       this.list = response.data.items
-            //       this.total = response.data.total
-            //       this.listLoading = false
-            //     } else {
-            //       this.listLoading = false
-            //       this.$notify({   position: 'bottom-right',
-            //         title: '失败',
-            //         message: response.data.message,
-            //         type: 'error',
-            //         duration: 2000
-            //       })
-            //     }
-            //   })
+            if(this.getProjList!=null){
+                this.list=this.getProjList;
+            }
+            else{
+                this.list=[];
+            }
         },
         handleProject(row) {
             this.temp = Object.assign({}, row); // copy obj
-            this.$store.state.user.currentProjID = this.temp.PROJECT_ID;
-            this.$store.state.user.currentProjName = this.temp.PROJECT_NAME;
+            //this.$store.state.user.currentProjID = this.temp.PROJECT_ID;
+            //this.$store.state.user.currentProjName = this.temp.PROJECT_NAME;
+            this.$store.dispatch('setCurrentProjID',this.temp.PROJECT_ID);
+            this.$store.dispatch('setCurrentProjName',this.temp.PROJECT_NAME);
             this.$store.state.user.dialogLoginVisible = false;
             this.$store.state.user.dialogProjectInfoVisible = false;
         },
@@ -159,7 +151,9 @@ export default {
         //     // console.log(this.list)
         // }
     },
-    created() {}
+    mounted() {
+        this.getList();
+    },
 };
 </script>
 <style lang="scss" >

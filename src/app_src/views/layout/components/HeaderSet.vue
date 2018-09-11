@@ -48,7 +48,7 @@ export default {
     data() {
         return {
             isVisiable: true,
-            total:'',
+            total:0,
             list: {},
             userID: ""
         };
@@ -79,7 +79,8 @@ export default {
         getcontent() {
             alert("content");
         },
-        logout() {
+        logout(){
+            window.sessionStorage.clear();
             this.$store.dispatch("LogOut").then(() => {
                 location.reload(); // In order to re-instantiate the vue-router object to avoid bugs
             });
@@ -111,7 +112,15 @@ export default {
             // });
         },
         getMesCount() {
-            this.total=this.$store.state.user.total;
+            this.total=parseInt(this.getMstCount);
+            console.log(this.total)
+        },
+        getVisable(){
+            if(this.getLoginVisible!=null){
+                this.isVisiable=false
+            }else{
+                this.isVisiable=true;
+            }
         }
     },
     computed: {
@@ -123,19 +132,20 @@ export default {
         }
     },
     watch: {
-        getLoginVisible(userid) {
-            if (userid === "") {
-                this.isVisiable = true;
-            } else {
-                this.isVisiable = false;
+        getLoginVisible(data) {
+            if(this.getLoginVisible!=null||data!=null){
+                this.isVisiable=false
+            }else{
+                this.isVisiable=true;
             }
         },
         getMstCount(data){
-            this.total=data;
+            this.total=parseInt(data);
         }
     },
     mounted() {
         this.getMesCount();
+        this.getVisable();
     },
 };
 </script>

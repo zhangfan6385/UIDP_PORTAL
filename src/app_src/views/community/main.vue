@@ -1,21 +1,21 @@
 <template>
-  <div id="community" class="community">
-    <el-row :gutter="20" type="flex">
-      <el-col :span="2"></el-col>
-      <el-col :span="20">
+    <div id="community" class="community">
+        <el-row :gutter="20" type="flex">
+            <el-col :span="2"></el-col>
+            <el-col :span="20">
 
-        <div class="headerItem">
-          <!-- <el-button type="primary" plain>我的积分:{{score}}</el-button> -->
-          <el-button @click="goIndex" plain>社区首页</el-button>
-          <el-button type="success" plain @click="goToMycard" :disabled="ButtonState">我的帖子</el-button>
-          <el-button type="info" plain @click="goToCollection" :disabled="ButtonState">我的收藏</el-button>
-          <el-button type="warning" plain @click="newCard">发布帖子</el-button>
-        </div>
+                <div class="headerItem">
+                    <!-- <el-button type="primary" plain>我的积分:{{score}}</el-button> -->
+                    <el-button @click="goIndex" plain>社区首页</el-button>
+                    <el-button type="success" plain @click="goToMycard" :disabled="ButtonState">我的帖子</el-button>
+                    <el-button type="info" plain @click="goToCollection" :disabled="ButtonState">我的收藏</el-button>
+                    <el-button type="warning" plain @click="newCard">发布帖子</el-button>
+                </div>
 
-      </el-col>
-    </el-row>
-    <router-view></router-view>
-  </div>
+            </el-col>
+        </el-row>
+        <router-view></router-view>
+    </div>
 </template>
 
 
@@ -25,7 +25,7 @@ export default {
     data() {
         return {
             score: "1000",
-            ButtonState:true
+            ButtonState: true
         };
     },
     methods: {
@@ -40,6 +40,13 @@ export default {
         },
         newCard() {
             this.$router.push({ path: "/community/main/newcard" });
+        },
+        getVisable(){
+            if(this.getUserId!=null){
+                this.ButtonState = false;
+            }else{
+                this.ButtonState = true;
+            }
         }
     },
     computed: {
@@ -47,15 +54,14 @@ export default {
             return this.$store.state.user.userID;
         }
     },
-    watch:{
-      getUserId(val){
-        if(val===null){
-          this.ButtonState=true;
-        }else{
-          this.ButtonState=false;
+    watch: {
+        getUserId(val) {
+            this.ButtonState = false;
         }
-      }
-    }
+    },
+    mounted() {
+        this.getVisable();
+    },
 };
 </script>
 

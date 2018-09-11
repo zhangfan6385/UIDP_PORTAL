@@ -145,6 +145,7 @@ export default {
                 COMMENT_ID: null
             },
             delCardList: {
+                USER_ID:'',
                 POST_ID: ""
             },
             commit: {
@@ -311,6 +312,7 @@ export default {
                 cancelButtonText: "取消",
                 type: "warning"
             }).then(() => {
+                this.delCardList.USER_ID=this.$store.state.user.userID
                 this.delCardList.POST_ID = this.cardcontent.POST_ID;
                 delcard(this.delCardList).then(response => {
                     if (response.data.code === 2000) {
@@ -340,6 +342,7 @@ export default {
                 cancelButtonText: "取消",
                 type: "warning"
             }).then(() => {
+                this.delCardList.USER_ID=this.$store.state.user.userID
                 this.delComentList.COMMENT_ID = data.COMMENT_ID;
                 delcommit(this.delComentList).then(response => {
                     if (response.data.code === 2000) {

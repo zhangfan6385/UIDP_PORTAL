@@ -113,10 +113,9 @@ export default {
                         .dispatch("LoginByUsername", this.loginForm)
                         .then(response => {
                             if (response.data.code === 2000) {
-                                console.log(1);
                                 if (response.data.roleLevel === 1) {
                                     this.loading = false;
-                                    this.dialogLoginVisible=false;
+                                    this.dialogLoginVisible = false;
                                     this.$store.state.user.dialogLoginVisible = false;
                                 } else if (
                                     response.data.projectInfo.length != 0
@@ -128,9 +127,18 @@ export default {
                                         this.msgform
                                     );
                                     this.loading = false;
+                                } else {
+                                    this.loading = false;
+                                    this.$notify({
+                                        position: "bottom-right",
+                                        title: "失败",
+                                        message: "您在本系统内没有项目！登录失败",
+                                        type: "error",
+                                        duration: 2000
+                                    });
                                 }
                             } else {
-                                this.listLoading = false;
+                                this.loading = false;
                                 this.$notify({
                                     position: "bottom-right",
                                     title: "失败",

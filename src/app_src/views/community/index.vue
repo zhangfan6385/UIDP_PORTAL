@@ -21,8 +21,8 @@
                                     </div>
                                 </template>
                             </el-table-column>
-                            <el-table-column label="主题" align="center" show-overflow-tooltip>
-                                <template slot-scope="scope">
+                            <el-table-column label="主题" header-align="center" show-overflow-tooltip>
+                                <template slot-scope="scope" >
                                     <span class="newstitle">{{scope.row.title}}</span>
                                 </template>
                             </el-table-column>
@@ -218,22 +218,11 @@ export default {
                 height: 13px;
             }
         }
-        .content {
-            padding-left: 20px;
-            margin-top: 15px;
-            margin-left: 25px;
-            margin-right: 20px;
-            font-size: 15px;
-            line-height: 20px;
-            color: rgb(53, 49, 49);
-            text-overflow: ellipsis;
-            overflow: hidden;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 3;
-        }
         .pageclass {
             text-align: center;
+        }
+        .newstitle{
+            text-align: left;
         }
         .newstitle:hover {
             text-decoration: underline;

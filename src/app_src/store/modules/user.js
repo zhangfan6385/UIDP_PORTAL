@@ -82,71 +82,17 @@ const user = {
     },
     SET_ROLE_LV:(state,roleLv)=>{
       state.roleLv=roleLv
+    },
+    SET_CURRENTPROJ_ID:(state,currentProjID)=>{
+      state.currentProjID=currentProjID
+    },
+    SET_CURRENTPROJNAME:(state,currentProjName)=>{
+      state.currentProjName=currentProjName
     }
-    // SET_INTRODUCTION: (state, introduction) => {
-    //   state.introduction = introduction
-    // },
-    // SET_SETTING: (state, setting) => {
-    //   state.setting = setting
-    // },
-    // SET_STATUS: (state, status) => {
-    //   state.status = status
-    // },
-    // SET_NAME: (state, name) => {
-    //   state.name = name
-    // },
-    // SET_AVATAR: (state, avatar) => {
-    //   state.avatar = avatar
-    // },
-    // SET_ROLES: (state, roles) => {
-    //   state.roles = roles
-    // },
-    // SET_ORG_LIST: (state, orgList) => {
-    //   state.orgList = orgList
-    // },
-    // SET_USER_LIST: (state, userList) => {
-    //   state.userList = userList
-    // },
-    // SET_SYS_CODE: (state, sysCode) => {
-    //   state.sysCode = sysCode
-    // },
-    // SET_SYS_NAME: (state, sysName) => {
-    //   state.sysName = sysName
-    // },
-    // SET_DEPART_CODE: (state, departCode) => {
-    //   state.departCode = departCode
-    // },
-    // SET_USER_ID: (state, userId) => {
-    //   state.userId = userId
-    // },
-    // SET_DEPART_NAME: (state, departName) => {
-    //   state.departName = departName
-    // },
-    // SET_USER_SEX: (state, userSex) => {
-    //   state.userSex = userSex
-    // },
-    // SET_ROLE_LEVEL: (state, roleLevel) => {
-    //   state.roleLevel = roleLevel
-    // },
 
   },
 
   actions: {
-    // setSysCode({ commit }, sysCode) {
-    //   commit('SET_SYS_CODE', sysCode)
-    // },
-    // setSysName({ commit }, sysName) {
-    //   commit('SET_SYS_NAME', sysName)
-    // },
-    // setDepartCode({ commit }, departCode) {
-    //   commit('SET_DEPART_CODE', departCode)
-    // },
-    // setDepartName({ commit }, departName) {
-    //   commit('SET_DEPART_NAME', departName)
-    // },
-    // setRoleLevel({ commit }, roleLevel) {
-    //   commit('SET_ROLE_LEVEL', roleLevel)
-    // },
     setUserInfo({ commit }, userinfo) {
       commit('SET_USER_INFO', userinfo)
     },
@@ -167,6 +113,12 @@ const user = {
     },
     setMsgInfo({ commit }, msginfo) {
       commit('SET_MSGINFO', msginfo)
+    },
+    setCurrentProjID({commit},currentProjID){
+      commit('SET_CURRENTPROJ_ID',currentProjID)
+    },
+    setCurrentProjName({commit},currentProjName){
+      commit('SET_CURRENTPROJNAME',currentProjName)
     },
 
 
