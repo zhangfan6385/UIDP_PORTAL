@@ -42,38 +42,7 @@ export default {
     data() {
         return {
             isvisibleProject: false,
-            list: [
-                // {
-                //     PROJECT_ID: "ASDF",
-                //     PROJECT_NAME: "大港油田项目",
-                //     PROJECT_CODE: "010100023",
-                //     CONTACT_PARTYA_NAME: "张三"
-                // },
-                // {
-                //     PROJECT_ID: "ASDF",
-                //     PROJECT_NAME: "大港油田项目",
-                //     PROJECT_CODE: "010100023",
-                //     CONTACT_PARTYA_NAME: "张三"
-                // },
-                // {
-                //     PROJECT_ID: "ASDF",
-                //     PROJECT_NAME: "大港油田项目",
-                //     PROJECT_CODE: "010100023",
-                //     CONTACT_PARTYA_NAME: "张三"
-                // },
-                // {
-                //     PROJECT_ID: "ASDF",
-                //     PROJECT_NAME: "大港油田项目",
-                //     PROJECT_CODE: "010100023",
-                //     CONTACT_PARTYA_NAME: "张三"
-                // },
-                // {
-                //     PROJECT_ID: "ASDF",
-                //     PROJECT_NAME: "大港油田项目",
-                //     PROJECT_CODE: "010100023",
-                //     CONTACT_PARTYA_NAME: "张三"
-                // }
-            ],
+            list: [],
             temp: {
                 PROJECT_ID: "",
                 PROJECT_NAME: "",
@@ -100,6 +69,7 @@ export default {
     },
     watch: {
         getProjectVisible(data) {
+            console.log(1)
             this.isvisibleProject = data;
         },
         getProjList(data) {
@@ -108,20 +78,14 @@ export default {
     },
     methods: {
         getList() {
-            if(this.getProjList!=null){
-                this.list=this.getProjList;
-            }
-            else{
-                this.list=[];
-            }
+            this.list=this.getProjList
+            console.log(this.isvisibleProject)
         },
         handleProject(row) {
             this.temp = Object.assign({}, row); // copy obj
-            //this.$store.state.user.currentProjID = this.temp.PROJECT_ID;
-            //this.$store.state.user.currentProjName = this.temp.PROJECT_NAME;
             this.$store.dispatch('setCurrentProjID',this.temp.PROJECT_ID);
             this.$store.dispatch('setCurrentProjName',this.temp.PROJECT_NAME);
-            this.$store.state.user.dialogLoginVisible = false;
+            this.$store.dispatch('setdialogProjectInfoVisible',false);
             this.$store.state.user.dialogProjectInfoVisible = false;
         },
         handleSizeChange(val) {

@@ -88,6 +88,9 @@ const user = {
     },
     SET_CURRENTPROJNAME:(state,currentProjName)=>{
       state.currentProjName=currentProjName
+    },
+    SET_DIALOGPROJECTINFOVISIBLE:(state,dialogProjectInfoVisible)=>{
+      state.dialogProjectInfoVisible=dialogProjectInfoVisible
     }
 
   },
@@ -119,6 +122,9 @@ const user = {
     },
     setCurrentProjName({commit},currentProjName){
       commit('SET_CURRENTPROJNAME',currentProjName)
+    },
+    setdialogProjectInfoVisible({commit},dialogProjectInfoVisible){
+      commit('SET_DIALOGPROJECTINFOVISIBLE',dialogProjectInfoVisible)
     },
 
 

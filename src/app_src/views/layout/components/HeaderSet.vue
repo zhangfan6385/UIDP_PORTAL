@@ -80,7 +80,7 @@ export default {
             alert("content");
         },
         logout(){
-            window.sessionStorage.clear();
+            this.$store.dispatch('setUserId',null);
             this.$store.dispatch("LogOut").then(() => {
                 location.reload(); // In order to re-instantiate the vue-router object to avoid bugs
             });
