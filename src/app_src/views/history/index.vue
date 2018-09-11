@@ -138,7 +138,7 @@
                         </el-form-item>
                     </el-form>
                     <div slot="footer" class="dialog-footer">
-                        <el-button @click="cencel">取 消</el-button>
+                        <el-button @click="cencel()">取 消</el-button>
                         <el-button type="primary" @click="submit">提 交</el-button>
                     </div>
                 </el-dialog>
@@ -246,7 +246,6 @@ export default {
         apply(data) {
             if (this.$store.state.user.userID != null) {
                 this.dialogFormVisible = true;
-                //console.log(data.PLAT_ID);
                 this.form.APPLY_RESOURCE_ID = data.PLAT_ID;
                 this.getProjInfo();
             } else {
@@ -276,7 +275,6 @@ export default {
                             });
                         }
                     });
-                    this.resetForm();
                 }
             });
         },
@@ -351,14 +349,14 @@ export default {
             this.histroyEdition = this.list1.items;
         }
     },
-    computed:{
-        getCurrentProjId(){
+    computed: {
+        getCurrentProjId() {
             return this.$store.state.user.currentProjID;
         }
     },
-    watch:{
-        getCurrentProjId(data){
-            if(data!=null){
+    watch: {
+        getCurrentProjId(data) {
+            if (data != null) {
                 this.getHistoryList();
             }
         }
