@@ -5,7 +5,7 @@
             <el-col :span="20">
                 <div class="mainform">
                     <el-card>
-                        <el-form ref="newcard" :model="newcard" label-width="80px">
+                        <el-form ref="newcard" :model="newcard" label-width="80px" :rules="rules">
                             <el-form-item label="标题" prop="TITLE_NAME" :rules="rules.TITLE_NAME">
                                 <el-input v-model="newcard.TITLE_NAME"></el-input>
                             </el-form-item>
@@ -21,14 +21,14 @@
 
                                 <el-col :span="6">
                                     <div v-if="this.newcard.POST_TYPE==='3'">
-                                        <el-form-item label="所需积分" prop="SCORE_POINT" :rules="rules.SCORE_POINT">
-                                            <el-input v-model="newcard.SCORE_POINT"></el-input>
+                                        <el-form-item label="所需积分" prop="SCORE_POINT" >
+                                            <el-input v-model.number="newcard.SCORE_POINT"></el-input>
                                         </el-form-item>
                                     </div>
 
                                     <div v-else-if="this.newcard.POST_TYPE==='1'">
-                                        <el-form-item label="悬赏积分" prop="SCORE_POINT" :rules="rules.score">
-                                            <el-input v-model="newcard.SCORE_POINT"></el-input>
+                                        <el-form-item label="悬赏积分" prop="SCORE_POINT" >
+                                            <el-input v-model.number="newcard.SCORE_POINT"></el-input>
                                         </el-form-item>
                                     </div>
                                 </el-col>
@@ -89,11 +89,7 @@ export default {
                         message: "分数不能为空！",
                         trigger: "blur"
                     },
-                    {
-                        type: "number",
-                        message: "必须为整数！",
-                        trigger: "blur,change"
-                    }
+                    { type: 'number', message: '分值必须为数字值'}
                 ],
                 POST_CONTENT: [
                     {
