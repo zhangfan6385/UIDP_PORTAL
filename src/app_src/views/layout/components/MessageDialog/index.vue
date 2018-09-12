@@ -54,7 +54,7 @@ export default {
     data() {
         return {
             messagetipVisibile: false,
-            total:0,
+            total: 0,
             messageList: [],
             checkList: {
                 RECORD_ID: ""
@@ -69,21 +69,15 @@ export default {
     methods: {
         close() {
             this.$store.state.user.messageDialogVisible = false;
+            this.msgform.userId = this.$store.state.user.userinfo[0].USER_ID;
+            this.$store.dispatch("GetUserMsg", this.msgform);
         },
         sign(row) {
             if (row.RECORD_ISREAD === 0) {
                 this.checkList.RECORD_ID = row.RECORD_ID;
                 fetchCheckInfo(this.checkList).then(response => {
                     if (response.data.code === 2000) {
-                        this.$notify({
-                            position: "bottom-right",
-                            title: "成功",
-                            message: response.data.message,
-                            type: "succes",
-                            duration: 2000
-                        });
-                        this.msgform.userId = this.$store.state.user.userinfo[0].USER_ID;
-                        this.$store.dispatch("GetUserMsg", this.msgform);
+                        row.RECORD_ISREAD = 1;
                     } else {
                         this.$notify({
                             position: "bottom-right",
@@ -106,12 +100,12 @@ export default {
             this.msgform.userId = this.$store.state.user.userinfo[0].USER_ID;
             this.$store.dispatch("GetUserMsg", this.msgform);
         },
-        getMesList(){
-            if(this.getMesListChange!=null){
-                this.messageList=this.getMesListChange;
-                this.total=this.getTotal;
-            }else{
-                this.messageList=[];
+        getMesList() {
+            if (this.getMesListChange != null) {
+                this.messageList = this.getMesListChange;
+                this.total = this.getTotal;
+            } else {
+                this.messageList = [];
             }
         }
     },
@@ -140,7 +134,7 @@ export default {
             this.messageList = this.$store.state.user.msgInfo;
         },
         getTotal(data) {
-            this.total=data
+            this.total = data;
         },
         getMesVisiblie(data) {
             this.messagetipVisibile = data;
@@ -163,7 +157,7 @@ export default {
         color: greenyellow;
         font-weight: bold;
     }
-    .page{
+    .page {
         text-align: center;
     }
 }
