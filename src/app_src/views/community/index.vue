@@ -22,7 +22,7 @@
                                 </template>
                             </el-table-column>
                             <el-table-column label="主题" header-align="center" show-overflow-tooltip>
-                                <template slot-scope="scope" >
+                                <template slot-scope="scope">
                                     <span class="newstitle">{{scope.row.title}}</span>
                                 </template>
                             </el-table-column>
@@ -65,7 +65,12 @@
 
 
 <script>
-import { fetchCommunityList, getTop } from "@/app_src/api/community";
+import {
+    fetchCommunityList,
+    getTop,
+    getCardVisable,
+    payScore
+} from "@/app_src/api/community";
 export default {
     data() {
         return {
@@ -82,6 +87,12 @@ export default {
                 TITLE_NAME: null,
                 BEGIN_SEND_DATE: null,
                 END_SEND_DATE: null
+            },
+            userQuery: {
+                POST_ID: "",
+                POST_USER_ID: "",
+                USER_ID: "",
+                SCORE: ""
             },
             total: null
         };
@@ -109,7 +120,80 @@ export default {
         },
         getcontent(row, event, column) {
             let id = row.id.toString();
-            this.$router.push({ path: "/community/main/newscontent/" + id });
+            if (row.type === 1) {
+                if (row.point === 0) {
+                    this.$router.push({
+                        path: "/community/main/newscontent/" + id
+                    });
+                } else if (this.getUserId === null) {
+                    this.$alert("您还未登录,无法查看经验分享！", "登录提示", {
+                        confirmButtonText: "确定"
+                    });
+                } else if (this.getUserLv === 2) {
+                    this.$router.push({
+                        path: "/community/main/newscontent/" + id
+                    });
+                } else if (this.getUserId === row.writterID) {
+                    this.$router.push({
+                        path: "/community/main/newscontent/" + id
+                    });
+                } else if (this.getUserScore < row.point) {
+                    this.$alert("您的积分不足！无法查看", "积分提示", {
+                        confirmButtonText: "确定"
+                    });
+                } else {
+                    this.userQuery.POST_ID = row.id;
+                    this.userQuery.POST_USER_ID = row.writterID;
+                    this.userQuery.SCORE = row.point;
+                    this.userQuery.USER_ID = this.getUserId;
+                    getCardVisable(this.userQuery).then(response => {
+                        if (response.data === 0) {
+                            this.$confirm(
+                                "您确定花费" +
+                                    row.point +
+                                    "分查看标题为" +
+                                    row.title +
+                                    "的帖子吗?",
+                                "帖子查看提示",
+                                {
+                                    confirmButtonText: "确定",
+                                    cancelButtonText: "取消",
+                                    type: "warning"
+                                }
+                            ).then(() => {
+                                payScore(this.userQuery).then(response => {
+                                    if (response.data.code === 2000) {
+                                        this.$message({
+                                            type: "success",
+                                            message: "扣除成功！"
+                                        });
+                                        //this.$sotre.state.user.userinfo[0].score -= row.point;
+                                        this.$router.push({
+                                            path:
+                                                "/community/main/newscontent/" +
+                                                id
+                                        });
+                                    }
+                                    else{
+                                         this.$message({
+                                            type: "error",
+                                            message: "网络错误，扣除失败！"
+                                        });
+                                    }
+                                });
+                            });
+                        } else {
+                            this.$router.push({
+                                path: "/community/main/newscontent/" + id
+                            });
+                        }
+                    });
+                }
+            } else {
+                this.$router.push({
+                    path: "/community/main/newscontent/" + id
+                });
+            }
         },
         //获取帖子列表
         getCommuntityList() {
@@ -124,6 +208,7 @@ export default {
                         );
                         this.newslist.push({
                             id: response.data.items[i].POST_ID,
+                            writterID: response.data.items[i].USER_ID,
                             writter: response.data.items[i].CREATER,
                             type: response.data.items[i].POST_TYPE,
                             title: response.data.items[i].TITLE_NAME,
@@ -131,7 +216,8 @@ export default {
                             offer: response.data.items[i].SCORE_POINT,
                             commentNumber: response.data.items[i].COMMONT_COUNT,
                             readNumber: response.data.items[i].BROWSE_NUM,
-                            content: response.data.items[i].POST_CONTENT
+                            content: response.data.items[i].POST_CONTENT,
+                            point: response.data.items[i].SCORE_POINT
                         });
                     }
                 } else {
@@ -165,6 +251,20 @@ export default {
     mounted() {
         this.getCommuntityList();
         this.getTopList();
+    },
+    computed: {
+        getUserId() {
+            return this.$store.state.user.userID;
+        },
+        getUserLv() {
+            return this.$store.state.user.roleLv;
+        },
+        getUserScore() {
+            return this.$store.state.user.SCORE;
+        }
+        // getUserInfo() {
+        //     return this.$store.state.user.user.userinfo[0];
+        // }
     }
 };
 </script>
@@ -221,7 +321,7 @@ export default {
         .pageclass {
             text-align: center;
         }
-        .newstitle{
+        .newstitle {
             text-align: left;
         }
         .newstitle:hover {

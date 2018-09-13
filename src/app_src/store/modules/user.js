@@ -8,6 +8,7 @@ const user = {
     //userInfo
     userID: null,
     roleLv:'',
+    SCORE:'',
     usertype: null,
     status: '',
     code: '',
@@ -91,6 +92,9 @@ const user = {
     },
     SET_DIALOGPROJECTINFOVISIBLE:(state,dialogProjectInfoVisible)=>{
       state.dialogProjectInfoVisible=dialogProjectInfoVisible
+    },
+    SET_SCORE:(state,SCORE)=>{
+      state.SCORE=SCORE
     }
 
   },
@@ -126,6 +130,9 @@ const user = {
     setdialogProjectInfoVisible({commit},dialogProjectInfoVisible){
       commit('SET_DIALOGPROJECTINFOVISIBLE',dialogProjectInfoVisible)
     },
+    setScore({commit},SCORE){
+      commit('SET_SCORE',SCORE)
+    },
 
 
 
@@ -144,10 +151,11 @@ const user = {
             }
             else {
               commit('SET_USER_INFO', data.userInfo)
-              commit('SET_USER_TYPE', data.userInfo[0].AUTHENTICATION_TYPE)
+              //commit('SET_USER_TYPE', data.userInfo[0].AUTHENTICATION_TYPE)
               commit('SET_PROJLIST', data.projectInfo)
               commit('SET_USER_ID', data.userInfo[0].USER_ID)
-              commit('SET_ROLE_LV',response.data.roleLevel);
+              commit('SET_SCORE',data.userInfo[0].SCORE)
+              commit('SET_ROLE_LV',response.data.roleLevel)
             }
             setToken(response.data.token);
             

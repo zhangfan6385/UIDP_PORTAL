@@ -52,7 +52,20 @@
                         </div>
                     </el-card>
                     <!--回复-->
-                    <el-card v-for="(commit,key) in cardcontent.children" :key="key">
+                    <el-card v-for="(commit,key) in commentlist" :key="key">
+                        <el-row v-if="cardcontent.USER_ID===getCurrentUserId&&cardcontent.POST_TYPE===3">
+                            <el-col :span="24">
+                                <div class="tieUp">
+                                    <el-form :model="commit" ref="score" :rules="rules">
+                                        <el-form-item prop="score">
+                                            <el-input placeholder="请输入满意积分" v-model.number="commit.BONUS_POINTS"></el-input>
+                                        </el-form-item>
+                                    </el-form>
+
+                                    <!-- <el-button type="info" size="mini" @click="tieUp(commit)">满意答案</el-button> -->
+                                </div>
+                            </el-col>
+                        </el-row>
                         <el-row>
                             <el-col :span="6">
                                 <div class="userhead">
@@ -93,21 +106,41 @@
                                 <el-button type="primary" @click="submit">提 交</el-button>
                             </el-form-item>
                         </el-form> -->
-                        <el-form ref="commit" :model="commit" label-width="80px" id="commit">
-                            <el-form-item :label="type" :rules="rules.content">
+                        <el-form ref="commit" :model="commit" label-width="80px" id="commit" :rules="rules">
+                            <el-form-item :label="type" prop="content">
                                 <div class="editor">
                                     <!-- <quill-editor v-model="commit.CONTENT" ref="myQuillEditor" :options="commit.editorOption" @ready="onEditorReady($event)" height="500px"></quill-editor> -->
                                     <quillEditor @listenToEditorChange="EditorChange" v-bind:content="commit.CONTENT" v-bind:apiUrl="urlPicUpload">
                                     </quillEditor>
                                 </div>
                                 <el-form-item>
-                                    <el-button type="primary" @click="submit">确认提交</el-button>
+                                    <div class="cardbutton"></div>
+                                    <el-button type="primary" @click="submit()">确认提交</el-button>
+                                    <el-button type="primary" @click="submitScore()">结贴</el-button>
                                 </el-form-item>
                             </el-form-item>
                         </el-form>
                     </el-card>
                 </div>
             </el-col>
+            <!-- <el-dialog :visible.sync="scoreVisble" title="积分分配" width="400px">
+                <el-form :model="scorelist" ref="scorelist" :rules="rules">
+                    <span>您即将把
+                        <span class="score">{{scorelist.SCORE}}</span>
+                        分配给回复者
+                        <span class="writter">{{writter}}</span>
+                        的人吗？</span>
+                    <el-form-item prop="score">
+                        <el-input v-model.number="scorelist.SCORE" placeholder="请输入积分">请输入分配积分</el-input>
+                    </el-form-item>
+                    <el-form-item>
+                        <div class="scoreButtton">
+                            <el-button type="primary" @click="submitScore">确认</el-button>
+                            <el-button type="primary" @click="scoreVisble=false">取消</el-button>
+                        </div>
+                    </el-form-item>
+                </el-form>
+            </el-dialog> -->
         </el-row>
     </div>
 </template>
@@ -121,7 +154,8 @@ import {
     commit,
     delcommit,
     delcard,
-    updateLookTimes
+    updateLookTimes,
+    delScore
 } from "@/app_src/api/community";
 //import { quillEditor } from "vue-quill-editor";
 import { parseTime } from "@/app_src/utils/index.js";
@@ -131,8 +165,12 @@ export default {
         return {
             urlPicUpload: process.env.BASE_API + "home/uploadCommunityPic",
             cardcontent: {},
+            commentlist: [],
             type: "",
             userType: "",
+            writter: "",
+            content: "",
+            scoreVisble: false,
             queryList: {
                 POST_ID: null,
                 USER_ID: null
@@ -145,7 +183,7 @@ export default {
                 COMMENT_ID: null
             },
             delCardList: {
-                USER_ID:'',
+                USER_ID: "",
                 POST_ID: ""
             },
             commit: {
@@ -156,6 +194,12 @@ export default {
                 IS_RIGHT_ANSWER: 0,
                 BONUS_POINTS: 0
             },
+            scorelist: {
+                SCORE: "",
+                //FROM_UID:'',
+                TO_UID: "",
+                POST_ID: ""
+            },
             rules: {
                 content: [
                     {
@@ -163,25 +207,37 @@ export default {
                         message: "请输入详细内容",
                         trigger: "blur"
                     }
+                ],
+                score: [
+                    {
+                        type: "number",
+                        message: "分值必须为数字值",
+                        trigger: "change"
+                    }
                 ]
             }
         };
     },
-     components: {
+    components: {
         quillEditor
     },
     methods: {
-        EditorChange(data){
-            this.commit.CONTENT=data.editorContent
+        EditorChange(data) {
+            this.commit.CONTENT = data.editorContent;
         },
         //获取帖子内容
         getCardDetail() {
             this.queryList.POST_ID = this.$route.params.id;
             this.queryList.USER_ID = this.$store.state.user.userID;
-            //this.queryList.USER_ID=1;
             getDetail(this.queryList).then(response => {
                 if (response.data.code === 2000) {
                     this.cardcontent = response.data.items;
+                    this.commentlist = response.data.items.children;
+                    for (
+                        let i = 0;
+                        i < this.cardcontent.children.length;
+                        i++
+                    ) {}
                     if (this.cardcontent.POST_TYPE === 3) {
                         this.type = "回复";
                     } else {
@@ -259,15 +315,15 @@ export default {
             }
         },
         onEditorReady(editor) {},
-          resetTemp(){  
-             this.commit={
+        resetTemp() {
+            this.commit = {
                 POST_ID: "",
                 CONTENT: "",
                 FROM_UID: "", //当前登录人ID
                 //TO_UID:'',//主贴ID
                 IS_RIGHT_ANSWER: 0,
                 BONUS_POINTS: 0
-            }
+            };
         },
         submit() {
             if (this.$store.state.user.userID === null) {
@@ -312,7 +368,7 @@ export default {
                 cancelButtonText: "取消",
                 type: "warning"
             }).then(() => {
-                this.delCardList.USER_ID=this.$store.state.user.userID
+                this.delCardList.USER_ID = this.$store.state.user.userID;
                 this.delCardList.POST_ID = this.cardcontent.POST_ID;
                 delcard(this.delCardList).then(response => {
                     if (response.data.code === 2000) {
@@ -342,7 +398,7 @@ export default {
                 cancelButtonText: "取消",
                 type: "warning"
             }).then(() => {
-                this.delCardList.USER_ID=this.$store.state.user.userID
+                this.delCardList.USER_ID = this.$store.state.user.userID;
                 this.delComentList.COMMENT_ID = data.COMMENT_ID;
                 delcommit(this.delComentList).then(response => {
                     if (response.data.code === 2000) {
@@ -372,6 +428,59 @@ export default {
         },
         getUserType() {
             this.userType = this.$store.state.user.roleLv;
+        },
+        tieUp(data) {
+            this.scoreVisble = true;
+            this.writter = data.USER_NAME;
+            this.content = data.CONTENT;
+            this.scorelist.TO_UID = data.USER_ID;
+            this.scorelist.POST_ID = this.cardcontent.POST_ID;
+        },
+        submitScore() {
+            let flag = true;
+            let num = 0;
+            for (let i = 0; i < this.$refs.score.length; i++) {
+                this.$refs.score[i].validate(valid => {
+                    flag = flag && valid;
+                });
+            }
+            if (flag) {
+                this.commentlist.forEach((item, key) => {
+                    num += parseInt(item.BONUS_POINTS);
+                });
+                if (num === 0) {
+                    let postlist1 = {
+                        POST_ID: this.cardcontent.POST_ID,
+                        SCORE_POINT: this.cardcontent.SCORE_POINT,
+                        USER_ID: this.cardcontent.USER_ID,
+                        children: []
+                    };
+                    delScore(postlist1).then(response => {
+                        if (response.data.code === 2000) {
+                            console.log("success");
+                        }
+                    });
+                } else if (num != this.cardcontent.SCORE_POINT) {
+                    this.$message({
+                        type: "error",
+                        message: "请输入符合当前帖子悬赏分数的分值"
+                    });
+                } else {
+                    let arr = this.commentlist;
+                    arr = arr.filter(t => t.BONUS_POINTS != 0);
+                    let postlist = {
+                        POST_ID: this.cardcontent.POST_ID,
+                        SCORE_POINT: this.cardcontent.SCORE_POINT,
+                        USER_ID: this.cardcontent.USER_ID,
+                        children: arr
+                    };
+                    delScore(postlist).then(response => {
+                        if (response.data.code === 2000) {
+                            console.log("success");
+                        }
+                    });
+                }
+            }
         }
     },
     filters: {
@@ -384,8 +493,11 @@ export default {
         getCurrentUserId() {
             return this.$store.state.user.userID;
         },
-        getCurrentRoleLv(){
-            return this.$store.state.user.roleLv
+        getCurrentRoleLv() {
+            return this.$store.state.user.roleLv;
+        },
+        getUserInfo() {
+            return this.$store.state.user.userinfo[0];
         }
     },
     watch: {
@@ -394,9 +506,9 @@ export default {
                 this.getCardDetail();
             }
         },
-        getCurrentRoleLv(data){
-            if(data!=null){
-                this.userType=data
+        getCurrentRoleLv(data) {
+            if (data != null) {
+                this.userType = data;
             }
         }
     },
@@ -435,6 +547,20 @@ export default {
             margin-bottom: 20px;
         }
     }
+    .tieUp {
+        float: right;
+    }
+    .score {
+        color: red;
+        font-weight: bold;
+    }
+    .scoreButtton {
+        float: right;
+    }
+    .writter {
+        color: blue;
+        font-weight: bold;
+    }
     .userhead {
         margin-top: 20px;
         text-align: center;
@@ -446,10 +572,10 @@ export default {
             margin-top: 20px;
         }
     }
-    .username{
+    .username {
         margin-top: 20px;
         font-weight: bold;
-        font-family: '微软雅黑';
+        font-family: "微软雅黑";
         font-size: 15px;
     }
     .commit {
@@ -484,8 +610,8 @@ export default {
     .post {
         margin-top: 20px;
     }
-    .editor {
-        min-height: 300px;
+    .cardbutton {
+        margin-top: 20px;
     }
 }
 </style>

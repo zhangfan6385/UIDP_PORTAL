@@ -255,11 +255,14 @@
 
 <script>
 import { fetchNoticeList } from "@/app_src/api/notice";
-import { fetchCommunityList } from "@/app_src/api/community";
+import { fetchAlldata } from "@/app_src/api/home";
+import {
+    fetchCommunityList,
+    getCardVisable,
+    payScore
+} from "@/app_src/api/community";
 //import { fetchSeverList } from "@/app_src/api/sever";
 //import { fetchSeverComponentList } from "@/app_src/api/severcomponent";
-import { fetchAlldata } from "@/app_src/api/home";
-
 export default {
     data() {
         return {
@@ -504,7 +507,79 @@ export default {
         },
         getcontent(row, event, column) {
             let id = row.id.toString();
-            this.$router.push({ path: "/community/main/newscontent/" + id });
+            if (row.type === 1) {
+                if (row.point === 0) {
+                    this.$router.push({
+                        path: "/community/main/newscontent/" + id
+                    });
+                } else if (this.getUserId === null) {
+                    this.$alert("您还未登录,无法查看经验分享！", "登录提示", {
+                        confirmButtonText: "确定"
+                    });
+                } else if (this.getUserLv === 2) {
+                    this.$router.push({
+                        path: "/community/main/newscontent/" + id
+                    });
+                } else if (this.getUserId === row.writterID) {
+                    this.$router.push({
+                        path: "/community/main/newscontent/" + id
+                    });
+                } else if (this.getUserScore < row.point) {
+                    this.$alert("您的积分不足！无法查看", "积分提示", {
+                        confirmButtonText: "确定"
+                    });
+                } else {
+                    this.userQuery.POST_ID = row.id;
+                    this.userQuery.POST_USER_ID = row.writterID;
+                    this.userQuery.SCORE = row.point;
+                    this.userQuery.USER_ID = this.getUserId;
+                    getCardVisable(this.userQuery).then(response => {
+                        if (response.data === 0) {
+                            this.$confirm(
+                                "您确定花费" +
+                                    row.point +
+                                    "分查看标题为" +
+                                    row.title +
+                                    "的帖子吗?",
+                                "帖子查看提示",
+                                {
+                                    confirmButtonText: "确定",
+                                    cancelButtonText: "取消",
+                                    type: "warning"
+                                }
+                            ).then(() => {
+                                payScore(this.userQuery).then(response => {
+                                    if (response.data.code === 2000) {
+                                        this.$message({
+                                            type: "success",
+                                            message: "扣除成功！"
+                                        });
+                                        //this.$sotre.state.user.userinfo[0].score -= row.point;
+                                        this.$router.push({
+                                            path:
+                                                "/community/main/newscontent/" +
+                                                id
+                                        });
+                                    } else {
+                                        this.$message({
+                                            type: "error",
+                                            message: "网络错误，扣除失败！"
+                                        });
+                                    }
+                                });
+                            });
+                        } else {
+                            this.$router.push({
+                                path: "/community/main/newscontent/" + id
+                            });
+                        }
+                    });
+                }
+            } else {
+                this.$router.push({
+                    path: "/community/main/newscontent/" + id
+                });
+            }
         },
         goToCommunity() {
             this.$router.push({ path: "/community" });
@@ -805,9 +880,9 @@ export default {
         test() {
             // console.log(this.$store.state.user.userinfo);
             // console.log(this.$store.state.user.userID);
-            // console.log(this.$store.state.user.currentProjID); 
+            // console.log(this.$store.state.user.currentProjID);
             // console.log(this.$store.state.user.currentProjName);
-            console.log(this.$store.state.user.projList)
+            console.log(this.$store.state.user.projList);
         }
     },
     mounted() {
@@ -818,6 +893,17 @@ export default {
     },
     created() {
         this.getSeverRank();
+    },
+    computed: {
+        getUserId() {
+            return this.$store.state.user.userID;
+        },
+        getUserLv() {
+            return this.$store.state.user.roleLv;
+        }
+        // getUserInfo() {
+        //     return this.$store.state.user.user.userinfo[0];
+        // }
     }
 };
 </script>

@@ -20,14 +20,14 @@
                                 <el-col :span="2"></el-col>
 
                                 <el-col :span="6">
-                                    <div v-if="this.newcard.POST_TYPE==='3'">
-                                        <el-form-item label="所需积分" prop="SCORE_POINT" >
+                                    <div v-if="this.newcard.POST_TYPE==='1'">
+                                        <el-form-item label="所需积分" prop="SCORE_POINT">
                                             <el-input v-model.number="newcard.SCORE_POINT"></el-input>
                                         </el-form-item>
                                     </div>
 
-                                    <div v-else-if="this.newcard.POST_TYPE==='1'">
-                                        <el-form-item label="悬赏积分" prop="SCORE_POINT" >
+                                    <div v-else-if="this.newcard.POST_TYPE==='3'">
+                                        <el-form-item label="悬赏积分" prop="SCORE_POINT">
                                             <el-input v-model.number="newcard.SCORE_POINT"></el-input>
                                         </el-form-item>
                                     </div>
@@ -89,7 +89,7 @@ export default {
                         message: "分数不能为空！",
                         trigger: "blur"
                     },
-                    { type: 'number', message: '分值必须为数字值'}
+                    { type: "number", message: "分值必须为数字值" }
                 ],
                 POST_CONTENT: [
                     {
@@ -101,16 +101,16 @@ export default {
             }
         };
     },
-      components: {
+    components: {
         quillEditor
     },
     methods: {
         // onEditorReady(editor) {},
-          EditorChange(data){
-            this.newcard.POST_CONTENT=data.editorContent
+        EditorChange(data) {
+            this.newcard.POST_CONTENT = data.editorContent;
         },
-          resetTemp(){  
-             this.newcard={
+        resetTemp() {
+            this.newcard = {
                 USER_ID: "",
                 USER_NAME: "",
                 TITLE_NAME: "",
@@ -119,46 +119,98 @@ export default {
                 //editorOption: {},
                 SCORE_POINT: 0,
                 CREATER: ""
-            }
+            };
         },
         onSubmit() {
             //提交
-            //this.$refs.infoForm.validate，这是表单验证
             if (this.$store.state.user.userID != null) {
-                this.newcard.USER_ID = this.$store.state.user.userID;
-                this.newcard.USER_NAME = this.$store.state.user.userinfo[0].USER_NAME;
-                this.newcard.CREATER = this.newcard.USER_NAME;
-                this.$refs.newcard.validate(valid => {
-                    if (valid) {
-                        createCard(this.newcard).then(response => {
-                            if (response.data.code === 2000) {
-                                this.$notify({
-                                    position: "bottom-right",
-                                    title: "成功",
-                                    message: response.data.message,
-                                    type: "success",
-                                    duration: 2000
-                                });
-                                this.$router.push("/community/main/index");
-                                this.resetTemp()
-                            } else {
-                                this.$notify({
-                                    position: "bottom-right",
-                                    title: "失败",
-                                    message: response.data.message,
-                                    type: "error",
-                                    duration: 2000
+                if (this.newcard.POST_TYPE === 3) {
+                    if (
+                        parseInt(this.getUserScore) >= this.newcard.SCORE_POINT
+                    ) {
+                        this.newcard.USER_ID = this.$store.state.user.userID;
+                        this.newcard.USER_NAME = this.$store.state.user.userinfo[0].USER_NAME;
+                        this.newcard.CREATER = this.newcard.USER_NAME;
+                        this.$refs.newcard.validate(valid => {
+                            if (valid) {
+                                createCard(this.newcard).then(response => {
+                                    if (response.data.code === 2000) {
+                                        this.$store.dispatch(
+                                            "setScore",
+                                            response.data.score
+                                        );
+                                        this.$notify({
+                                            position: "bottom-right",
+                                            title: "成功",
+                                            message: response.data.message,
+                                            type: "success",
+                                            duration: 2000
+                                        });
+                                        this.$router.push(
+                                            "/community/main/index"
+                                        );
+                                        this.resetTemp();
+                                    } else {
+                                        this.$notify({
+                                            position: "bottom-right",
+                                            title: "失败",
+                                            message: response.data.message,
+                                            type: "error",
+                                            duration: 2000
+                                        });
+                                    }
                                 });
                             }
                         });
+                    } else {
+                        this.$message({
+                            type: "error",
+                            message: "您的积分不足！请确认您的积分后继续发帖。"
+                        });
                     }
-                });
+                } else {
+                    this.newcard.USER_ID = this.$store.state.user.userID;
+                    this.newcard.USER_NAME = this.$store.state.user.userinfo[0].USER_NAME;
+                    this.newcard.CREATER = this.newcard.USER_NAME;
+                    this.$refs.newcard.validate(valid => {
+                        if (valid) {
+                            createCard(this.newcard).then(response => {
+                                if (response.data.code === 2000) {
+                                    this.$store.dispatch(
+                                        "setScore",
+                                        response.data.score
+                                    );
+                                    this.$notify({
+                                        position: "bottom-right",
+                                        title: "成功",
+                                        message: response.data.message,
+                                        type: "success",
+                                        duration: 2000
+                                    });
+                                    this.$router.push("/community/main/index");
+                                    this.resetTemp();
+                                } else {
+                                    this.$notify({
+                                        position: "bottom-right",
+                                        title: "失败",
+                                        message: response.data.message,
+                                        type: "error",
+                                        duration: 2000
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
             } else {
                 this.$store.state.user.dialogLoginVisible = true;
             }
         }
     },
     computed: {
+        getUserScore() {
+            return this.$store.state.user.SCORE;
+        }
         // editor() {
         //     return this.$refs.myQuillEditor.quill;
         // }

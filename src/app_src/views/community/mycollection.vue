@@ -131,6 +131,16 @@ export default {
     mounted() {
         this.getCollectionList();
         this.getUserInfo();
+    },
+    computed:{
+        getUserScore(){
+            return this.$store.state.user.SCORE
+        }
+    },
+    watch:{
+        getUserScore(data){
+            this.userinfo.SCORE=data
+        }
     }
 };
 </script>

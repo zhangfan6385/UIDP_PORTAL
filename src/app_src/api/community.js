@@ -105,5 +105,26 @@ export function updateLookTimes(data) {
         data
     })
 }
+export function delScore(data){
+    return request({
+        url:'CommunityPost/endPost',
+        method:'post',
+        data
+    }) 
+}
+export function getCardVisable(data){
+    return request({
+        url:'CommunityPost/getSharePower',
+        method:'post',
+        data
+    })
+}
+export function payScore(data){
+    return request({
+        url:'CommunityPost/payShare',
+        method:'post',
+        data
+    })
+}
 
 

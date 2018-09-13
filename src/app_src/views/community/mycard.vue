@@ -130,6 +130,16 @@ export default {
     mounted() {
         this.getUserInfo();
         this.getMyCard();
+    },
+    computed: {
+        getUserScore() {
+            return this.$store.state.user.SCORE;
+        }
+    },
+    watch: {
+        getUserScore(data) {
+            this.userinfo.SCORE = data;
+        }
     }
 };
 </script>
