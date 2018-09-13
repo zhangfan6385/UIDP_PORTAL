@@ -276,6 +276,12 @@ export default {
             severAllList: [],
             type: 0,
             showStatistics: false,
+            userQuery: {
+                POST_ID: "",
+                POST_USER_ID: "",
+                USER_ID: "",
+                SCORE: ""
+            },
             //柱状图数据
             option: {
                 title: {
@@ -640,11 +646,11 @@ export default {
                         this.newslist.push({
                             id: response.data.items[i].POST_ID,
                             writter: response.data.items[i].CREATER,
+                            writterID: response.data.items[i].USER_ID,
                             type: response.data.items[i].POST_TYPE,
                             title: response.data.items[i].TITLE_NAME,
                             upTime: time,
-                            readNumber: response.data.items[i].BROWSE_NUM,
-                            content: response.data.items[i].POST_CONTENT
+                            point: response.data.items[i].SCORE_POINT
                         });
                     }
                 } else {
@@ -900,6 +906,9 @@ export default {
         },
         getUserLv() {
             return this.$store.state.user.roleLv;
+        },
+        getUserScore() {
+            return this.$store.state.user.SCORE;
         }
         // getUserInfo() {
         //     return this.$store.state.user.user.userinfo[0];
