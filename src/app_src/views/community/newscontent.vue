@@ -71,7 +71,7 @@
                                 <div class="userhead">
                                     <img src="../../../app_src/imgs/userHead.png">
                                     <div class="logo">
-                                        <el-button type="primary" size="mini">{{key+2}}楼</el-button>
+                                        <el-button type="primary" size="mini">{{key+1}}楼</el-button>
                                         <div class="username">
                                             {{commit.USER_NAME}}
                                         </div>
@@ -107,15 +107,15 @@
                             </el-form-item>
                         </el-form> -->
                         <el-form ref="commit" :model="commit" label-width="80px" id="commit" :rules="rules">
-                            <el-form-item :label="type" prop="content">
+                            <el-form-item :label="type" prop="CONTENT">
                                 <div class="editor">
                                     <!-- <quill-editor v-model="commit.CONTENT" ref="myQuillEditor" :options="commit.editorOption" @ready="onEditorReady($event)" height="500px"></quill-editor> -->
-                                    <quillEditor @listenToEditorChange="EditorChange" v-bind:content="commit.CONTENT" v-bind:apiUrl="urlPicUpload">
+                                    <quillEditor @listenToEditorChange="EditorChange" v-model="commit.CONTENT" v-bind:apiUrl="urlPicUpload">
                                     </quillEditor>
                                 </div>
                                 <el-form-item>
                                     <div class="cardbutton"></div>
-                                    <el-button type="primary" @click="submit()">确认提交</el-button>
+                                    <el-button type="primary" @click="submit()" :loading="loading">确认提交</el-button>
                                     <el-button type="info" @click="submitScore()" v-if="cardcontent.USER_ID===getCurrentUserId&&cardcontent.POST_TYPE===3&&cardcontent.POST_STATUS===0">结贴</el-button>
                                 </el-form-item>
                             </el-form-item>
@@ -166,6 +166,7 @@ export default {
             urlPicUpload: process.env.BASE_API + "home/uploadCommunityPic",
             cardcontent: {},
             commentlist: [],
+            loading: false, //按钮等待
             type: "",
             userType: "",
             writter: "",
@@ -201,7 +202,7 @@ export default {
                 POST_ID: ""
             },
             rules: {
-                content: [
+                CONTENT: [
                     {
                         required: true,
                         message: "请输入详细内容",
@@ -323,44 +324,54 @@ export default {
         },
         onEditorReady(editor) {},
         resetTemp() {
-            this.commit = {
-                POST_ID: "",
-                CONTENT: "",
-                FROM_UID: "", //当前登录人ID
-                //TO_UID:'',//主贴ID
-                IS_RIGHT_ANSWER: 0,
-                BONUS_POINTS: 0
-            };
+            this.commit.CONTENT = "";
         },
         submit() {
             if (this.$store.state.user.userID === null) {
                 this.$store.state.user.dialogLoginVisible = true;
             } else {
-                this.commit.POST_ID = this.cardcontent.POST_ID;
-                this.commit.FROM_UID = this.$store.state.user.userID;
-                this.commit.TO_UID = this.cardcontent.USER_ID;
-                commit(this.commit).then(response => {
-                    if (response.data.code === 2000) {
-                        this.$notify({
-                            position: "bottom-right",
-                            title: "发表成功",
-                            message: response.data.message,
-                            type: "success",
-                            duration: 2000
-                        });
-                        this.commit.CONTENT = "";
-                        this.getCardDetail();
-                        this.resetTemp();
-                    } else {
-                        this.$notify({
-                            position: "bottom-right",
-                            title: "失败",
-                            message: response.data.message,
-                            type: "error",
-                            duration: 2000
-                        });
-                    }
-                });
+                if (
+                    this.commit.CONTENT === null ||
+                    this.commit.CONTENT === ""
+                ) {
+                    this.$message({
+                        type: "error",
+                        message: "请输入帖子内容！"
+                    });
+                } else {
+                    this.loading = true;
+                    this.commit.POST_ID = this.cardcontent.POST_ID;
+                    this.commit.FROM_UID = this.$store.state.user.userID;
+                    this.commit.TO_UID = this.cardcontent.USER_ID;
+                    commit(this.commit).then(response => {
+                        if (response.data.code === 2000) {
+                            this.$notify({
+                                position: "bottom-right",
+                                title: "发表成功",
+                                message: response.data.message,
+                                type: "success",
+                                duration: 2000
+                            });    
+                            this.commit.CONTENT = "";
+                            console.log(this.commit.CONTENT)
+                            this.$store.dispatch(
+                                "setScore",
+                                response.data.score
+                            );
+                            //this.resetTemp();
+                            this.getCardDetail();
+                        } else {
+                            this.$notify({
+                                position: "bottom-right",
+                                title: "失败",
+                                message: response.data.message,
+                                type: "error",
+                                duration: 2000
+                            });
+                        }
+                    });
+                    this.loading = false;
+                }
             }
         },
         goAnchor() {

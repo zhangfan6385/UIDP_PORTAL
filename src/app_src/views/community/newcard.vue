@@ -44,7 +44,7 @@
                                 </div>
 
                                 <el-form-item>
-                                    <el-button type="primary" @click="onSubmit">确认提交</el-button>
+                                    <el-button type="primary" @click="onSubmit" :loading="loading">确认提交</el-button>
                                 </el-form-item>
 
                             </el-form-item>
@@ -76,6 +76,7 @@ export default {
                 SCORE_POINT: 0,
                 CREATER: ""
             },
+            loading: false,
             rules: {
                 POST_TYPE: [
                     { required: true, message: "请输入类型", trigger: "blur" }
@@ -124,10 +125,66 @@ export default {
         onSubmit() {
             //提交
             if (this.$store.state.user.userID != null) {
-                if (this.newcard.POST_TYPE === 3) {
-                    if (
-                        parseInt(this.getUserScore) >= this.newcard.SCORE_POINT
-                    ) {
+                if (
+                    this.newcard.POST_CONTENT === null ||
+                    this.newcard.POST_CONTENT === ""
+                ) {
+                    this.$message({
+                        type: "error",
+                        message: "帖子内容不能为空！"
+                    });
+                } else {
+                    if (this.newcard.POST_TYPE === 3) {
+                        if (
+                            parseInt(this.getUserScore) >=
+                            this.newcard.SCORE_POINT
+                        ) {
+                            this.loading = true;
+                            this.newcard.USER_ID = this.$store.state.user.userID;
+                            this.newcard.USER_NAME = this.$store.state.user.userinfo[0].USER_NAME;
+                            this.newcard.CREATER = this.newcard.USER_NAME;
+                            this.$refs.newcard.validate(valid => {
+                                if (valid) {
+                                    createCard(this.newcard).then(response => {
+                                        if (response.data.code === 2000) {
+                                            this.$store.dispatch(
+                                                "setScore",
+                                                response.data.score
+                                            );
+                                            this.$notify({
+                                                position: "bottom-right",
+                                                title: "成功",
+                                                message: response.data.message,
+                                                type: "success",
+                                                duration: 2000
+                                            });
+                                            this.$router.push(
+                                                "/community/main/index"
+                                            );
+                                            this.loading = false;
+                                            this.resetTemp();
+                                        } else {
+                                            this.$notify({
+                                                position: "bottom-right",
+                                                title: "失败",
+                                                message: response.data.message,
+                                                type: "error",
+                                                duration: 2000
+                                            });
+                                            this.loading = false;
+                                            this.resetTemp();
+                                        }
+                                    });
+                                }
+                            });
+                        } else {
+                            this.$message({
+                                type: "error",
+                                message:
+                                    "您的积分不足！请确认您的积分后继续发帖。"
+                            });
+                        }
+                    } else {
                         this.newcard.USER_ID = this.$store.state.user.userID;
                         this.newcard.USER_NAME = this.$store.state.user.userinfo[0].USER_NAME;
                         this.newcard.CREATER = this.newcard.USER_NAME;
@@ -162,45 +219,7 @@ export default {
                                 });
                             }
                         });
-                    } else {
-                        this.$message({
-                            type: "error",
-                            message: "您的积分不足！请确认您的积分后继续发帖。"
-                        });
                     }
-                } else {
-                    this.newcard.USER_ID = this.$store.state.user.userID;
-                    this.newcard.USER_NAME = this.$store.state.user.userinfo[0].USER_NAME;
-                    this.newcard.CREATER = this.newcard.USER_NAME;
-                    this.$refs.newcard.validate(valid => {
-                        if (valid) {
-                            createCard(this.newcard).then(response => {
-                                if (response.data.code === 2000) {
-                                    this.$store.dispatch(
-                                        "setScore",
-                                        response.data.score
-                                    );
-                                    this.$notify({
-                                        position: "bottom-right",
-                                        title: "成功",
-                                        message: response.data.message,
-                                        type: "success",
-                                        duration: 2000
-                                    });
-                                    this.$router.push("/community/main/index");
-                                    this.resetTemp();
-                                } else {
-                                    this.$notify({
-                                        position: "bottom-right",
-                                        title: "失败",
-                                        message: response.data.message,
-                                        type: "error",
-                                        duration: 2000
-                                    });
-                                }
-                            });
-                        }
-                    });
                 }
             } else {
                 this.$store.state.user.dialogLoginVisible = true;
