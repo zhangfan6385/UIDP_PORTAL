@@ -9,15 +9,18 @@
                             <div class="photo">
                                 <img src="../../../app_src/imgs/avatar.png">
                             </div>
-                            <div style="padding: 14px;" class="info">
-                                <span>
-                                    姓名：{{userinfo.USER_NAME}}
-                                    <br> 公司：{{userinfo.ORG_NAME}}
-                                    <br> 积分：{{score}}
-                                    <br> 手机：{{userinfo.MOBILE}}
-                                    <br> 注册邮箱：{{userinfo.USER_EMAIL}}
-                                </span>
-                            </div>
+                            <el-row type="flex">
+                                <el-col :span="3"></el-col>
+                                <el-col :span="21">
+                                    <div class="info">
+                                        姓名：{{userinfo.USER_NAME}}
+                                        <br> 公司：{{userinfo.ORG_NAME}}
+                                        <br> 积分：{{score}}
+                                        <br> 手机：{{userinfo.MOBILE}}
+                                        <br> 注册邮箱：{{userinfo.USER_EMAIL}}
+                                    </div>
+                                </el-col>
+                            </el-row>
                         </div>
                     </el-card>
                 </div>
@@ -45,7 +48,7 @@
                                     </div>
                                 </template>
                             </el-table-column>
-                            <el-table-column label="主题"  align="center">
+                            <el-table-column label="主题" align="center">
                                 <template slot-scope="scope">
                                     <span class="newstitle">{{scope.row.title}}</span>
                                 </template>
@@ -169,8 +172,10 @@ export default {
             margin-top: 45px;
         }
         .info {
+            margin-top: 20px;
+            margin-right: 20px;
             text-align: left;
-            font-size: 18px;
+            font-size: 15px;
             line-height: 35px;
             font-family: "微软雅黑";
         }

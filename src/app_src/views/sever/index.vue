@@ -378,7 +378,7 @@ li {
 .component {
     // margin: 0 auto;
     // width: 980px;
-    margin: 30px;
+    margin: 20px;
     // background: #f3f3f3;
 }
 
