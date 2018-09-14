@@ -13,7 +13,7 @@
                                 <span>
                                     姓名：{{userinfo.USER_NAME}}
                                     <br> 公司：{{userinfo.ORG_NAME}}
-                                    <br> 积分：{{userinfo.SCORE}}
+                                    <br> 积分：{{score}}
                                     <br> 手机：{{userinfo.MOBILE}}
                                     <br> 注册邮箱：{{userinfo.USER_EMAIL}}
                                 </span>
@@ -67,6 +67,7 @@ export default {
         return {
             userinfo: {},
             myCollectionList: [],
+            score:'',
             queryList: {
                 USER_ID: null,
                 limit: 5,
@@ -126,20 +127,21 @@ export default {
         },
         getUserInfo() {
             this.userinfo = this.$store.state.user.userinfo[0];
+            this.score = this.getUserScore;
         }
     },
     mounted() {
         this.getCollectionList();
         this.getUserInfo();
     },
-    computed:{
-        getUserScore(){
-            return this.$store.state.user.SCORE
+    computed: {
+        getUserScore() {
+            return this.$store.state.user.SCORE;
         }
     },
-    watch:{
-        getUserScore(data){
-            this.userinfo.SCORE=data
+    watch: {
+        getUserScore(data) {
+            this.score = data;
         }
     }
 };

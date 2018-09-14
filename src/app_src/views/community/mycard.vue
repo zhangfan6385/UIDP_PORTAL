@@ -12,7 +12,7 @@
                             <span>
                                 姓名：{{userinfo.USER_NAME}}
                                 <br> 公司：{{userinfo.ORG_NAME}}
-                                <br> 积分：{{userinfo.SCORE}}
+                                <br> 积分：{{score}}
                                 <br> 手机：{{userinfo.MOBILE}}
                                 <br> 注册邮箱：{{userinfo.USER_EMAIL}}
                             </span>
@@ -66,6 +66,7 @@ export default {
     data() {
         return {
             userinfo: {},
+            score:'',
             myCollectionList: [],
             queryList: {
                 limit: 6,
@@ -93,6 +94,7 @@ export default {
         },
         getUserInfo() {
             this.userinfo = this.$store.state.user.userinfo[0];
+            this.score=this.getUserScore
         },
         getMyCard() {
             this.queryList.USER_ID = this.$store.state.user.userID;
@@ -138,7 +140,7 @@ export default {
     },
     watch: {
         getUserScore(data) {
-            this.userinfo.SCORE = data;
+            this.score = data;
         }
     }
 };

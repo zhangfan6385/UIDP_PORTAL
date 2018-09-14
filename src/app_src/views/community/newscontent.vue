@@ -53,7 +53,7 @@
                     </el-card>
                     <!--回复-->
                     <el-card v-for="(commit,key) in commentlist" :key="key">
-                        <el-row v-if="cardcontent.USER_ID===getCurrentUserId&&cardcontent.POST_TYPE===3">
+                        <el-row v-if="cardcontent.USER_ID===getCurrentUserId&&cardcontent.POST_TYPE===3&&cardcontent.POST_STATUS===0">
                             <el-col :span="24">
                                 <div class="tieUp">
                                     <el-form :model="commit" ref="score" :rules="rules">
@@ -116,7 +116,7 @@
                                 <el-form-item>
                                     <div class="cardbutton"></div>
                                     <el-button type="primary" @click="submit()">确认提交</el-button>
-                                    <el-button type="primary" @click="submitScore()">结贴</el-button>
+                                    <el-button type="info" @click="submitScore()" v-if="cardcontent.USER_ID===getCurrentUserId&&cardcontent.POST_TYPE===3&&cardcontent.POST_STATUS===0">结贴</el-button>
                                 </el-form-item>
                             </el-form-item>
                         </el-form>
@@ -289,29 +289,36 @@ export default {
                     confirmButtonText: "确定",
                     cancelButtonText: "取消",
                     type: "warning"
-                }).then(() => {
-                    this.createList.COLLECTION_PERSON_ID = this.$store.state.user.userID;
-                    this.createList.POST_ID = this.cardcontent.POST_ID;
-                    delArticle(this.createList).then(response => {
-                        if (response.data.code === 2000) {
-                            this.$notify({
-                                position: "bottom-right",
-                                title: "取消收藏成功",
-                                message: response.data.message,
-                                type: "success",
-                                duration: 2000
-                            });
-                        } else {
-                            this.$notify({
-                                position: "bottom-right",
-                                title: "失败",
-                                message: response.data.message,
-                                type: "error",
-                                duration: 2000
-                            });
-                        }
+                })
+                    .then(() => {
+                        this.createList.COLLECTION_PERSON_ID = this.$store.state.user.userID;
+                        this.createList.POST_ID = this.cardcontent.POST_ID;
+                        delArticle(this.createList).then(response => {
+                            if (response.data.code === 2000) {
+                                this.$notify({
+                                    position: "bottom-right",
+                                    title: "取消收藏成功",
+                                    message: response.data.message,
+                                    type: "success",
+                                    duration: 2000
+                                });
+                            } else {
+                                this.$notify({
+                                    position: "bottom-right",
+                                    title: "失败",
+                                    message: response.data.message,
+                                    type: "error",
+                                    duration: 2000
+                                });
+                            }
+                        });
+                    })
+                    .catch(() => {
+                        this.$message({
+                            type: "info",
+                            message: "已取消操作"
+                        });
                     });
-                });
             }
         },
         onEditorReady(editor) {},
@@ -367,60 +374,76 @@ export default {
                 confirmButtonText: "确定",
                 cancelButtonText: "取消",
                 type: "warning"
-            }).then(() => {
-                this.delCardList.USER_ID = this.$store.state.user.userID;
-                this.delCardList.POST_ID = this.cardcontent.POST_ID;
-                delcard(this.delCardList).then(response => {
-                    if (response.data.code === 2000) {
-                        this.$notify({
-                            position: "bottom-right",
-                            title: "删帖成功",
-                            message: response.data.message,
-                            type: "success",
-                            duration: 2000
-                        });
-                        this.$router.push({ path: "/community/main/index" });
-                    } else {
-                        this.$notify({
-                            position: "bottom-right",
-                            title: "删帖失败",
-                            message: response.data.message,
-                            type: "error",
-                            duration: 2000
-                        });
-                    }
+            })
+                .then(() => {
+                    this.delCardList.USER_ID = this.$store.state.user.userID;
+                    this.delCardList.POST_ID = this.cardcontent.POST_ID;
+                    delcard(this.delCardList).then(response => {
+                        if (response.data.code === 2000) {
+                            this.$notify({
+                                position: "bottom-right",
+                                title: "删帖成功",
+                                message: response.data.message,
+                                type: "success",
+                                duration: 2000
+                            });
+                            this.$router.push({
+                                path: "/community/main/index"
+                            });
+                        } else {
+                            this.$notify({
+                                position: "bottom-right",
+                                title: "删帖失败",
+                                message: response.data.message,
+                                type: "error",
+                                duration: 2000
+                            });
+                        }
+                    });
+                })
+                .catch(() => {
+                    this.$message({
+                        type: "info",
+                        message: "已取消删除"
+                    });
                 });
-            });
         },
         delcommit(data) {
             this.$confirm("您确定删除本条评论吗?", "提示", {
                 confirmButtonText: "确定",
                 cancelButtonText: "取消",
                 type: "warning"
-            }).then(() => {
-                this.delCardList.USER_ID = this.$store.state.user.userID;
-                this.delComentList.COMMENT_ID = data.COMMENT_ID;
-                delcommit(this.delComentList).then(response => {
-                    if (response.data.code === 2000) {
-                        this.$notify({
-                            position: "bottom-right",
-                            title: "删除成功",
-                            message: response.data.message,
-                            type: "success",
-                            duration: 2000
-                        });
-                        this.getCardDetail();
-                    } else {
-                        this.$notify({
-                            position: "bottom-right",
-                            title: "失败",
-                            message: response.data.message,
-                            type: "error",
-                            duration: 2000
-                        });
-                    }
+            })
+                .then(() => {
+                    this.delCardList.USER_ID = this.$store.state.user.userID;
+                    this.delComentList.COMMENT_ID = data.COMMENT_ID;
+                    delcommit(this.delComentList).then(response => {
+                        if (response.data.code === 2000) {
+                            this.$notify({
+                                position: "bottom-right",
+                                title: "删除成功",
+                                message: response.data.message,
+                                type: "success",
+                                duration: 2000
+                            });
+                            this.getCardDetail();
+                        } else {
+                            this.$notify({
+                                position: "bottom-right",
+                                title: "失败",
+                                message: response.data.message,
+                                type: "error",
+                                duration: 2000
+                            });
+                        }
+                    });
+                })
+                .catch(() => {
+                    this.$message({
+                        type: "info",
+                        message: "已取消删除"
+                    });
                 });
-            });
         },
         update() {
             this.delCardList.POST_ID = this.$route.params.id;
@@ -437,50 +460,65 @@ export default {
             this.scorelist.POST_ID = this.cardcontent.POST_ID;
         },
         submitScore() {
-            let flag = true;
-            let num = 0;
-            for (let i = 0; i < this.$refs.score.length; i++) {
-                this.$refs.score[i].validate(valid => {
-                    flag = flag && valid;
-                });
-            }
-            if (flag) {
-                this.commentlist.forEach((item, key) => {
-                    num += parseInt(item.BONUS_POINTS);
-                });
-                if (num === 0) {
-                    let postlist1 = {
-                        POST_ID: this.cardcontent.POST_ID,
-                        SCORE_POINT: this.cardcontent.SCORE_POINT,
-                        USER_ID: this.cardcontent.USER_ID,
-                        children: []
-                    };
-                    delScore(postlist1).then(response => {
-                        if (response.data.code === 2000) {
-                            console.log("success");
+            this.$confirm("您确定进行结贴操作吗?本操作不可逆转", "提示", {
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                type: "warning"
+            })
+                .then(() => {
+                    let flag = true;
+                    let num = 0;
+                    for (let i = 0; i < this.$refs.score.length; i++) {
+                        this.$refs.score[i].validate(valid => {
+                            flag = flag && valid;
+                        });
+                    }
+                    if (flag) {
+                        this.commentlist.forEach((item, key) => {
+                            num += parseInt(item.BONUS_POINTS);
+                        });
+                        if (num === 0) {
+                            let postlist1 = {
+                                POST_ID: this.cardcontent.POST_ID,
+                                SCORE_POINT: this.cardcontent.SCORE_POINT,
+                                USER_ID: this.cardcontent.USER_ID,
+                                children: []
+                            };
+                            delScore(postlist1).then(response => {
+                                if (response.data.code === 2000) {
+                                    console.log("success");
+                                     this.getCardDetail()
+                                }
+                            });
+                        } else if (num != this.cardcontent.SCORE_POINT) {
+                            this.$message({
+                                type: "error",
+                                message: "请输入符合当前帖子悬赏分数的分值"
+                            });
+                        } else {
+                            let arr = this.commentlist;
+                            arr = arr.filter(t => t.BONUS_POINTS != 0);
+                            let postlist = {
+                                POST_ID: this.cardcontent.POST_ID,
+                                SCORE_POINT: this.cardcontent.SCORE_POINT,
+                                USER_ID: this.cardcontent.USER_ID,
+                                children: arr
+                            };
+                            delScore(postlist).then(response => {
+                                if (response.data.code === 2000) {
+                                    console.log("success");
+                                    this.getCardDetail()
+                                }
+                            });
                         }
-                    });
-                } else if (num != this.cardcontent.SCORE_POINT) {
+                    }
+                })
+                .catch(() => {
                     this.$message({
-                        type: "error",
-                        message: "请输入符合当前帖子悬赏分数的分值"
+                        type: "info",
+                        message: "已取消结贴"
                     });
-                } else {
-                    let arr = this.commentlist;
-                    arr = arr.filter(t => t.BONUS_POINTS != 0);
-                    let postlist = {
-                        POST_ID: this.cardcontent.POST_ID,
-                        SCORE_POINT: this.cardcontent.SCORE_POINT,
-                        USER_ID: this.cardcontent.USER_ID,
-                        children: arr
-                    };
-                    delScore(postlist).then(response => {
-                        if (response.data.code === 2000) {
-                            console.log("success");
-                        }
-                    });
-                }
-            }
+                });
         }
     },
     filters: {

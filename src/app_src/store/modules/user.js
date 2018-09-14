@@ -96,7 +96,6 @@ const user = {
     SET_SCORE:(state,SCORE)=>{
       state.SCORE=SCORE
     }
-
   },
 
   actions: {
