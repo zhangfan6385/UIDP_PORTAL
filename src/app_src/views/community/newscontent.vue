@@ -487,7 +487,7 @@ export default {
                             delScore(postlist1).then(response => {
                                 if (response.data.code === 2000) {
                                     console.log("success");
-                                     this.getCardDetail()
+                                    this.getCardDetail();
                                 }
                             });
                         } else if (num != this.cardcontent.SCORE_POINT) {
@@ -507,7 +507,7 @@ export default {
                             delScore(postlist).then(response => {
                                 if (response.data.code === 2000) {
                                     console.log("success");
-                                    this.getCardDetail()
+                                    this.getCardDetail();
                                 }
                             });
                         }
@@ -565,18 +565,17 @@ export default {
 
 <style lang="scss">
 .newscontent {
+    min-height: 100%;
     margin-top: 10px;
-    .card {
-        .content {
-            line-height: 20px;
-        }
-        .foot {
-            float: right;
-            right: 0;
-            font-size: 10px;
-            color: gray;
-            font-family: "Times New Roman", Times, serif;
-        }
+    .content {
+        line-height: 20px;
+    }
+    .foot {
+        float: right;
+        right: 0;
+        font-size: 10px;
+        color: gray;
+        font-family: "Times New Roman", Times, serif;
     }
     .cardheader {
         .operation {

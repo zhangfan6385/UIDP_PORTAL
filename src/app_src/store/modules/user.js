@@ -160,7 +160,6 @@ const user = {
               commit('SET_ROLE_LV',response.data.roleLevel)
             }
             commit('SET_TOKEN',response.data.token);
-            
             //console.log(response.data.token)
             // commit('SET_USER_NAME', data.userName)
             // commit('SET_CODE', data.userCode)

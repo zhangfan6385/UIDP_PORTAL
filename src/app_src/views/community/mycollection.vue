@@ -45,7 +45,11 @@
                                     </div>
                                 </template>
                             </el-table-column>
-                            <el-table-column label="主题" prop="title" align="center"></el-table-column>
+                            <el-table-column label="主题"  align="center">
+                                <template slot-scope="scope">
+                                    <span class="newstitle">{{scope.row.title}}</span>
+                                </template>
+                            </el-table-column>
                             <el-table-column label="阅读量" prop="readNumber" align="center"></el-table-column>
                             <el-table-column label="悬赏金额" prop="offer" align="center"></el-table-column>
                             <el-table-column label="评论人数" prop="commentNumber" align="center"></el-table-column>
@@ -67,7 +71,7 @@ export default {
         return {
             userinfo: {},
             myCollectionList: [],
-            score:'',
+            score: "",
             queryList: {
                 USER_ID: null,
                 limit: 5,
@@ -85,7 +89,7 @@ export default {
             this.getCollectionList();
         },
         getcontent(data) {
-            var id = data.id.toString();
+            let id = data.postID.toString();
             this.$router.push({ path: "/community/main/newscontent/" + id });
         },
         getCollectionList() {
@@ -102,6 +106,7 @@ export default {
                         ].CREATE_DATE.substring(0, 10);
                         this.myCollectionList.push({
                             id: response.data.items[i].COLLECTION_ID,
+                            postID: response.data.items[i].POST_ID,
                             writter: response.data.items[i].CREATER,
                             type: response.data.items[i].POST_TYPE,
                             title: response.data.items[i].TITLE_NAME,
@@ -214,6 +219,11 @@ export default {
         }
         .pageclass {
             text-align: center;
+        }
+        .newstitle:hover {
+            text-decoration: underline;
+            color: red;
+            cursor: pointer;
         }
     }
 }

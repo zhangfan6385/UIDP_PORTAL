@@ -45,7 +45,11 @@
                                     </div>
                                 </template>
                             </el-table-column>
-                            <el-table-column label="主题" prop="title" align="center"></el-table-column>
+                            <el-table-column label="主题" header-align="center">
+                                <template slot-scope="scope">
+                                    <span class="newstitle">{{scope.row.title}}</span>
+                                </template>
+                            </el-table-column>
                             <el-table-column label="阅读量" prop="readNumber" align="center"></el-table-column>
                             <el-table-column label="悬赏金额" prop="offer" align="center"></el-table-column>
                             <el-table-column label="评论人数" prop="commentNumber" align="center"></el-table-column>
@@ -66,7 +70,7 @@ export default {
     data() {
         return {
             userinfo: {},
-            score:'',
+            score: "",
             myCollectionList: [],
             queryList: {
                 limit: 6,
@@ -94,7 +98,7 @@ export default {
         },
         getUserInfo() {
             this.userinfo = this.$store.state.user.userinfo[0];
-            this.score=this.getUserScore
+            this.score = this.getUserScore;
         },
         getMyCard() {
             this.queryList.USER_ID = this.$store.state.user.userID;
@@ -207,6 +211,11 @@ export default {
             display: -webkit-box;
             -webkit-box-orient: vertical;
             -webkit-line-clamp: 3;
+        }
+        .newstitle:hover {
+            text-decoration: underline;
+            color: red;
+            cursor: pointer;
         }
         .pageclass {
             text-align: center;
