@@ -16,7 +16,7 @@
                                         公告
                                         <div class="headerbutton">
                                             <el-button type="primary" size="mini" @click="gotonotice"> 查看更多</el-button>
-                                            <!-- <el-button type="primary" size="mini" @click="test"> 全局数据展示</el-button>  -->
+                                            <el-button type="primary" size="mini" @click="test"> 全局数据展示</el-button> 
                                         </div>
                                     </div>
                                 </el-col>
@@ -884,11 +884,7 @@ export default {
             this.getalldata();
         },
         test() {
-            // console.log(this.$store.state.user.userinfo);
-            // console.log(this.$store.state.user.userID);
-            // console.log(this.$store.state.user.currentProjID);
-            // console.log(this.$store.state.user.currentProjName);
-            console.log(this.$store.state.user.projList);
+            console.log(this.$store.state.user.token)
         }
     },
     mounted() {

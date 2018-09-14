@@ -16,26 +16,26 @@ export default {
     window.addEventListener('resize', this.resizeHandler)
   },
   mounted() {
-    const isMobile = this.isMobile()
-    if (isMobile) {
-      store.dispatch('ToggleDevice', 'mobile')
-      store.dispatch('CloseSideBar', { withoutAnimation: true })
-    }
+    // const isMobile = this.isMobile()
+    // if (isMobile) {
+    //   store.dispatch('ToggleDevice', 'mobile')
+    //   store.dispatch('CloseSideBar', { withoutAnimation: true })
+    // }
   },
   methods: {
     isMobile() {
       const rect = body.getBoundingClientRect()
       return rect.width - RATIO < WIDTH
     },
-    resizeHandler() {
-      if (!document.hidden) {
-        const isMobile = this.isMobile()
-        store.dispatch('ToggleDevice', isMobile ? 'mobile' : 'desktop')
+    // resizeHandler() {
+    //   if (!document.hidden) {
+    //     const isMobile = this.isMobile()
+    //     store.dispatch('ToggleDevice', isMobile ? 'mobile' : 'desktop')
 
-        if (isMobile) {
-          store.dispatch('CloseSideBar', { withoutAnimation: true })
-        }
-      }
-    }
+    //     if (isMobile) {
+    //       store.dispatch('CloseSideBar', { withoutAnimation: true })
+    //     }
+    //   }
+    // }
   }
 }

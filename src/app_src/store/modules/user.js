@@ -132,6 +132,9 @@ const user = {
     setScore({commit},SCORE){
       commit('SET_SCORE',SCORE)
     },
+    setToken({commit},token){
+      commit('SET_TOKEN',token)
+    },
 
 
 
@@ -156,7 +159,7 @@ const user = {
               commit('SET_SCORE',data.userInfo[0].SCORE)
               commit('SET_ROLE_LV',response.data.roleLevel)
             }
-            setToken(response.data.token);
+            commit('SET_TOKEN',response.data.token);
             
             //console.log(response.data.token)
             // commit('SET_USER_NAME', data.userName)
