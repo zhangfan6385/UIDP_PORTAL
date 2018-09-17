@@ -215,7 +215,14 @@ export default {
         getSeverList() {
             fetchSeverList(this.queryList).then(response => {
                 if (response.data.code === 2000) {
-                    this.tableData = response.data.items;
+                    if (this.tableData.length != response.data.items.length) {
+                        this.tableData = response.data.items;
+                    } else {
+                        this.$message({
+                            type: "warning",
+                            message: "已经是最后一条"
+                        });
+                    }
                 } else {
                     this.$notify({
                         position: "bottom-right",

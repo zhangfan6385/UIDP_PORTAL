@@ -264,6 +264,7 @@ export default {
                                 type: "success",
                                 duration: 2000
                             });
+                            this.resetForm();
                             this.dialogFormVisible = false;
                         } else {
                             this.$notify({

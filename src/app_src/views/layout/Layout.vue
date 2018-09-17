@@ -1,5 +1,5 @@
 <template>
-  <div class="app-wrapper" :class="classObj">
+  <div class="app-wrapper" >
     <div class="header">
       <el-row type="flex">
         <el-col :span="2"></el-col>

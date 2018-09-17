@@ -5,7 +5,7 @@
             <el-col :span="15">
                 <div class="LeftContainer">
                     <el-card>
-                        <el-table :data="newslist" @row-click="getcontent" height="550px">
+                        <el-table :data="newslist" @row-click="getcontent" height="550px" >
                             <el-table-column label="类型" width="50px" align="center">
                                 <template slot-scope="scope">
                                     <div class="newslogo">
@@ -94,7 +94,8 @@ export default {
                 USER_ID: "",
                 SCORE: ""
             },
-            total: null
+            total: null,
+            loading:true
         };
     },
     methods: {
@@ -200,6 +201,7 @@ export default {
             this.newslist = [];
             fetchCommunityList(this.listQuery1).then(response => {
                 if (response.data.code === 2000) {
+                    this.loading=false
                     this.total = response.data.total;
                     for (let i = 0; i < response.data.items.length; i++) {
                         let time = response.data.items[i].SEND_DATE.substring(
@@ -221,6 +223,7 @@ export default {
                         });
                     }
                 } else {
+                    this.loading=false
                     this.$notify({
                         position: "bottom-right",
                         title: "失败",
