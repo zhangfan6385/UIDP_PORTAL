@@ -268,6 +268,7 @@ export default {
                             type: "success",
                             duration: 2000
                         });
+                        this.cardcontent.COLLECTION_STATE='1';
                     } else {
                         this.$notify({
                             position: "bottom-right",
@@ -296,11 +297,12 @@ export default {
                             if (response.data.code === 2000) {
                                 this.$notify({
                                     position: "bottom-right",
-                                    title: "取消收藏成功",
+                                    title: "取消收藏",
                                     message: response.data.message,
                                     type: "success",
                                     duration: 2000
                                 });
+                                this.cardcontent.COLLECTION_STATE='0';
                             } else {
                                 this.$notify({
                                     position: "bottom-right",
@@ -323,6 +325,8 @@ export default {
         onEditorReady(editor) {},
         resetTemp() {
             this.commit.CONTENT = "";
+            let first=document.getElementsByClassName('ql-editor')
+            first[0].children[0].innerHTML=''
         },
         submit() {
             if (this.$store.state.user.userID === null) {
@@ -350,8 +354,6 @@ export default {
                                 type: "success",
                                 duration: 2000
                             });
-                            this.commit.CONTENT = null;
-                            console.log(this.commit.CONTENT);
                             this.$store.dispatch(
                                 "setScore",
                                 response.data.score
@@ -566,6 +568,7 @@ export default {
         this.getCardDetail();
         this.update();
         this.getUserType();
+        this.resetTemp();
     }
 };
 </script>
