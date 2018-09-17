@@ -35,16 +35,13 @@
                             </el-row>
 
                             <el-form-item label="详细" :rules="rules.POST_CONTENT">
-
-                                <div class="editor">
-                                    <!-- <quill-editor v-model="newcard.POST_CONTENT" ref="myQuillEditor" :options="newcard.editorOption" @ready="onEditorReady($event)" @blur="onEditorBlur($event)" @focus="onEditorFocus($event)" height="500px">
+                                <!-- <quill-editor v-model="newcard.POST_CONTENT" ref="myQuillEditor" :options="newcard.editorOption" @ready="onEditorReady($event)" @blur="onEditorBlur($event)" @focus="onEditorFocus($event)" height="500px">
                                     </quill-editor> -->
-                                    <quillEditor @listenToEditorChange="EditorChange" v-bind:content="newcard.POST_CONTENT" v-bind:apiUrl="urlPicUpload">
-                                    </quillEditor>
-                                </div>
+                                <quillEditor @listenToEditorChange="EditorChange" v-bind:content="newcard.POST_CONTENT" v-bind:apiUrl="urlPicUpload">
+                                </quillEditor>
 
                                 <el-form-item>
-                                    <el-button type="primary" @click="onSubmit" :loading="loading">确认提交</el-button>
+                                    <el-button type="primary" @click="onSubmit" :loading="loading" class="button">确认提交</el-button>
                                 </el-form-item>
 
                             </el-form-item>
@@ -90,7 +87,25 @@ export default {
                         message: "分数不能为空！",
                         trigger: "blur"
                     },
-                    { type: "number", message: "分值必须为数字值" }
+                    { type: "number", message: "分值必须为数字值" },
+                    {
+                        validator: (rule, value, callback) => {
+                            if (value != "") {
+                                if (
+                                    /^[+]{0,1}(\d+)$|^[+]{0,1}(\d+\.\d+)$/.test(
+                                        value
+                                    ) == false
+                                ) {
+                                    callback(new Error("请填写大于0的数字"));
+                                } else {
+                                    callback();
+                                }
+                            } else {
+                                callback();
+                            }
+                        },
+                        trigger: "change"
+                    }
                 ],
                 POST_CONTENT: [
                     {
@@ -243,6 +258,9 @@ export default {
 .newcard {
     .el-card {
         min-height: 500px;
+    }
+    .button{
+        margin-top: 20px;
     }
 }
 </style>

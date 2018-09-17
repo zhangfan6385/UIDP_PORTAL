@@ -107,11 +107,11 @@
                         </el-form> -->
                     <el-form ref="commit" :model="commit" label-width="80px" id="commit" :rules="rules">
                         <el-form-item :label="type" prop="CONTENT">
-                            <div class="editor">
-                                <!-- <quill-editor v-model="commit.CONTENT" ref="myQuillEditor" :options="commit.editorOption" @ready="onEditorReady($event)" height="500px"></quill-editor> -->
-                                <quillEditor @listenToEditorChange="EditorChange" v-model="commit.CONTENT" v-bind:apiUrl="urlPicUpload">
-                                </quillEditor>
-                            </div>
+
+                            <!-- <quill-editor v-model="commit.CONTENT" ref="myQuillEditor" :options="commit.editorOption" @ready="onEditorReady($event)" height="500px"></quill-editor> -->
+                            <quillEditor @listenToEditorChange="EditorChange" v-model="commit.CONTENT" v-bind:apiUrl="urlPicUpload">
+                            </quillEditor>
+
                             <el-form-item>
                                 <div class="cardbutton"></div>
                                 <el-button type="primary" @click="submit()" :loading="loading">确认提交</el-button>
@@ -268,7 +268,7 @@ export default {
                             type: "success",
                             duration: 2000
                         });
-                        this.cardcontent.COLLECTION_STATE='1';
+                        this.cardcontent.COLLECTION_STATE = "1";
                     } else {
                         this.$notify({
                             position: "bottom-right",
@@ -302,7 +302,7 @@ export default {
                                     type: "success",
                                     duration: 2000
                                 });
-                                this.cardcontent.COLLECTION_STATE='0';
+                                this.cardcontent.COLLECTION_STATE = "0";
                             } else {
                                 this.$notify({
                                     position: "bottom-right",
@@ -325,8 +325,8 @@ export default {
         onEditorReady(editor) {},
         resetTemp() {
             this.commit.CONTENT = "";
-            let first=document.getElementsByClassName('ql-editor')
-            first[0].children[0].innerHTML=''
+            let first = document.getElementsByClassName("ql-editor");
+            first[0].children[0].innerHTML = "";
         },
         submit() {
             if (this.$store.state.user.userID === null) {
