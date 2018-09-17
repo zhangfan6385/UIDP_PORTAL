@@ -265,6 +265,7 @@ export default {
                                 duration: 2000
                             });
                             this.resetForm();
+                            this.getHistoryList();
                             this.dialogFormVisible = false;
                         } else {
                             this.$notify({

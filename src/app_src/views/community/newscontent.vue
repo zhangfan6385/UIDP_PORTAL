@@ -8,6 +8,7 @@
                 <el-card>
                     <div slot="header" class="cardheader">
                         <span>{{cardcontent.TITLE_NAME}}</span>
+                        <span v-if="cardcontent.POST_STATUS===1" class="tip">[已结帖]</span>
                         <div class="operation">
                             <el-button size="mini" @click="delcard" type="danger" v-if="userType===1">
                                 <i class="el-icon-warning"></i>删除本帖
@@ -93,7 +94,7 @@
                         </el-row>
                     </div>
                 </el-card>
-                <el-card>
+                <el-card v-if="cardcontent.POST_STATUS===0">
                     <!-- <div slot="header" class="clearfix">
                             <span>发表回复</span>
                         </div> -->
@@ -105,7 +106,7 @@
                                 <el-button type="primary" @click="submit">提 交</el-button>
                             </el-form-item>
                         </el-form> -->
-                    <el-form ref="commit" :model="commit" label-width="80px" id="commit" :rules="rules">
+                    <el-form ref="commit" :model="commit" label-width="80px" id="commit" :rules="rules" >
                         <el-form-item :label="type" prop="CONTENT">
 
                             <!-- <quill-editor v-model="commit.CONTENT" ref="myQuillEditor" :options="commit.editorOption" @ready="onEditorReady($event)" height="500px"></quill-editor> -->
@@ -568,7 +569,7 @@ export default {
         this.getCardDetail();
         this.update();
         this.getUserType();
-        this.resetTemp();
+        //this.resetTemp();
     }
 };
 </script>
@@ -588,6 +589,10 @@ export default {
         font-size: 10px;
         color: gray;
         font-family: "Times New Roman", Times, serif;
+    }
+    .tip{
+        color: red;
+        font-weight: bold;
     }
     .cardheader {
         .operation {
