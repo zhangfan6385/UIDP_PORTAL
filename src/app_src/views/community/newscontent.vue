@@ -4,101 +4,100 @@
         <el-row :gutter="20" type="flex">
             <el-col :span="2"> </el-col>
             <el-col :span="20">
-                <div class="card">
-                    <!--主楼标题按钮界面-->
-                    <el-card>
-                        <div slot="header" class="cardheader">
-                            <span>{{cardcontent.TITLE_NAME}}</span>
-                            <div class="operation">
-                                <el-button size="mini" @click="delcard" type="danger" v-if="userType===1">
-                                    <i class="el-icon-warning"></i>删除本帖
-                                </el-button>
-                                <el-button size="mini" @click="collection" v-if="cardcontent.COLLECTION_STATE==='0'">
-                                    <i class="el-icon-circle-plus"></i>收藏
-                                </el-button>
-                                <el-button size="mini" @click="uncollection" v-else-if="cardcontent.COLLECTION_STATE==='1'">
-                                    <i class="el-icon-remove"></i>取消收藏
-                                </el-button>
-                                <el-button size="mini" type="info" @click="goAnchor">回复</el-button>
-                                <el-button size="mini" type="primary" @click="back">后退</el-button>
+                <!--主楼标题按钮界面-->
+                <el-card>
+                    <div slot="header" class="cardheader">
+                        <span>{{cardcontent.TITLE_NAME}}</span>
+                        <div class="operation">
+                            <el-button size="mini" @click="delcard" type="danger" v-if="userType===1">
+                                <i class="el-icon-warning"></i>删除本帖
+                            </el-button>
+                            <el-button size="mini" @click="collection" v-if="cardcontent.COLLECTION_STATE==='0'">
+                                <i class="el-icon-circle-plus"></i>收藏
+                            </el-button>
+                            <el-button size="mini" @click="uncollection" v-else-if="cardcontent.COLLECTION_STATE==='1'">
+                                <i class="el-icon-remove"></i>取消收藏
+                            </el-button>
+                            <el-button size="mini" type="info" @click="goAnchor">回复</el-button>
+                            <el-button size="mini" type="primary" @click="back">后退</el-button>
+                        </div>
+                    </div>
+                    <!--主贴头像区域-->
+                    <el-row>
+                        <el-col :span="6">
+                            <div class="userhead">
+                                <img src="../../../app_src/imgs/userHead.png">
+                                <div class="logo">
+                                    <el-button type="primary" size="mini">楼主</el-button>
+                                    <div class="username">
+                                        {{cardcontent.USER_NAME}}
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <!--主贴头像区域-->
+                        </el-col>
+                        <!--主贴信息界面-->
+                        <el-col :span="17">
+                            <div class="content">
+                                <p v-html="cardcontent.POST_CONTENT"></p>
+                            </div>
+                        </el-col>
+                    </el-row>
+                    <div class="foot">
                         <el-row>
-                            <el-col :span="6">
-                                <div class="userhead">
-                                    <img src="../../../app_src/imgs/userHead.png">
-                                    <div class="logo">
-                                        <el-button type="primary" size="mini">楼主</el-button>
-                                        <div class="username">
-                                            {{cardcontent.USER_NAME}}
-                                        </div>
-                                    </div>
-                                </div>
-                            </el-col>
-                            <!--主贴信息界面-->
-                            <el-col :span="17">
-                                <div class="content">
-                                    <p v-html="cardcontent.POST_CONTENT"></p>
-                                </div>
-                            </el-col>
-                        </el-row>
-                        <div class="foot">
-                            <el-row>
-                                <el-col :span="24">
-                                    发表日期：{{cardcontent.SEND_DATE|parseTime}}
-                                </el-col>
-                            </el-row>
-                        </div>
-                    </el-card>
-                    <!--回复-->
-                    <el-card v-for="(commit,key) in commentlist" :key="key">
-                        <el-row v-if="cardcontent.USER_ID===getCurrentUserId&&cardcontent.POST_TYPE===3&&cardcontent.POST_STATUS===0">
                             <el-col :span="24">
-                                <div class="tieUp">
-                                    <el-form :model="commit" ref="score" :rules="rules">
-                                        <el-form-item prop="score">
-                                            <el-input placeholder="请输入满意积分" v-model.number="commit.BONUS_POINTS"></el-input>
-                                        </el-form-item>
-                                    </el-form>
-
-                                    <!-- <el-button type="info" size="mini" @click="tieUp(commit)">满意答案</el-button> -->
-                                </div>
+                                发表日期：{{cardcontent.SEND_DATE|parseTime}}
                             </el-col>
                         </el-row>
-                        <el-row>
-                            <el-col :span="6">
-                                <div class="userhead">
-                                    <img src="../../../app_src/imgs/userHead.png">
-                                    <div class="logo">
-                                        <el-button type="primary" size="mini">{{key+1}}楼</el-button>
-                                        <div class="username">
-                                            {{commit.USER_NAME}}
-                                        </div>
+                    </div>
+                </el-card>
+                <!--回复-->
+                <el-card v-for="(commit,key) in commentlist" :key="key">
+                    <el-row v-if="cardcontent.USER_ID===getCurrentUserId&&cardcontent.POST_TYPE===3&&cardcontent.POST_STATUS===0">
+                        <el-col :span="24">
+                            <div class="tieUp">
+                                <el-form :model="commit" ref="score" :rules="rules">
+                                    <el-form-item prop="score">
+                                        <el-input placeholder="请输入满意积分" v-model.number="commit.BONUS_POINTS"></el-input>
+                                    </el-form-item>
+                                </el-form>
+
+                                <!-- <el-button type="info" size="mini" @click="tieUp(commit)">满意答案</el-button> -->
+                            </div>
+                        </el-col>
+                    </el-row>
+                    <el-row>
+                        <el-col :span="6">
+                            <div class="userhead">
+                                <img src="../../../app_src/imgs/userHead.png">
+                                <div class="logo">
+                                    <el-button type="primary" size="mini">{{key+1}}楼</el-button>
+                                    <div class="username">
+                                        {{commit.USER_NAME}}
                                     </div>
                                 </div>
-                            </el-col>
-                            <!--主贴信息界面-->
-                            <el-col :span="17">
-                                <div class="content">
-                                    <p v-html="commit.CONTENT"></p>
-                                </div>
+                            </div>
+                        </el-col>
+                        <!--主贴信息界面-->
+                        <el-col :span="17">
+                            <div class="content">
+                                <p v-html="commit.CONTENT"></p>
+                            </div>
+                        </el-col>
+                    </el-row>
+                    <div class="foot">
+                        <el-row>
+                            <el-col :span="24">
+                                发表日期：{{commit.CREATE_DATE|parseTime}}
+                                <el-button type="text" @click="delcommit(commit)" v-if="userType===1">删除</el-button>
                             </el-col>
                         </el-row>
-                        <div class="foot">
-                            <el-row>
-                                <el-col :span="24">
-                                    发表日期：{{commit.CREATE_DATE|parseTime}}
-                                    <el-button type="text" @click="delcommit(commit)" v-if="userType===1">删除</el-button>
-                                </el-col>
-                            </el-row>
-                        </div>
-                    </el-card>
-                    <el-card>
-                        <!-- <div slot="header" class="clearfix">
+                    </div>
+                </el-card>
+                <el-card>
+                    <!-- <div slot="header" class="clearfix">
                             <span>发表回复</span>
                         </div> -->
-                        <!-- <el-form :model="commit">
+                    <!-- <el-form :model="commit">
                             <el-form-item label="用途类型">
                                 <el-input v-model="commit.CONTENT"></el-input>
                             </el-form-item>
@@ -106,22 +105,21 @@
                                 <el-button type="primary" @click="submit">提 交</el-button>
                             </el-form-item>
                         </el-form> -->
-                        <el-form ref="commit" :model="commit" label-width="80px" id="commit" :rules="rules">
-                            <el-form-item :label="type" prop="CONTENT">
-                                <div class="editor">
-                                    <!-- <quill-editor v-model="commit.CONTENT" ref="myQuillEditor" :options="commit.editorOption" @ready="onEditorReady($event)" height="500px"></quill-editor> -->
-                                    <quillEditor @listenToEditorChange="EditorChange" v-model="commit.CONTENT" v-bind:apiUrl="urlPicUpload">
-                                    </quillEditor>
-                                </div>
-                                <el-form-item>
-                                    <div class="cardbutton"></div>
-                                    <el-button type="primary" @click="submit()" :loading="loading">确认提交</el-button>
-                                    <el-button type="info" @click="submitScore()" v-if="cardcontent.USER_ID===getCurrentUserId&&cardcontent.POST_TYPE===3&&cardcontent.POST_STATUS===0">结贴</el-button>
-                                </el-form-item>
+                    <el-form ref="commit" :model="commit" label-width="80px" id="commit" :rules="rules">
+                        <el-form-item :label="type" prop="CONTENT">
+                            <div class="editor">
+                                <!-- <quill-editor v-model="commit.CONTENT" ref="myQuillEditor" :options="commit.editorOption" @ready="onEditorReady($event)" height="500px"></quill-editor> -->
+                                <quillEditor @listenToEditorChange="EditorChange" v-model="commit.CONTENT" v-bind:apiUrl="urlPicUpload">
+                                </quillEditor>
+                            </div>
+                            <el-form-item>
+                                <div class="cardbutton"></div>
+                                <el-button type="primary" @click="submit()" :loading="loading">确认提交</el-button>
+                                <el-button type="info" @click="submitScore()" v-if="cardcontent.USER_ID===getCurrentUserId&&cardcontent.POST_TYPE===3&&cardcontent.POST_STATUS===0">结贴</el-button>
                             </el-form-item>
-                        </el-form>
-                    </el-card>
-                </div>
+                        </el-form-item>
+                    </el-form>
+                </el-card>
             </el-col>
             <!-- <el-dialog :visible.sync="scoreVisble" title="积分分配" width="400px">
                 <el-form :model="scorelist" ref="scorelist" :rules="rules">
@@ -189,7 +187,7 @@ export default {
             },
             commit: {
                 POST_ID: "",
-                CONTENT: "",
+                CONTENT: null,
                 FROM_UID: "", //当前登录人ID
                 //TO_UID:'',//主贴ID
                 IS_RIGHT_ANSWER: 0,
@@ -351,14 +349,14 @@ export default {
                                 message: response.data.message,
                                 type: "success",
                                 duration: 2000
-                            });    
-                            this.commit.CONTENT = "";
-                            console.log(this.commit.CONTENT)
+                            });
+                            this.commit.CONTENT = null;
+                            console.log(this.commit.CONTENT);
                             this.$store.dispatch(
                                 "setScore",
                                 response.data.score
                             );
-                            //this.resetTemp();
+                            this.resetTemp();
                             this.getCardDetail();
                         } else {
                             this.$notify({
@@ -576,7 +574,7 @@ export default {
 
 <style lang="scss">
 .newscontent {
-    min-height: 100%;
+    height: 100%;
     margin-top: 10px;
     .content {
         line-height: 20px;

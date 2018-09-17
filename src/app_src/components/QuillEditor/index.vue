@@ -44,7 +44,7 @@ export default {
         },
         watch: {
         content(val) {
-            this.myResult = val;//新增result的watch，监听变更并同步到myResult上
+            this.mycontent = val;//新增result的watch，监听变更并同步到myResult上
         }
     },
         mounted(){
