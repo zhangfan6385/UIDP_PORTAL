@@ -65,7 +65,7 @@ import { createCard } from "@/app_src/api/community";
 export default {
     data() {
         return {
-            urlPicUpload: process.env.BASE_API + "home/uploadCommunityPic",
+            urlPicUpload: process.env.BASE_API + "/Home/uploadCommunityPic",
             newcard: {
                 USER_ID: "",
                 USER_NAME: "",

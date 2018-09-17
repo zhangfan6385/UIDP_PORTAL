@@ -161,7 +161,7 @@ import quillEditor from "@/app_src/components/QuillEditor";
 export default {
     data() {
         return {
-            urlPicUpload: process.env.BASE_API + "home/uploadCommunityPic",
+            urlPicUpload: process.env.BASE_API + "/Home/uploadCommunityPic",
             cardcontent: {},
             commentlist: [],
             loading: false, //按钮等待
