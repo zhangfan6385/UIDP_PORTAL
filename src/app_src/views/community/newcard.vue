@@ -134,15 +134,15 @@ export default {
                         message: "帖子内容不能为空！"
                     });
                 } else {
-                    if (this.newcard.POST_TYPE === 3) {
+                    this.newcard.USER_ID = this.$store.state.user.userID;
+                    this.newcard.USER_NAME = this.$store.state.user.userinfo[0].USER_NAME;
+                    this.newcard.CREATER = this.newcard.USER_NAME;
+                    if (this.newcard.POST_TYPE === "3") {
                         if (
                             parseInt(this.getUserScore) >=
-                            this.newcard.SCORE_POINT
+                            parseInt(this.newcard.SCORE_POINT)
                         ) {
-                            this.loading = true;
-                            this.newcard.USER_ID = this.$store.state.user.userID;
-                            this.newcard.USER_NAME = this.$store.state.user.userinfo[0].USER_NAME;
-                            this.newcard.CREATER = this.newcard.USER_NAME;
+                            //this.loading = true;
                             this.$refs.newcard.validate(valid => {
                                 if (valid) {
                                     createCard(this.newcard).then(response => {
@@ -185,9 +185,6 @@ export default {
                             });
                         }
                     } else {
-                        this.newcard.USER_ID = this.$store.state.user.userID;
-                        this.newcard.USER_NAME = this.$store.state.user.userinfo[0].USER_NAME;
-                        this.newcard.CREATER = this.newcard.USER_NAME;
                         this.$refs.newcard.validate(valid => {
                             if (valid) {
                                 createCard(this.newcard).then(response => {

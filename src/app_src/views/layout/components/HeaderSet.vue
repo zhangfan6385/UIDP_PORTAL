@@ -12,7 +12,6 @@
             <el-dropdown v-if="!isVisiable" class="avatar-container right-menu-item" trigger="click">
                 <div class="avatar-wrapper">
                     <img class='user-avatar' src="../../../../app_src/imgs/avatar.png">
-                    <i class="el-icon-caret-bottom"></i>
                 </div>
                 <el-dropdown-menu slot="dropdown">
 
@@ -91,26 +90,6 @@ export default {
         },
         getMsg() {
             this.$store.state.user.messageDialogVisible=true;
-            // this.userID = this.$store.state.user.userID;
-            // fetchCheckInfo(this.userID).then(response => {
-            //     if (response.data.code === 2000) {
-            //         this.$notify({
-            //             position: "bottom-right",
-            //             title: "成功",
-            //             message: response.data.message,
-            //             type: "success",
-            //             duration: 2000
-            //         });
-            //     } else {
-            //         this.$notify({
-            //             position: "bottom-right",
-            //             title: "失败",
-            //             message: response.data.message,
-            //             type: "error",
-            //             duration: 2000
-            //         });
-            //     }
-            // });
         },
         getMesCount() {
             this.total=parseInt(this.getMstCount);
@@ -122,7 +101,7 @@ export default {
             }else{
                 this.isVisiable=true;
             }
-        }
+        },
     },
     computed: {
         getLoginVisible() {
