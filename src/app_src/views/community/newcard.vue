@@ -90,16 +90,8 @@ export default {
                     { type: "number", message: "分值必须为数字值" },
                     {
                         validator: (rule, value, callback) => {
-                            if (value != "") {
-                                if (
-                                    /^[+]{0,1}(\d+)$|^[+]{0,1}(\d+\.\d+)$/.test(
-                                        value
-                                    ) == false
-                                ) {
-                                    callback(new Error("请填写大于0的数字"));
-                                } else {
-                                    callback();
-                                }
+                            if (value < 0) {
+                                callback(new Error("请输入大于0的数字"));
                             } else {
                                 callback();
                             }
@@ -259,7 +251,7 @@ export default {
     .el-card {
         min-height: 500px;
     }
-    .button{
+    .button {
         margin-top: 20px;
     }
 }

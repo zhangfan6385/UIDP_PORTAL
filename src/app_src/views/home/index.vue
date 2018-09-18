@@ -553,27 +553,34 @@ export default {
                                     cancelButtonText: "取消",
                                     type: "warning"
                                 }
-                            ).then(() => {
-                                payScore(this.userQuery).then(response => {
-                                    if (response.data.code === 2000) {
-                                        this.$message({
-                                            type: "success",
-                                            message: "扣除成功！"
-                                        });
-                                        //this.$sotre.state.user.userinfo[0].score -= row.point;
-                                        this.$router.push({
-                                            path:
-                                                "/community/main/newscontent/" +
-                                                id
-                                        });
-                                    } else {
-                                        this.$message({
-                                            type: "error",
-                                            message: "网络错误，扣除失败！"
-                                        });
-                                    }
+                            )
+                                .then(() => {
+                                    payScore(this.userQuery).then(response => {
+                                        if (response.data.code === 2000) {
+                                            this.$message({
+                                                type: "success",
+                                                message: "扣除成功！"
+                                            });
+                                            //this.$sotre.state.user.userinfo[0].score -= row.point;
+                                            this.$router.push({
+                                                path:
+                                                    "/community/main/newscontent/" +
+                                                    id
+                                            });
+                                        } else {
+                                            this.$message({
+                                                type: "error",
+                                                message: "网络错误，扣除失败！"
+                                            });
+                                        }
+                                    });
+                                })
+                                .catch(() => {
+                                    this.$message({
+                                        type: "info",
+                                        message: "取消查看"
+                                    });
                                 });
-                            });
                         } else {
                             this.$router.push({
                                 path: "/community/main/newscontent/" + id
@@ -884,7 +891,7 @@ export default {
             this.getalldata();
         },
         test() {
-            console.log(this.$store.state.user.token)
+            console.log(this.$store.state.user.token);
         }
     },
     mounted() {

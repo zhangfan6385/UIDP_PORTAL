@@ -96,7 +96,7 @@ export const constantRouterMap = [
     path: '/',
     component: Layout,
     redirect: '/sever',
-    name: 'Sever',
+    name: 'Severdetail',
     hidden: true,
     children: [{
       path: 'sever/:id',
@@ -118,7 +118,7 @@ export const constantRouterMap = [
     path: '/',
     component: Layout,
     redirect: '/severcomponent',
-    name: 'Severcomponent',
+    name: 'Severcomponentdetail',
     hidden: true,
     children: [{
       path: 'componentdetail/:id',

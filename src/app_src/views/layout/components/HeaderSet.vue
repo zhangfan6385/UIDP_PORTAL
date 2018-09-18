@@ -93,7 +93,6 @@ export default {
         },
         getMesCount() {
             this.total=parseInt(this.getMstCount);
-            console.log(this.total)
         },
         getVisable(){
             if(this.getLoginVisible!=null){

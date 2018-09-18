@@ -182,6 +182,11 @@ export default {
                                         });
                                     }
                                 });
+                            }).catch(()=>{
+                                this.$message({
+                                    type:'info',
+                                    message:'取消查看'
+                                })
                             });
                         } else {
                             this.$router.push({
