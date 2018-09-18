@@ -84,18 +84,22 @@ export default {
     },
     methods: {
         handleSizeChange(val) {
+            //增加条数
             this.queryList.limit = val;
             this.getCollectionList();
         },
         handleCurrentChange(val) {
+            //翻页
             this.queryList.page = val;
             this.getCollectionList();
         },
         getcontent(data) {
+            //跳转
             let id = data.postID.toString();
             this.$router.push({ path: "/community/main/newscontent/" + id });
         },
         getCollectionList() {
+            //获取列表
             this.queryList.USER_ID = this.$store.state.user.userID;
             fetchMyCommunityCollectionList(this.queryList).then(response => {
                 if (response.data.code === 2000) {

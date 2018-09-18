@@ -106,7 +106,7 @@
                                 <el-button type="primary" @click="submit">提 交</el-button>
                             </el-form-item>
                         </el-form> -->
-                    <el-form ref="commit" :model="commit" label-width="80px" id="commit" :rules="rules" >
+                    <el-form ref="commit" :model="commit" label-width="80px" id="commit" :rules="rules">
                         <el-form-item :label="type" prop="CONTENT">
 
                             <!-- <quill-editor v-model="commit.CONTENT" ref="myQuillEditor" :options="commit.editorOption" @ready="onEditorReady($event)" height="500px"></quill-editor> -->
@@ -213,6 +213,16 @@ export default {
                         type: "number",
                         message: "分值必须为数字值",
                         trigger: "change"
+                    },
+                    {
+                        validator: (rule, value, callback) => {
+                            if (value < 0) {
+                                callback(new Error("请输入大于0的数字"));
+                            } else {
+                                callback();
+                            }
+                        },
+                        trigger: "change"
                     }
                 ]
             }
@@ -255,6 +265,7 @@ export default {
             });
         },
         collection() {
+            //收藏
             if (this.$store.state.user.userID === null) {
                 this.$store.state.user.dialogLoginVisible = true;
             } else {
@@ -283,6 +294,7 @@ export default {
             }
         },
         uncollection() {
+            //取消收藏
             if (this.$store.state.user.userID === null) {
                 this.$store.state.user.dialogLoginVisible = true;
             } else {
@@ -325,11 +337,13 @@ export default {
         },
         onEditorReady(editor) {},
         resetTemp() {
+            //quilleditor 文本框清除方法
             this.commit.CONTENT = "";
             let first = document.getElementsByClassName("ql-editor");
             first[0].children[0].innerHTML = "";
         },
         submit() {
+            //提交
             if (this.$store.state.user.userID === null) {
                 this.$store.state.user.dialogLoginVisible = true;
             } else {
@@ -376,12 +390,14 @@ export default {
             }
         },
         goAnchor() {
+            //锚点跳转
             window.location.hash = "commit";
         },
         back() {
             this.$router.go(-1);
         },
         delcard() {
+            //删贴
             this.$confirm("您确定删除本帖吗?", "提示", {
                 confirmButtonText: "确定",
                 cancelButtonText: "取消",
@@ -421,6 +437,7 @@ export default {
                 });
         },
         delcommit(data) {
+            //删评论
             this.$confirm("您确定删除本条评论吗?", "提示", {
                 confirmButtonText: "确定",
                 cancelButtonText: "取消",
@@ -458,20 +475,23 @@ export default {
                 });
         },
         update() {
+            //点击阅读量+1
             this.delCardList.POST_ID = this.$route.params.id;
             updateLookTimes(this.delCardList);
         },
         getUserType() {
+            //获取用户类型
             this.userType = this.$store.state.user.roleLv;
         },
-        tieUp(data) {
-            this.scoreVisble = true;
-            this.writter = data.USER_NAME;
-            this.content = data.CONTENT;
-            this.scorelist.TO_UID = data.USER_ID;
-            this.scorelist.POST_ID = this.cardcontent.POST_ID;
-        },
+        // tieUp(data) {//分配分数表单赋值
+        //     this.scoreVisble = true;
+        //     this.writter = data.USER_NAME;
+        //     this.content = data.CONTENT;
+        //     this.scorelist.TO_UID = data.USER_ID;
+        //     this.scorelist.POST_ID = this.cardcontent.POST_ID;
+        // },
         submitScore() {
+            //分配分数
             this.$confirm("您确定进行结贴操作吗?本操作不可逆转", "提示", {
                 confirmButtonText: "确定",
                 cancelButtonText: "取消",
@@ -482,14 +502,15 @@ export default {
                     let num = 0;
                     for (let i = 0; i < this.$refs.score.length; i++) {
                         this.$refs.score[i].validate(valid => {
-                            flag = flag && valid;
+                            flag = flag && valid; //循环验证当前所有评论楼是否通过验证
                         });
                     }
                     if (flag) {
                         this.commentlist.forEach((item, key) => {
-                            num += parseInt(item.BONUS_POINTS);
+                            num += parseInt(item.BONUS_POINTS); //判断用户所输入的分数是否为悬赏分数
                         });
                         if (num === 0) {
+                            //异常结贴
                             let postlist1 = {
                                 POST_ID: this.cardcontent.POST_ID,
                                 SCORE_POINT: this.cardcontent.SCORE_POINT,
@@ -508,6 +529,7 @@ export default {
                                 message: "请输入符合当前帖子悬赏分数的分值"
                             });
                         } else {
+                            //正常结贴
                             let arr = this.commentlist;
                             arr = arr.filter(t => t.BONUS_POINTS != 0);
                             let postlist = {
@@ -590,7 +612,7 @@ export default {
         color: gray;
         font-family: "Times New Roman", Times, serif;
     }
-    .tip{
+    .tip {
         color: red;
         font-weight: bold;
     }

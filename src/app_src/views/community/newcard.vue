@@ -62,8 +62,9 @@ import { createCard } from "@/app_src/api/community";
 export default {
     data() {
         return {
-            urlPicUpload: process.env.BASE_API + "/Home/uploadCommunityPic",
+            urlPicUpload: process.env.BASE_API + "/Home/uploadCommunityPic", //下载路径
             newcard: {
+                //查询参数
                 USER_ID: "",
                 USER_NAME: "",
                 TITLE_NAME: "",
@@ -75,6 +76,7 @@ export default {
             },
             loading: false,
             rules: {
+                //验证规则
                 POST_TYPE: [
                     { required: true, message: "请输入类型", trigger: "blur" }
                 ],
@@ -118,6 +120,7 @@ export default {
             this.newcard.POST_CONTENT = data.editorContent;
         },
         resetTemp() {
+            //重置方法
             this.newcard = {
                 USER_ID: "",
                 USER_NAME: "",

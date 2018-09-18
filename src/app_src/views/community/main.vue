@@ -41,10 +41,10 @@ export default {
         newCard() {
             this.$router.push({ path: "/community/main/newcard" });
         },
-        getVisable(){
-            if(this.getUserId!=null){
+        getVisable() {
+            if (this.getUserId != null) {
                 this.ButtonState = false;
-            }else{
+            } else {
                 this.ButtonState = true;
             }
         }
@@ -61,7 +61,7 @@ export default {
     },
     mounted() {
         this.getVisable();
-    },
+    }
 };
 </script>
 

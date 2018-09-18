@@ -298,15 +298,15 @@ export default {
         };
     },
     methods: {
-        getindex() {
+        getindex() {//获取HOME页点击图标
             let dashaboardindex = this.$store.state.user.dashaboardindex;
             this.index = dashaboardindex;
         },
-        goToHistory(data) {
+        goToHistory(data) {//跳转历史版本
             this.$store.state.user.platformIndex = data;
             this.$router.push({ path: "/history" });
         },
-        getCurrent() {
+        getCurrent() {//获取最新版本信息
             this.querylist.projectid = this.$store.state.user.currentProjID;
             this.querylist.userid = this.$store.state.user.userID;
             this.FetchCSharpHistoryList();

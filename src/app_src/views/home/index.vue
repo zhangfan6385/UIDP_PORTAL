@@ -598,6 +598,7 @@ export default {
             this.$router.push({ path: "/community" });
         },
         GOplatform1(data) {
+            //获取点击图标索引
             this.$store.state.user.dashaboardindex = data;
             this.$router.push({ path: "/dashboard" });
         },
@@ -762,6 +763,7 @@ export default {
             // ];
         },
         dialogdrawline() {
+            //echarts初始化
             let allcomponentchart = this.$echarts.init(
                 document.getElementById("allcomponentchart")
             );
@@ -773,6 +775,7 @@ export default {
             allseverchart.setOption(this.severOption);
         },
         getalldata() {
+            //拉取top数据
             fetchAlldata().then(response => {
                 if (response.data.code === 2000) {
                     this.componentAllList = response.data.dtComponentTop;
@@ -852,6 +855,7 @@ export default {
             });
         },
         changeAllData() {
+            //数据转化
             let ComData = [];
             let ComYarry = [];
             let SerData = [];
@@ -890,15 +894,14 @@ export default {
             this.type = data;
             this.getalldata();
         },
-        test() {
-            console.log(this.$store.state.user.token);
-        }
+        test() {}
     },
     mounted() {
         //获取服务排名
         this.getNoticeList();
         //获取帖子列表
         this.getCommuntityList();
+        this.test();
     },
     created() {
         this.getSeverRank();

@@ -5,7 +5,7 @@
             <el-col :span="15">
                 <div class="LeftContainer">
                     <el-card>
-                        <el-table :data="newslist" @row-click="getcontent" height="550px" >
+                        <el-table :data="newslist" @row-click="getcontent" height="550px">
                             <el-table-column label="类型" width="50px" align="center">
                                 <template slot-scope="scope">
                                     <div class="newslogo">
@@ -74,7 +74,6 @@ import {
 export default {
     data() {
         return {
-            score: 1000,
             scoreList: [],
             newslist: [],
             currentPage1: 1,
@@ -95,7 +94,7 @@ export default {
                 SCORE: ""
             },
             total: null,
-            loading:true
+            loading: true
         };
     },
     methods: {
@@ -112,37 +111,47 @@ export default {
             }
         },
         handleSizeChange(val) {
+            //增加显示数据方法
             this.listQuery1.limit = val;
             this.getCommuntityList();
         },
         handleCurrentChange(val) {
+            //翻页犯法
             this.listQuery1.page = val;
             this.getCommuntityList();
         },
         getcontent(row, event, column) {
+            //论坛首页点击事件
             let id = row.id.toString();
             if (row.type === 1) {
+                //经验分享帖
                 if (row.point === 0) {
+                    //判断分值
                     this.$router.push({
                         path: "/community/main/newscontent/" + id
                     });
                 } else if (this.getUserId === null) {
+                    //判断登录状态
                     this.$alert("您还未登录,无法查看经验分享！", "登录提示", {
                         confirmButtonText: "确定"
                     });
                 } else if (this.getUserLv === 2) {
+                    //判断登录人权限
                     this.$router.push({
                         path: "/community/main/newscontent/" + id
                     });
                 } else if (this.getUserId === row.writterID) {
+                    //判断发帖人是否为登录人
                     this.$router.push({
                         path: "/community/main/newscontent/" + id
                     });
                 } else if (this.getUserScore < row.point) {
+                    //判断积分
                     this.$alert("您的积分不足！无法查看", "积分提示", {
                         confirmButtonText: "确定"
                     });
                 } else {
+                    //进行扣分查询
                     this.userQuery.POST_ID = row.id;
                     this.userQuery.POST_USER_ID = row.writterID;
                     this.userQuery.SCORE = row.point;
@@ -161,33 +170,34 @@ export default {
                                     cancelButtonText: "取消",
                                     type: "warning"
                                 }
-                            ).then(() => {
-                                payScore(this.userQuery).then(response => {
-                                    if (response.data.code === 2000) {
-                                        this.$message({
-                                            type: "success",
-                                            message: "扣除成功！"
-                                        });
-                                        //this.$sotre.state.user.userinfo[0].score -= row.point;
-                                        this.$router.push({
-                                            path:
-                                                "/community/main/newscontent/" +
-                                                id
-                                        });
-                                    }
-                                    else{
-                                         this.$message({
-                                            type: "error",
-                                            message: "网络错误，扣除失败！"
-                                        });
-                                    }
-                                });
-                            }).catch(()=>{
-                                this.$message({
-                                    type:'info',
-                                    message:'取消查看'
+                            )
+                                .then(() => {
+                                    payScore(this.userQuery).then(response => {
+                                        if (response.data.code === 2000) {
+                                            this.$message({
+                                                type: "success",
+                                                message: "扣除成功！"
+                                            });
+                                            //this.$sotre.state.user.userinfo[0].score -= row.point;
+                                            this.$router.push({
+                                                path:
+                                                    "/community/main/newscontent/" +
+                                                    id
+                                            });
+                                        } else {
+                                            this.$message({
+                                                type: "error",
+                                                message: "网络错误，扣除失败！"
+                                            });
+                                        }
+                                    });
                                 })
-                            });
+                                .catch(() => {
+                                    this.$message({
+                                        type: "info",
+                                        message: "取消查看"
+                                    });
+                                });
                         } else {
                             this.$router.push({
                                 path: "/community/main/newscontent/" + id
@@ -206,7 +216,7 @@ export default {
             this.newslist = [];
             fetchCommunityList(this.listQuery1).then(response => {
                 if (response.data.code === 2000) {
-                    this.loading=false
+                    this.loading = false;
                     this.total = response.data.total;
                     for (let i = 0; i < response.data.items.length; i++) {
                         let time = response.data.items[i].SEND_DATE.substring(
@@ -228,7 +238,7 @@ export default {
                         });
                     }
                 } else {
-                    this.loading=false
+                    this.loading = false;
                     this.$notify({
                         position: "bottom-right",
                         title: "失败",

@@ -88,22 +88,27 @@ export default {
     },
     methods: {
         handleSizeChange(val) {
+            //增加条数
             this.queryList.limit = val;
             this.getMyCard();
         },
         handleCurrentChange(val) {
+            //翻页
             this.queryList.page = val;
             this.getMyCard();
         },
         getcontent(data) {
+            //跳转
             var id = data.id.toString();
             this.$router.push({ path: "/community/main/newscontent/" + id });
         },
         getUserInfo() {
+            //从全局数据拉取用户信息
             this.userinfo = this.$store.state.user.userinfo[0];
             this.score = this.getUserScore;
         },
         getMyCard() {
+            //获取帖子列表
             this.queryList.USER_ID = this.$store.state.user.userID;
             fetchMyCommunityList(this.queryList).then(response => {
                 if (response.data.code === 2000) {
