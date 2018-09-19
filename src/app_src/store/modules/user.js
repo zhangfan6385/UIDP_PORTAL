@@ -25,8 +25,8 @@ const user = {
     noReadCount: '',
     total: '',
     //global params
-    dashboardindex: '',
-    platformIndex: '',
+    dashboardindex: '',//开发平台跳转索引
+    platformIndex: '',//历史版本索引
     dialogLoginVisible: false, //判断登录框弹出zp
     dialogPasswordVisible: false, //判断修改密码框弹出zp
     dialogUserInfoVisible: false, //用户信息弹出zp
@@ -95,6 +95,9 @@ const user = {
     },
     SET_SCORE:(state,SCORE)=>{
       state.SCORE=SCORE
+    },
+    SET_PLATFORMINDEX:(state,platformIndex)=>{
+      state.platformIndex=platformIndex
     }
   },
 
@@ -134,6 +137,9 @@ const user = {
     },
     setToken({commit},token){
       commit('SET_TOKEN',token)
+    },
+    setPlatformIndex({commit},platformIndex){
+      commit('SET_PLATFORMINDEX',platformIndex)
     },
 
 

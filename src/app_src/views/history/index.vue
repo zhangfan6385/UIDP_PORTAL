@@ -311,11 +311,11 @@ export default {
                 this.querylist.platType = 0;
                 this.dataName = "C#版本列表";
             }
+            this.$store.dispatch('setPlatformIndex',this.querylist.platType)
             this.FetchHistoryList();
         },
         getHistoryList() {
             this.querylist.platType = this.$store.state.user.platformIndex;
-
             if (this.querylist.platType == 0) {
                 this.dataName = "C#版本列表";
             } else {
