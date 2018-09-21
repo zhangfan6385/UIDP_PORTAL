@@ -3,11 +3,11 @@
         <el-dialog title="我的信息" class="themdialog" :visible.sync="isvisibleuser" width="30%" @close='closeDialog'>
             <el-card>
                 <span class="name">姓名：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                <span>张三</span><br>
+                <span>{{userinfo.USER_NAME}}</span><br>
                 <span class="name">所属公司：</span>
-                <span>乐山大佛</span><br>
+                <span>{{userinfo.ORG_NAME}}</span><br>
                 <span class="name"> 已选项目：</span>
-                <span>项目二</span>
+                <span>{{currentProjName}}</span>
             </el-card>
         </el-dialog>
     </div>
@@ -19,25 +19,44 @@ export default {
     data() {
         return {
             isvisibleuser: false,
-            pwdForm: {}
+            userinfo:{},
+            currentProjName:''
         };
-    },
-    computed: {
-        getPassword() {
-            return this.$store.state.user.dialogUserInfoVisible;
-        }
-    },
-    watch: {
-        getPassword(data) {
-            this.isvisibleuser = data;
-        }
     },
     methods: {
         closeDialog() {
             this.$store.state.user.dialogUserInfoVisible = false;
+        },
+        getInfo(){
+            this.userinfo=this.getUserInfo
+            this.currentProjName=this.getCurrentProj
         }
     },
-    created() {}
+    mounted() {
+        
+    },
+    computed:{
+        getUserInfo(){
+            return this.$store.state.user.userinfo[0]
+        },
+        getCurrentProj(){
+            return this.$store.state.user.currentProjName
+        },
+        getInfoVis(){
+            return this.$store.state.user.dialogUserInfoVisible
+        }
+    },
+    watch:{
+        getUserInfo(data){
+            this.userinfo=data;
+        },
+        getCurrentProj(data){
+            this.currentProjName=data
+        },
+        getInfoVis(data){
+            this.isvisibleuser=data
+        }
+    }
 };
 </script>
 <style lang="scss" >

@@ -78,14 +78,14 @@ export default {
     },
     methods: {
         getList() {
-            this.list=this.getProjList
+            this.list = this.getProjList;
             //console.log(this.isvisibleProject)
         },
         handleProject(row) {
             this.temp = Object.assign({}, row); // copy obj
-            this.$store.dispatch('setCurrentProjID',this.temp.PROJECT_ID);
-            this.$store.dispatch('setCurrentProjName',this.temp.PROJECT_NAME);
-            this.$store.dispatch('setdialogProjectInfoVisible',false);
+            this.$store.dispatch("setCurrentProjID", this.temp.PROJECT_ID);
+            this.$store.dispatch("setCurrentProjName", this.temp.PROJECT_NAME);
+            this.$store.dispatch("setdialogProjectInfoVisible", false);
             this.$store.state.user.dialogProjectInfoVisible = false;
         },
         handleSizeChange(val) {
@@ -109,6 +109,13 @@ export default {
         closeDialog() {
             this.$store.state.user.dialogLoginVisible = false;
             this.$store.state.user.dialogProjectInfoVisible = false;
+            if (this.$store.state.user.currentProjID.length === 0) {
+                this.$store.dispatch("setUserId", null);
+                this.$store.dispatch("FedLogOut").then(() => {
+                    location.reload(); // In order to re-instantiate the vue-router object to avoid bugs
+                    this.$router.push({ path: "/home" });
+                });
+            }
         }
         // getProjList() {
         //     this.list = this.$store.state.user.projList;
@@ -117,7 +124,7 @@ export default {
     },
     mounted() {
         this.getList();
-    },
+    }
 };
 </script>
 <style lang="scss" >
