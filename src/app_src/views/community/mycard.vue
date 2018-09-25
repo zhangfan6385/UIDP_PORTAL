@@ -160,10 +160,10 @@ export default {
 <style lang="scss">
 .mycard {
     .leftcontainer {
-        min-height: 450px;
+        //min-height: 500px;
         text-align: center;
         .el-card {
-            min-height: 450px;
+            min-height: 490px;
         }
         .img {
             text-align: center;
