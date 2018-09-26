@@ -67,8 +67,8 @@
                                         <el-form-item label="文件大小">
                                             <span>{{scope.row.PLAT_SIZE}}</span>
                                         </el-form-item>
-                                        <el-form-item label="适用平台">
-                                            <span>{{scope.row.SUIT_PLAT}}</span>
+                                        <el-form-item label="版本号">
+                                            <span>{{scope.row.PLAT_VERSION}}</span>
                                         </el-form-item>
                                         <el-form-item label="适用浏览器">
                                             <span>{{scope.row.APPLICATION_BROWSER}}</span>
@@ -94,7 +94,7 @@
                             </template>
                         </el-table-column>
                         <el-table-column prop="PLAT_NAME" label="名称" align="center"></el-table-column>
-                        <el-table-column prop="SUIT_PLAT" label="适用平台" align="center"></el-table-column>
+                        <el-table-column prop="PLAT_VERSION" label="版本号" align="center"></el-table-column>
                         <el-table-column prop="APPLICATION_BROWSER" label="环境需求" align="center"></el-table-column>
                         <el-table-column prop="CREATE_DATE" label="发布日期" align="center"></el-table-column>
 
