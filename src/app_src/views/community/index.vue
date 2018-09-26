@@ -47,13 +47,13 @@
                             <img src="../../../app_src/imgs/title.png">
                             <br>
                             <el-table :data="scoreList">
-                                <el-table-column prop="index" label="排名" align="center">
+                                <el-table-column prop="index" label="排名" align="center" width="70px">
                                     <template slot-scope="scope">
                                         <span :class="addclass(scope.$index+1)">{{scope.$index+1}}</span>
                                     </template>
                                 </el-table-column>
-                                <el-table-column prop="USER_NAME" label="姓名" align="center"></el-table-column>
-                                <el-table-column prop="TOTAL" label="发帖量" align="center"></el-table-column>
+                                <el-table-column prop="USER_NAME" label="姓名" align="center" show-overflow-tooltip></el-table-column>
+                                <el-table-column prop="TOTAL" label="发帖量" align="center" width="70px"></el-table-column>
                             </el-table>
                         </div>
                     </el-card>

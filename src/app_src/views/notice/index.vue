@@ -118,6 +118,7 @@ export default {
 
 <style lang="scss">
 .noticecard {
+    min-height: 500px;
     margin-top: 20px;
     .header {
         font-size: 16px;
@@ -154,6 +155,7 @@ export default {
     }
     .backbutton {
         float: right;
+        margin-bottom: 10px;
     }
 }
 </style>

@@ -1,45 +1,45 @@
 <template>
-  <div class="app-wrapper" >
-    <div class="header">
-      <el-row type="flex">
-        <el-col :span="2"></el-col>
-        <el-col :span="10">
-          <div class="logo">
-            <img src="../../../app_src/imgs/logo.png">
-            <!-- <img src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif"> -->
-            <span>大港油田软件工厂</span>
-          </div>
-        </el-col>
-        <el-col :span="10">
-          <div class="headerset">
-            <header-set></header-set>
-          </div>
-        </el-col>
-        <el-col :span="2"></el-col>
-      </el-row>
-    </div>
-    <el-col :span="24">
+    <div class="app-wrapper">
+        <div class="header">
+            <el-row type="flex">
+                <el-col :span="2"></el-col>
+                <el-col :span="10">
+                    <div class="logo">
+                        <img src="../../../app_src/imgs/logo.png">
+                        <!-- <img src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif"> -->
+                    </div>
+                    <span class="title">大港油田软件工厂</span>
+                </el-col>
+                <el-col :span="10">
+                    <div class="headerset">
+                        <header-set></header-set>
+                    </div>
+                </el-col>
+                <el-col :span="2"></el-col>
+            </el-row>
+        </div>
+        <el-col :span="24">
 
-      <div class="main-container">
-        <div>
-          <topbar></topbar>
-        </div>
-        <div>
-          <user-password-manager></user-password-manager>
-          <!-- <apply-dialog></apply-dialog> -->
-          <login-dialog></login-dialog>
-          <message-dialog></message-dialog>
-          <user-info></user-info>
-          <project-info></project-info>
-          <app-main></app-main>
-        </div>
-        <div class="copyright">
-          版权所有：©大港油田信息中心
-          <!-- 版权所有：©大港油田集团责任有限公司信息中心 -->
-        </div>
-      </div>
-    </el-col>
-  </div>
+            <div class="main-container">
+                <div>
+                    <topbar></topbar>
+                </div>
+                <div>
+                    <user-password-manager></user-password-manager>
+                    <!-- <apply-dialog></apply-dialog> -->
+                    <login-dialog></login-dialog>
+                    <message-dialog></message-dialog>
+                    <user-info></user-info>
+                    <project-info></project-info>
+                    <app-main></app-main>
+                </div>
+                <div class="copyright">
+                    版权所有：©大港油田信息中心
+                    <!-- 版权所有：©大港油田集团责任有限公司信息中心 -->
+                </div>
+            </div>
+        </el-col>
+    </div>
 </template>
 
 <script>
@@ -122,18 +122,12 @@ export default {
     height: 43px;
     background: #dce4e9;
     margin: 0 auto;
-    line-height: 30px; //设置line-height与父级元素的height相等
+    line-height: 42px; //设置line-height与父级元素的height相等
     overflow: hidden; //防止内容超出容器或者产生自动换行
 
     .logo {
         float: left;
         margin: 4px 10px;
-        span {
-            margin-left: 8px;
-            font-size: 15px;
-            font-weight: bold;
-            color: #0a0a0a;
-        }
 
         img {
             vertical-align: top;
@@ -142,11 +136,17 @@ export default {
             width: 27px;
         }
     }
+    .title {
+        margin-left: 5px;
+        font-size: 15px;
+        font-weight: bold;
+        color: #0a0a0a;
+    }
 }
 .copyright {
     left: 40%;
     bottom: 0px;
-    margin-left:42%; 
+    margin-left: 42%;
     //margin-bottom: 5px;
     color: gray;
     font-family: "微软雅黑";
