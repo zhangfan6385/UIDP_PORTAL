@@ -113,7 +113,7 @@ export default {
                         .dispatch("LoginByUsername", this.loginForm)
                         .then(response => {
                             if (response.data.code === 2000) {
-                                if (response.data.roleLevel === 1) {
+                                if (response.data.roleLevel === "0") {
                                     this.loading = false;
                                     this.dialogLoginVisible = false;
                                     this.$store.state.user.dialogLoginVisible = false;
@@ -129,6 +129,7 @@ export default {
                                     this.loading = false;
                                 } else {
                                     this.loading = false;
+                                    this.$store.dispatch('setUserId',null);
                                     this.$notify({
                                         position: "bottom-right",
                                         title: "失败",

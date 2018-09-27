@@ -10,7 +10,7 @@
                         <span>{{cardcontent.TITLE_NAME}}</span>
                         <span v-if="cardcontent.POST_STATUS===1" class="tip">[已结帖]</span>
                         <div class="operation">
-                            <el-button size="mini" @click="delcard" type="danger" v-if="userType===1">
+                            <el-button size="mini" @click="delcard" type="danger" v-if="userType==='0'">
                                 <i class="el-icon-warning"></i>删除本帖
                             </el-button>
                             <el-button size="mini" @click="collection" v-if="cardcontent.COLLECTION_STATE==='0'">
@@ -89,7 +89,7 @@
                         <el-row>
                             <el-col :span="24">
                                 发表日期：{{commit.CREATE_DATE|parseTime}}
-                                <el-button type="text" @click="delcommit(commit)" v-if="userType===1">删除</el-button>
+                                <el-button type="text" @click="delcommit(commit)" v-if="userType==='0'">删除</el-button>
                             </el-col>
                         </el-row>
                     </div>

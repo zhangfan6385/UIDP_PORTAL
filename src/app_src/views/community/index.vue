@@ -135,7 +135,7 @@ export default {
                     this.$alert("您还未登录,无法查看经验分享！", "登录提示", {
                         confirmButtonText: "确定"
                     });
-                } else if (this.getUserLv === 2) {
+                } else if (this.getUserLv === '0') {
                     //判断登录人权限
                     this.$router.push({
                         path: "/community/main/newscontent/" + id
