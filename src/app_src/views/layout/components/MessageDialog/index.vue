@@ -1,23 +1,27 @@
 <template>
     <div id="messagetip" class="messagetip">
-        <el-dialog :visible.sync="messagetipVisibile" title="信息提示" center @close="close">
+        <el-dialog :visible.sync="messagetipVisibile" title="信息提示" center @close="close" width="630px">
             <el-card>
                 <el-card>
                     <el-table :data="messageList" @expand-change="sign">
                         <el-table-column type="expand">
-                            <template template slot-scope="props">
-                                <el-form label-position="left" inline class="demo-table-expand">
-                                    <el-col :span="24">
-                                        <el-form-item label="标题">
-                                            <span v-html="props.row.RECORD_TITLE"></span>
-                                        </el-form-item>
-                                    </el-col>
-                                    <el-col :span="24">
-                                        <el-form-item label="审核内容">
-                                            <div v-html="props.row.RECORD_CONTENT"></div>
-                                        </el-form-item>
-                                    </el-col>
-
+                            <template slot-scope="props">
+                                <el-form label-position="left">
+                                    <el-row>
+                                        <el-col :span="24">
+                                            <el-form-item label="标题">
+                                                <div v-html="props.row.RECORD_TITLE"></div>
+                                            </el-form-item>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row>
+                                        <el-col :span="24">
+                                            <el-form-item label="审核内容">
+                                                <div  v-html="props.row.RECORD_CONTENT">
+                                                </div>
+                                            </el-form-item>
+                                        </el-col>
+                                    </el-row>
                                 </el-form>
                             </template>
                         </el-table-column>

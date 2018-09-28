@@ -23,6 +23,8 @@ import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 // 引入echarts
 import echarts from 'echarts'
+//引入IE支持
+import 'babel-polyfill'
 Vue.prototype.$echarts = echarts
 
 Vue.use(ElementUI, { locale })
