@@ -7,6 +7,7 @@ Vue.use(Router)
 
 /* Layout */
 import Layout from '../views/layout/Layout'
+import { resolve } from 'uri-js';
 
 /**
 * hidden: true                   当设置 true 的时候该路由不会再侧边栏出现 如401，login等页面(默认 false)
@@ -31,6 +32,7 @@ export const constantRouterMap = [
     children: [{
       path: 'home',
       component: _import('app_src/views/home/index')
+      //component:resolve=>_import(['app_src/views/home/index'],resolve)
     }]
   },
   {
@@ -41,7 +43,8 @@ export const constantRouterMap = [
     hidden: true,
     children: [{
       path: 'dashboard',
-      component: _import('app_src/views/dashboard/index')
+      //component: _import('app_src/views/dashboard/index')
+      component:resolve=>require(['@/app_src/views/dashboard/index'],resolve)
     }]
   },
   {
@@ -52,31 +55,38 @@ export const constantRouterMap = [
     hidden: true,
     children: [{
       path: 'community',
-      component: _import('app_src/views/community/index')
+      //component: _import('app_src/views/community/index')
+      component:resolve=>require(['@/app_src/views/community/index'],resolve)
     }, {
       path: 'main',
       redirect: '/community/main/index',
-      component: _import('app_src/views/community/main'),
+      //component: _import('app_src/views/community/main'),
+      component:resolve=>require(['@/app_src/views/community/main'],resolve),
       children: [
         {
           path: 'index',
-          component: _import('app_src/views/community/index')
+          //component: _import('app_src/views/community/index')
+          component:resolve=>require(['@/app_src/views/community/index'],resolve)
         },
         {
           path: 'mycard',
-          component: _import('app_src/views/community/mycard')
+          //component: _import('app_src/views/community/mycard')
+          component:resolve=>require(['@/app_src/views/community/mycard'],resolve)
         },
         {
           path: 'mycollection',
-          component: _import('app_src/views/community/mycollection')
+          //component: _import('app_src/views/community/mycollection')
+          component:resolve=>require(['@/app_src/views/community/mycollection'],resolve)
         },
         {
           path: 'newcard',
-          component: _import('app_src/views/community/newcard')
+          //component: _import('app_src/views/community/newcard')
+          component:resolve=>require(['@/app_src/views/community/newcard'],resolve)
         },
         {
           path: 'newscontent/:id',
-          component: _import('app_src/views/community/newscontent')
+          //component: _import('app_src/views/community/newscontent')
+          component:resolve=>require(['@/app_src/views/community/newscontent'],resolve)
         }
       ]
     }]
@@ -89,7 +99,8 @@ export const constantRouterMap = [
     hidden: true,
     children: [{
       path: 'sever',
-      component: _import('app_src/views/sever/index')
+      //component: _import('app_src/views/sever/index')
+      component:resolve=>require(['@/app_src/views/sever/index'],resolve)
     }]
   },
   {
@@ -100,7 +111,8 @@ export const constantRouterMap = [
     hidden: true,
     children: [{
       path: 'sever/:id',
-      component: _import('app_src/views/sever/detail')
+      //component: _import('app_src/views/sever/detail')
+      component:resolve=>require(['@/app_src/views/sever/detail'],resolve)
     }]
   },
   {
@@ -111,7 +123,8 @@ export const constantRouterMap = [
     hidden: true,
     children: [{
       path: 'severcomponent',
-      component: _import('app_src/views/severcomponent/index')
+      //component: _import('app_src/views/severcomponent/index')
+      component:resolve=>require(['@/app_src/views/severcomponent/index'],resolve)
     }]
   },
   {
@@ -122,7 +135,8 @@ export const constantRouterMap = [
     hidden: true,
     children: [{
       path: 'componentdetail/:id',
-      component: _import('app_src/views/severcomponent/detail')
+      //component: _import('app_src/views/severcomponent/detail')
+      component:resolve=>require(['@/app_src/views/severcomponent/detail'],resolve)
     }]
   },
   {
@@ -133,7 +147,8 @@ export const constantRouterMap = [
     hidden: true,
     children: [{
       path: 'notice',
-      component: _import('app_src/views/notice/index')
+      //component: _import('app_src/views/notice/index')
+      component:resolve=>require(['@/app_src/views/notice/index'],resolve)
     }]
   },
   {
@@ -144,7 +159,8 @@ export const constantRouterMap = [
     hidden: true,
     children: [{
       path: 'noticecontent/:id',
-      component: _import('app_src/views/notice/noticecontent')
+      //component: _import('app_src/views/notice/noticecontent')
+      component:resolve=>require(['@/app_src/views/notice/noticecontent'],resolve)
     }]
   },
   {
@@ -155,7 +171,8 @@ export const constantRouterMap = [
     hidden: true,
     children: [{
       path: 'history',
-      component: _import('app_src/views/history/index')
+      //component: _import('app_src/views/history/index')
+      component:resolve=>require(['@/app_src/views/history/index'],resolve)
     }]
   },
   /*

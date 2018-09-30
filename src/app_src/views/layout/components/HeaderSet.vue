@@ -3,7 +3,8 @@
 
         <div class="right-menu">
 
-            <span class="login_span" @click="changeIsVisible" v-if="isVisiable">登录</span>
+            <!-- <span class="login_span" @click="changeIsVisible" v-if="isVisiable">登录</span> -->
+            <el-button @click="changeIsVisible" v-if="isVisiable" size="mini" type="primary" plain round>登录</el-button>
 
             <el-badge :value="total" v-if="!isVisiable" >
                 <img class='user-avatar' src="../../../../app_src/imgs/message2.png" @click="getMsg">

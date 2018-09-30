@@ -34,9 +34,10 @@
                     <app-main></app-main>
                 </div>
                 <div class="copyright">
-                    版权所有：©大港油田信息中心
+                    ©大港油田信息中心&nbsp;版权所有
                     <!-- 版权所有：©大港油田集团责任有限公司信息中心 -->
                 </div>
+                <br>
             </div>
         </el-col>
     </div>
@@ -132,20 +133,20 @@ export default {
         img {
             vertical-align: top;
             margin-top: 2px;
-            height: 27px;
-            width: 27px;
+            height: 31px;
+            width: 31px;
         }
     }
     .title {
         margin-left: 5px;
-        font-size: 15px;
+        font-size: 18px;
         font-weight: bold;
         color: #0a0a0a;
     }
 }
 .copyright {
     left: 40%;
-    bottom: 0px;
+    bottom: 8px;
     margin-left: 42%;
     //margin-bottom: 5px;
     color: gray;
