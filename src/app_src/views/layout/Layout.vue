@@ -146,7 +146,8 @@ export default {
 }
 .copyright {
     left: 40%;
-    bottom: 8px;
+    margin-top:8px;
+    bottom: 3px;
     margin-left: 42%;
     //margin-bottom: 5px;
     color: gray;
