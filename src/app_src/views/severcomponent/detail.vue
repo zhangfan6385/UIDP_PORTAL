@@ -6,7 +6,8 @@
                 <el-card class="componentinfo">
                     <div style="width:100%;padding-left:10px">
                         <span style="font-weight:bold">{{obj.COMPONENT_NAME}}</span>
-                        <el-button size="mini" style="float:right" type="primary" @click="back">后 退</el-button>
+                        <a href="#" @click="back" title="后退" style="float:right"><img src="../../../app_src/imgs/back.png" ></a>
+                        <!-- <el-button size="mini" style="float:right" type="primary" @click="back">后 退</el-button> -->
                     </div>
                     <ul>
                         <li>

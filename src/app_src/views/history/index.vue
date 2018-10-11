@@ -45,9 +45,10 @@
                 <el-card>
                     <div class="title">
                         {{dataName}}
-                        <el-button type="primary" size="mini" class="changePlatform" @click="back">后 退</el-button>
-
-                        <el-button type="primary" size="mini" class="changePlatform" @click="changePlatform">切换平台</el-button>
+                        <!-- <el-button type="primary" size="mini" class="changePlatform" @click="back">后 退</el-button> -->
+<a href="#" @click="back" title="后退" class="changePlatform"><img style="margin-top:2px;" src="../../../app_src/imgs/back.png" ></a>
+                        <!-- <el-button type="primary" size="mini" class="changePlatform" @click="changePlatform">切换平台</el-button> -->
+                        <a href="#" @click="changePlatform" title="切换平台" class="changePlatform"><img style="height:37px;width:38px" src="../../../app_src/imgs/change.png" ></a>
 
                     </div>
                     <el-table :data="histroyEdition" height="450px" :v-loading="listloading">

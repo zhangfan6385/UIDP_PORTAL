@@ -6,7 +6,8 @@
                 <el-card class="componentinfo" shadow="never">
                     <div style="width:100%;padding-left:10px">
                         <span style="font-weight:bold">{{severInfo.SERVICE_NAME}}</span>
-                        <el-button size="mini" style="float:right" type="primary" @click="back">后 退</el-button>
+                        <a href="#" @click="back" title="后退" style="float:right"><img src="../../../app_src/imgs/back.png" ></a>
+                        <!-- <el-button size="mini" style="float:right" type="primary" @click="back">后 退</el-button> -->
                     </div>
                     <ul>
                         <li>
@@ -36,7 +37,7 @@
                         </li>
                     </ul>
                     <!--style="text-align:center;float:left;width:45%;height:145px;padding-top:70px;"-->
-                    <div style="text-align:left;width:100px;clear:both">
+                    <div style="text-align:left;clear:both">
                         <el-button type="primary" @click="handleApply()" v-if="severInfo.CHECK_STATE===-1">申&nbsp;请</el-button>
                         <el-button type="danger" @click="doNothing" v-else-if="severInfo.CHECK_STATE===0">待审核</el-button>
                         <el-button type="primary" v-else-if="severInfo.CHECK_STATE===1">通过</el-button>

@@ -8,7 +8,8 @@
                         <div slot="header" class="header">
                             {{ele.NOTICE_TITLE}}
                             <div class="back">
-                                <el-button type="primary" @click="back" size="mini">后退</el-button>
+                                <!-- <el-button type="primary" @click="back" size="mini">后退</el-button> -->
+                                <a href="#" title="后退" @click="back" style="float:right"><img src="../../../app_src/imgs/back.png" ></a>
                             </div>
                         </div>
                         <div class="content">
