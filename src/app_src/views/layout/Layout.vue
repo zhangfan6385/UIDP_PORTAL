@@ -8,7 +8,9 @@
                         <img src="../../../app_src/imgs/logo.png">
                         <!-- <img src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif"> -->
                     </div>
+                    <div style="margin-top:10px">
                     <span class="title">大港油田软件工厂</span>
+                    </div>
                 </el-col>
                 <el-col :span="10">
                     <div class="headerset">
@@ -102,7 +104,7 @@ export default {
     overflow-x: hidden;
 }
 // .headerset {
-//   //margin-top: 5px;
+//   vertical-align: middle;
 // }
 .drawer-bg {
     background: #000;
@@ -120,26 +122,29 @@ export default {
     //position: fixed;
     z-index: 1999;
     min-width: 100%;
-    height: 43px;
+    height: 80px;//43px;
     background: #dce4e9;
     margin: 0 auto;
-    line-height: 42px; //设置line-height与父级元素的height相等
+    padding-top: 15px;
+    //vertical-align: middle;
+   // line-height: 42px;//42px; //设置line-height与父级元素的height相等
     overflow: hidden; //防止内容超出容器或者产生自动换行
 
     .logo {
         float: left;
-        margin: 4px 10px;
-
+        margin-left: 30px;
+        //margin: 4px 10px;
         img {
-            vertical-align: top;
-            margin-top: 2px;
-            height: 31px;
-            width: 31px;
+            //vertical-align: center;
+            //  margin-top: 15px;
+            height: 50px;
+            width: 50px;
         }
     }
     .title {
         margin-left: 5px;
-        font-size: 18px;
+        font-size: 25px;
+        letter-spacing:1px;
         font-weight: bold;
         color: #0a0a0a;
     }

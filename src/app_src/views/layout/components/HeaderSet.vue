@@ -4,15 +4,16 @@
         <div class="right-menu">
 
             <!-- <span class="login_span" @click="changeIsVisible" v-if="isVisiable">登录</span> -->
+            <div style="padding-top:13px" v-if="isVisiable">
             <el-button @click="changeIsVisible" v-if="isVisiable" size="mini" type="primary" plain round>登录</el-button>
-
+            </div>
             <el-badge :value="total" v-if="!isVisiable" >
                 <img class='user-avatar' src="../../../../app_src/imgs/message2.png" @click="getMsg">
             </el-badge>
-
-            <el-dropdown v-if="!isVisiable" class="avatar-container right-menu-item" trigger="click">
+            <el-badge hidden :value="total" v-if="!isVisiable" >
+            <el-dropdown  v-if="!isVisiable" class="avatar-container right-menu-item " trigger="click">
                 <div class="avatar-wrapper">
-                    <img class='user-avatar' src="../../../../app_src/imgs/avatar.png">
+                    <img class='user-avatar2' src="../../../../app_src/imgs/avatar.png">
                 </div>
                 <el-dropdown-menu slot="dropdown">
 
@@ -33,6 +34,7 @@
                     </el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
+            </el-badge>
         </div>
 
     </el-menu>
@@ -159,7 +161,7 @@ export default {
     }
 
     img {
-        vertical-align: top;
+        //vertical-align: top;
         height: 25px;
         width: 25px;
     }
@@ -167,9 +169,10 @@ export default {
 
 .navbar-set {
     background-color: transparent;
-    margin-top: 8px;
+    //margin-top: 8px;
+    //vertical-align: middle;
     // height: 50px;
-    line-height: 25px;
+   // line-height: 25px;
     border-radius: 0px !important;
 
     .errLog-container {
@@ -202,30 +205,40 @@ export default {
         .screenfull {
             height: 20px;
         }
-        .international {
-            vertical-align: top;
-        }
+        // .international {
+        //     vertical-align: top;
+        // }
         // .theme-switch {
         //   vertical-align: 15px;
         // }
         .user-avatar {
             margin-top: 0px;
-            width: 25px;
-            height: 25px;
+            padding-top: 0px;
+            width: 30px;
+            height: 30px;
             border-radius: 10px;
-            vertical-align: middle;
+           // vertical-align: middle;
         }
         .user-avatar:hover{
             cursor: pointer;
         }
+        .user-avatar2 {
+            margin-top: 3px;
+            width: 30px;
+            height: 30px;
+            border-radius: 10px;
+           // vertical-align: middle;
+        }
+        .user-avatar2:hover{
+            cursor: pointer;
+        }
         .avatar-container {
             height: 40px;
-            //margin-right: 30px;
+            //margin-top: 10px;
             .avatar-wrapper {
                 cursor: pointer;
-                // margin-top: 5px;
+                 //margin-top: 10px;
                 position: relative;
-
                 .el-icon-caret-bottom {
                     position: absolute;
                     right: -20px;
