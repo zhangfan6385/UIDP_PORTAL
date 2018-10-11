@@ -18,7 +18,7 @@
                           最新版本：{{charpData.version}}<br> 大小：{{charpData.size}}<br> 运行环境：.Net Core 2.0<br> 运行服务器：Windows Server 2008 sp1
                         </div>
                         <div style="float:left;margin-left:80px">
-                          <img src="../../imgs/sharplogo2.png" style="width:150px;height:120px;" />
+                          <img src="../../imgs/sharplogo2.png" style="width:145px;height:145px;" />
                         </div>
                       </div>
                       <div class="button" style="clear:both;padding-top:10px">
@@ -60,7 +60,7 @@
                         </div>
                       </div>
                       <div style="float:left;margin-left:80px">
-                        <img src="../../imgs/gologo.png" style="width:150px;height:120px;" />
+                        <img src="../../imgs/gologo.png" style="width:145px;height:145px;" />
                       </div>
                       <div class="button" style="clear:both;padding-top:10px">
                         <el-button type="primary" @click="goToHistory(1)">点击下载</el-button>

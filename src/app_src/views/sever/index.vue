@@ -334,7 +334,7 @@ li {
     width: 100%;
     text-align: right;
     color: darkgray;
-    font-size: 14px;
+    font-size: 12px;
 }
 .top {
     font-weight: bold;

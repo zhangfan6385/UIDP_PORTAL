@@ -35,7 +35,8 @@
                             <span>{{severInfo.SERVICE_PUBLISHDATE | parseTime}}</span>
                         </li>
                     </ul>
-                    <div style="text-align:center;float:left;width:45%;height:145px;padding-top:70px;">
+                    <!--style="text-align:center;float:left;width:45%;height:145px;padding-top:70px;"-->
+                    <div style="text-align:left;width:100px;clear:both">
                         <el-button type="primary" @click="handleApply()" v-if="severInfo.CHECK_STATE===-1">申&nbsp;请</el-button>
                         <el-button type="danger" @click="doNothing" v-else-if="severInfo.CHECK_STATE===0">待审核</el-button>
                         <el-button type="primary" v-else-if="severInfo.CHECK_STATE===1">通过</el-button>
@@ -53,7 +54,7 @@
                     </div>
                 </el-card>
                 <el-card class="componentinfo1" shadow="never">
-                    <span style="font-size:18px;font-weight:bold"><img style="width:20px;height:20px;" src="../../../app_src/imgs/title.png">服务介绍</span>
+                    <!-- <span style="font-size:18px;font-weight:bold"><img style="width:20px;height:20px;" src="../../../app_src/imgs/title.png">服务介绍</span> -->
                     <!-- <div v-html="obj.content"></div> -->
                     <div v-html="severInfo.SERVICE_CONTENT"></div>
                 </el-card>

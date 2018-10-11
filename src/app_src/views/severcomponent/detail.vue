@@ -36,7 +36,8 @@
                         </li>
 
                     </ul>
-                    <div style="text-align:center;float:left;width:45%;height:145px;padding-top:70px;">
+                    <!-- <div style="text-align:center;float:left;width:45%;height:145px;padding-top:70px;"> -->
+                    <div style="text-align:left;clear:both">
                         <el-button type="primary" @click="handleApply" v-if="obj.CHECK_STATE===-1">申 请</el-button>
                         <el-button type="danger" @click="doNothing" v-else-if="obj.CHECK_STATE===0">待审核</el-button>
                         <el-button type="primary" v-else-if="obj.CHECK_STATE===1" @click="download(obj.URL)">下 载</el-button>
@@ -53,7 +54,6 @@
                     </div>
                 </el-card>
                 <el-card class="componentinfo1">
-                    组件简介
                     <div v-html="obj.COMPONENT_CONTENT"></div>
                 </el-card>
 

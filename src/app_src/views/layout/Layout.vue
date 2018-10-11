@@ -36,7 +36,7 @@
                     <app-main></app-main>
                 </div>
                 <div class="copyright">
-                    ©大港油田信息中心&nbsp;版权所有
+                    ©大港油田信息中心&nbsp;&nbsp;版权所有
                     <!-- 版权所有：©大港油田集团责任有限公司信息中心 -->
                 </div>
                 <br>

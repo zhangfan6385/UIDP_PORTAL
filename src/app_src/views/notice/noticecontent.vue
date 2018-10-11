@@ -18,6 +18,8 @@
                                 </el-col>
                             </el-row>
                         </div>
+                        <div style="padding-left:80px;
+        padding-right:80px;padding-bottom:80px;">
                         <el-row>
                             <el-col :span="24">
                                 <!-- 附件下载：<a :href="notice.filename">{{notice.fileurl}}</a> -->
@@ -33,6 +35,7 @@
                                     作者：{{ele.CREATER}},发布时间：{{ele.CREATE_DATE|parseTime}}
                                 </el-col>
                             </el-row>
+                        </div>
                         </div>
                     </el-card>
                 </div>
@@ -100,8 +103,11 @@ export default {
     .header {
         font-size: 25px;
         font-weight: bold;
+        text-align: center;
     }
     .content {
+        padding-left:80px;
+        padding-right:80px;
         font-size: 18px;
         line-height: 23px;
     }
