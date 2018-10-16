@@ -8,6 +8,14 @@ export function fetchGetHistoryList(query) {
     })
 }
 
+export function fetchGetPlatDetail(query) {
+    return request({
+        url: 'Home/fetchPlatformDetail',
+        method: 'get',
+        params: query
+    })
+}
+
 export function fetchDownloadFile(data) {
     return request({
         url:'',

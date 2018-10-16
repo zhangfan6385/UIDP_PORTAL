@@ -52,7 +52,7 @@
 
                     </div>
                     <el-table :data="histroyEdition" height="450px" :v-loading="listloading">
-                        <el-table-column type="expand">
+                        <!-- <el-table-column type="expand">
                             <template slot-scope="scope">
                                 <div v-if="scope.row.CHECK_STATE===1">
                                     <el-form label-position="left" inline class="demo-table-expand">
@@ -85,8 +85,8 @@
                                     </el-form>
                                 </div>
                             </template>
-                        </el-table-column>
-                        <el-table-column label="审核状态" align="center">
+                        </el-table-column> -->
+                        <el-table-column label="审核状态" align="center" v-if="userID!=null">
                             <template slot-scope="scope">
                                 <span v-if="scope.row.CHECK_STATE===-1" class="blue">未申请</span>
                                 <span v-else-if="scope.row.CHECK_STATE===0" class="red">待审核</span>
@@ -101,8 +101,9 @@
 
                         <el-table-column label="操作">
                             <template slot-scope="scope">
-                                <el-button type="text" @click="apply(scope.row)" v-if="scope.row.CHECK_STATE!=1">申请下载</el-button>
-                                <el-button type="text" v-else-if="scope.row.CHECK_STATE===1" @click="download(scope.row.URL)">下载</el-button>
+                                <!-- <el-button type="text" @click="apply(scope.row)" v-if="scope.row.CHECK_STATE!=1">申请下载</el-button>
+                                <el-button type="text" v-else-if="scope.row.CHECK_STATE===1" @click="download(scope.row.URL)">下载</el-button> -->
+                                <el-button type="text" @click="gocontent(scope.row)">详情</el-button>
                             </template>
                         </el-table-column>
                     </el-table>
@@ -157,6 +158,7 @@ export default {
         return {
             urlDown: process.env.BASE_DOWNLOAD,
             histroyEdition: [],
+            userID: null,
             querylist: {
                 userid: null,
                 projectid: null,
@@ -318,9 +320,9 @@ export default {
         getHistoryList() {
             this.querylist.platType = this.$store.state.user.platformIndex;
             if (this.querylist.platType == 0) {
-                this.dataName = "C#版本列表";
+                this.dataName = "C#开发平台下载";
             } else {
-                this.dataName = "Go版本列表";
+                this.dataName = "GO开发平台下载";
             }
             this.querylist.projectid = this.$store.state.user.currentProjID;
             this.querylist.userid = this.$store.state.user.userID;
@@ -348,6 +350,19 @@ export default {
                 }
             });
         },
+        gocontent(data) {
+            if (this.$store.state.user.userID != null) {
+                let id = data.PLAT_ID;
+                this.$router.push({ path: "versioncontent/" + id });
+            }
+            else{
+                this.$store.state.user.dialogLoginVisible = true;
+            }
+        },
+        getUserID(){
+            this.userID=this.$store.state.user.userID;
+            //console.log(this.userID);
+        },
         test() {
             this.histroyEdition = this.list1.items;
         }
@@ -355,6 +370,9 @@ export default {
     computed: {
         getCurrentProjId() {
             return this.$store.state.user.currentProjID;
+        },
+        getUserId() {
+            return this.$store.state.user.userID;
         }
     },
     watch: {
@@ -362,10 +380,14 @@ export default {
             if (data != null) {
                 this.getHistoryList();
             }
+        },
+        getUserId(data) {
+            this.userID = data;
         }
     },
     mounted() {
         this.getHistoryList();
+        this.getUserID();
     }
 };
 </script>
@@ -376,7 +398,7 @@ export default {
     margin-top: 20px;
     .title {
         text-align: center;
-        img{
+        img {
             width: 50px;
             height: 50px;
         }

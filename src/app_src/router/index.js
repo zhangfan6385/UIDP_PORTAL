@@ -173,6 +173,10 @@ export const constantRouterMap = [
       path: 'history',
       //component: _import('app_src/views/history/index')
       component:resolve=>require(['@/app_src/views/history/index'],resolve)
+    },{
+      path: 'versioncontent/:id',
+      //component: _import('app_src/views/history/index')
+      component:resolve=>require(['@/app_src/views/history/detail'],resolve)
     }]
   },
   /*

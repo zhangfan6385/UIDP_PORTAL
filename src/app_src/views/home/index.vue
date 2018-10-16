@@ -110,7 +110,7 @@
 
                             </el-row>
                             <el-row type="flex">
-                                <el-col :span="2"></el-col>
+                                <el-col :span="1"></el-col>
                                 <el-col :span="3">
 
                                     <div class="platform">
@@ -130,7 +130,11 @@
                                         </div>
                                     </el-col>
                                 </el-col>
-                                <el-col :span="2"></el-col>
+                                
+                                <el-col :span="2">
+                                    <el-button type="primary" size="mini" @click="GOplatform1(0)" class="button1">点击下载</el-button>
+                                </el-col>
+                                <el-col :span="1"></el-col>
                                 <el-col :span="3">
                                     <div class="platform">
                                         <img src="../../../app_src/imgs/GOplatform.png" title="GO平台" @click="GOplatform1(1)">
@@ -150,7 +154,10 @@
                                         </div>
                                     </el-col>
                                 </el-col>
-                                <el-col :span="3"></el-col>
+                                <el-col :span="2">
+                                    <el-button type="primary" size="mini" @click="GOplatform1(1)" class="button1">点击下载</el-button>
+                                </el-col>
+                                <el-col :span="1"></el-col>
                             </el-row>
 
                         </el-card>
@@ -1097,6 +1104,9 @@ export default {
             margin-top: 15px;
             line-height: 25px;
             color: gray;
+        }
+        .button1{
+            margin-top: 45px;
         }
     }
     .row3 {
