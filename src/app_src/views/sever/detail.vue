@@ -9,10 +9,21 @@
                         <a href="#" @click="back" title="后退" style="float:right" class="back"><img src="../../../app_src/imgs/back.png"></a>
                         <!-- <el-button size="mini" style="float:right" type="primary" @click="back">后 退</el-button> -->
                     </div>
-                    <ul>
-                        <li>
-                            <span>服务地址：</span>
-                            <span>{{severInfo.SERVICE_URL}}</span>
+                    <div style="width:100%;clear:both;font-size: 15px;padding-left:10px">
+                        <span>服务地址：</span>
+                        <span v-if="severInfo.CHECK_STATE===1">{{severInfo.SERVICE_URL}}</span>
+                        <span v-else>{{severInfo.SERVICE_URL | strSplit}}</span><br>
+                        <span  v-if="severInfo.CHECK_STATE===1">X-Token：</span>
+                        <span  v-if="severInfo.CHECK_STATE===1">{{severInfo.SERVER_TOKEN}}</span>
+                    </div>
+                    <!-- <div style="width:100%;font-size: 15px;line-height: 16px;padding-left:10px" v-if="severInfo.CHECK_STATE===1">
+                        <span>X-Token：</span>
+                        <span>{{severInfo.SERVICE_CODE}}</span>
+                    </div> -->
+                    <ul style="width:40%;padding-left:5px;">
+                         <li>
+                            <span>请求方式：</span>
+                            <span>{{severInfo.REQUEST_METHOD}}</span>
                         </li>
                         <li>
                             <span>数据格式：</span>
@@ -22,30 +33,42 @@
                             <span>发布日期：</span>
                             <span>{{severInfo.SERVICE_PUBLISHDATE | parseTime}}</span>
                         </li>
+                         <li>
+                            <span>下载次数：</span>
+                            <span>{{severInfo.SERVICE_TIMES}}</span>
+                        </li>
+                    </ul>
+                    <ul>
                         <li>
-                            <span>请求方式：</span>
-                            <span>{{severInfo.REQUEST_METHOD}}</span>
+                            <span>服务版本：</span>
+                            <span>{{severInfo.SERVER_VERSION}}</span>
                         </li>
                         <li>
-                            <span>应用平台：</span>
-                            <!-- <span>{{severInfo.SUIT_PLAT}}</span> -->
-                            <span>ALL</span>
+                            <span>开发语言：</span>
+                            <span>{{severInfo.SERVER_LANGUAGE}}</span>
                         </li>
                         <li>
-                            <span>更新日期：</span>
-                            <span>{{severInfo.SERVICE_PUBLISHDATE | parseTime}}</span>
+                            <span>管理部门：</span>
+                            <span>{{severInfo.MANAGE_ORG_NAME}}</span>
+                        </li>
+                        <li>
+                            <span>联系方式：</span>
+                            <span>{{severInfo.MANAGE_TEL}}</span>
                         </li>
                     </ul>
                     <!--style="text-align:center;float:left;width:45%;height:145px;padding-top:70px;"-->
-                    <div style="text-align:left;clear:both">
+                    <div style="text-align:left;clear:both;padding-left:10px;" v-if="severInfo.CHECK_STATE!=1">
                         <el-button type="primary" @click="handleApply()" v-if="severInfo.CHECK_STATE===-1">申&nbsp;请</el-button>
                         <el-button type="danger" @click="doNothing" v-else-if="severInfo.CHECK_STATE===0">待审核</el-button>
                         <el-button type="primary" v-else-if="severInfo.CHECK_STATE===1">通过</el-button>
                         <!-- <el-button type="danger" @click="handleApply()" v-if="severInfo.CHECK_STATE===2">已驳回</el-button> -->
                         <!-- <el-button size="mini" type="primary" @click="goAnchor">查看服务码</el-button> -->
                     </div>
+                    <div style="width:100%;padding-left:13px;" v-if="severInfo.CHECK_STATE===1"  v-for="(file,key) in severInfo.children" :key="key">
+                             <a style="font-size:14px;float:left;" :href="downloadurl+file.FILE_URL" target="_blank">{{file.FILE_NAME}}({{file.FILE_SIZE}})</a>
+                    </div>
                 </el-card>
-                <el-card id="#anchor1" class="componentinfo" v-for="(file,key) in severInfo.children" :key="key" v-if="severInfo.CHECK_STATE===1">
+                <!-- <el-card id="#anchor1" class="componentinfo" v-for="(file,key) in severInfo.children" :key="key" v-if="severInfo.CHECK_STATE===1">
                     <div style="float:left;">
                         <h5>文件下载
                             <a :href="downloadurl+file.FILE_URL" target="_blank">{{file.FILE_NAME}}</a>
@@ -53,12 +76,12 @@
                         <h5>文件大小：{{file.FILE_SIZE}}</h5>
                         <h5>发布日期：{{file.CREATE_DATE | parseTime}}</h5>
                     </div>
-                </el-card>
+                </el-card> -->
                 <el-card class="componentinfo1" shadow="never">
                     <!-- <span style="font-size:18px;font-weight:bold"><img style="width:20px;height:20px;" src="../../../app_src/imgs/title.png">服务介绍</span> -->
                     <!-- <div v-html="obj.content"></div> -->
                     <span class="title">详细说明</span>
-                    <div v-html="severInfo.SERVICE_CONTENT"></div>
+                    <div style="padding-right:30px;padding-left:6px;word-wrap:break-word" v-html="severInfo.SERVICE_CONTENT"></div>
                 </el-card>
             </el-card>
 
@@ -191,7 +214,10 @@ export default {
         };
     },
     filters: {
-        parseTime
+        parseTime,
+        strSplit:function(val){
+            return val?val.substr(0,val.length/2)+"...":''
+        }
     },
     methods: {
         back() {
@@ -322,6 +348,7 @@ export default {
     line-height: 150%;
     .title{
         font-weight: bold;
+        padding-left:6px;
     }
 }
 .el-card__body {
@@ -332,7 +359,8 @@ export default {
 .componentinfo ul {
     width: 50%;
     list-style: none;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
+    margin-top:0px;
     padding-left: 0px;
     float: left;
 }
@@ -344,7 +372,7 @@ export default {
     }
 }
 .componentinfo li {
-    font-size: 14px;
+    font-size: 15px;
     width: 100%; /*如果显示三列 则width改为70px*/
     line-height: 17px;
     display: block;

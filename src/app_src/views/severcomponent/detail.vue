@@ -9,27 +9,27 @@
                         <a href="#" @click="back" title="后退" style="float:right" class="back"><img src="../../../app_src/imgs/back.png"></a>
                         <!-- <el-button size="mini" style="float:right" type="primary" @click="back">后 退</el-button> -->
                     </div>
-                    <ul>
+                    <ul style="width:40%;padding-left:5px;">
                         <li>
                             <span>版　　本：</span>
-                            <span>{{obj.SOFTWARE_LANGUAGE}}</span>
+                            <span>{{obj.COMPONENT_VERSION}}</span>
+                        </li>
+                         <li>
+                            <span>发布日期：</span>
+                            <span>{{obj.COMPONENT_PUBLISHDATE | parseTime}}</span>
                         </li>
                         <li>
-                            <span>软件语言：</span>
-                            <span>{{obj.SOFTWARE_LANGUAGE}}</span>
+                            <span>管理部门：</span>
+                            <span>{{obj.MANAGE_ORG_NAME}}</span>
                         </li>
                         <li>
                             <span>上 传 人：</span>
                             <span>{{obj.CREATER}}</span>
                         </li>
+                       
                         <li>
-                            <span>更新时间：</span>
-                            <span>{{obj.CREATE_DATE | parseTime}}</span>
-                        </li>
-                        <li>
-                            <span>应用平台：</span>
-                            <!-- <span>{{obj.SUIT_PLAT}}</span> -->
-                            <span>ALL</span>
+                            <span>下载次数：</span>
+                            <span>{{obj.DOWNLOAD_TIMES}}</span>
                         </li>
                         <li>
                             <span>软件大小：</span>
@@ -37,15 +37,48 @@
                         </li>
 
                     </ul>
+                    <ul>
+                        <li>
+                             <span>软件大小：</span>
+                            <span>{{obj.COMPONENT_SIZE}}</span>
+                        </li>
+                        <li>
+                            <span>开发语言：</span>
+                            <span>{{obj.SOFTWARE_LANGUAGE}}</span>
+                        </li>
+                        <li>
+                            <span>上 传 人：</span>
+                            <span>{{obj.CREATER}}</span>
+                        </li>
+                        <li>
+                            <span>联系电话：</span>
+                            <span>{{obj.MANAGE_TEL }}</span>
+                        </li>
+                        <li>
+                            <span>应用平台：</span>
+                            <span>{{obj.SUIT_PLAT}}</span>
+                        </li>
+                        <li>
+                            <span>适用浏览器：</span>
+                            <span>{{obj.APPLICATION_BROWSER}}</span>
+                        </li>
+
+                    </ul>
                     <!-- <div style="text-align:center;float:left;width:45%;height:145px;padding-top:70px;"> -->
-                    <div style="text-align:left;clear:both">
+                    <div style="text-align:left;clear:both;padding-left:10px;" v-if="obj.CHECK_STATE!=1">
                         <el-button type="primary" @click="handleApply" v-if="obj.CHECK_STATE===-1">申 请</el-button>
                         <el-button type="danger" @click="doNothing" v-else-if="obj.CHECK_STATE===0">待审核</el-button>
                         <el-button type="primary" v-else-if="obj.CHECK_STATE===1" @click="download(obj.URL)">下 载</el-button>
                         <!-- <el-button type="danger" @click="handleApply" v-if="obj.CHECK_STATE===2">已驳回</el-button> -->
                     </div>
+                    <div style="width:100%;clear:both;padding-left:12px;" v-if="obj.CHECK_STATE===1" >
+                             <a style="font-size:14px;float:left;" :href="downloadurl+obj.URL" target="_blank">程序包</a>
+                    </div>
+                    <div style="width:100%;padding-left:13px;" v-if="obj.CHECK_STATE===1"  v-for="(file,key) in obj.children" :key="key">
+                             <a style="font-size:14px;float:left;" :href="downloadurl+file.FILE_URL" target="_blank">{{file.FILE_NAME}}({{file.FILE_SIZE}})</a>
+                    </div>
                 </el-card>
-                <el-card id="#anchor1" class="componentinfo" v-for="(file,key) in obj.children" :key="key" v-if="obj.CHECK_STATE===1">
+                <!-- <el-card id="#anchor1" class="componentinfo" v-for="(file,key) in obj.children" :key="key" v-if="obj.CHECK_STATE===1">
                     <div style="float:left;">
                         <h5>文件下载:
                             <a :href="downloadurl+file.FILE_URL" target="_blank">{{file.FILE_NAME}}</a>
@@ -53,10 +86,10 @@
                         <h5>文件大小：{{file.FILE_SIZE}}</h5>
                         <h5>发布日期：{{file.CREATE_DATE | parseTime}}</h5>
                     </div>
-                </el-card>
+                </el-card> -->
                 <el-card class="componentinfo1">
                     <span class="title">详细说明</span>
-                    <div v-html="obj.COMPONENT_CONTENT"></div>
+                    <div style="padding-right:30px;padding-left:6px;word-wrap:break-word" v-html="obj.COMPONENT_CONTENT"></div>
                 </el-card>
 
             </el-card>
@@ -315,19 +348,21 @@ export default {
     line-height: 150%;
     .title {
         font-weight: bold;
+        padding-left:6px;
     }
 }
 /* .componentinfo li{float:left;width:100px;background:#CCC;margin-left:3px;line-height:30px;} */
 .componentinfo ul {
     width: 50%;
     list-style: none;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
+    margin-top: 5px;
     padding-left: 0px;
     float: left;
 }
 .componentinfo li {
-    font-size: 14px;
-    width: 45%; /*如果显示三列 则width改为70px*/
+    font-size: 15px;
+    //width: 45%; /*如果显示三列 则width改为70px*/
     line-height: 17px;
     display: block;
     margin: 5px;
