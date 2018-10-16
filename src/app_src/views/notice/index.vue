@@ -13,7 +13,7 @@
                         <el-row>
                             <el-col>
                                 <div class="backbutton">
-                                    <a href="#" @click="back" title="后退" class="changePlatform"><img style="margin-top:2px;" src="../../../app_src/imgs/back.png"></a>
+                                    <a href="#" @click="goback" title="后退" class="changePlatform"><img style="margin-top:2px;" src="../../../app_src/imgs/back.png"></a>
                                 </div>
                             </el-col>
                         </el-row>
@@ -24,11 +24,11 @@
                                         <el-col :span="24">
                                             <div class="header">
                                                 {{item.title}}
+                                                <div class="foot">
+                                                    <img src="../../../app_src/imgs/time.png" title="发表日期">
+                                                    {{item.time}}
+                                                </div>
                                             </div>
-                                            <div class="foot">
-                                                作者:{{item.writter}} 发表日期：{{item.time}}
-                                            </div>
-
                                         </el-col>
                                     </el-row>
 
@@ -54,8 +54,8 @@ export default {
     data() {
         return {
             noticeList: [],
-            total:1,
-            currentPage1:1,
+            total: 1,
+            currentPage1: 1,
             listQuery: {
                 limit: 6,
                 page: 1,
@@ -146,6 +146,10 @@ export default {
         float: right;
         font-size: 10px;
         color: gray;
+        img{
+            width: 15px;
+            height: 15px;
+        }
     }
     .page {
         text-align: center;
@@ -156,9 +160,9 @@ export default {
     .backbutton {
         float: right;
         margin-bottom: 10px;
-        img{
+        img {
             width: 50px;
-            height:50px;
+            height: 50px;
         }
     }
 }

@@ -175,7 +175,7 @@
                                             <div class="title">
                                                 组件排行
                                                 <div class="headerbutton">
-                                                    <el-button type="primary" size="mini" @click="getmore(0)"> 查看更多</el-button>
+                                                    <el-button type="primary" size="mini" @click="getmore(0)"> 更多……</el-button>
                                                 </div>
                                             </div>
                                         </el-col>
@@ -207,7 +207,7 @@
                                             <div class="title">
                                                 服务排行
                                                 <div class="headerbutton">
-                                                    <el-button type="primary" size="mini" @click="getmore(1)"> 查看更多</el-button>
+                                                    <el-button type="primary" size="mini" @click="getmore(1)"> 更多……</el-button>
                                                 </div>
                                             </div>
                                         </el-col>
