@@ -46,9 +46,9 @@
                     <div class="title">
                         {{dataName}}
                         <!-- <el-button type="primary" size="mini" class="changePlatform" @click="back">后 退</el-button> -->
-<a href="#" @click="back" title="后退" class="changePlatform"><img style="margin-top:2px;" src="../../../app_src/imgs/back.png" ></a>
+                        <a href="#" @click="back" title="后退" class="changePlatform"><img style="margin-top:2px;" src="../../../app_src/imgs/back.png"></a>
                         <!-- <el-button type="primary" size="mini" class="changePlatform" @click="changePlatform">切换平台</el-button> -->
-                        <a href="#" @click="changePlatform" title="切换平台" class="changePlatform"><img style="height:37px;width:38px" src="../../../app_src/imgs/change.png" ></a>
+                        <!-- <a href="#" @click="changePlatform" title="切换平台" class="changePlatform"><img style="height:37px;width:38px" src="../../../app_src/imgs/change.png"></a> -->
 
                     </div>
                     <el-table :data="histroyEdition" height="450px" :v-loading="listloading">
@@ -56,7 +56,7 @@
                             <template slot-scope="scope">
                                 <div v-if="scope.row.CHECK_STATE===1">
                                     <el-form label-position="left" inline class="demo-table-expand">
-                                        <el-form-item label="名称">
+                                        <el-form-item label="平台名称">
                                             <span>{{scope.row.PLAT_NAME}}</span>
                                         </el-form-item>
                                         <el-form-item label="软件语言">
@@ -94,7 +94,7 @@
                                 <span v-else-if="scope.row.CHECK_STATE===2" class="red">已驳回</span>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="PLAT_NAME" label="名称" align="center"></el-table-column>
+                        <el-table-column prop="PLAT_NAME" label="平台名称" align="center"></el-table-column>
                         <el-table-column prop="PLAT_VERSION" label="版本号" align="center"></el-table-column>
                         <el-table-column prop="APPLICATION_BROWSER" label="环境需求" align="center"></el-table-column>
                         <el-table-column prop="CREATE_DATE" label="发布日期" align="center"></el-table-column>
@@ -312,7 +312,7 @@ export default {
                 this.querylist.platType = 0;
                 this.dataName = "C#版本列表";
             }
-            this.$store.dispatch('setPlatformIndex',this.querylist.platType)
+            this.$store.dispatch("setPlatformIndex", this.querylist.platType);
             this.FetchHistoryList();
         },
         getHistoryList() {
@@ -376,6 +376,10 @@ export default {
     margin-top: 20px;
     .title {
         text-align: center;
+        img{
+            width: 50px;
+            height: 50px;
+        }
     }
     .demo-table-expand .el-form-item {
         margin-right: 0;

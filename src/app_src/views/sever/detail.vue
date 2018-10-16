@@ -6,7 +6,7 @@
                 <el-card class="componentinfo" shadow="never">
                     <div style="width:100%;padding-left:10px">
                         <span style="font-weight:bold">{{severInfo.SERVICE_NAME}}</span>
-                        <a href="#" @click="back" title="后退" style="float:right"><img src="../../../app_src/imgs/back.png" ></a>
+                        <a href="#" @click="back" title="后退" style="float:right" class="back"><img src="../../../app_src/imgs/back.png"></a>
                         <!-- <el-button size="mini" style="float:right" type="primary" @click="back">后 退</el-button> -->
                     </div>
                     <ul>
@@ -57,6 +57,7 @@
                 <el-card class="componentinfo1" shadow="never">
                     <!-- <span style="font-size:18px;font-weight:bold"><img style="width:20px;height:20px;" src="../../../app_src/imgs/title.png">服务介绍</span> -->
                     <!-- <div v-html="obj.content"></div> -->
+                    <span class="title">详细说明</span>
                     <div v-html="severInfo.SERVICE_CONTENT"></div>
                 </el-card>
             </el-card>
@@ -309,7 +310,7 @@ export default {
     }
 };
 </script>
-<style scoped>
+<style lang="scss">
 .componentinfo {
     margin-bottom: 5px;
     padding-left: 30px;
@@ -318,6 +319,10 @@ export default {
     margin-bottom: 5px;
     padding-left: 30px;
     min-height: 500px;
+    line-height: 150%;
+    .title{
+        font-weight: bold;
+    }
 }
 .el-card__body {
     padding: 5px;
@@ -330,6 +335,13 @@ export default {
     margin-bottom: 20px;
     padding-left: 0px;
     float: left;
+}
+.back {
+    float: right;
+    img {
+        width: 50px;
+        height: 50px;
+    }
 }
 .componentinfo li {
     font-size: 14px;

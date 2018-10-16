@@ -151,7 +151,8 @@ export default {
 }
 .copyright {
     left: 40%;
-    margin-top:8px;
+    margin-top:10px;
+    margin-bottom: 10px;
     bottom: 3px;
     margin-left: 42%;
     //margin-bottom: 5px;

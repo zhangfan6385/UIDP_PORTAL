@@ -119,6 +119,10 @@ export default {
     }
     .back {
         float: right;
+        img{
+            width:50px;
+            height:50px;
+        }
     }
     .el-card {
         font-family: "微软雅黑";

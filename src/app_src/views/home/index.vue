@@ -13,9 +13,9 @@
 
                                 <el-col :span="22">
                                     <div class="title">
-                                        公告
+                                        通知通告
                                         <div class="headerbutton">
-                                            <el-button type="primary" size="mini" @click="gotonotice"> 查看更多</el-button>
+                                            <el-button type="primary" size="mini" @click="gotonotice">更多……</el-button>
                                             <!-- <el-button type="primary" size="mini" @click="test"> 全局数据展示</el-button>  -->
                                         </div>
                                     </div>
@@ -23,7 +23,7 @@
                             </el-row>
                         </div>
                         <hr>
-                        <el-table :data="noticeList" :show-header="false" @row-click="goToContent" height="300px">
+                        <el-table :data="noticeList" :show-header="false" @row-click="goToContent">
                             <el-table-column show-overflow-tooltip>
                                 <template slot-scope="scope">
                                     <span class="noticetitle">{{scope.row.title}}</span>
@@ -57,7 +57,7 @@
                             </el-row>
                         </div>
                         <hr>
-                        <el-table :data="newslist" @row-click="getcontent" :show-header="false" height="300px">
+                        <el-table :data="newslist" @row-click="getcontent" :show-header="false">
                             <el-table-column label="类型" width="50px" align="center">
                                 <template slot-scope="scope">
                                     <div class="newslogo">
@@ -227,7 +227,7 @@
             </el-row>
         </div>
         <div class="statistics">
-            <el-dialog :visible.sync="showStatistics" title="全部排行榜">
+            <!-- <el-dialog :visible.sync="showStatistics" title="全部排行榜">
                 <el-card>
                     <div class="box">
                         <el-carousel trigger="click" height="500px" :initial-index="type" id="dialogdata">
@@ -238,6 +238,21 @@
                                 <div id="allseverchart" class="allchart"></div>
                             </el-carousel-item>
                         </el-carousel>
+                    </div>
+                </el-card>
+            </el-dialog> -->
+            <el-dialog :visible.sync="showStatistics" title="组件排行榜">
+                <el-card>
+                    <div class="box">
+                        <div id="allcomponentchart" class="allchart"></div>
+                    </div>
+                </el-card>
+            </el-dialog>
+
+            <el-dialog :visible.sync="showStatistics1" title="服务排行榜">
+                <el-card>
+                    <div class="box">
+                        <div id="allseverchart" class="allchart"></div>
                     </div>
                 </el-card>
             </el-dialog>
@@ -268,6 +283,7 @@ export default {
             severAllList: [],
             type: 0,
             showStatistics: false,
+            showStatistics1: false,
             userQuery: {
                 POST_ID: "",
                 POST_USER_ID: "",
@@ -291,7 +307,7 @@ export default {
                         },
                         textStyle: {
                             fontSize: 11
-                        },
+                        }
                         // formatter: function(value) {
                         //     debugger;
                         //     var ret = ""; //拼接加\n返回的类目项
@@ -352,7 +368,7 @@ export default {
                         },
                         textStyle: {
                             fontSize: 11
-                        },
+                        }
                         // formatter: function(value) {
                         //     debugger;
                         //     var ret = ""; //拼接加\n返回的类目项
@@ -576,7 +592,7 @@ export default {
                     this.$alert("您还未登录,无法查看经验分享！", "登录提示", {
                         confirmButtonText: "确定"
                     });
-                } else if (this.getUserLv === '0') {
+                } else if (this.getUserLv === "0") {
                     this.$router.push({
                         path: "/community/main/newscontent/" + id
                     });
@@ -944,7 +960,11 @@ export default {
             }
         },
         getmore(data) {
-            this.showStatistics = true;
+            if (data === 1) {
+                this.showStatistics1 = true;
+            } else {
+                this.showStatistics = true;
+            }
             this.type = data;
             this.getalldata();
         },
@@ -1140,6 +1160,7 @@ export default {
     }
     .el-card {
         font-family: "微软雅黑";
+        min-height: 380px;
     }
 }
 </style>

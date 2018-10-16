@@ -13,7 +13,7 @@
                         <el-row>
                             <el-col>
                                 <div class="backbutton">
-                                    <el-button size="mini" type="primary" @click="goback">返回</el-button>
+                                    <a href="#" @click="back" title="后退" class="changePlatform"><img style="margin-top:2px;" src="../../../app_src/imgs/back.png"></a>
                                 </div>
                             </el-col>
                         </el-row>
@@ -156,6 +156,10 @@ export default {
     .backbutton {
         float: right;
         margin-bottom: 10px;
+        img{
+            width: 50px;
+            height:50px;
+        }
     }
 }
 </style>
