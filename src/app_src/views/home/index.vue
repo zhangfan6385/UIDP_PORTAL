@@ -111,7 +111,7 @@
                             </el-row>
                             <el-row type="flex">
                                 <el-col :span="1"></el-col>
-                                <el-col :span="2">
+                                <el-col :span="3">
 
                                     <div class="platform">
                                         <img src="../../../app_src/imgs/platform.png" title="c#平台" @click="GOplatform1(0)">
@@ -131,15 +131,15 @@
                                     </el-col>
                                 </el-col>
 
-                                <el-col :span="4">
-                                    <!-- <el-button type="primary" size="mini" @click="GOplatform1(0)" class="button1">点击下载</el-button> -->
-                                    <div class="button1">
+                                <el-col :span="3">
+                                    <el-button type="primary" size="mini" @click="GOplatform1(0)" class="button1">点击下载</el-button>
+                                    <!-- <div class="button1">
                                         <img src="../../../app_src/imgs/download1.png" title="C#下载" @click="GOplatform1(0)">
-                                    </div>
+                                    </div> -->
                                 </el-col>
                                 <el-col :span="1"></el-col>
                                 <!-- <el-col :span="1"></el-col> -->
-                                <el-col :span="2">
+                                <el-col :span="3">
                                     <div class="platform">
                                         <img src="../../../app_src/imgs/GOplatform.png" title="GO平台" @click="GOplatform1(1)">
                                     </div>
@@ -158,12 +158,11 @@
                                         </div>
                                     </el-col>
                                 </el-col>
-                                <el-col :span="4">
-                                    <!-- <el-button type="primary" size="mini" @click="GOplatform1(1)" class="button1">点击下载</el-button> -->
-                                    <div class="button1">
+                                <el-col :span="3">
+                                    <el-button type="primary" size="mini" @click="GOplatform1(1)" class="button1">点击下载</el-button>
+                                    <!-- <div class="button1">
                                         <img src="../../../app_src/imgs/download2.png" title="GO#下载" @click="GOplatform1(1)">
-                                    </div>
-
+                                    </div> -->
                                 </el-col>
                                 <el-col :span="1"></el-col>
                             </el-row>
@@ -1115,9 +1114,10 @@ export default {
         }
         .button1 {
             margin-top: 45px;
+            margin-left: 20px;
             img {
-                width: 170px;
-                height: 32px;
+                width: 150px;
+                height: 30px;
                 border-radius: 5px;
             }
         }
