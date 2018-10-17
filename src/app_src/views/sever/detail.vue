@@ -92,7 +92,7 @@
                     <!-- <span style="font-size:18px;font-weight:bold"><img style="width:20px;height:20px;" src="../../../app_src/imgs/title.png">服务介绍</span> -->
                     <!-- <div v-html="obj.content"></div> -->
                     <span class="title">详细说明</span>
-                    <div style="padding-right:30px;padding-left:6px;word-wrap:break-word" v-html="severInfo.SERVICE_CONTENT"></div>
+                    <div class="divcontent" style="padding-right:30px;padding-left:6px;word-wrap:break-word" v-html="severInfo.SERVICE_CONTENT"></div>
                 </el-card>
             </el-card>
 
@@ -403,5 +403,10 @@ a:link {
 a:hover {
     text-decoration: none;
     color: blue;
+}
+.divcontent{
+    p{
+        text-indent: 2em;
+    }
 }
 </style>

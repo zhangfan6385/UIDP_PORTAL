@@ -100,7 +100,7 @@
                 </el-card> -->
                 <el-card class="componentinfo1">
                     <span class="title">详细说明</span>
-                    <div style="padding-right:30px;padding-left:6px;word-wrap:break-word" v-html="obj.COMPONENT_CONTENT"></div>
+                    <div class="divcontent" style="padding-right:30px;padding-left:6px;word-wrap:break-word;" v-html="obj.COMPONENT_CONTENT"></div>
                 </el-card>
 
             </el-card>
@@ -400,6 +400,11 @@ a:link {
 a:hover {
     text-decoration: none;
     color: blue;
+}
+.divcontent{
+    p{
+        text-indent: 2em;
+    }
 }
 /* a:active{text-decoration:none;color:yellow;}
        a:visited {text-decoration:none;color:green;} */
