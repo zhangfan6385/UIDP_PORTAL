@@ -1,45 +1,53 @@
 <template>
-    <div id="noticecontent">
+    <div id="noticebackground" class="noticebackground">
         <el-row type="flex">
             <el-col :span="2"></el-col>
             <el-col :span="20">
-                <div class="noticecontent">
-                    <el-card v-for="(ele,key) in notice" :key="key">
-                        <div slot="header" class="header">
-                            {{ele.NOTICE_TITLE}}
-                            <div class="back">
-                                <!-- <el-button type="primary" @click="back" size="mini">后退</el-button> -->
-                                <a href="#" title="后退" @click="back" style="float:right"><img src="../../../app_src/imgs/back.png" ></a>
-                            </div>
-                        </div>
-                        <div class="content">
-                            <el-row>
-                                <el-col :span="24">
-                                    <p v-html="ele.NOTICE_CONTENT"></p>
-                                </el-col>
-                            </el-row>
-                        </div>
-                        <div style="padding-left:80px;
-        padding-right:80px;padding-bottom:80px;">
-                        <el-row>
-                            <el-col :span="24">
-                                <!-- 附件下载：<a :href="notice.filename">{{notice.fileurl}}</a> -->
-                                附件下载：
-                                <div class="fliter" v-for="(item,key) in ele.children" :key="key">
-                                    <el-button @click="downLoad(item)" type="primary" size="text">{{item.FILE_NAME}}</el-button>
+                <el-card>
+                    <div class="breadcrumb">
+                        <el-breadcrumb separator="/">
+                            <el-breadcrumb-item>首页</el-breadcrumb-item>
+                            <el-breadcrumb-item>通知列表</el-breadcrumb-item>
+                            <el-breadcrumb-item>通知详情</el-breadcrumb-item>
+                        </el-breadcrumb>
+                    </div>
+                    <div class="noticecontent">
+                        <el-card v-for="(ele,key) in notice" :key="key">
+                            <div slot="header" class="header">
+                                {{ele.NOTICE_TITLE}}
+                                <div class="back">
+                                    <!-- <el-button type="primary" @click="back" size="mini">后退</el-button> -->
+                                    <a href="#" title="后退" @click="back" style="float:right"><img src="../../../app_src/imgs/back.png"></a>
                                 </div>
-                            </el-col>
-                        </el-row>
-                        <div class="foot">
-                            <el-row>
-                                <el-col :span="24">
-                                    作者：{{ele.CREATER}},发布时间：{{ele.CREATE_DATE|parseTime}}
-                                </el-col>
-                            </el-row>
-                        </div>
-                        </div>
-                    </el-card>
-                </div>
+                            </div>
+                            <div class="content">
+                                <el-row>
+                                    <el-col :span="24">
+                                        <p v-html="ele.NOTICE_CONTENT"></p>
+                                    </el-col>
+                                </el-row>
+                            </div>
+                            <div style="padding-left:80px;padding-right:20px;">
+                                <el-row>
+                                    <el-col :span="24">
+                                        <!-- 附件下载：<a :href="notice.filename">{{notice.fileurl}}</a> -->
+                                        附件下载：
+                                        <div class="fliter" v-for="(item,key) in ele.children" :key="key">
+                                            <el-button @click="downLoad(item)" type="primary" size="text">{{item.FILE_NAME}}</el-button>
+                                        </div>
+                                    </el-col>
+                                </el-row>
+                                <div class="foot">
+                                    <el-row>
+                                        <el-col :span="24">
+                                            作者：{{ele.CREATER}},发布时间：{{ele.CREATE_DATE|parseTime}}
+                                        </el-col>
+                                    </el-row>
+                                </div>
+                            </div>
+                        </el-card>
+                    </div>
+                </el-card>
             </el-col>
         </el-row>
     </div>
@@ -98,45 +106,51 @@ export default {
 
 
 <style lang="scss">
-.noticecontent {
-    margin-top: 20px;
+.noticebackground {
     min-height: 500px;
-    .header {
-        font-size: 25px;
-        font-weight: bold;
-        text-align: center;
+    margin-top: 20px;
+    .breadcrumb{
+        margin-bottom: 10px;
     }
-    .content {
-        padding-left:80px;
-        padding-right:80px;
-        font-size: 18px;
-        line-height: 23px;
-    }
-    .foot {
-        float: right;
-        font-size: 12px;
-        color: gray;
-    }
-    .back {
-        float: right;
-        img{
-            width:50px;
-            height:50px;
+    .noticecontent {
+        .header {
+            font-size: 25px;
+            font-weight: bold;
+            text-align: center;
         }
-    }
-    .el-card {
-        font-family: "微软雅黑";
-    }
-    .fliter {
-        color: blue;
-        text-decoration: underline;
-        margin-top: 10px;
-        margin-bottom: 15px;
-    }
-    .fliter:hover {
-        text-decoration: underline;
-        color: red;
-        cursor: pointer;
+        .content {
+            padding-left: 80px;
+            padding-right: 80px;
+            font-size: 18px;
+            //line-height: 23px;
+            //min-height: 400px;
+        }
+        .foot {
+            float: right;
+            font-size: 12px;
+            color: gray;
+        }
+        .back {
+            float: right;
+            img {
+                width: 50px;
+                height: 50px;
+            }
+        }
+        .el-card {
+            font-family: "微软雅黑";
+        }
+        .fliter {
+            color: blue;
+            text-decoration: underline;
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+        .fliter:hover {
+            text-decoration: underline;
+            color: red;
+            cursor: pointer;
+        }
     }
 }
 </style>
