@@ -86,14 +86,14 @@
                                 </div>
                             </template>
                         </el-table-column> -->
-                        <el-table-column label="审核状态" align="center" v-if="userID!=null">
+                        <!-- <el-table-column label="审核状态" align="center" v-if="userID!=null">
                             <template slot-scope="scope">
                                 <span v-if="scope.row.CHECK_STATE===-1" class="blue">未申请</span>
                                 <span v-else-if="scope.row.CHECK_STATE===0" class="red">待审核</span>
                                 <span v-else-if="scope.row.CHECK_STATE===1" class="green">已通过</span>
                                 <span v-else-if="scope.row.CHECK_STATE===2" class="red">已驳回</span>
                             </template>
-                        </el-table-column>
+                        </el-table-column> -->
                         <el-table-column prop="PLAT_NAME" label="平台名称" align="center"></el-table-column>
                         <el-table-column prop="PLAT_VERSION" label="版本号" align="center"></el-table-column>
                         <el-table-column prop="APPLICATION_BROWSER" label="环境需求" align="center"></el-table-column>
@@ -351,16 +351,11 @@ export default {
             });
         },
         gocontent(data) {
-            if (this.$store.state.user.userID != null) {
-                let id = data.PLAT_ID;
-                this.$router.push({ path: "versioncontent/" + id });
-            }
-            else{
-                this.$store.state.user.dialogLoginVisible = true;
-            }
+            let id = data.PLAT_ID;
+            this.$router.push({ path: "versioncontent/" + id });
         },
-        getUserID(){
-            this.userID=this.$store.state.user.userID;
+        getUserID() {
+            this.userID = this.$store.state.user.userID;
             //console.log(this.userID);
         },
         test() {

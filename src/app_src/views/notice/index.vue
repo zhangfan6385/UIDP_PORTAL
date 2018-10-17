@@ -146,7 +146,7 @@ export default {
         float: right;
         font-size: 10px;
         color: gray;
-        img{
+        img {
             width: 15px;
             height: 15px;
         }

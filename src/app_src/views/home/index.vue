@@ -111,13 +111,13 @@
                             </el-row>
                             <el-row type="flex">
                                 <el-col :span="1"></el-col>
-                                <el-col :span="3">
+                                <el-col :span="2">
 
                                     <div class="platform">
                                         <img src="../../../app_src/imgs/platform.png" title="c#平台" @click="GOplatform1(0)">
                                     </div>
                                 </el-col>
-                                <el-col :span="6">
+                                <el-col :span="5">
                                     <el-col>
                                         <div class="title">
                                             C#平台
@@ -130,18 +130,22 @@
                                         </div>
                                     </el-col>
                                 </el-col>
-                                
-                                <el-col :span="2">
-                                    <el-button type="primary" size="mini" @click="GOplatform1(0)" class="button1">点击下载</el-button>
+
+                                <el-col :span="4">
+                                    <!-- <el-button type="primary" size="mini" @click="GOplatform1(0)" class="button1">点击下载</el-button> -->
+                                    <div class="button1">
+                                        <img src="../../../app_src/imgs/download1.png" title="C#下载" @click="GOplatform1(0)">
+                                    </div>
                                 </el-col>
                                 <el-col :span="1"></el-col>
-                                <el-col :span="3">
+                                <!-- <el-col :span="1"></el-col> -->
+                                <el-col :span="2">
                                     <div class="platform">
                                         <img src="../../../app_src/imgs/GOplatform.png" title="GO平台" @click="GOplatform1(1)">
                                     </div>
                                 </el-col>
 
-                                <el-col :span="6">
+                                <el-col :span="5">
                                     <el-col>
                                         <div class="title">
                                             GOLANG平台
@@ -154,8 +158,12 @@
                                         </div>
                                     </el-col>
                                 </el-col>
-                                <el-col :span="2">
-                                    <el-button type="primary" size="mini" @click="GOplatform1(1)" class="button1">点击下载</el-button>
+                                <el-col :span="4">
+                                    <!-- <el-button type="primary" size="mini" @click="GOplatform1(1)" class="button1">点击下载</el-button> -->
+                                    <div class="button1">
+                                        <img src="../../../app_src/imgs/download2.png" title="GO#下载" @click="GOplatform1(1)">
+                                    </div>
+
                                 </el-col>
                                 <el-col :span="1"></el-col>
                             </el-row>
@@ -1105,8 +1113,13 @@ export default {
             line-height: 25px;
             color: gray;
         }
-        .button1{
+        .button1 {
             margin-top: 45px;
+            img {
+                width: 170px;
+                height: 32px;
+                border-radius: 5px;
+            }
         }
     }
     .row3 {
@@ -1115,10 +1128,7 @@ export default {
             float: right;
             margin-right: 0px;
         }
-        img {
-            width: 25px;
-            height: 25px;
-        }
+
         //max-height: 400px;
         .foot {
             float: right;
@@ -1139,6 +1149,10 @@ export default {
             .title {
                 margin-top: 1px;
                 margin-bottom: 0px;
+            }
+            img {
+                width: 25px;
+                height: 25px;
             }
         }
         .parent {

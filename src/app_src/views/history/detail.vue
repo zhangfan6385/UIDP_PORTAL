@@ -1,110 +1,134 @@
 <template>
-    <el-row type="flex">
-        <el-col :span="2"> </el-col>
-        <el-col :span="20">
-            <el-card shadow="never" style="height:100%">
-                <el-card class="componentinfo" shadow="never">
-                    <div style="width:100%;padding-left:10px">
-                        <span style="font-weight:bold">{{platInfo.PLAT_NAME}}</span>
-                        <a href="#" @click="back" title="后退" style="float:right" class="back"><img src="../../../app_src/imgs/back.png"></a>
-                        <!-- <el-button size="mini" style="float:right" type="primary" @click="back">后 退</el-button> -->
+    <div id="versiondetail" class="versiondetail">
+        <el-row type="flex">
+            <el-col :span="2"> </el-col>
+            <el-col :span="20">
+                <el-card shadow="never" style="height:100%">
+                    <div class="breadcrumb">
+                        <el-breadcrumb separator="/">
+                            <el-breadcrumb-item>开发平台</el-breadcrumb-item>
+                            <el-breadcrumb-item v-if="platInfo.PLAT_TYPE===0">C#历史版本</el-breadcrumb-item>
+                            <el-breadcrumb-item v-if="platInfo.PLAT_TYPE===1">GO#历史版本</el-breadcrumb-item>
+                            <el-breadcrumb-item>版本详情</el-breadcrumb-item>
+                        </el-breadcrumb>
                     </div>
-                    <ul style="width:40%;padding-left:5px;">
-                        <li>
-                            <span>版本号：</span>
-                            <span>{{platInfo.PLAT_VERSION}}</span>
-                        </li>
-                        <li>
-                            <span>使用环境：</span>
-                            <span>{{platInfo.APPLICATION_BROWSER}}</span>
-                        </li>
-                        <li>
-                            <span>发布日期：</span>
-                            <span>{{platInfo.PLAT_PUBLISHDATE | parseTime}}</span>
-                        </li>
-                        <li>
-                            <span>适用平台：</span>
-                            <span>{{platInfo.SUIT_PLAT}}</span>
-                        </li>
-                        <li>
-                            <span>平台大小：</span>
-                            <!-- <span>{{severInfo.SUIT_PLAT}}</span> -->
-                            <span>{{platInfo.PLAT_SIZE}}</span>
-                        </li>
-                        <li>
-                            <span>平台语言：</span>
-                            <span>{{platInfo.SOFTWARE_LANGUAGE}}</span>
-                        </li>
-                    </ul>
-                    <!--style="text-align:center;float:left;width:45%;height:145px;padding-top:70px;"-->
-                    <div style="text-align:left;clear:both">
-                        <el-button type="primary" @click="handleApply()" v-if="platInfo.CHECK_STATE===-1">申&nbsp;请</el-button>
-                        <el-button type="danger" @click="doNothing" v-else-if="platInfo.CHECK_STATE===0">待审核</el-button>
-                        <!-- <el-button type="primary" v-else-if="platInfo.CHECK_STATE===1">通过</el-button> -->
-                        <!-- <el-button type="danger" @click="handleApply()" v-if="severInfo.CHECK_STATE===2">已驳回</el-button> -->
-                        <!-- <el-button size="mini" type="primary" @click="goAnchor">查看服务码</el-button> -->
-                    </div>
-                </el-card>
-                <el-card id="#anchor1" class="componentinfo" v-for="(file,key) in platInfo.children" :key="key" v-if="platInfo.CHECK_STATE===1">
-                    <div style="float:left;">
-                        <h5>文件下载
-                            <a :href="downloadurl+file.FILE_URL" target="_blank">{{file.FILE_NAME}}</a>
-                        </h5>
-                        <h5>文件大小：{{file.FILE_SIZE}}</h5>
-                        <h5>发布日期：{{file.CREATE_DATE | parseTime}}</h5>
-                    </div>
-                </el-card>
-                <el-card class="componentinfo1" shadow="never">
-                    <!-- <span style="font-size:18px;font-weight:bold"><img style="width:20px;height:20px;" src="../../../app_src/imgs/title.png">服务介绍</span> -->
-                    <!-- <div v-html="obj.content"></div> -->
-                    <span class="title">详细说明</span>
-                    <div v-html="platInfo.SERVICE_CONTENT"></div>
-                </el-card>
-            </el-card>
+                    <el-card class="componentinfo" shadow="never">
+                        <div style="width:100%;padding-left:10px">
+                            <span style="font-weight:bold">{{platInfo.PLAT_NAME}}</span>
+                            <a href="#" @click="back" title="后退" style="float:right" class="back"><img src="../../../app_src/imgs/back.png"></a>
+                            <!-- <el-button size="mini" style="float:right" type="primary" @click="back">后 退</el-button> -->
+                        </div>
 
-            <el-dialog title="服务码信息" :visible.sync="dialogCodeVisible">
-                <span>{{platInfo.SERVICE_CODE}}</span>
-            </el-dialog>
+                        <ul style="width:40%;padding-left:5px;">
+                            <li>
+                                <span>版本号：</span>
+                                <span>{{platInfo.PLAT_VERSION}}</span>
+                            </li>
+                            <li>
+                                <span>使用环境：</span>
+                                <span>{{platInfo.APPLICATION_BROWSER}}</span>
+                            </li>
+                            <li>
+                                <span>发布日期：</span>
+                                <span>{{platInfo.PLAT_PUBLISHDATE | parseTime}}</span>
+                            </li>
+                            <li>
+                                <span>适用平台：</span>
+                                <span>{{platInfo.SUIT_PLAT}}</span>
+                            </li>
+                            <li>
+                                <span>平台大小：</span>
+                                <!-- <span>{{severInfo.SUIT_PLAT}}</span> -->
+                                <span>{{platInfo.PLAT_SIZE}}</span>
+                            </li>
+                            <li>
+                                <span>平台语言：</span>
+                                <span>{{platInfo.SOFTWARE_LANGUAGE}}</span>
+                            </li>
+                        </ul>
+                        <div style="width:100%;clear:both;font-size: 15px;padding-left:10px" v-if="platInfo.CHECK_STATE===2">
+                            <ul v-for="(item,key) in platInfo.children" :key="key">
+                                <li>
+                                    文件名称：
+                                    <a :href="downloadurl+item.FILE_URL" target="_blank">{{item.FILE_NAME}}</a>
+                                </li>
+                                <li>
+                                    文件大小：{{item.FILE_SIZE}}
+                                </li>
+                                <li>
+                                    创建日期：{{item.CREATE_DATE|parseTime}}
+                                </li>
+                            </ul>
+                        </div>
+                        <!--style="text-align:center;float:left;width:45%;height:145px;padding-top:70px;"-->
+                        <div style="text-align:left;clear:both">
+                            <el-button type="primary" @click="handleApply()" v-if="platInfo.CHECK_STATE===-1">申&nbsp;请</el-button>
+                            <el-button type="danger" @click="doNothing" v-else-if="platInfo.CHECK_STATE===0">待审核</el-button>
+                            <!-- <el-button type="primary" v-else-if="platInfo.CHECK_STATE===1">通过</el-button> -->
+                            <!-- <el-button type="danger" @click="handleApply()" v-if="severInfo.CHECK_STATE===2">已驳回</el-button> -->
+                            <!-- <el-button size="mini" type="primary" @click="goAnchor">查看服务码</el-button> -->
+                        </div>
+                    </el-card>
+                    <!-- <el-card id="#anchor1" class="componentinfo" v-for="(file,key) in platInfo.children" :key="key" v-if="platInfo.CHECK_STATE===1">
+                        <div style="float:left;">
+                            <h5>文件下载
+                                <a :href="downloadurl+file.FILE_URL" target="_blank">{{file.FILE_NAME}}</a>
+                            </h5>
+                            <h5>文件大小：{{file.FILE_SIZE}}</h5>
+                            <h5>发布日期：{{file.CREATE_DATE | parseTime}}</h5>
+                        </div>
+                    </el-card> -->
+                    <el-card class="componentinfo1" shadow="never">
+                        <!-- <span style="font-size:18px;font-weight:bold"><img style="width:20px;height:20px;" src="../../../app_src/imgs/title.png">服务介绍</span> -->
+                        <!-- <div v-html="obj.content"></div> -->
+                        <span class="title">详细说明</span>
+                        <div v-html="platInfo.SERVICE_CONTENT"></div>
+                    </el-card>
+                </el-card>
 
-            <el-dialog :title="dialogTitle" :visible.sync="dialogFormVisible">
-                <el-form :model="form" :rules="rules" ref="form">
-                    <el-form-item label="公司名称" :label-width="formLabelWidth">
-                        <el-input v-model="userinfo.ORG_NAME" auto-complete="off" :disabled="true"></el-input>
-                    </el-form-item>
-                    <el-form-item label="承担项目" :label-width="formLabelWidth">
-                        <!-- <el-select v-model="form.PROJECT_ID" placeholder="请选项目">
+                <el-dialog title="服务码信息" :visible.sync="dialogCodeVisible">
+                    <span>{{platInfo.SERVICE_CODE}}</span>
+                </el-dialog>
+
+                <el-dialog :title="dialogTitle" :visible.sync="dialogFormVisible">
+                    <el-form :model="form" :rules="rules" ref="form">
+                        <el-form-item label="公司名称" :label-width="formLabelWidth">
+                            <el-input v-model="userinfo.ORG_NAME" auto-complete="off" :disabled="true"></el-input>
+                        </el-form-item>
+                        <el-form-item label="承担项目" :label-width="formLabelWidth">
+                            <!-- <el-select v-model="form.PROJECT_ID" placeholder="请选项目">
                                 <el-option v-for="(item,key) in projList" :key="key" :label="item.PROJECT_NAME" :value="item.PROJECT_ID">
                                 </el-option>
                             </el-select> -->
-                        <el-input v-model="form.PROJECT_NAME" :disabled="true"></el-input>
-                    </el-form-item>
-                    <el-form-item label="用途描述" prop="USE_CONTENT" :label-width="formLabelWidth">
-                        <el-input v-model="form.USE_CONTENT" auto-complete="off"></el-input>
-                    </el-form-item>
-                    <el-form-item label="用途类型" prop="USE_TYPE" :label-width="formLabelWidth">
-                        <el-select v-model="form.USE_TYPE" placeholder="请选用途类型">
-                            <el-option label="开发" :value="0"></el-option>
-                            <el-option label="生产" :value="1"></el-option>
-                        </el-select>
-                    </el-form-item>
-                    <el-form-item label="联系人" prop="APPLY_LINKMAN" :label-width="formLabelWidth">
-                        <el-input v-model="form.APPLY_LINKMAN" auto-complete="off"></el-input>
-                    </el-form-item>
-                    <el-form-item label="联系电话" prop="APPLY_PHONE" :label-width="formLabelWidth">
-                        <el-input v-model="form.APPLY_PHONE" auto-complete="off"></el-input>
-                    </el-form-item>
-                    <el-form-item label="邮箱" prop="APPLY_EMAIL" :label-width="formLabelWidth">
-                        <el-input v-model="form.APPLY_EMAIL" auto-complete="off"></el-input>
-                    </el-form-item>
-                </el-form>
-                <div slot="footer" class="dialog-footer">
-                    <el-button @click="cencel">取 消</el-button>
-                    <el-button type="primary" @click="submit">提 交</el-button>
-                </div>
-            </el-dialog>
-        </el-col>
-    </el-row>
-
+                            <el-input v-model="form.PROJECT_NAME" :disabled="true"></el-input>
+                        </el-form-item>
+                        <el-form-item label="用途描述" prop="USE_CONTENT" :label-width="formLabelWidth">
+                            <el-input v-model="form.USE_CONTENT" auto-complete="off"></el-input>
+                        </el-form-item>
+                        <el-form-item label="用途类型" prop="USE_TYPE" :label-width="formLabelWidth">
+                            <el-select v-model="form.USE_TYPE" placeholder="请选用途类型">
+                                <el-option label="开发" :value="0"></el-option>
+                                <el-option label="生产" :value="1"></el-option>
+                            </el-select>
+                        </el-form-item>
+                        <el-form-item label="联系人" prop="APPLY_LINKMAN" :label-width="formLabelWidth">
+                            <el-input v-model="form.APPLY_LINKMAN" auto-complete="off"></el-input>
+                        </el-form-item>
+                        <el-form-item label="联系电话" prop="APPLY_PHONE" :label-width="formLabelWidth">
+                            <el-input v-model="form.APPLY_PHONE" auto-complete="off"></el-input>
+                        </el-form-item>
+                        <el-form-item label="邮箱" prop="APPLY_EMAIL" :label-width="formLabelWidth">
+                            <el-input v-model="form.APPLY_EMAIL" auto-complete="off"></el-input>
+                        </el-form-item>
+                    </el-form>
+                    <div slot="footer" class="dialog-footer">
+                        <el-button @click="cencel">取 消</el-button>
+                        <el-button type="primary" @click="submit">提 交</el-button>
+                    </div>
+                </el-dialog>
+            </el-col>
+        </el-row>
+    </div>
 </template>
 <script>
 import { fetchGetPlatDetail } from "@/app_src/api/history";
@@ -121,7 +145,7 @@ export default {
                 PROJECT_NAME: "",
                 APPLY_ORG_ID: "",
                 APPLY_RESOURCE_ID: "",
-                APPLY_TYPE: 2,
+                APPLY_TYPE: 0,
                 USE_CONTENT: "",
                 USE_TYPE: "",
                 APPLY_LINKMAN: "",
@@ -196,7 +220,7 @@ export default {
     methods: {
         back() {
             //this.$router.go(-1);
-            console.log(this.platInfo)
+            console.log(this.platInfo);
         },
         doNothing() {},
         handleApply() {
@@ -272,7 +296,7 @@ export default {
             this.dialogFormVisible = false;
         },
         resetForm() {
-            this.form.APPLY_TYPE = 2;
+            this.form.APPLY_TYPE = 0;
             this.form.USE_CONTENT = "";
             this.form.USE_TYPE = "";
             this.form.APPLY_LINKMAN = "";
@@ -313,57 +337,62 @@ export default {
 };
 </script>
 <style lang="scss">
-.componentinfo {
-    margin-bottom: 5px;
-    padding-left: 30px;
-}
-.componentinfo1 {
-    margin-bottom: 5px;
-    padding-left: 30px;
-    min-height: 500px;
-    line-height: 150%;
-    .title{
-        font-weight: bold;
+.versiondetail {
+    margin-top: 20px;
+    .componentinfo {
+        margin-bottom: 5px;
+        padding-left: 30px;
     }
-}
-.el-card__body {
-    padding: 5px;
-}
-
-/* .componentinfo li{float:left;width:100px;background:#CCC;margin-left:3px;line-height:30px;} */
-.componentinfo ul {
-    width: 50%;
-    list-style: none;
-    margin-bottom: 20px;
-    padding-left: 0px;
-    float: left;
-}
-.back {
-    float: right;
-    img {
-        width: 50px;
-        height: 50px;
+    .componentinfo1 {
+        margin-bottom: 5px;
+        padding-left: 30px;
+        min-height: 500px;
+        line-height: 150%;
+        .title {
+            font-weight: bold;
+        }
     }
-}
-.componentinfo li {
-    font-size: 14px;
-    width: 100%; /*如果显示三列 则width改为70px*/
-    line-height: 17px;
-    display: block;
-    margin-bottom: 5px;
-}
-a {
-    text-decoration: none;
-    color: blue;
-    font-size: 10px;
-    margin-right: 20px;
-}
-a:link {
-    text-decoration: none;
-    color: blue;
-}
-a:hover {
-    text-decoration: none;
-    color: blue;
+    .el-card__body {
+        padding: 5px;
+    }
+    .breadcrumb{
+        margin-bottom: 10px;
+    }
+    /* .componentinfo li{float:left;width:100px;background:#CCC;margin-left:3px;line-height:30px;} */
+    .componentinfo ul {
+        width: 50%;
+        list-style: none;
+        margin-bottom: 20px;
+        padding-left: 0px;
+        float: left;
+    }
+    .back {
+        float: right;
+        img {
+            width: 50px;
+            height: 50px;
+        }
+    }
+    .componentinfo li {
+        font-size: 14px;
+        width: 100%; /*如果显示三列 则width改为70px*/
+        line-height: 17px;
+        display: block;
+        margin-bottom: 5px;
+    }
+    a {
+        text-decoration: none;
+        color: blue;
+        font-size: 10px;
+        margin-right: 20px;
+    }
+    a:link {
+        text-decoration: none;
+        color: blue;
+    }
+    a:hover {
+        text-decoration: none;
+        color: blue;
+    }
 }
 </style>
