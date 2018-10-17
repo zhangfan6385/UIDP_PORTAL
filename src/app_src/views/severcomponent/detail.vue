@@ -2,7 +2,7 @@
     <el-row type="flex" style="margin-top:20px;">
         <el-col :span="2"> </el-col>
         <el-col :span="20">
-            <el-card class="box-card">
+            <el-card class="box-card" style="margin-bottom:10px;">
                 <div style="width:100%;height:35px">
                     <div style="text-align:left;width:200px;float:left;padding-top:16px;">
                     <el-breadcrumb separator="/" style="font-size:14px;">
