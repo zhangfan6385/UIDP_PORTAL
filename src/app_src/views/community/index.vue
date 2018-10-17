@@ -26,9 +26,9 @@
                                     <span class="newstitle">{{scope.row.title}}</span>
                                 </template>
                             </el-table-column>
-                            <el-table-column prop="readNumber" label="阅读量" width="100px" align="center"></el-table-column>
-                            <el-table-column prop="offer" label="悬赏金额" width="100px" align="center"></el-table-column>
-                            <el-table-column prop="commentNumber" label="评论人数" width="100px" align="center"></el-table-column>
+                            <el-table-column prop="readNumber" label="单击" width="100px" align="center"></el-table-column>
+                            <el-table-column prop="offer" label="悬赏" width="100px" align="center"></el-table-column>
+                            <el-table-column prop="commentNumber" label="评论" width="100px" align="center"></el-table-column>
                             <el-table-column prop="writter" label="作者" width="100px" align="center"></el-table-column>
                             <el-table-column prop="upTime" label="发表日期" width="100px" align="center"></el-table-column>
                         </el-table>

@@ -1,12 +1,23 @@
 <template>
-    <el-row type="flex">
+    <el-row type="flex" style="margin-top:20px;">
         <el-col :span="2"> </el-col>
         <el-col :span="20">
             <el-card shadow="never" style="height:100%">
+                 <div style="width:100%;height:35px">
+                    <div style="text-align:left;width:200px;float:left;padding-top:16px;">
+                    <el-breadcrumb separator="/" style="font-size:14px;">
+                        <el-breadcrumb-item>服务目录</el-breadcrumb-item>
+                        <el-breadcrumb-item>服务详情</el-breadcrumb-item>
+                    </el-breadcrumb>
+                    </div>
+                    <div style="text-align:right;float:right;width:200px;padding-right:0px;">
+<a href="#" @click="back" title="后退"  class="back"><img src="../../../app_src/imgs/back.png"></a>
+                    </div>
+                     
+                </div>
                 <el-card class="componentinfo" shadow="never">
                     <div style="width:100%;padding-left:10px">
                         <span style="font-weight:bold">{{severInfo.SERVICE_NAME}}</span>
-                        <a href="#" @click="back" title="后退" style="float:right" class="back"><img src="../../../app_src/imgs/back.png"></a>
                         <!-- <el-button size="mini" style="float:right" type="primary" @click="back">后 退</el-button> -->
                     </div>
                     <div style="width:100%;clear:both;font-size: 15px;padding-left:10px">
@@ -366,6 +377,7 @@ export default {
 }
 .back {
     float: right;
+    margin-right:0px;
     img {
         width: 50px;
         height: 50px;

@@ -1,12 +1,23 @@
 <template>
-    <el-row type="flex">
+    <el-row type="flex" style="margin-top:20px;">
         <el-col :span="2"> </el-col>
         <el-col :span="20">
             <el-card class="box-card">
+                <div style="width:100%;height:35px">
+                    <div style="text-align:left;width:200px;float:left;padding-top:16px;">
+                    <el-breadcrumb separator="/" style="font-size:14px;">
+                        <el-breadcrumb-item>组件目录</el-breadcrumb-item>
+                        <el-breadcrumb-item>组件详情</el-breadcrumb-item>
+                    </el-breadcrumb>
+                    </div>
+                    <div style="text-align:right;float:right;width:200px;padding-right:0px;">
+<a href="#" @click="back" title="后退"  class="back"><img src="../../../app_src/imgs/back.png"></a>
+                    </div>
+                     
+                </div>
                 <el-card class="componentinfo">
-                    <div style="width:100%;padding-left:10px">
+                    <div style="width:100%;padding-left:10px;">
                         <span style="font-weight:bold">{{obj.COMPONENT_NAME}}</span>
-                        <a href="#" @click="back" title="后退" style="float:right" class="back"><img src="../../../app_src/imgs/back.png"></a>
                         <!-- <el-button size="mini" style="float:right" type="primary" @click="back">后 退</el-button> -->
                     </div>
                     <ul style="width:40%;padding-left:5px;">
@@ -14,7 +25,7 @@
                             <span>版　　本：</span>
                             <span>{{obj.COMPONENT_VERSION}}</span>
                         </li>
-                         <li>
+                        <li>
                             <span>发布日期：</span>
                             <span>{{obj.COMPONENT_PUBLISHDATE | parseTime}}</span>
                         </li>
@@ -26,7 +37,7 @@
                             <span>上 传 人：</span>
                             <span>{{obj.CREATER}}</span>
                         </li>
-                       
+
                         <li>
                             <span>下载次数：</span>
                             <span>{{obj.DOWNLOAD_TIMES}}</span>
@@ -39,7 +50,7 @@
                     </ul>
                     <ul>
                         <li>
-                             <span>软件大小：</span>
+                            <span>软件大小：</span>
                             <span>{{obj.COMPONENT_SIZE}}</span>
                         </li>
                         <li>
@@ -71,11 +82,11 @@
                         <el-button type="primary" v-else-if="obj.CHECK_STATE===1" @click="download(obj.URL)">下 载</el-button>
                         <!-- <el-button type="danger" @click="handleApply" v-if="obj.CHECK_STATE===2">已驳回</el-button> -->
                     </div>
-                    <div style="width:100%;clear:both;padding-left:12px;" v-if="obj.CHECK_STATE===1" >
-                             <a style="font-size:14px;float:left;" :href="downloadurl+obj.URL" target="_blank">程序包</a>
+                    <div style="width:100%;clear:both;padding-left:12px;" v-if="obj.CHECK_STATE===1">
+                        <a style="font-size:14px;float:left;" :href="downloadurl+obj.URL" target="_blank">程序包</a>
                     </div>
-                    <div style="width:100%;padding-left:13px;" v-if="obj.CHECK_STATE===1"  v-for="(file,key) in obj.children" :key="key">
-                             <a style="font-size:14px;float:left;" :href="downloadurl+file.FILE_URL" target="_blank">{{file.FILE_NAME}}({{file.FILE_SIZE}})</a>
+                    <div style="width:100%;padding-left:13px;" v-if="obj.CHECK_STATE===1" v-for="(file,key) in obj.children" :key="key">
+                        <a style="font-size:14px;float:left;" :href="downloadurl+file.FILE_URL" target="_blank">{{file.FILE_NAME}}({{file.FILE_SIZE}})</a>
                     </div>
                 </el-card>
                 <!-- <el-card id="#anchor1" class="componentinfo" v-for="(file,key) in obj.children" :key="key" v-if="obj.CHECK_STATE===1">
@@ -340,6 +351,7 @@ export default {
     margin-bottom: 15px;
     padding-bottom: 10px;
     padding-left: 30px;
+    clear:both;
 }
 .componentinfo1 {
     margin-bottom: 5px;
@@ -348,7 +360,7 @@ export default {
     line-height: 150%;
     .title {
         font-weight: bold;
-        padding-left:6px;
+        padding-left: 6px;
     }
 }
 /* .componentinfo li{float:left;width:100px;background:#CCC;margin-left:3px;line-height:30px;} */
@@ -369,6 +381,7 @@ export default {
 }
 .back {
     float: right;
+    margin-right:0px;
     img {
         width: 50px;
         height: 50px;
