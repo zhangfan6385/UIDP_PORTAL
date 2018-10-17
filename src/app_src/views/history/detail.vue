@@ -219,8 +219,8 @@ export default {
     },
     methods: {
         back() {
-            //this.$router.go(-1);
-            console.log(this.platInfo);
+            this.$router.go(-1);
+            //console.log(this.platInfo);
         },
         doNothing() {},
         handleApply() {
