@@ -421,7 +421,7 @@ export default {
                         type: "slider",
                         yAxisIndex: [0],
                         filterMode: "empty",
-                        start: 70,
+                        start: 0,
                         end: 100
                     }
                 ],
@@ -510,7 +510,7 @@ export default {
                         type: "slider",
                         yAxisIndex: [0],
                         filterMode: "empty",
-                        start: 70,
+                        start: 0,
                         end: 100
                     }
                 ],
