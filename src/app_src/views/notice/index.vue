@@ -11,12 +11,21 @@
                     </el-table> -->
                     <el-card>
                         <el-row>
-                            <el-col>
+                            <el-col :span="12">
+                                <div class="breadcrumb">
+                                    <el-breadcrumb separator="/">
+                                        <el-breadcrumb-item>首页</el-breadcrumb-item>
+                                        <el-breadcrumb-item>通知列表</el-breadcrumb-item>
+                                    </el-breadcrumb>
+                                </div>
+                            </el-col>
+                            <el-col :span="12">
                                 <div class="backbutton">
                                     <a href="#" @click="goback" title="后退" class="changePlatform"><img style="margin-top:2px;" src="../../../app_src/imgs/back.png"></a>
                                 </div>
                             </el-col>
                         </el-row>
+
                         <el-row>
                             <el-col>
                                 <el-card v-for="(item,key) in  noticeList" :key="key" @click.native="goToContent(item)">
@@ -165,6 +174,10 @@ export default {
             height: 50px;
         }
     }
+    .breadcrumb{
+        margin-top: 20px;
+    }
+    
 }
 </style>
 

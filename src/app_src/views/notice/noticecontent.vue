@@ -4,21 +4,30 @@
             <el-col :span="2"></el-col>
             <el-col :span="20">
                 <el-card>
-                    <div class="breadcrumb">
-                        <el-breadcrumb separator="/">
-                            <el-breadcrumb-item>首页</el-breadcrumb-item>
-                            <el-breadcrumb-item>通知列表</el-breadcrumb-item>
-                            <el-breadcrumb-item>通知详情</el-breadcrumb-item>
-                        </el-breadcrumb>
-                    </div>
+                    <el-row>
+                        <el-col :span="12">
+                            <div class="breadcrumb">
+                                <el-breadcrumb separator="/">
+                                    <el-breadcrumb-item>首页</el-breadcrumb-item>
+                                    <el-breadcrumb-item>通知列表</el-breadcrumb-item>
+                                    <el-breadcrumb-item>通知详情</el-breadcrumb-item>
+                                </el-breadcrumb>
+                            </div>
+                        </el-col>
+
+                        <el-col :span="12">
+                            <div class="back">
+                                <!-- <el-button type="primary" @click="back" size="mini">后退</el-button> -->
+                                <a href="#" title="后退" @click="back" style="float:right"><img src="../../../app_src/imgs/back.png"></a>
+                            </div>
+                        </el-col>
+                    </el-row>
+
                     <div class="noticecontent">
                         <el-card v-for="(ele,key) in notice" :key="key">
                             <div slot="header" class="header">
                                 {{ele.NOTICE_TITLE}}
-                                <div class="back">
-                                    <!-- <el-button type="primary" @click="back" size="mini">后退</el-button> -->
-                                    <a href="#" title="后退" @click="back" style="float:right"><img src="../../../app_src/imgs/back.png"></a>
-                                </div>
+
                             </div>
                             <div class="content">
                                 <el-row>
@@ -109,8 +118,15 @@ export default {
 .noticebackground {
     min-height: 500px;
     margin-top: 20px;
-    .breadcrumb{
-        margin-bottom: 10px;
+    .breadcrumb {
+        margin-top: 15px;
+    }
+    .back {
+        float: right;
+        img {
+            width: 50px;
+            height: 50px;
+        }
     }
     .noticecontent {
         .header {
@@ -129,13 +145,6 @@ export default {
             float: right;
             font-size: 12px;
             color: gray;
-        }
-        .back {
-            float: right;
-            img {
-                width: 50px;
-                height: 50px;
-            }
         }
         .el-card {
             font-family: "微软雅黑";

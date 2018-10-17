@@ -4,21 +4,29 @@
             <el-col :span="2"> </el-col>
             <el-col :span="20">
                 <el-card shadow="never" style="height:100%">
-                    <div class="breadcrumb">
-                        <el-breadcrumb separator="/">
-                            <el-breadcrumb-item>开发平台</el-breadcrumb-item>
-                            <el-breadcrumb-item v-if="platInfo.PLAT_TYPE===0">C#历史版本</el-breadcrumb-item>
-                            <el-breadcrumb-item v-if="platInfo.PLAT_TYPE===1">GO#历史版本</el-breadcrumb-item>
-                            <el-breadcrumb-item>版本详情</el-breadcrumb-item>
-                        </el-breadcrumb>
-                    </div>
-                    <el-card class="componentinfo" shadow="never">
-                        <div style="width:100%;padding-left:10px">
-                            <span style="font-weight:bold">{{platInfo.PLAT_NAME}}</span>
-                            <a href="#" @click="back" title="后退" style="float:right" class="back"><img src="../../../app_src/imgs/back.png"></a>
-                            <!-- <el-button size="mini" style="float:right" type="primary" @click="back">后 退</el-button> -->
-                        </div>
+                    <el-row>
+                        <el-col :span="12">
+                            <div class="breadcrumb">
+                                <el-breadcrumb separator="/">
+                                    <el-breadcrumb-item>开发平台</el-breadcrumb-item>
+                                    <el-breadcrumb-item v-if="platInfo.PLAT_TYPE===0">C#历史版本</el-breadcrumb-item>
+                                    <el-breadcrumb-item v-if="platInfo.PLAT_TYPE===1">GO#历史版本</el-breadcrumb-item>
+                                    <el-breadcrumb-item>版本详情</el-breadcrumb-item>
+                                </el-breadcrumb>
+                            </div>
+                        </el-col>
 
+                        <el-col :span="12">
+                            <div style="width:100%;padding-left:10px">
+                                
+                                <a href="#" @click="back" title="后退" style="float:right" class="back"><img src="../../../app_src/imgs/back.png"></a>
+                                <!-- <el-button size="mini" style="float:right" type="primary" @click="back">后 退</el-button> -->
+                            </div>
+                        </el-col>
+                    </el-row>
+
+                    <el-card class="componentinfo" shadow="never">
+                        <span style="font-weight:bold">{{platInfo.PLAT_NAME}}</span>
                         <ul style="width:40%;padding-left:5px;">
                             <li>
                                 <span>版本号：</span>
@@ -355,8 +363,8 @@ export default {
     .el-card__body {
         padding: 5px;
     }
-    .breadcrumb{
-        margin-bottom: 10px;
+    .breadcrumb {
+        margin-top:18px;
     }
     /* .componentinfo li{float:left;width:100px;background:#CCC;margin-left:3px;line-height:30px;} */
     .componentinfo ul {
