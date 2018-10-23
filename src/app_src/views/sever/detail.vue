@@ -16,11 +16,11 @@
 
                 </div>
                 <el-card class="componentinfo" shadow="never">
-                    <div style="width:100%;padding:10px 0 10px 5px;">
+                    <div style="width:100%;padding:10px 0 10px 10px;">
                         <span style="font-weight:bold;">{{severInfo.SERVICE_NAME}}</span>
                         <!-- <el-button size="mini" style="float:right" type="primary" @click="back">后 退</el-button> -->
                     </div>
-                    <div style="width:100%;clear:both;font-size: 15px;padding-left:5px">
+                    <div style="width:100%;clear:both;font-size: 15px;padding-left:10px">
                         <span>服务地址：</span>
                         <span v-if="severInfo.CHECK_STATE===1">{{severInfo.SERVICE_URL}}</span>
                         <span v-else>{{severInfo.SERVICE_URL | strSplit}}</span><br>
