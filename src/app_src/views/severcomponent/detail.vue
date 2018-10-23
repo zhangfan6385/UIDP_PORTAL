@@ -5,22 +5,22 @@
             <el-card class="box-card" style="margin-bottom:10px;">
                 <div style="width:100%;height:35px">
                     <div style="text-align:left;width:200px;float:left;padding-top:16px;">
-                    <el-breadcrumb separator="/" style="font-size:14px;">
-                        <el-breadcrumb-item>组件目录</el-breadcrumb-item>
-                        <el-breadcrumb-item>组件详情</el-breadcrumb-item>
-                    </el-breadcrumb>
+                        <el-breadcrumb separator="/" style="font-size:14px;">
+                            <el-breadcrumb-item>组件目录</el-breadcrumb-item>
+                            <el-breadcrumb-item>组件详情</el-breadcrumb-item>
+                        </el-breadcrumb>
                     </div>
                     <div style="text-align:right;float:right;width:200px;padding-right:0px;">
-<a href="#" @click="back" title="后退"  class="back"><img src="../../../app_src/imgs/back.png"></a>
+                        <a href="#" @click="back" title="后退" class="back"><img src="../../../app_src/imgs/back.png"></a>
                     </div>
-                     
+
                 </div>
                 <el-card class="componentinfo">
-                    <div style="width:100%;padding-left:10px;">
+                    <div style="width:100%;padding:10px 0 0 5px;">
                         <span style="font-weight:bold">{{obj.COMPONENT_NAME}}</span>
                         <!-- <el-button size="mini" style="float:right" type="primary" @click="back">后 退</el-button> -->
                     </div>
-                    <ul style="width:40%;padding-left:5px;">
+                    <ul style="width:40%;padding:10px 0 0 5px;">
                         <li>
                             <span>版　　本：</span>
                             <span>{{obj.COMPONENT_VERSION}}</span>
@@ -48,7 +48,7 @@
                         </li>
 
                     </ul>
-                    <ul>
+                    <ul style="width:40%;padding:10px 0 0 5px;">
                         <li>
                             <span>软件大小：</span>
                             <span>{{obj.COMPONENT_SIZE}}</span>
@@ -351,7 +351,7 @@ export default {
     margin-bottom: 15px;
     padding-bottom: 10px;
     padding-left: 30px;
-    clear:both;
+    clear: both;
 }
 .componentinfo1 {
     margin-bottom: 5px;
@@ -375,13 +375,13 @@ export default {
 .componentinfo li {
     font-size: 15px;
     //width: 45%; /*如果显示三列 则width改为70px*/
-    line-height: 17px;
+    line-height: 23px;
     display: block;
     margin: 5px;
 }
 .back {
     float: right;
-    margin-right:0px;
+    margin-right: 0px;
     img {
         width: 50px;
         height: 50px;
@@ -401,8 +401,8 @@ a:hover {
     text-decoration: none;
     color: blue;
 }
-.divcontent{
-    p{
+.divcontent {
+    p {
         text-indent: 2em;
     }
 }

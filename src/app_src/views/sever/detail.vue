@@ -3,36 +3,36 @@
         <el-col :span="2"> </el-col>
         <el-col :span="20">
             <el-card shadow="never" style="height:100%;">
-                 <div style="width:100%;height:35px">
+                <div style="width:100%;height:35px">
                     <div style="text-align:left;width:200px;float:left;padding-top:16px;">
-                    <el-breadcrumb separator="/" style="font-size:14px;">
-                        <el-breadcrumb-item>服务目录</el-breadcrumb-item>
-                        <el-breadcrumb-item>服务详情</el-breadcrumb-item>
-                    </el-breadcrumb>
+                        <el-breadcrumb separator="/" style="font-size:14px;">
+                            <el-breadcrumb-item>服务目录</el-breadcrumb-item>
+                            <el-breadcrumb-item>服务详情</el-breadcrumb-item>
+                        </el-breadcrumb>
                     </div>
                     <div style="text-align:right;float:right;width:200px;padding-right:0px;">
-<a href="#" @click="back" title="后退"  class="back"><img src="../../../app_src/imgs/back.png"></a>
+                        <a href="#" @click="back" title="后退" class="back"><img src="../../../app_src/imgs/back.png"></a>
                     </div>
-                     
+
                 </div>
                 <el-card class="componentinfo" shadow="never">
-                    <div style="width:100%;padding-left:10px">
-                        <span style="font-weight:bold">{{severInfo.SERVICE_NAME}}</span>
+                    <div style="width:100%;padding:10px 0 10px 5px;">
+                        <span style="font-weight:bold;">{{severInfo.SERVICE_NAME}}</span>
                         <!-- <el-button size="mini" style="float:right" type="primary" @click="back">后 退</el-button> -->
                     </div>
-                    <div style="width:100%;clear:both;font-size: 15px;padding-left:10px">
+                    <div style="width:100%;clear:both;font-size: 15px;padding-left:5px">
                         <span>服务地址：</span>
                         <span v-if="severInfo.CHECK_STATE===1">{{severInfo.SERVICE_URL}}</span>
                         <span v-else>{{severInfo.SERVICE_URL | strSplit}}</span><br>
-                        <span  v-if="severInfo.CHECK_STATE===1">X-Token：</span>
-                        <span  v-if="severInfo.CHECK_STATE===1">{{severInfo.SERVER_TOKEN}}</span>
+                        <span v-if="severInfo.CHECK_STATE===1">X-Token：</span>
+                        <span v-if="severInfo.CHECK_STATE===1">{{severInfo.SERVER_TOKEN}}</span>
                     </div>
                     <!-- <div style="width:100%;font-size: 15px;line-height: 16px;padding-left:10px" v-if="severInfo.CHECK_STATE===1">
                         <span>X-Token：</span>
                         <span>{{severInfo.SERVICE_CODE}}</span>
                     </div> -->
-                    <ul style="width:40%;padding-left:5px;">
-                         <li>
+                    <ul style="width:40%;padding:10px 0 0 5px;">
+                        <li>
                             <span>请求方式：</span>
                             <span>{{severInfo.REQUEST_METHOD}}</span>
                         </li>
@@ -44,12 +44,12 @@
                             <span>发布日期：</span>
                             <span>{{severInfo.SERVICE_PUBLISHDATE | parseTime}}</span>
                         </li>
-                         <li>
+                        <li>
                             <span>下载次数：</span>
                             <span>{{severInfo.SERVICE_TIMES}}</span>
                         </li>
                     </ul>
-                    <ul>
+                    <ul style="width:40%;padding:10px 0 0 5px;">
                         <li>
                             <span>服务版本：</span>
                             <span>{{severInfo.SERVER_VERSION}}</span>
@@ -75,8 +75,8 @@
                         <!-- <el-button type="danger" @click="handleApply()" v-if="severInfo.CHECK_STATE===2">已驳回</el-button> -->
                         <!-- <el-button size="mini" type="primary" @click="goAnchor">查看服务码</el-button> -->
                     </div>
-                    <div style="width:100%;padding-left:13px;" v-if="severInfo.CHECK_STATE===1"  v-for="(file,key) in severInfo.children" :key="key">
-                             <a style="font-size:14px;float:left;" :href="downloadurl+file.FILE_URL" target="_blank">{{file.FILE_NAME}}({{file.FILE_SIZE}})</a>
+                    <div style="width:100%;padding-left:13px;" v-if="severInfo.CHECK_STATE===1" v-for="(file,key) in severInfo.children" :key="key">
+                        <a style="font-size:14px;float:left;" :href="downloadurl+file.FILE_URL" target="_blank">{{file.FILE_NAME}}({{file.FILE_SIZE}})</a>
                     </div>
                 </el-card>
                 <!-- <el-card id="#anchor1" class="componentinfo" v-for="(file,key) in severInfo.children" :key="key" v-if="severInfo.CHECK_STATE===1">
@@ -226,8 +226,8 @@ export default {
     },
     filters: {
         parseTime,
-        strSplit:function(val){
-            return val?val.substr(0,val.length/2)+"...":''
+        strSplit: function(val) {
+            return val ? val.substr(0, val.length / 2) + "..." : "";
         }
     },
     methods: {
@@ -357,9 +357,9 @@ export default {
     padding-left: 30px;
     min-height: 500px;
     line-height: 150%;
-    .title{
+    .title {
         font-weight: bold;
-        padding-left:6px;
+        padding-left: 6px;
     }
 }
 .el-card__body {
@@ -371,13 +371,13 @@ export default {
     width: 50%;
     list-style: none;
     margin-bottom: 5px;
-    margin-top:0px;
+    margin-top: 0px;
     padding-left: 0px;
     float: left;
 }
 .back {
     float: right;
-    margin-right:0px;
+    margin-right: 0px;
     img {
         width: 50px;
         height: 50px;
@@ -386,7 +386,7 @@ export default {
 .componentinfo li {
     font-size: 15px;
     width: 100%; /*如果显示三列 则width改为70px*/
-    line-height: 17px;
+    line-height: 23px;
     display: block;
     margin-bottom: 5px;
 }
@@ -404,8 +404,8 @@ a:hover {
     text-decoration: none;
     color: blue;
 }
-.divcontent{
-    p{
+.divcontent {
+    p {
         text-indent: 2em;
     }
 }

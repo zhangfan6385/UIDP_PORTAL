@@ -283,7 +283,7 @@ export default {
                                 type: "success",
                                 duration: 2000
                             });
-                            this.getSever();
+                            this.getPlatDetail();
                             this.dialogFormVisible = false;
                         } else {
                             this.$notify({
@@ -338,7 +338,7 @@ export default {
     watch: {
         getCurrentProjId(data) {
             if (data != null) {
-                this.getSever();
+                this.getPlatDetail();
             }
         }
     }
