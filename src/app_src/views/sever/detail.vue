@@ -168,7 +168,7 @@ export default {
             projList: [],
             userinfo: {},
             componentName: "",
-            dialogTitle: "下载申请",
+            dialogTitle: "服务申请",
             componentContent: "",
             formLabelWidth: "120px",
             formInline: {
