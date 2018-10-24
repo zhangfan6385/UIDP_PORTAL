@@ -116,6 +116,14 @@ export default {
                             this.title = "成功";
                             this.type = "success";
                             this.resetForm(formName);
+                            this.$notify({
+                                position: "bottom-right",
+                                title: this.title,
+                                message: this.message,
+                                type: this.type,
+                                duration: 2000
+                            });
+                            this.isvisiblepassword=false;
                         } else {
                             this.$notify({
                                 position: "bottom-right",

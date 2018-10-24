@@ -21,7 +21,7 @@ import { resolve } from 'uri-js';
   }
 **/
 export const constantRouterMap = [
-  { path: '/login', component: _import('app_src/views/login/index'), hidden: true },
+  //{ path: '/login', component: _import('app_src/views/login/index'), hidden: true },
   { path: '/404', component: _import('app_src/views/404'), hidden: true },
   {
     path: '/',
