@@ -76,7 +76,9 @@
                         <!-- <el-button size="mini" type="primary" @click="goAnchor">查看服务码</el-button> -->
                     </div>
                     <div style="width:100%;padding-left:8px;clear:both;">
-                         <span>附件下载：</span><a style="font-size:14px;" :href="downloadurl+file.FILE_URL" target="_blank" v-if="severInfo.CHECK_STATE===1&&file.FILE_URL!=null" v-for="(file,key) in severInfo.children" :key="key">{{file.FILE_NAME}}({{file.FILE_SIZE}})</a>
+                         <span v-if="severInfo.CHECK_STATE===1">附件下载：
+                             <a style="font-size:14px;" :href="downloadurl+file.FILE_URL" target="_blank" v-if="file.FILE_URL!=null" v-for="(file,key) in severInfo.children" :key="key">{{file.FILE_NAME}}({{file.FILE_SIZE}})</a>
+                         </span>
                     </div>
                 </el-card>
                 <!-- <el-card id="#anchor1" class="componentinfo" v-for="(file,key) in severInfo.children" :key="key" v-if="severInfo.CHECK_STATE===1">
