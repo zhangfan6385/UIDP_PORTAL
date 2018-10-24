@@ -83,10 +83,14 @@
                         <!-- <el-button type="danger" @click="handleApply" v-if="obj.CHECK_STATE===2">已驳回</el-button> -->
                     </div>
                     <div style="width:100%;clear:both;padding-left:12px;" v-if="obj.CHECK_STATE===1">
-                        <a style="font-size:14px;float:left;" :href="downloadurl+obj.URL" target="_blank">程序包</a>
+                        <span>程序包：</span>
+                        <a style="font-size:14px;" :href="downloadurl+obj.URL" target="_blank" v-if="obj.URL!=null">
+                            <img src="../../../app_src/imgs/download.png" style="width:20px; height:20px;">
+                        </a>
+                        <span v-else-if="obj.URL===null" style="color:red;">暂无下载</span>
                     </div>
-                    <div style="width:100%;padding-left:13px;" v-if="obj.CHECK_STATE===1" v-for="(file,key) in obj.children" :key="key">
-                        <a style="font-size:14px;float:left;" :href="downloadurl+file.FILE_URL" target="_blank">{{file.FILE_NAME}}({{file.FILE_SIZE}})</a>
+                    <div style="width:100%;padding-left:13px;clear:both;" v-if="obj.CHECK_STATE===1&&file.FILE_URL!=null" v-for="(file,key) in obj.children" :key="key">
+                        文档：<a style="font-size:14px;float:left;" :href="downloadurl+file.FILE_URL" target="_blank">{{file.FILE_NAME}}({{file.FILE_SIZE}})</a>
                     </div>
                 </el-card>
                 <!-- <el-card id="#anchor1" class="componentinfo" v-for="(file,key) in obj.children" :key="key" v-if="obj.CHECK_STATE===1">
