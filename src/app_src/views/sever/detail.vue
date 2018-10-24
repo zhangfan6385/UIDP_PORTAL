@@ -75,8 +75,8 @@
                         <!-- <el-button type="danger" @click="handleApply()" v-if="severInfo.CHECK_STATE===2">已驳回</el-button> -->
                         <!-- <el-button size="mini" type="primary" @click="goAnchor">查看服务码</el-button> -->
                     </div>
-                    <div style="width:100%;padding-left:8px;clear:both;" v-if="severInfo.CHECK_STATE===1&&file.FILE_URL!=null" v-for="(file,key) in severInfo.children" :key="key">
-                        <span>附件下载：</span><a style="font-size:14px;" :href="downloadurl+file.FILE_URL" target="_blank">{{file.FILE_NAME}}({{file.FILE_SIZE}})</a>
+                    <div style="width:100%;padding-left:8px;clear:both;">
+                         <span>附件下载：</span><a style="font-size:14px;" :href="downloadurl+file.FILE_URL" target="_blank" v-if="severInfo.CHECK_STATE===1&&file.FILE_URL!=null" v-for="(file,key) in severInfo.children" :key="key">{{file.FILE_NAME}}({{file.FILE_SIZE}})</a>
                     </div>
                 </el-card>
                 <!-- <el-card id="#anchor1" class="componentinfo" v-for="(file,key) in severInfo.children" :key="key" v-if="severInfo.CHECK_STATE===1">

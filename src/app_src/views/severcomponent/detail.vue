@@ -89,8 +89,8 @@
                         </a>
                         <span v-else-if="obj.URL===null" style="color:red;">暂无下载</span>
                     </div>
-                    <div style="width:100%;padding-left:13px;clear:both;" v-if="obj.CHECK_STATE===1&&file.FILE_URL!=null" v-for="(file,key) in obj.children" :key="key">
-                        文档：<a style="font-size:14px;float:left;" :href="downloadurl+file.FILE_URL" target="_blank">{{file.FILE_NAME}}({{file.FILE_SIZE}})</a>
+                    <div style="width:100%;padding-left:13px;clear:both;padding-top:10px" >
+                        文档：<a style="font-size:14px;;" :href="downloadurl+file.FILE_URL" target="_blank" v-if="obj.CHECK_STATE===1&&FILE_URL!=null" v-for="(file,key) in obj.children" :key="key">{{file.FILE_NAME}}({{file.FILE_SIZE}})</a>
                     </div>
                 </el-card>
                 <!-- <el-card id="#anchor1" class="componentinfo" v-for="(file,key) in obj.children" :key="key" v-if="obj.CHECK_STATE===1">
