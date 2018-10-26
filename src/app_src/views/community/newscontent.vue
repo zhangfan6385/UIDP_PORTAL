@@ -107,17 +107,15 @@
                             </el-form-item>
                         </el-form> -->
                     <el-form ref="commit" :model="commit" label-width="80px" id="commit" :rules="rules">
-                        <el-form-item :label="type" prop="CONTENT">
-
-                            <!-- <quill-editor v-model="commit.CONTENT" ref="myQuillEditor" :options="commit.editorOption" @ready="onEditorReady($event)" height="500px"></quill-editor> -->
-                            <quillEditor @listenToEditorChange="EditorChange" v-model="commit.CONTENT" v-bind:apiUrl="urlPicUpload">
-                            </quillEditor>
-
-                            <el-form-item>
-                                <div class="cardbutton"></div>
-                                <el-button type="primary" @click="submit()" :loading="loading">确认提交</el-button>
-                                <el-button type="info" @click="submitScore()" v-if="cardcontent.USER_ID===getCurrentUserId&&cardcontent.POST_TYPE===3&&cardcontent.POST_STATUS===0">结贴</el-button>
-                            </el-form-item>
+                        <!-- <quillEditor @listenToEditorChange="EditorChange" v-model="commit.CONTENT" v-bind:apiUrl="urlPicUpload">
+                            </quillEditor> -->
+                        <div class="editor-container">
+                            <UE :defaultMsg=defaultMsg :config=config ref="ue"></UE>
+                        </div>
+                        <el-form-item>
+                            <div class="cardbutton"></div>
+                            <el-button type="primary" @click="submit()" :loading="loading">确认提交</el-button>
+                            <el-button type="info" @click="submitScore()" v-if="cardcontent.USER_ID===getCurrentUserId&&cardcontent.POST_TYPE===3&&cardcontent.POST_STATUS===0">结贴</el-button>
                         </el-form-item>
                     </el-form>
                 </el-card>
@@ -159,9 +157,15 @@ import {
 //import { quillEditor } from "vue-quill-editor";
 import { parseTime } from "@/app_src/utils/index.js";
 import quillEditor from "@/app_src/components/QuillEditor";
+import UE from "../../components/ue.vue";
 export default {
     data() {
         return {
+            defaultMsg: "",
+            config: {
+                initialFrameWidth: null,
+                initialFrameHeight: 350
+            },
             urlPicUpload: process.env.BASE_API + "/Home/uploadCommunityPic",
             cardcontent: {},
             commentlist: [],
@@ -229,7 +233,8 @@ export default {
         };
     },
     components: {
-        quillEditor
+        quillEditor,
+        UE
     },
     methods: {
         EditorChange(data) {
@@ -347,6 +352,7 @@ export default {
             if (this.$store.state.user.userID === null) {
                 this.$store.state.user.dialogLoginVisible = true;
             } else {
+                this.commit.CONTENT = this.$refs.ue.getUEContent();
                 if (
                     this.commit.CONTENT === null ||
                     this.commit.CONTENT === ""
@@ -373,7 +379,8 @@ export default {
                                 "setScore",
                                 response.data.score
                             );
-                            this.resetTemp();
+                            //this.resetTemp();
+                            this.defaultMsg=null;
                             this.getCardDetail();
                         } else {
                             this.$notify({
@@ -583,9 +590,6 @@ export default {
                 this.userType = data;
             }
         }
-    },
-    components: {
-        quillEditor
     },
     mounted() {
         this.getCardDetail();

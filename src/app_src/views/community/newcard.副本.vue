@@ -1,76 +1,67 @@
 <template>
-    <div class="components-container">
-        <el-row type="flex">
+    <div id="newcard" class="newcard">
+        <el-row :gutter="20" type="flex">
             <el-col :span="2"></el-col>
             <el-col :span="20">
-                <el-card>
-                    <el-form ref="newcard" :model="newcard" label-width="80px" :rules="rules">
-                        <el-form-item label="标题" prop="TITLE_NAME" :rules="rules.TITLE_NAME">
-                            <el-input v-model="newcard.TITLE_NAME"></el-input>
-                        </el-form-item>
-                        <el-row type="flex">
-                            <el-col :span="10">
-                                <el-form-item label="帖子类型" prop="POST_TYPE" :rules="rules.POST_TYPE">
-                                    <el-radio v-model="newcard.POST_TYPE" label="1">经验分享</el-radio>
-                                    <el-radio v-model="newcard.POST_TYPE" label="2">问题反馈</el-radio>
-                                    <el-radio v-model="newcard.POST_TYPE" label="3">求助</el-radio>
+                <div class="mainform">
+                    <el-card>
+                        <el-form ref="newcard" :model="newcard" label-width="80px" :rules="rules">
+                            <el-form-item label="标题" prop="TITLE_NAME" :rules="rules.TITLE_NAME">
+                                <el-input v-model="newcard.TITLE_NAME"></el-input>
+                            </el-form-item>
+                            <el-row type="flex">
+                                <el-col :span="10">
+                                    <el-form-item label="帖子类型" prop="POST_TYPE" :rules="rules.POST_TYPE">
+                                        <el-radio v-model="newcard.POST_TYPE" label="1">经验分享</el-radio>
+                                        <el-radio v-model="newcard.POST_TYPE" label="2">问题反馈</el-radio>
+                                        <el-radio v-model="newcard.POST_TYPE" label="3">求助</el-radio>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :span="2"></el-col>
+
+                                <el-col :span="6">
+                                    <div v-if="this.newcard.POST_TYPE==='1'">
+                                        <el-form-item label="所需积分" prop="SCORE_POINT">
+                                            <el-input v-model.number="newcard.SCORE_POINT"></el-input>
+                                        </el-form-item>
+                                    </div>
+
+                                    <div v-else-if="this.newcard.POST_TYPE==='3'">
+                                        <el-form-item label="悬赏积分" prop="SCORE_POINT">
+                                            <el-input v-model.number="newcard.SCORE_POINT"></el-input>
+                                        </el-form-item>
+                                    </div>
+                                </el-col>
+                            </el-row>
+
+                            <el-form-item label="详细" :rules="rules.POST_CONTENT">
+                                <!-- <quill-editor v-model="newcard.POST_CONTENT" ref="myQuillEditor" :options="newcard.editorOption" @ready="onEditorReady($event)" @blur="onEditorBlur($event)" @focus="onEditorFocus($event)" height="500px">
+                                    </quill-editor> -->
+                                <quillEditor @listenToEditorChange="EditorChange" v-bind:content="newcard.POST_CONTENT" v-bind:apiUrl="urlPicUpload">
+                                </quillEditor>
+
+                                <el-form-item>
+                                    <el-button type="primary" @click="onSubmit" :loading="loading" class="button">确认提交</el-button>
                                 </el-form-item>
-                            </el-col>
-                            <el-col :span="2"></el-col>
 
-                            <el-col :span="6">
-                                <div v-if="this.newcard.POST_TYPE==='1'">
-                                    <el-form-item label="所需积分" prop="SCORE_POINT">
-                                        <el-input v-model.number="newcard.SCORE_POINT"></el-input>
-                                    </el-form-item>
-                                </div>
-
-                                <div v-else-if="this.newcard.POST_TYPE==='3'">
-                                    <el-form-item label="悬赏积分" prop="SCORE_POINT">
-                                        <el-input v-model.number="newcard.SCORE_POINT"></el-input>
-                                    </el-form-item>
-                                </div>
-                            </el-col>
-                        </el-row>
-
-                        <!-- <quillEditor @listenToEditorChange="EditorChange" v-bind:content="newcard.POST_CONTENT" v-bind:apiUrl="urlPicUpload"></quillEditor> -->
-                        <div class="editor-container">
-                            <UE :defaultMsg=defaultMsg :config=config ref="ue"></UE>
-                        </div>
-                        <el-form-item>
-                            <el-button type="primary" @click="onSubmit" :loading="loading" class="button">确认提交</el-button>
-                        </el-form-item>
-
-                    </el-form>
-                </el-card>
-                <div class="editor-container">
-                    <UE :defaultMsg=defaultMsg :config=config ref="ue"></UE>
+                            </el-form-item>
+                        </el-form>
+                    </el-card>
                 </div>
             </el-col>
         </el-row>
     </div>
 </template>
-<style>
-.info {
-    border-radius: 10px;
-    line-height: 20px;
-    padding: 10px;
-    margin: 10px;
-    background-color: #ffffff;
-}
-</style>
+
+
+
 <script>
-import UE from "../../components/ue.vue";
+// import { quillEditor } from "vue-quill-editor";
+import quillEditor from "@/app_src/components/QuillEditor";
 import { createCard } from "@/app_src/api/community";
 export default {
-    components: { UE },
     data() {
         return {
-            defaultMsg: "",
-            config: {
-                initialFrameWidth: null,
-                initialFrameHeight: 350
-            },
             urlPicUpload: process.env.BASE_API + "/Home/uploadCommunityPic", //下载路径
             newcard: {
                 //查询参数
@@ -120,7 +111,14 @@ export default {
             }
         };
     },
+    components: {
+        quillEditor
+    },
     methods: {
+        // onEditorReady(editor) {},
+        EditorChange(data) {
+            this.newcard.POST_CONTENT = data.editorContent;
+        },
         resetTemp() {
             //重置方法
             this.newcard = {
@@ -137,7 +135,6 @@ export default {
         onSubmit() {
             //提交
             if (this.$store.state.user.userID != null) {
-                this.newcard.POST_CONTENT = this.$refs.ue.getUEContent();
                 if (
                     this.newcard.POST_CONTENT === null ||
                     this.newcard.POST_CONTENT === ""
@@ -243,14 +240,23 @@ export default {
         // editor() {
         //     return this.$refs.myQuillEditor.quill;
         // }
+    },
+    components: {
+        quillEditor
     }
 };
 </script>
 
-<style lang="scss" scoped>
-.components-container{
-    .el-button--primary{
-        float: right;
+
+
+<style lang="scss">
+.newcard {
+    .el-card {
+        min-height: 500px;
+    }
+    .button {
+        margin-top: 20px;
     }
 }
 </style>
+
