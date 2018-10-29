@@ -29,6 +29,9 @@
     methods: {
       getUEContent() { // 获取内容方法
         return this.editor.getContent()
+      },
+      resetUEContent(){//删除文本框内内容
+        return this.editor.setContent('&nbsp;');
       }
     },
     destroyed() {

@@ -112,11 +112,10 @@
                         <div class="editor-container">
                             <UE :defaultMsg=defaultMsg :config=config ref="ue"></UE>
                         </div>
-                        <el-form-item>
-                            <div class="cardbutton"></div>
-                            <el-button type="primary" @click="submit()" :loading="loading">确认提交</el-button>
-                            <el-button type="info" @click="submitScore()" v-if="cardcontent.USER_ID===getCurrentUserId&&cardcontent.POST_TYPE===3&&cardcontent.POST_STATUS===0">结贴</el-button>
-                        </el-form-item>
+
+                        <div class="cardbutton"></div>
+                        <el-button type="primary" @click="submit()" :loading="loading">确认提交</el-button>
+                        <el-button type="info" @click="submitScore()" v-if="cardcontent.USER_ID===getCurrentUserId&&cardcontent.POST_TYPE===3&&cardcontent.POST_STATUS===0">结贴</el-button>
                     </el-form>
                 </el-card>
             </el-col>
@@ -341,12 +340,12 @@ export default {
             }
         },
         onEditorReady(editor) {},
-        resetTemp() {
-            //quilleditor 文本框清除方法
-            this.commit.CONTENT = "";
-            let first = document.getElementsByClassName("ql-editor");
-            first[0].children[0].innerHTML = "";
-        },
+        // resetTemp() {
+        //     //quilleditor 文本框清除方法
+        //     this.commit.CONTENT = "";
+        //     let first = document.getElementsByClassName("ql-editor");
+        //     first[0].children[0].innerHTML = "";
+        // },
         submit() {
             //提交
             if (this.$store.state.user.userID === null) {
@@ -379,8 +378,8 @@ export default {
                                 "setScore",
                                 response.data.score
                             );
-                            //this.resetTemp();
-                            this.defaultMsg=null;
+                            this.commit.CONTENT = "";
+                            this.$refs.ue.resetUEContent();
                             this.getCardDetail();
                         } else {
                             this.$notify({
