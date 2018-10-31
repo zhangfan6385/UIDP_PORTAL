@@ -69,7 +69,7 @@
                     </ul>
                     <!--style="text-align:center;float:left;width:45%;height:145px;padding-top:70px;"-->
                     <div style="text-align:left;clear:both;padding-left:10px;" v-if="severInfo.CHECK_STATE!=1">
-                        <el-button type="primary" @click="handleApply()" v-if="severInfo.CHECK_STATE===-1">申&nbsp;请</el-button>
+                        <el-button type="primary" @click="handleApply()" v-if="severInfo.CHECK_STATE===-1||severInfo.CHECK_STATE===2">申&nbsp;请</el-button>
                         <el-button type="danger" @click="doNothing" v-else-if="severInfo.CHECK_STATE===0">待审核</el-button>
                         <el-button type="primary" v-else-if="severInfo.CHECK_STATE===1">通过</el-button>
                         <!-- <el-button type="danger" @click="handleApply()" v-if="severInfo.CHECK_STATE===2">已驳回</el-button> -->

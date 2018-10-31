@@ -76,21 +76,23 @@
                     </div>
                     <!-- <div style="text-align:center;float:left;width:45%;height:145px;padding-top:70px;"> -->
                     <div style="text-align:left;clear:both;padding-left:10px;" v-if="obj.CHECK_STATE!=1">
-                        <el-button type="primary" @click="handleApply" v-if="obj.CHECK_STATE===-1">申 请</el-button>
+                        <el-button type="primary" @click="handleApply" v-if="obj.CHECK_STATE===-1||obj.CHECK_STATE===-2">申 请</el-button>
                         <el-button type="danger" @click="doNothing" v-else-if="obj.CHECK_STATE===0">待审核</el-button>
                         <el-button type="primary" v-else-if="obj.CHECK_STATE===1" @click="download(obj.URL)">下 载</el-button>
                         <!-- <el-button type="danger" @click="handleApply" v-if="obj.CHECK_STATE===2">已驳回</el-button> -->
                     </div>
                     <div style="width:100%;clear:both;padding-left:12px;" v-if="obj.CHECK_STATE===1">
                         <span>程序包：</span>
-                        <a style="font-size:14px;" :href="downloadurl+obj.URL" target="_blank" v-if="obj.URL!=null">
-                            
+
+                        <a style="font-size:14px;" :href="downloadurl+item.PACKAGE_URL" target="_blank" v-for="(item,key) in obj.packages" :key=key>
+                            {{item.PACKAGE_NAME}}({{item.PACKAGE_SIZE}})
                         </a>
-                        <span v-else-if="obj.URL===null" style="color:red;">暂无下载</span>
+
+                        <!-- <span v-else-if="obj.URL===null" style="color:red;">暂无下载</span> -->
                     </div>
                     <div style="width:100%;padding-left:13px;clear:both;padding-top:10px">
                         <span v-if="obj.CHECK_STATE===1">文档:
-                            <a style="font-size:14px;;" :href="downloadurl+file.FILE_URL" target="_blank"  v-for="(file,key) in obj.children" :key="key">{{file.FILE_NAME}}({{file.FILE_SIZE}})</a>
+                            <a style="font-size:14px;;" :href="downloadurl+file.FILE_URL" target="_blank" v-for="(file,key) in obj.children" :key="key">{{file.FILE_NAME}}({{file.FILE_SIZE}})</a>
                         </span>
                     </div>
                 </el-card>
@@ -272,6 +274,7 @@ export default {
             fetchSeverComponentDetail(this.queryList).then(response => {
                 if (response.data.code === 2000) {
                     this.obj = response.data.items; //获取的为1个对象不是数组
+                    //console.log(this.obj.packages);
                 } else {
                     this.$notify({
                         position: "bottom-right",
