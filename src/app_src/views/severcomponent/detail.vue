@@ -30,10 +30,6 @@
                             <span>{{obj.COMPONENT_PUBLISHDATE | parseTime}}</span>
                         </li>
                         <li>
-                            <span>管理部门：</span>
-                            <span>{{obj.MANAGE_ORG_NAME}}</span>
-                        </li>
-                        <li>
                             <span>上 传 人：</span>
                             <span>{{obj.CREATER}}</span>
                         </li>
@@ -58,10 +54,6 @@
                             <span>{{obj.SOFTWARE_LANGUAGE}}</span>
                         </li>
                         <li>
-                            <span>上 传 人：</span>
-                            <span>{{obj.CREATER}}</span>
-                        </li>
-                        <li>
                             <span>联系电话：</span>
                             <span>{{obj.MANAGE_TEL }}</span>
                         </li>
@@ -73,8 +65,15 @@
                             <span>适用浏览器：</span>
                             <span>{{obj.APPLICATION_BROWSER}}</span>
                         </li>
-
                     </ul>
+                    <div style="width:40%;padding:10px 0 10px 8px;">
+                        <el-row>
+                            <el-col :span="24">
+                                <span>管理部门：</span>
+                                <span>{{obj.MANAGE_ORG_NAME}}</span>
+                            </el-col>
+                        </el-row>
+                    </div>
                     <!-- <div style="text-align:center;float:left;width:45%;height:145px;padding-top:70px;"> -->
                     <div style="text-align:left;clear:both;padding-left:10px;" v-if="obj.CHECK_STATE!=1">
                         <el-button type="primary" @click="handleApply" v-if="obj.CHECK_STATE===-1">申 请</el-button>
@@ -85,13 +84,13 @@
                     <div style="width:100%;clear:both;padding-left:12px;" v-if="obj.CHECK_STATE===1">
                         <span>程序包：</span>
                         <a style="font-size:14px;" :href="downloadurl+obj.URL" target="_blank" v-if="obj.URL!=null">
-                            <img src="../../../app_src/imgs/download.png" style="width:20px; height:20px;">
+                            
                         </a>
                         <span v-else-if="obj.URL===null" style="color:red;">暂无下载</span>
                     </div>
                     <div style="width:100%;padding-left:13px;clear:both;padding-top:10px">
                         <span v-if="obj.CHECK_STATE===1">文档:
-                            <a style="font-size:14px;;" :href="downloadurl+file.FILE_URL" target="_blank" v-if="FILE_URL!=null" v-for="(file,key) in obj.children" :key="key">{{file.FILE_NAME}}({{file.FILE_SIZE}})</a>
+                            <a style="font-size:14px;;" :href="downloadurl+file.FILE_URL" target="_blank"  v-for="(file,key) in obj.children" :key="key">{{file.FILE_NAME}}({{file.FILE_SIZE}})</a>
                         </span>
                     </div>
                 </el-card>
