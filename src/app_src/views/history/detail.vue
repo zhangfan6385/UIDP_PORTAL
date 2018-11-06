@@ -54,7 +54,7 @@
                                 <span>{{platInfo.SOFTWARE_LANGUAGE}}</span>
                             </li>
                         </ul>
-                        <div style="width:100%;clear:both;font-size: 15px;padding-left:10px" v-if="platInfo.CHECK_STATE===2">
+                        <div style="width:100%;clear:both;font-size: 15px;padding-left:10px" v-if="platInfo.CHECK_STATE===1">
                             <ul v-for="(item,key) in platInfo.children" :key="key">
                                 <li>
                                     文件名称：
@@ -70,7 +70,7 @@
                         </div>
                         <!--style="text-align:center;float:left;width:45%;height:145px;padding-top:70px;"-->
                         <div style="text-align:left;clear:both">
-                            <el-button type="primary" @click="handleApply()" v-if="platInfo.CHECK_STATE===-1">申&nbsp;请</el-button>
+                            <el-button type="primary" @click="handleApply()" v-if="platInfo.CHECK_STATE===-1||platInfo.CHECK_STATE===2">申&nbsp;请</el-button>
                             <el-button type="danger" @click="doNothing" v-else-if="platInfo.CHECK_STATE===0">待审核</el-button>
                             <!-- <el-button type="primary" v-else-if="platInfo.CHECK_STATE===1">通过</el-button> -->
                             <!-- <el-button type="danger" @click="handleApply()" v-if="severInfo.CHECK_STATE===2">已驳回</el-button> -->
