@@ -30,10 +30,15 @@ export default {
         getInfo(){
             this.userinfo=this.getUserInfo
             this.currentProjName=this.getCurrentProj
+        },
+        loadInfo(){
+            if(this.getUserInfo!=null&&this.getUserInfo!=[]){
+                this.getInfo();
+            }
         }
     },
     mounted() {
-        this.getInfo();
+        this.loadInfo();
     },
     computed:{
         getUserInfo(){
