@@ -150,11 +150,13 @@ export default {
     }
 }
 .copyright {
-    left: 40%;
-    margin-top:10px;
-    margin-bottom: 10px;
+    width: 180px;
+    margin: 10px auto;
+    // left: 40%;
+    // margin-top:10px;
+    // margin-bottom: 10px;
     bottom: 3px;
-    margin-left: 42%;
+    // margin-left: 42%;
     //margin-bottom: 5px;
     color: gray;
     font-family: "微软雅黑";

@@ -4,7 +4,7 @@
         <el-col :span="20">
             <el-card shadow="never" style="height:100%;">
                 <div style="width:100%;height:35px">
-                    <div style="text-align:left;width:200px;float:left;padding-top:16px;">
+                    <div style="text-align:left;width:200px;float:left;padding-top:16px;font-family:'微软雅黑';font-size: 14px">
                         <el-breadcrumb separator="/" style="font-size:14px;">
                             <el-breadcrumb-item>服务目录</el-breadcrumb-item>
                             <el-breadcrumb-item>服务详情</el-breadcrumb-item>
@@ -16,9 +16,9 @@
 
                 </div>
                 <el-card class="componentinfo" shadow="never">
-                    <div style="width:100%;padding:10px 0 10px 10px;">
+                    <!-- <div style="width:100%;padding:10px 0 10px 10px;">
                         <span style="font-weight:bold;">{{severInfo.SERVICE_NAME}}</span>
-                        <!-- <el-button size="mini" style="float:right" type="primary" @click="back">后 退</el-button> -->
+                     
                     </div>
                     <div style="width:100%;clear:both;font-size: 15px;padding-left:8px;line-height:25px;">
                         <span>服务地址：</span>
@@ -26,12 +26,12 @@
                         <span v-else>{{severInfo.SERVICE_URL | strSplit}}</span><br>
                         <span v-if="severInfo.CHECK_STATE===1">X-Token：</span>
                         <span v-if="severInfo.CHECK_STATE===1">{{severInfo.SERVER_TOKEN}}</span>
-                    </div>
+                    </div> -->
                     <!-- <div style="width:100%;font-size: 15px;line-height: 16px;padding-left:10px" v-if="severInfo.CHECK_STATE===1">
                         <span>X-Token：</span>
                         <span>{{severInfo.SERVICE_CODE}}</span>
                     </div> -->
-                    <ul style="width:40%;padding:10px 0 0 5px;">
+                    <!-- <ul style="width:40%;padding:10px 0 0 5px;">
                         <li>
                             <span>请求方式：</span>
                             <span>{{severInfo.REQUEST_METHOD}}</span>
@@ -66,9 +66,45 @@
                             <span>联系方式：</span>
                             <span>{{severInfo.MANAGE_TEL}}</span>
                         </li>
-                    </ul>
+                    </ul> -->
+                    <table border-collapse="collapse" align="center" cellspacing="5" cellpadding="5" width="750px;" style="font-family:'微软雅黑';font-size: 14px">
+                            <caption><span style="font-weight:bold;">{{severInfo.SERVICE_NAME}}</span></caption>
+                            <tr>
+                                <td style="width:90px;"><span>服务地址：</span></td>
+                                <td colspan="3" v-if="severInfo.CHECK_STATE===1">{{severInfo.SERVICE_URL}}</td>
+                                <td colspan="3" v-else>{{severInfo.SERVICE_URL | strSplit}}</td>
+                            </tr>
+                            <tr v-if="severInfo.CHECK_STATE===1">
+                                <td><span>X-Token：</span></td>
+                                <td colspan="3"><span>{{severInfo.SERVER_TOKEN}}</span></td>
+                            </tr>
+                            <tr>
+                                <td style="width:90px;"><span>请求方式：</span></td>
+                                <td><span>{{severInfo.REQUEST_METHOD}}</span></td>
+                                <td style="width:90px;"><span>服务版本：</span></td>
+                                <td><span>{{severInfo.SERVER_VERSION}}</span></td>
+                            </tr>
+                            <tr>
+                                <td><span>数据格式：</span></td>
+                                <td><span>{{severInfo.DATA_FORMAT}}</span></td>
+                                <td><span>开发语言：</span></td>
+                                <td><span>{{severInfo.SERVER_LANGUAGE}}</span></td>
+                            </tr>
+                            <tr>
+                                <td><span>发布日期：</span></td>
+                                <td><span>{{severInfo.SERVICE_PUBLISHDATE | parseTime}}</span></td>
+                                <td><span>管理部门：</span></td>
+                                <td><span>{{severInfo.MANAGE_ORG_NAME}}</span></td>
+                            </tr>
+                             <tr>
+                                <td><span>申请次数：</span></td>
+                                <td><span>{{severInfo.SERVICE_TIMES}}</span></td>
+                                <td><span>联系方式：</span></td>
+                                <td><span>{{severInfo.MANAGE_TEL}}</span></td>
+                            </tr>
+                        </table>
                     <!--style="text-align:center;float:left;width:45%;height:145px;padding-top:70px;"-->
-                    <div style="text-align:left;clear:both;padding-left:10px;" v-if="severInfo.CHECK_STATE!=1">
+                    <div style="text-align:center;clear:both;padding-left:10px;" v-if="severInfo.CHECK_STATE!=1">
                         <el-button type="primary" @click="handleApply()" v-if="severInfo.CHECK_STATE===-1||severInfo.CHECK_STATE===2">申&nbsp;请</el-button>
                         <el-button type="danger" @click="doNothing" v-else-if="severInfo.CHECK_STATE===0">待审核</el-button>
                         <el-button type="primary" v-else-if="severInfo.CHECK_STATE===1">通过</el-button>
@@ -353,6 +389,7 @@ export default {
 .componentinfo {
     margin-bottom: 5px;
     padding-left: 30px;
+    width: 100%;
 }
 .componentinfo1 {
     margin-bottom: 5px;
@@ -369,14 +406,7 @@ export default {
 }
 
 /* .componentinfo li{float:left;width:100px;background:#CCC;margin-left:3px;line-height:30px;} */
-.componentinfo ul {
-    width: 50%;
-    list-style: none;
-    margin-bottom: 5px;
-    margin-top: 0px;
-    padding-left: 0px;
-    float: left;
-}
+
 .back {
     float: right;
     margin-right: 0px;
@@ -385,13 +415,7 @@ export default {
         height: 50px;
     }
 }
-.componentinfo li {
-    font-size: 15px;
-    width: 100%; /*如果显示三列 则width改为70px*/
-    line-height: 23px;
-    display: block;
-    margin-bottom: 5px;
-}
+
 a {
     text-decoration: none;
     color: blue;

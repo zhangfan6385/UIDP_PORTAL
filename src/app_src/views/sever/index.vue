@@ -16,7 +16,7 @@
                                     </template>
                                 </el-table-column>
                                 <el-table-column prop="name" label="服务名称" :show-overflow-tooltip="true" align="center"></el-table-column>
-                                <el-table-column prop="download" label="使用次数" width="80" align="center"></el-table-column>
+                                <el-table-column prop="download" label="申请次数" width="80" align="center"></el-table-column>
                             </el-table>
                         </div>
                     </el-card>
@@ -43,7 +43,7 @@
                                             <span>{{component.CREATER}}</span> &nbsp;|&nbsp;
                                             <span>发布时间：</span>
                                             <span>{{component.SERVICE_PUBLISHDATE | parseTime}}</span>
-                                            <span>下载次数：</span>
+                                            <span>调用次数：</span>
                                             <span>{{component.SERVICE_TIMES}}</span>
                                         </div>
                                     </div>

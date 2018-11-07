@@ -4,7 +4,7 @@
         <el-col :span="20">
             <el-card class="box-card" style="margin-bottom:10px;">
                 <div style="width:100%;height:35px">
-                    <div style="text-align:left;width:200px;float:left;padding-top:16px;">
+                    <div style="text-align:left;width:200px;float:left;padding-top:16px;font-family:'微软雅黑';font-size: 14px">
                         <el-breadcrumb separator="/" style="font-size:14px;">
                             <el-breadcrumb-item>组件目录</el-breadcrumb-item>
                             <el-breadcrumb-item>组件详情</el-breadcrumb-item>
@@ -15,10 +15,9 @@
                     </div>
 
                 </div>
-                <el-card class="componentinfo">
-                    <div style="width:100%;padding:10px 0 0 5px;">
+                <el-card class="componentinfo" shadow="never">
+                    <!-- <div style="width:100%;padding:10px 0 0 5px;">
                         <span style="font-weight:bold">{{obj.COMPONENT_NAME}}</span>
-                        <!-- <el-button size="mini" style="float:right" type="primary" @click="back">后 退</el-button> -->
                     </div>
                     <ul style="width:40%;padding:10px 0 0 5px;">
                         <li>
@@ -73,9 +72,48 @@
                                 <span>{{obj.MANAGE_ORG_NAME}}</span>
                             </el-col>
                         </el-row>
-                    </div>
+                    </div> -->
                     <!-- <div style="text-align:center;float:left;width:45%;height:145px;padding-top:70px;"> -->
-                    <div style="text-align:left;clear:both;padding-left:10px;" v-if="obj.CHECK_STATE!=1">
+                      <table border-collapse="collapse" align="center" cellspacing="5" cellpadding="5" width="750px;" style="font-family:'微软雅黑';font-size: 14px">
+                            <caption><span style="font-weight:bold;">{{obj.COMPONENT_NAME}}</span></caption>
+                            <tr>
+                                <td style="width:95px;"><span>版　　本：</span></td>
+                                <td><span>{{obj.COMPONENT_VERSION}}</span></td>
+                                <td style="width:95px;"><span>软件大小：</span></td>
+                                <td><span>{{obj.COMPONENT_SIZE}}</span></td>
+                            </tr>
+                           
+                            <tr>
+                                <td><span>发布日期：</span></td>
+                                <td><span>{{obj.COMPONENT_PUBLISHDATE | parseTime}}</span></td>
+                                <td><span>开发语言：</span></td>
+                                <td><span>{{obj.SOFTWARE_LANGUAGE}}</span></td>
+                            </tr>
+                            <tr>
+                                <td><span>上 传 人：</span></td>
+                                <td><span>{{obj.CREATER}}</span></td>
+                                <td><span>联系电话：</span></td>
+                                <td><span>{{obj.MANAGE_TEL }}</span></td>
+                            </tr>
+                            <tr>
+                                <td><span>申请次数：</span></td>
+                                <td><span>{{obj.DOWNLOAD_TIMES}}</span></td>
+                                <td><span>应用平台：</span></td>
+                                <td><span>{{obj.SUIT_PLAT}}</span></td>
+                            </tr>
+                             <tr>
+                                <td><span>软件大小：</span></td>
+                                <td><span>{{obj.COMPONENT_SIZE}}</span></td>
+                                <td><span>适用浏览器：</span></td>
+                                <td><span>{{obj.APPLICATION_BROWSER}}</span></td>
+                            </tr>
+                            <tr>
+                                <td><span>管理部门：</span></td>
+                                <td colspan="3"><span>{{obj.MANAGE_ORG_NAME}}</span></td>
+                                
+                            </tr>
+                        </table>
+                    <div style="text-align:center;clear:both;padding-left:10px;" v-if="obj.CHECK_STATE!=1">
                         <el-button type="primary" @click="handleApply" v-if="obj.CHECK_STATE===-1||obj.CHECK_STATE===-2">申 请</el-button>
                         <el-button type="danger" @click="doNothing" v-else-if="obj.CHECK_STATE===0">待审核</el-button>
                         <el-button type="primary" v-else-if="obj.CHECK_STATE===1" @click="download(obj.URL)">下 载</el-button>
@@ -105,7 +143,7 @@
                         <h5>发布日期：{{file.CREATE_DATE | parseTime}}</h5>
                     </div>
                 </el-card> -->
-                <el-card class="componentinfo1">
+                <el-card class="componentinfo1" shadow="never">
                     <span class="title">详细说明</span>
                     <div class="divcontent" style="padding-right:30px;padding-left:6px;word-wrap:break-word;" v-html="obj.COMPONENT_CONTENT"></div>
                 </el-card>

@@ -15,7 +15,7 @@
                                     <div class="title">
                                         通知通告
                                         <div class="headerbutton">
-                                            <el-button type="primary" size="mini" @click="gotonotice">更多……</el-button>
+                                            <el-button type="primary" size="mini" @click="gotonotice">更多...</el-button>
                                             <!-- <el-button type="primary" size="mini" @click="test"> 全局数据展示</el-button>  -->
                                         </div>
                                     </div>
@@ -189,7 +189,7 @@
                                             <div class="title">
                                                 组件排行
                                                 <div class="headerbutton">
-                                                    <el-button type="primary" size="mini" @click="getmore(0)"> 更多……</el-button>
+                                                    <el-button type="primary" size="mini" @click="getmore(0)"> 更多...</el-button>
                                                 </div>
                                             </div>
                                         </el-col>
@@ -221,7 +221,7 @@
                                             <div class="title">
                                                 服务排行
                                                 <div class="headerbutton">
-                                                    <el-button type="primary" size="mini" @click="getmore(1)"> 更多……</el-button>
+                                                    <el-button type="primary" size="mini" @click="getmore(1)"> 更多...</el-button>
                                                 </div>
                                             </div>
                                         </el-col>
@@ -603,7 +603,7 @@ export default {
                         path: "/community/main/newscontent/" + id
                     });
                 } else if (this.getUserId === null) {
-                    this.$alert("您还未登录,无法查看经验分享！", "登录提示", {
+                    this.$alert("您还未登录，无法查看经验分享！", "登录提示", {
                         confirmButtonText: "确定"
                     });
                 } else if (this.getUserLv === "0") {
@@ -615,7 +615,7 @@ export default {
                         path: "/community/main/newscontent/" + id
                     });
                 } else if (this.getUserScore < row.point) {
-                    this.$alert("您的积分不足！无法查看", "积分提示", {
+                    this.$alert("您的积分不足，无法查看！", "积分提示", {
                         confirmButtonText: "确定"
                     });
                 } else {

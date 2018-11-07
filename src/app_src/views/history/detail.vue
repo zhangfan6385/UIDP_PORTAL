@@ -26,35 +26,60 @@
                     </el-row>
 
                     <el-card class="componentinfo" shadow="never">
+                    <!-- <div style="width:100%;padding:10px 0 0 5px;text-align:center;">
                         <span style="font-weight:bold">{{platInfo.PLAT_NAME}}</span>
-                        <ul style="width:40%;padding-left:5px;">
-                            <li>
-                                <span>版本号：</span>
-                                <span>{{platInfo.PLAT_VERSION}}</span>
-                            </li>
-                            <li>
-                                <span>使用环境：</span>
-                                <span>{{platInfo.APPLICATION_BROWSER}}</span>
-                            </li>
-                            <li>
-                                <span>发布日期：</span>
-                                <span>{{platInfo.PLAT_PUBLISHDATE | parseTime}}</span>
-                            </li>
-                            <li>
-                                <span>适用平台：</span>
-                                <span>{{platInfo.SUIT_PLAT}}</span>
-                            </li>
-                            <li>
+                    </div>
+                    
+                        <ul style="width:40%;padding:10px 0 0 5px;margin:0 auto;">
+                        <li>
+                            <span>版　　本：</span>
+                            <span>{{platInfo.PLAT_VERSION}}</span>
+                        </li>
+                        <li>
+                            <span>发布日期：</span>
+                            <span>{{platInfo.PLAT_PUBLISHDATE | parseTime}}</span>
+                        </li>
+                        <li>
+                            <span>适用平台：</span>
+                            <span>{{platInfo.SUIT_PLAT}}</span>
+                        </li>
+                        </ul>
+                        <ul style="width:40%;padding:10px 0 0 5px;margin:0 auto;">
+                        <li>
+                            <span>使用环境：</span>
+                            <span>{{platInfo.APPLICATION_BROWSER}}</span>
+                        </li>
+                          <li>
                                 <span>平台大小：</span>
-                                <!-- <span>{{severInfo.SUIT_PLAT}}</span> -->
                                 <span>{{platInfo.PLAT_SIZE}}</span>
                             </li>
-                            <li>
+                          <li>
                                 <span>平台语言：</span>
                                 <span>{{platInfo.SOFTWARE_LANGUAGE}}</span>
                             </li>
-                        </ul>
-                        <div style="width:100%;clear:both;font-size: 15px;padding-left:10px" v-if="platInfo.CHECK_STATE===1">
+                        </ul> -->
+                        <table border-collapse="collapse" align="center" cellspacing="5" cellpadding="5" width="750px;" style="font-family:'微软雅黑';font-size: 14px">
+                            <caption><span style="font-weight:bold">{{platInfo.PLAT_NAME}}</span></caption>
+                            <tr>
+                                <td style="width:90px;"><span>版　　本：</span></td>
+                                <td><span>{{platInfo.PLAT_VERSION}}</span></td>
+                                <td style="width:90px;"><span>使用环境：</span></td>
+                                <td><span>{{platInfo.APPLICATION_BROWSER}}</span></td>
+                            </tr>
+                            <tr>
+                                <td><span>发布日期：</span></td>
+                                <td><span>{{platInfo.PLAT_PUBLISHDATE | parseTime}}</span></td>
+                                <td><span>平台大小：</span></td>
+                                <td><span>{{platInfo.PLAT_SIZE}}</span></td>
+                            </tr>
+                            <tr>
+                                <td><span>适用平台：</span></td>
+                                <td><span>{{platInfo.SUIT_PLAT}}</span></td>
+                                <td><span>平台语言：</span></td>
+                                <td><span>{{platInfo.SOFTWARE_LANGUAGE}}</span></td>
+                            </tr>
+                        </table>
+                        <div style="width:100%;clear:both;font-size: 14px;font-family:'微软雅黑';padding-left:10px" v-if="platInfo.CHECK_STATE===1">
                             <ul v-for="(item,key) in platInfo.children" :key="key">
                                 <li>
                                     文件名称：
@@ -69,7 +94,7 @@
                             </ul>
                         </div>
                         <!--style="text-align:center;float:left;width:45%;height:145px;padding-top:70px;"-->
-                        <div style="text-align:left;clear:both">
+                        <div style="text-align:center;clear:both">
                             <el-button type="primary" @click="handleApply()" v-if="platInfo.CHECK_STATE===-1||platInfo.CHECK_STATE===2">申&nbsp;请</el-button>
                             <el-button type="danger" @click="doNothing" v-else-if="platInfo.CHECK_STATE===0">待审核</el-button>
                             <!-- <el-button type="primary" v-else-if="platInfo.CHECK_STATE===1">通过</el-button> -->
@@ -365,6 +390,8 @@ export default {
     }
     .breadcrumb {
         margin-top:18px;
+           font-family: "微软雅黑";
+    font-size: 14px;
     }
     /* .componentinfo li{float:left;width:100px;background:#CCC;margin-left:3px;line-height:30px;} */
     .componentinfo ul {
