@@ -116,7 +116,7 @@ export default {
             this.getCommuntityList();
         },
         handleCurrentChange(val) {
-            //翻页犯法
+            //翻页方法
             this.listQuery1.page = val;
             this.getCommuntityList();
         },

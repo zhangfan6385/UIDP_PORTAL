@@ -48,7 +48,7 @@
                                     </div>
                                 </template>
                             </el-table-column>
-                            <el-table-column label="主题" align="center">
+                            <el-table-column label="主题" align="center" show-overflow-tooltip>
                                 <template slot-scope="scope">
                                     <span class="newstitle">{{scope.row.title}}</span>
                                 </template>

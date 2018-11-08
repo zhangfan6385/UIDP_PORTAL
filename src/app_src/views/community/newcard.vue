@@ -4,7 +4,7 @@
             <el-col :span="2"></el-col>
             <el-col :span="20">
                 <el-card>
-                    <el-form ref="newcard" :model="newcard" label-width="80px" :rules="rules">
+                    <el-form ref="newcard" :model="newcard" label-width="80px" :rules="rules" label-position="left">
                         <el-form-item label="标题" prop="TITLE_NAME" :rules="rules.TITLE_NAME">
                             <el-input v-model="newcard.TITLE_NAME"></el-input>
                         </el-form-item>
@@ -248,9 +248,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.components-container{
-    .el-button--primary{
+.components-container {
+    .el-button--primary {
         float: right;
+        margin-top: 15px;
     }
 }
 </style>
