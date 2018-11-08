@@ -846,13 +846,14 @@ export default {
             //     }
             // ];
         },
-        dialogdrawline() {
+        dialogdrawlineComponent() {
             //echarts初始化
             let allcomponentchart = this.$echarts.init(
                 document.getElementById("allcomponentchart")
             );
             allcomponentchart.setOption(this.componentOption);
-
+        },
+        dialogdrawlineSever() {
             let allseverchart = this.$echarts.init(
                 document.getElementById("allseverchart")
             );
@@ -926,7 +927,11 @@ export default {
                     //     }
                     // }
                     this.changeAllData();
-                    this.dialogdrawline();
+                    if(this.type===1){
+                        this.dialogdrawlineSever();
+                    }else{
+                        this.dialogdrawlineComponent();
+                    }
                 } else {
                     // this.$notify({
                     //     position: "bottom-right",
@@ -975,21 +980,21 @@ export default {
         },
         getmore(data) {
             if (data === 1) {
-                this.showStatistics1 = true;
+                this.showStatistics1 = true; //服务
             } else {
-                this.showStatistics = true;
+                this.showStatistics = true; //组件
             }
             this.type = data;
+
             this.getalldata();
-        },
-        test() {}
+        }
     },
     mounted() {
         //获取服务排名
         this.getNoticeList();
         //获取帖子列表
         this.getCommuntityList();
-        this.test();
+        //this.getalldata();
     },
     created() {
         this.getSeverRank();
