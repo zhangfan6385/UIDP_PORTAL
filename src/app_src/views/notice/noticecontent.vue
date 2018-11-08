@@ -40,16 +40,18 @@
                                 <el-row>
                                     <el-col :span="24">
                                         <!-- 附件下载：<a :href="notice.filename">{{notice.fileurl}}</a> -->
-                                        附件下载：
-                                        <div class="fliter" v-for="(item,key) in ele.children" :key="key">
-                                            <el-button @click="downLoad(item)" type="primary" size="text">{{item.FILE_NAME}}</el-button>
+                                        <div v-if="ele.children.length>0">
+                                            附件下载：
+                                            <div class="fliter" v-for="(item,key) in ele.children" :key="key">
+                                                <el-button @click="downLoad(item)" type="primary" size="text">{{item.FILE_NAME}}</el-button>
+                                            </div>
                                         </div>
                                     </el-col>
                                 </el-row>
                                 <div class="foot">
                                     <el-row>
                                         <el-col :span="24">
-                                            作者：{{ele.CREATER}},发布时间：{{ele.CREATE_DATE|parseTime}}
+                                            作者：{{ele.CREATER}}，发布时间：{{ele.CREATE_DATE|parseTime}}
                                         </el-col>
                                     </el-row>
                                 </div>
@@ -145,6 +147,7 @@ export default {
             float: right;
             font-size: 12px;
             color: gray;
+            margin-bottom: 25px;
         }
         .el-card {
             font-family: "微软雅黑";

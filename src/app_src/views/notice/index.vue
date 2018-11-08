@@ -28,7 +28,7 @@
 
                         <el-row>
                             <el-col>
-                                <el-card v-for="(item,key) in  noticeList" :key="key" @click.native="goToContent(item)">
+                                <!-- <el-card v-for="(item,key) in  noticeList" :key="key" @click.native="goToContent(item)">
                                     <el-row>
                                         <el-col :span="24">
                                             <div class="header">
@@ -40,8 +40,24 @@
                                             </div>
                                         </el-col>
                                     </el-row>
+                                </el-card> -->
+                                <el-table :data="noticeList" size="mini" :show-header="false">
+                                    <el-table-column>
+                                        <template slot-scope="scope">
+                                            <div class="header" @click="goToContent(scope.row)">
+                                                {{scope.row.title}}
+                                            </div>
+                                        </template>
+                                    </el-table-column>
+                                    <!-- <el-table-column prop="writter" width="120px" align="center"></el-table-column> -->
+                                    <el-table-column width="120px">
+                                        <template slot-scope="scope">
+                                            <img src="../../../app_src/imgs/time.png" title="发表日期">
+                                            {{scope.row.time}}
+                                        </template>
+                                    </el-table-column>
 
-                                </el-card>
+                                </el-table>
                             </el-col>
                         </el-row>
 
@@ -129,6 +145,11 @@ export default {
 .noticecard {
     min-height: 500px;
     margin-top: 20px;
+    img {
+        //margin-right: 5px;
+        width: 15px;
+        height: 15px;
+    }
     .header {
         font-size: 16px;
     }
@@ -151,15 +172,15 @@ export default {
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 3;
     }
-    .foot {
-        float: right;
-        font-size: 10px;
-        color: gray;
-        img {
-            width: 15px;
-            height: 15px;
-        }
-    }
+    // .foot {
+    //     float: right;
+    //     font-size: 10px;
+    //     color: gray;
+    //     img {
+    //         width: 15px;
+    //         height: 15px;
+    //     }
+    // }
     .page {
         text-align: center;
     }
@@ -174,10 +195,9 @@ export default {
             height: 50px;
         }
     }
-    .breadcrumb{
+    .breadcrumb {
         margin-top: 20px;
     }
-    
 }
 </style>
 
