@@ -1,6 +1,6 @@
 <template>
     <div id="messagetip" class="messagetip">
-        <el-dialog :visible.sync="messagetipVisibile" title="信息提示" center @close="close" width="630px">
+        <el-dialog :visible.sync="messagetipVisibile" title="信息提示" center @close="close" width="70%">
             <el-card>
                 <el-card>
                     <el-table :data="messageList" @expand-change="sign">
@@ -25,14 +25,14 @@
                                 </el-form>
                             </template>
                         </el-table-column>
-                        <el-table-column label="阅读状态">
+                        <el-table-column label="状态" width="50px">
                             <template slot-scope="scope">
                                 <span v-if="scope.row.RECORD_ISREAD===0" class="noread">未读</span>
                                 <span v-if="scope.row.RECORD_ISREAD!=0" class="read">已读</span>
                             </template>
                         </el-table-column>
                         <el-table-column prop="RECORD_TITLE" label="标题"></el-table-column>
-                        <el-table-column prop="CREATER" label="创建人"></el-table-column>
+                        <el-table-column prop="CREATER" label="创建人" width="140px"></el-table-column>
                         <el-table-column label="审核时间" width="150px">
                             <template slot-scope="scope">
                                 {{scope.row.CREATE_DATE | parseTime}}

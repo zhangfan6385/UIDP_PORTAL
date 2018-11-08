@@ -314,13 +314,13 @@ export default {
                     this.obj = response.data.items; //获取的为1个对象不是数组
                     //console.log(this.obj.packages);
                 } else {
-                    this.$notify({
-                        position: "bottom-right",
-                        title: "失败",
-                        message: response.data.message,
-                        type: "error",
-                        duration: 2000
-                    });
+                    // this.$notify({
+                    //     position: "bottom-right",
+                    //     title: "失败",
+                    //     message: response.data.message,
+                    //     type: "error",
+                    //     duration: 2000
+                    // });
                 }
             });
         },

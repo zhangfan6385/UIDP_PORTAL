@@ -630,7 +630,7 @@ export default {
                                     row.point +
                                     "分查看标题为" +
                                     row.title +
-                                    "的帖子吗?",
+                                    "的帖子吗？",
                                 "帖子查看提示",
                                 {
                                     confirmButtonText: "确定",
@@ -712,13 +712,13 @@ export default {
                         });
                     }
                 } else {
-                    this.$notify({
-                        position: "bottom-right",
-                        title: "失败",
-                        message: response.data.message,
-                        type: "error",
-                        duration: 2000
-                    });
+                    // this.$notify({
+                    //     position: "bottom-right",
+                    //     title: "失败",
+                    //     message: response.data.message,
+                    //     type: "error",
+                    //     duration: 2000
+                    // });
                 }
             });
         },
@@ -746,13 +746,13 @@ export default {
                         });
                     }
                 } else {
-                    this.$notify({
-                        position: "bottom-right",
-                        title: "失败",
-                        message: response.data.message,
-                        type: "error",
-                        duration: 2000
-                    });
+                    // this.$notify({
+                    //     position: "bottom-right",
+                    //     title: "失败",
+                    //     message: response.data.message,
+                    //     type: "error",
+                    //     duration: 2000
+                    // });
                 }
             });
         },
@@ -787,13 +787,13 @@ export default {
                     this.changedata();
                     this.drawLine(); //绘制echarts图
                 } else {
-                    this.$notify({
-                        position: "bottom-right",
-                        title: "失败",
-                        message: response.data.message,
-                        type: "error",
-                        duration: 2000
-                    });
+                    // this.$notify({
+                    //     position: "bottom-right",
+                    //     title: "失败",
+                    //     message: response.data.message,
+                    //     type: "error",
+                    //     duration: 2000
+                    // });
                 }
             });
         },
@@ -928,13 +928,13 @@ export default {
                     this.changeAllData();
                     this.dialogdrawline();
                 } else {
-                    this.$notify({
-                        position: "bottom-right",
-                        title: "失败",
-                        message: response.data.message,
-                        type: "error",
-                        duration: 2000
-                    });
+                    // this.$notify({
+                    //     position: "bottom-right",
+                    //     title: "失败",
+                    //     message: response.data.message,
+                    //     type: "error",
+                    //     duration: 2000
+                    // });
                 }
             });
         },

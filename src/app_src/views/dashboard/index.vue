@@ -336,15 +336,16 @@ export default {
                     //     this.CSharpCurrentList[i].CREATE_DATE = shorttime;
                     // }
                     // this.listLoading = false;
-                } else {
-                    this.$notify({
-                        position: "bottom-right",
-                        title: "失败",
-                        message: response.data.message,
-                        type: "error",
-                        duration: 2000
-                    });
-                }
+                } 
+                // else {
+                //     this.$notify({
+                //         position: "bottom-right",
+                //         title: "失败",
+                //         message: response.data.message,
+                //         type: "error",
+                //         duration: 2000
+                //     });
+                // }
             });
         },
         FetchGOHistoryList() {
@@ -366,13 +367,13 @@ export default {
                     //     this.GOCurrentList[i].CREATE_DATE = shorttime;
                     // }
                 } else {
-                    this.$notify({
-                        position: "bottom-right",
-                        title: "失败",
-                        message: response.data.message,
-                        type: "error",
-                        duration: 2000
-                    });
+                    // this.$notify({
+                    //     position: "bottom-right",
+                    //     title: "失败",
+                    //     message: response.data.message,
+                    //     type: "error",
+                    //     duration: 2000
+                    // });
                 }
             });
         },
@@ -399,13 +400,13 @@ export default {
                     });
                     this.dialogFormVisible = false;
                 } else {
-                    this.$notify({
-                        position: "bottom-right",
-                        title: "失败",
-                        message: response.data.message,
-                        type: "error",
-                        duration: 2000
-                    });
+                    // this.$notify({
+                    //     position: "bottom-right",
+                    //     title: "失败",
+                    //     message: response.data.message,
+                    //     type: "error",
+                    //     duration: 2000
+                    // });
                 }
             });
         },

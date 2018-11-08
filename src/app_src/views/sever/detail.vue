@@ -299,13 +299,13 @@ export default {
                     //console.log(response.data);
                     this.severInfo = response.data.items;
                 } else {
-                    this.$notify({
-                        position: "bottom-right",
-                        title: "失败",
-                        message: response.data.message,
-                        type: "error",
-                        duration: 2000
-                    });
+                    // this.$notify({
+                    //     position: "bottom-right",
+                    //     title: "失败",
+                    //     message: response.data.message,
+                    //     type: "error",
+                    //     duration: 2000
+                    // });
                 }
             });
         },

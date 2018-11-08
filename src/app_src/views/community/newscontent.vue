@@ -258,13 +258,13 @@ export default {
                         this.type = "评论";
                     }
                 } else {
-                    this.$notify({
-                        position: "bottom-right",
-                        title: "失败",
-                        message: response.data.message,
-                        type: "error",
-                        duration: 2000
-                    });
+                    // this.$notify({
+                    //     position: "bottom-right",
+                    //     title: "失败",
+                    //     message: response.data.message,
+                    //     type: "error",
+                    //     duration: 2000
+                    //});
                 }
             });
         },

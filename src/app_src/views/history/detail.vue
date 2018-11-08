@@ -276,20 +276,20 @@ export default {
             //this.queryList.userid='2a474344-0d65-48a4-8735-b8a2371160d4'
             this.queryList.userid = this.$store.state.user.userID;
             this.queryList.projectid = this.$store.state.user.currentProjID;
-            console.log(this.$route.params.id);
+            //console.log(this.$route.params.id);
             this.queryList.resourceid = this.$route.params.id;
             fetchGetPlatDetail(this.queryList).then(response => {
                 if (response.data.code === 2000) {
                     //console.log(response.data);
                     this.platInfo = response.data.items[0];
                 } else {
-                    this.$notify({
-                        position: "bottom-right",
-                        title: "失败",
-                        message: response.data.message,
-                        type: "error",
-                        duration: 2000
-                    });
+                    // this.$notify({
+                    //     position: "bottom-right",
+                    //     title: "失败",
+                    //     message: response.data.message,
+                    //     type: "error",
+                    //     duration: 2000
+                    // });
                 }
             });
         },
