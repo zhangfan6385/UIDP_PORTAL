@@ -15,7 +15,7 @@
                     </div>
 
                 </div>
-                <el-card class="componentinfo" shadow="never">
+                <el-card class="componentinfo" shadow="never" style="width:95%;margin:0 auto;">
                     <!-- <div style="width:100%;padding:10px 0 10px 10px;">
                         <span style="font-weight:bold;">{{severInfo.SERVICE_NAME}}</span>
                      
@@ -112,7 +112,7 @@
                         <!-- <el-button size="mini" type="primary" @click="goAnchor">查看服务码</el-button> -->
                     </div>
                     <div style="width:100%;padding-left:8px;clear:both;">
-                         <span v-if="severInfo.CHECK_STATE===1">附件下载：
+                         <span v-if="severInfo.CHECK_STATE===1 && severInfo.children.length>0 ">附件下载：
                              <a style="font-size:14px;" :href="downloadurl+file.FILE_URL" target="_blank" v-if="file.FILE_URL!=null" v-for="(file,key) in severInfo.children" :key="key">{{file.FILE_NAME}}({{file.FILE_SIZE}})</a>
                          </span>
                     </div>
@@ -126,7 +126,7 @@
                         <h5>发布日期：{{file.CREATE_DATE | parseTime}}</h5>
                     </div>
                 </el-card> -->
-                <el-card class="componentinfo1" shadow="never">
+                <el-card class="componentinfo1" shadow="never" style="width:95%;margin:0 auto;margin-top:10px;">
                     <!-- <span style="font-size:18px;font-weight:bold"><img style="width:20px;height:20px;" src="../../../app_src/imgs/title.png">服务介绍</span> -->
                     <!-- <div v-html="obj.content"></div> -->
                     <span class="title">详细说明</span>
@@ -389,7 +389,6 @@ export default {
 .componentinfo {
     margin-bottom: 5px;
     padding-left: 30px;
-    width: 100%;
 }
 .componentinfo1 {
     margin-bottom: 5px;

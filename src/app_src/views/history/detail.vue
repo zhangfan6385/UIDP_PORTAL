@@ -25,7 +25,7 @@
                         </el-col>
                     </el-row>
 
-                    <el-card class="componentinfo" shadow="never">
+                    <el-card class="componentinfo" shadow="never" style="width:95%;margin:0 auto;">
                     <!-- <div style="width:100%;padding:10px 0 0 5px;text-align:center;">
                         <span style="font-weight:bold">{{platInfo.PLAT_NAME}}</span>
                     </div>
@@ -111,11 +111,11 @@
                             <h5>发布日期：{{file.CREATE_DATE | parseTime}}</h5>
                         </div>
                     </el-card> -->
-                    <el-card class="componentinfo1" shadow="never">
+                    <el-card class="componentinfo1" shadow="never" style="width:95%;margin:0 auto;margin-top:10px;">
                         <!-- <span style="font-size:18px;font-weight:bold"><img style="width:20px;height:20px;" src="../../../app_src/imgs/title.png">服务介绍</span> -->
                         <!-- <div v-html="obj.content"></div> -->
-                        <span class="title">详细说明</span>
-                        <div v-html="platInfo.SERVICE_CONTENT"></div>
+                        <div class="title" style="width:90%;margin:0 auto;padding-bottom:5px;">平台运行要求</div>
+                        <div v-html="platInfo.PLAT_RUNREQUIRE" style="width:90%;margin:0 auto;"></div>
                     </el-card>
                 </el-card>
 
@@ -374,11 +374,11 @@ export default {
     margin-top: 20px;
     .componentinfo {
         margin-bottom: 5px;
-        padding-left: 30px;
+        // padding-left: 30px;
     }
     .componentinfo1 {
         margin-bottom: 5px;
-        padding-left: 30px;
+        // padding-left: 30px;
         min-height: 500px;
         line-height: 150%;
         .title {

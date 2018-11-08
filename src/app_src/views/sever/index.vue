@@ -44,7 +44,7 @@
                                             <span>发布时间：</span>
                                             <span>{{component.SERVICE_PUBLISHDATE | parseTime}}</span>
                                             <span>调用次数：</span>
-                                            <span>{{component.SERVICE_TIMES}}</span>
+                                            <span>{{component.INVOKE_TIMES}}</span>
                                         </div>
                                     </div>
                                 </li>
