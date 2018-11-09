@@ -3,18 +3,23 @@
         <el-col :span="2"> </el-col>
         <el-col :span="20">
             <el-card shadow="never" style="height:100%;">
-                <div style="width:100%;height:35px">
-                    <div style="text-align:left;width:200px;float:left;padding-top:16px;font-family:'微软雅黑';font-size: 14px">
-                        <el-breadcrumb separator="/" style="font-size:14px;">
-                            <el-breadcrumb-item>服务目录</el-breadcrumb-item>
-                            <el-breadcrumb-item>服务详情</el-breadcrumb-item>
-                        </el-breadcrumb>
-                    </div>
-                    <div style="text-align:right;float:right;width:200px;padding-right:0px;">
-                        <a href="#" @click="back" title="后退" class="back"><img src="../../../app_src/imgs/back.png"></a>
-                    </div>
+                <el-row>
+                    <el-col :span="12">
+                        <div class="breadcrumb">
+                            <el-breadcrumb separator="/">
+                                <el-breadcrumb-item>服务目录</el-breadcrumb-item>
+                                <el-breadcrumb-item>服务详情</el-breadcrumb-item>
+                            </el-breadcrumb>
+                        </div>
+                    </el-col>
 
-                </div>
+                    <el-col :span="12">
+                        <div class="back">
+                            <!-- <el-button type="primary" @click="back" size="mini">后退</el-button> -->
+                            <a href="#" title="后退" @click="back" style="float:right"><img src="../../../app_src/imgs/back.png"></a>
+                        </div>
+                    </el-col>
+                </el-row>
                 <el-card class="componentinfo" shadow="never" style="width:95%;margin:0 auto;">
                     <!-- <div style="width:100%;padding:10px 0 10px 10px;">
                         <span style="font-weight:bold;">{{severInfo.SERVICE_NAME}}</span>
@@ -67,42 +72,42 @@
                             <span>{{severInfo.MANAGE_TEL}}</span>
                         </li>
                     </ul> -->
-                    <table border-collapse="collapse" align="center" cellspacing="5" cellpadding="5" width="750px;" style="font-family:'微软雅黑';font-size: 14px">
-                            <caption><span style="font-weight:bold;">{{severInfo.SERVICE_NAME}}</span></caption>
-                            <tr>
-                                <td style="width:90px;"><span>服务地址：</span></td>
-                                <td colspan="3" v-if="severInfo.CHECK_STATE===1">{{severInfo.SERVICE_URL}}</td>
-                                <td colspan="3" v-else>{{severInfo.SERVICE_URL | strSplit}}</td>
-                            </tr>
-                            <tr v-if="severInfo.CHECK_STATE===1">
-                                <td><span>X-Token：</span></td>
-                                <td colspan="3"><span>{{severInfo.SERVER_TOKEN}}</span></td>
-                            </tr>
-                            <tr>
-                                <td style="width:90px;"><span>请求方式：</span></td>
-                                <td><span>{{severInfo.REQUEST_METHOD}}</span></td>
-                                <td style="width:90px;"><span>服务版本：</span></td>
-                                <td><span>{{severInfo.SERVER_VERSION}}</span></td>
-                            </tr>
-                            <tr>
-                                <td><span>数据格式：</span></td>
-                                <td><span>{{severInfo.DATA_FORMAT}}</span></td>
-                                <td><span>开发语言：</span></td>
-                                <td><span>{{severInfo.SERVER_LANGUAGE}}</span></td>
-                            </tr>
-                            <tr>
-                                <td><span>发布日期：</span></td>
-                                <td><span>{{severInfo.SERVICE_PUBLISHDATE | parseTime}}</span></td>
-                                <td><span>管理部门：</span></td>
-                                <td><span>{{severInfo.MANAGE_ORG_NAME}}</span></td>
-                            </tr>
-                             <tr>
-                                <td><span>申请次数：</span></td>
-                                <td><span>{{severInfo.SERVICE_TIMES}}</span></td>
-                                <td><span>联系方式：</span></td>
-                                <td><span>{{severInfo.MANAGE_TEL}}</span></td>
-                            </tr>
-                        </table>
+                    <table border-collapse="collapse" align="center" cellspacing="5" cellpadding="5" width="750px;" style="font-family:'微软雅黑';font-size:14px;line-height:25px;">
+                        <caption><span style="font-weight:bold;">{{severInfo.SERVICE_NAME}}</span></caption>
+                        <tr>
+                            <td><span>服务地址：</span></td>
+                            <td colspan="3" v-if="severInfo.CHECK_STATE===1">{{severInfo.SERVICE_URL}}</td>
+                            <td colspan="3" v-else>{{severInfo.SERVICE_URL | strSplit}}</td>
+                        </tr>
+                        <tr v-if="severInfo.CHECK_STATE===1">
+                            <td><span>X-Token：</span></td>
+                            <td colspan="3"><span>{{severInfo.SERVER_TOKEN}}</span></td>
+                        </tr>
+                        <tr>
+                            <td style="width:90px;"><span>请求方式：</span></td>
+                            <td><span>{{severInfo.REQUEST_METHOD}}</span></td>
+                            <td style="width:90px;"><span>服务版本：</span></td>
+                            <td><span>{{severInfo.SERVER_VERSION}}</span></td>
+                        </tr>
+                        <tr>
+                            <td><span>数据格式：</span></td>
+                            <td><span>{{severInfo.DATA_FORMAT}}</span></td>
+                            <td><span>开发语言：</span></td>
+                            <td><span>{{severInfo.SERVER_LANGUAGE}}</span></td>
+                        </tr>
+                        <tr>
+                            <td><span>发布日期：</span></td>
+                            <td><span>{{severInfo.SERVICE_PUBLISHDATE | parseTime}}</span></td>
+                            <td><span>管理部门：</span></td>
+                            <td><span>{{severInfo.MANAGE_ORG_NAME}}</span></td>
+                        </tr>
+                        <tr>
+                            <td><span>申请次数：</span></td>
+                            <td><span>{{severInfo.SERVICE_TIMES}}</span></td>
+                            <td><span>联系方式：</span></td>
+                            <td><span>{{severInfo.MANAGE_TEL}}</span></td>
+                        </tr>
+                    </table>
                     <!--style="text-align:center;float:left;width:45%;height:145px;padding-top:70px;"-->
                     <div style="text-align:center;clear:both;padding-left:10px;" v-if="severInfo.CHECK_STATE!=1">
                         <el-button type="primary" @click="handleApply()" v-if="severInfo.CHECK_STATE===-1||severInfo.CHECK_STATE===2">申&nbsp;请</el-button>
@@ -112,9 +117,9 @@
                         <!-- <el-button size="mini" type="primary" @click="goAnchor">查看服务码</el-button> -->
                     </div>
                     <div style="width:100%;padding-left:8px;clear:both;">
-                         <span v-if="severInfo.CHECK_STATE===1 && severInfo.children.length>0 ">附件下载：
-                             <a style="font-size:14px;" :href="downloadurl+file.FILE_URL" target="_blank" v-if="file.FILE_URL!=null" v-for="(file,key) in severInfo.children" :key="key">{{file.FILE_NAME}}({{file.FILE_SIZE}})</a>
-                         </span>
+                        <span v-if="severInfo.CHECK_STATE===1 && severInfo.children.length>0 ">附件下载：
+                            <a style="font-size:14px;" :href="downloadurl+file.FILE_URL" target="_blank" v-if="file.FILE_URL!=null" v-for="(file,key) in severInfo.children" :key="key">{{file.FILE_NAME}}({{file.FILE_SIZE}})</a>
+                        </span>
                     </div>
                 </el-card>
                 <!-- <el-card id="#anchor1" class="componentinfo" v-for="(file,key) in severInfo.children" :key="key" v-if="severInfo.CHECK_STATE===1">
@@ -406,9 +411,12 @@ export default {
 
 /* .componentinfo li{float:left;width:100px;background:#CCC;margin-left:3px;line-height:30px;} */
 
+.breadcrumb {
+    margin-top: 15px;
+    margin-left: 5%;
+}
 .back {
     float: right;
-    margin-right: 0px;
     img {
         width: 50px;
         height: 50px;
@@ -433,5 +441,9 @@ a:hover {
     p {
         text-indent: 2em;
     }
+}
+.breadcrumb {
+    margin-top: 15px;
+    margin-left: 5%;
 }
 </style>

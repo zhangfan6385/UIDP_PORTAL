@@ -109,11 +109,11 @@ export default {
         closeDialog() {
             this.$store.state.user.dialogLoginVisible = false;
             this.$store.state.user.dialogProjectInfoVisible = false;
-            if (this.$store.state.user.currentProjID.length === 0) {
+            if (this.$store.state.user.currentProjID === null) {
                 this.$store.dispatch("setUserId", null);
                 this.$store.dispatch("FedLogOut").then(() => {
-                    location.reload(); // In order to re-instantiate the vue-router object to avoid bugs
                     this.$router.push({ path: "/home" });
+                    location.reload();
                 });
             }
         }

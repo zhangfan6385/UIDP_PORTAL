@@ -83,6 +83,7 @@ export default {
         },
         logout(){
             this.$store.dispatch('setUserId',null);
+            this.$store.dispatch('setCurrentProjID',null)
             this.$store.dispatch("FedLogOut").then(() => {
                 location.reload(); // In order to re-instantiate the vue-router object to avoid bugs
                 this.$router.push({path:'/home'})

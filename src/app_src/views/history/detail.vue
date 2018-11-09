@@ -17,8 +17,7 @@
                         </el-col>
 
                         <el-col :span="12">
-                            <div style="width:100%;padding-left:10px">
-                                
+                            <div class="back">
                                 <a href="#" @click="back" title="后退" style="float:right" class="back"><img src="../../../app_src/imgs/back.png"></a>
                                 <!-- <el-button size="mini" style="float:right" type="primary" @click="back">后 退</el-button> -->
                             </div>
@@ -26,7 +25,7 @@
                     </el-row>
 
                     <el-card class="componentinfo" shadow="never" style="width:95%;margin:0 auto;">
-                    <!-- <div style="width:100%;padding:10px 0 0 5px;text-align:center;">
+                        <!-- <div style="width:100%;padding:10px 0 0 5px;text-align:center;">
                         <span style="font-weight:bold">{{platInfo.PLAT_NAME}}</span>
                     </div>
                     
@@ -78,21 +77,19 @@
                                 <td><span>平台语言：</span></td>
                                 <td><span>{{platInfo.SOFTWARE_LANGUAGE}}</span></td>
                             </tr>
+                            <tr v-if="platInfo.CHECK_STATE===1&&platInfo.URL!=null">
+                                <td><span>程序包：</span></td>
+                                <td><a :href="downloadurl+platInfo.paltInfo_URL" target="_blank">下载</a></td>
+                            </tr>
+                            <tr v-if="platInfo.CHECK_STATE===1&&platInfo.children.length!=0">
+                                <td><span>文档</span></td>
+                                <td>
+                                    <div v-for="(item,key) in platInfo.children" :key="key">
+                                        <a :href="downloadurl+item.FILE_URL" target="_blank">{{item.FILE_NAME}}--{{item.FILE_SIZE}}</a>
+                                    </div>
+                                </td>
+                            </tr>
                         </table>
-                        <div style="width:100%;clear:both;font-size: 14px;font-family:'微软雅黑';padding-left:10px" v-if="platInfo.CHECK_STATE===1">
-                            <ul v-for="(item,key) in platInfo.children" :key="key">
-                                <li>
-                                    文件名称：
-                                    <a :href="downloadurl+item.FILE_URL" target="_blank">{{item.FILE_NAME}}</a>
-                                </li>
-                                <li>
-                                    文件大小：{{item.FILE_SIZE}}
-                                </li>
-                                <li>
-                                    创建日期：{{item.CREATE_DATE|parseTime}}
-                                </li>
-                            </ul>
-                        </div>
                         <!--style="text-align:center;float:left;width:45%;height:145px;padding-top:70px;"-->
                         <div style="text-align:center;clear:both">
                             <el-button type="primary" @click="handleApply()" v-if="platInfo.CHECK_STATE===-1||platInfo.CHECK_STATE===2">申&nbsp;请</el-button>
@@ -389,9 +386,15 @@ export default {
         padding: 5px;
     }
     .breadcrumb {
-        margin-top:18px;
-           font-family: "微软雅黑";
-    font-size: 14px;
+        margin-top: 15px;
+        margin-left: 5%;
+    }
+    .back {
+        float: right;
+        img {
+            width: 50px;
+            height: 50px;
+        }
     }
     /* .componentinfo li{float:left;width:100px;background:#CCC;margin-left:3px;line-height:30px;} */
     .componentinfo ul {

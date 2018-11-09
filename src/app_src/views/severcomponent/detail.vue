@@ -3,18 +3,23 @@
         <el-col :span="2"> </el-col>
         <el-col :span="20">
             <el-card class="box-card" style="margin-bottom:10px;">
-                <div style="width:100%;height:35px">
-                    <div style="text-align:left;width:200px;float:left;padding-top:16px;font-family:'微软雅黑';font-size: 14px">
-                        <el-breadcrumb separator="/" style="font-size:14px;">
-                            <el-breadcrumb-item>组件目录</el-breadcrumb-item>
-                            <el-breadcrumb-item>组件详情</el-breadcrumb-item>
-                        </el-breadcrumb>
-                    </div>
-                    <div style="text-align:right;float:right;width:200px;padding-right:0px;">
-                        <a href="#" @click="back" title="后退" class="back"><img src="../../../app_src/imgs/back.png"></a>
-                    </div>
+                <el-row>
+                    <el-col :span="12">
+                        <div class="breadcrumb">
+                            <el-breadcrumb separator="/">
+                                <el-breadcrumb-item>组件目录</el-breadcrumb-item>
+                                <el-breadcrumb-item>组件详情</el-breadcrumb-item>
+                            </el-breadcrumb>
+                        </div>
+                    </el-col>
 
-                </div>
+                    <el-col :span="12">
+                        <div class="back">
+                            <!-- <el-button type="primary" @click="back" size="mini">后退</el-button> -->
+                            <a href="#" title="后退" @click="back" style="float:right"><img src="../../../app_src/imgs/back.png"></a>
+                        </div>
+                    </el-col>
+                </el-row>
                 <el-card class="componentinfo" shadow="never" style="width:95%;margin:0 auto;">
                     <!-- <div style="width:100%;padding:10px 0 0 5px;">
                         <span style="font-weight:bold">{{obj.COMPONENT_NAME}}</span>
@@ -74,45 +79,45 @@
                         </el-row>
                     </div> -->
                     <!-- <div style="text-align:center;float:left;width:45%;height:145px;padding-top:70px;"> -->
-                      <table border-collapse="collapse" align="center" cellspacing="5" cellpadding="5" width="750px;" style="font-family:'微软雅黑';font-size: 14px">
-                            <caption><span style="font-weight:bold;">{{obj.COMPONENT_NAME}}</span></caption>
-                            <tr>
-                                <td style="width:95px;"><span>版　　本：</span></td>
-                                <td><span>{{obj.COMPONENT_VERSION}}</span></td>
-                                <td style="width:95px;"><span>软件大小：</span></td>
-                                <td><span>{{obj.COMPONENT_SIZE}}</span></td>
-                            </tr>
-                           
-                            <tr>
-                                <td><span>发布日期：</span></td>
-                                <td><span>{{obj.COMPONENT_PUBLISHDATE | parseTime}}</span></td>
-                                <td><span>开发语言：</span></td>
-                                <td><span>{{obj.SOFTWARE_LANGUAGE}}</span></td>
-                            </tr>
-                            <tr>
-                                <td><span>上 传 人：</span></td>
-                                <td><span>{{obj.CREATER}}</span></td>
-                                <td><span>联系电话：</span></td>
-                                <td><span>{{obj.MANAGE_TEL }}</span></td>
-                            </tr>
-                            <tr>
-                                <td><span>申请次数：</span></td>
-                                <td><span>{{obj.DOWNLOAD_TIMES}}</span></td>
-                                <td><span>应用平台：</span></td>
-                                <td><span>{{obj.SUIT_PLAT}}</span></td>
-                            </tr>
-                             <tr>
-                                <td><span>软件大小：</span></td>
-                                <td><span>{{obj.COMPONENT_SIZE}}</span></td>
-                                <td><span>适用浏览器：</span></td>
-                                <td><span>{{obj.APPLICATION_BROWSER}}</span></td>
-                            </tr>
-                            <tr>
-                                <td><span>管理部门：</span></td>
-                                <td colspan="3"><span>{{obj.MANAGE_ORG_NAME}}</span></td>
-                                
-                            </tr>
-                        </table>
+                    <table border-collapse="collapse" align="center" cellspacing="5" cellpadding="5" width="750px;" style="font-family:'微软雅黑';font-size: 14px">
+                        <caption><span style="font-weight:bold;">{{obj.COMPONENT_NAME}}</span></caption>
+                        <tr>
+                            <td style="width:95px;"><span>版　　本：</span></td>
+                            <td><span>{{obj.COMPONENT_VERSION}}</span></td>
+                            <td style="width:95px;"><span>软件大小：</span></td>
+                            <td><span>{{obj.COMPONENT_SIZE}}</span></td>
+                        </tr>
+
+                        <tr>
+                            <td><span>发布日期：</span></td>
+                            <td><span>{{obj.COMPONENT_PUBLISHDATE | parseTime}}</span></td>
+                            <td><span>开发语言：</span></td>
+                            <td><span>{{obj.SOFTWARE_LANGUAGE}}</span></td>
+                        </tr>
+                        <tr>
+                            <td><span>上 传 人：</span></td>
+                            <td><span>{{obj.CREATER}}</span></td>
+                            <td><span>联系电话：</span></td>
+                            <td><span>{{obj.MANAGE_TEL }}</span></td>
+                        </tr>
+                        <tr>
+                            <td><span>申请次数：</span></td>
+                            <td><span>{{obj.DOWNLOAD_TIMES}}</span></td>
+                            <td><span>应用平台：</span></td>
+                            <td><span>{{obj.SUIT_PLAT}}</span></td>
+                        </tr>
+                        <tr>
+                            <td><span>软件大小：</span></td>
+                            <td><span>{{obj.COMPONENT_SIZE}}</span></td>
+                            <td><span>适用浏览器：</span></td>
+                            <td><span>{{obj.APPLICATION_BROWSER}}</span></td>
+                        </tr>
+                        <tr>
+                            <td><span>管理部门：</span></td>
+                            <td colspan="3"><span>{{obj.MANAGE_ORG_NAME}}</span></td>
+
+                        </tr>
+                    </table>
                     <div style="text-align:center;clear:both;padding-left:10px;" v-if="obj.CHECK_STATE!=1">
                         <el-button type="primary" @click="handleApply" v-if="obj.CHECK_STATE===-1||obj.CHECK_STATE===-2">申 请</el-button>
                         <el-button type="danger" @click="doNothing" v-else-if="obj.CHECK_STATE===0">待审核</el-button>
@@ -425,9 +430,12 @@ export default {
     display: block;
     margin: 5px;
 }
+.breadcrumb {
+    margin-top: 15px;
+    margin-left: 5%;
+}
 .back {
     float: right;
-    margin-right: 0px;
     img {
         width: 50px;
         height: 50px;

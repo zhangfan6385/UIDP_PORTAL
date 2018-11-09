@@ -24,7 +24,7 @@
                     </el-row>
 
                     <div class="noticecontent">
-                        <el-card v-for="(ele,key) in notice" :key="key">
+                        <el-card v-for="(ele,key) in notice" :key="key" style="width:95%;margin:0 auto;margin-top:10px;" shadow="never">
                             <div slot="header" class="header">
                                 {{ele.NOTICE_TITLE}}
 
@@ -122,6 +122,7 @@ export default {
     margin-top: 20px;
     .breadcrumb {
         margin-top: 15px;
+        margin-left: 5%;
     }
     .back {
         float: right;

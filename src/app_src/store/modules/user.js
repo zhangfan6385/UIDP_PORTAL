@@ -17,7 +17,7 @@ const user = {
     loginUserCode: '', // 登陆账号,
     userinfo: [],
     //projInfo
-    currentProjID: '',
+    currentProjID: null,
     currentProjName: '',
     projList: [],
     //Msg Info
