@@ -811,7 +811,8 @@ export default {
                 {
                     name: "下载量",
                     type: "bar",
-                    data: Severdata
+                    data: Severdata,
+                    barWidth:30
                 }
             ];
             // //option1 服务饼状图数据转化
@@ -834,7 +835,8 @@ export default {
                 {
                     name: "组件下载量",
                     type: "bar",
-                    data: Comdata
+                    data: Comdata,
+                    barWidth:30
                 }
             ];
             // //option3 组件饼状图转化
@@ -959,7 +961,8 @@ export default {
                     {
                         name: "组件下载详情",
                         type: "bar",
-                        data: ComData
+                        data: ComData,
+                        barWidth:30
                     }
                 ];
             }
@@ -973,7 +976,8 @@ export default {
                     {
                         name: "服务下载详情",
                         type: "bar",
-                        data: SerData
+                        data: SerData,
+                        barWidth:30
                     }
                 ];
             }
