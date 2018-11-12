@@ -962,7 +962,7 @@ export default {
                         name: "组件下载详情",
                         type: "bar",
                         data: ComData,
-                        barWidth:30
+                        //barWidth:30
                     }
                 ];
             }
@@ -977,7 +977,7 @@ export default {
                         name: "服务下载详情",
                         type: "bar",
                         data: SerData,
-                        barWidth:30
+                        //barWidth:30
                     }
                 ];
             }
