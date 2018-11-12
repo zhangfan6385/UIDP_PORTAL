@@ -79,8 +79,8 @@
                         </el-row>
                     </div> -->
                     <!-- <div style="text-align:center;float:left;width:45%;height:145px;padding-top:70px;"> -->
-                    <table border-collapse="collapse" align="center" cellspacing="5" cellpadding="5" width="750px;" style="font-family:'微软雅黑';font-size: 14px">
-                        <caption><span style="font-weight:bold;">{{obj.COMPONENT_NAME}}</span></caption>
+                    <table border-collapse="collapse" align="center" cellspacing="5" cellpadding="5" width="750px;" style="font-family:'微软雅黑';font-size: 14px;line-height:25px;">
+                        <caption><span style="font-weight:bold;font-size:17px;">{{obj.COMPONENT_NAME}}</span></caption>
                         <tr>
                             <td style="width:95px;"><span>版　　本：</span></td>
                             <td><span>{{obj.COMPONENT_VERSION}}</span></td>
@@ -412,6 +412,7 @@ export default {
     .title {
         font-weight: bold;
         padding-left: 6px;
+        font-size: 17px;
     }
 }
 /* .componentinfo li{float:left;width:100px;background:#CCC;margin-left:3px;line-height:30px;} */

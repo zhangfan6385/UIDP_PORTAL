@@ -73,7 +73,7 @@
                         </li>
                     </ul> -->
                     <table border-collapse="collapse" align="center" cellspacing="5" cellpadding="5" width="750px;" style="font-family:'微软雅黑';font-size:14px;line-height:25px;">
-                        <caption><span style="font-weight:bold;">{{severInfo.SERVICE_NAME}}</span></caption>
+                        <caption><span style="font-weight:bold;font-size:17px;">{{severInfo.SERVICE_NAME}}</span></caption>
                         <tr>
                             <td><span>服务地址：</span></td>
                             <td colspan="3" v-if="severInfo.CHECK_STATE===1">{{severInfo.SERVICE_URL}}</td>
@@ -403,8 +403,10 @@ export default {
     .title {
         font-weight: bold;
         padding-left: 6px;
+        font-size: 17px;
     }
 }
+
 .el-card__body {
     padding: 5px;
 }
