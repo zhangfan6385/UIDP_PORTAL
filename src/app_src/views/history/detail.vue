@@ -111,8 +111,8 @@
                     <el-card class="componentinfo1" shadow="never" style="width:95%;margin:0 auto;margin-top:10px;">
                         <!-- <span style="font-size:18px;font-weight:bold"><img style="width:20px;height:20px;" src="../../../app_src/imgs/title.png">服务介绍</span> -->
                         <!-- <div v-html="obj.content"></div> -->
-                        <div class="title" style="width:90%;margin:0 auto;padding-bottom:5px;">平台运行要求</div>
-                        <div v-html="platInfo.PLAT_RUNREQUIRE" style="width:90%;margin:0 auto;"></div>
+                        <div class="title" style="width:100%;margin:0 auto;padding-bottom:5px;">平台运行要求</div>
+                        <div v-html="platInfo.PLAT_RUNREQUIRE" style="width:100%;padding-left:6px;margin:0 auto;"></div>
                     </el-card>
                 </el-card>
 
