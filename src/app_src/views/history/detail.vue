@@ -57,8 +57,8 @@
                                 <span>{{platInfo.SOFTWARE_LANGUAGE}}</span>
                             </li>
                         </ul> -->
-                        <table border-collapse="collapse" align="center" cellspacing="5" cellpadding="5" width="750px;" style="font-family:'微软雅黑';font-size: 14px">
-                            <caption><span style="font-weight:bold">{{platInfo.PLAT_NAME}}</span></caption>
+                        <table border-collapse="collapse" align="center" cellspacing="5" cellpadding="5" width="750px;" style="font-family:'微软雅黑';font-size: 14px;line-height:25px;">
+                            <caption><span style="font-weight:bold;font-size:17px;">{{platInfo.PLAT_NAME}}</span></caption>
                             <tr>
                                 <td style="width:90px;"><span>版　　本：</span></td>
                                 <td><span>{{platInfo.PLAT_VERSION}}</span></td>
@@ -380,6 +380,8 @@ export default {
         line-height: 150%;
         .title {
             font-weight: bold;
+            padding-left: 6px;
+            font-size: 17px;
         }
     }
     .el-card__body {
