@@ -421,8 +421,8 @@ export default {
                         type: "slider",
                         yAxisIndex: [0],
                         filterMode: "empty",
-                        start: 0,
-                        end: 100
+                        //show:false,
+                        //end: 100
                     }
                 ],
                 title: {
@@ -812,7 +812,7 @@ export default {
                     name: "下载量",
                     type: "bar",
                     data: Severdata,
-                    barWidth:30
+                    barWidth: 30
                 }
             ];
             // //option1 服务饼状图数据转化
@@ -836,7 +836,7 @@ export default {
                     name: "组件下载量",
                     type: "bar",
                     data: Comdata,
-                    barWidth:30
+                    barWidth: 30
                 }
             ];
             // //option3 组件饼状图转化
@@ -929,9 +929,9 @@ export default {
                     //     }
                     // }
                     this.changeAllData();
-                    if(this.type===1){
+                    if (this.type === 1) {
                         this.dialogdrawlineSever();
-                    }else{
+                    } else {
                         this.dialogdrawlineComponent();
                     }
                 } else {
@@ -962,7 +962,7 @@ export default {
                         name: "组件下载详情",
                         type: "bar",
                         data: ComData,
-                        //barWidth:30
+                        barWidth: 30
                     }
                 ];
             }
@@ -977,7 +977,7 @@ export default {
                         name: "服务下载详情",
                         type: "bar",
                         data: SerData,
-                        //barWidth:30
+                        barWidth: 30
                     }
                 ];
             }
