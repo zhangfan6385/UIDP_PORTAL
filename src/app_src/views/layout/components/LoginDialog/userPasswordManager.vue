@@ -1,23 +1,23 @@
 <template>
-  <div id="passdialog">
-    <el-dialog title="修改密码" :visible.sync="isvisiblepassword" width="30%" @close='closeDialog'>
-      <el-form class="form" :model="pwdForm" :rules="pwdRules" ref="pwdForm" label-width="100px">
-        <el-form-item label="原密码" prop="password">
-          <el-input type="password" v-model="pwdForm.password" auto-complete="off" size="small" placeholder="请输入原密码"></el-input>
-        </el-form-item>
-        <el-form-item label="新密码" prop="newpassword">
-          <el-input type="password" v-model="pwdForm.newpassword" auto-complete="off" size="small" placeholder="请输入新密码"></el-input>
-        </el-form-item>
-        <el-form-item label="确认新密码" prop="surepassword">
-          <el-input type="password" v-model="pwdForm.surepassword" auto-complete="off" size="small" placeholder="请输入确认新密码"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="submitForm('pwdForm')">保存</el-button>
-          <el-button @click="resetForm('pwdForm')">重置</el-button>
-        </el-form-item>
-      </el-form>
-    </el-dialog>
-  </div>
+    <div id="passdialog">
+        <el-dialog title="修改密码" :visible.sync="isvisiblepassword" width="30%" @close='closeDialog'>
+            <el-form class="form" :model="pwdForm" :rules="pwdRules" ref="pwdForm" label-width="100px">
+                <el-form-item label="原密码" prop="password">
+                    <el-input type="password" v-model="pwdForm.password" auto-complete="off" size="small" placeholder="请输入原密码"></el-input>
+                </el-form-item>
+                <el-form-item label="新密码" prop="newpassword">
+                    <el-input type="password" v-model="pwdForm.newpassword" auto-complete="off" size="small" placeholder="请输入新密码"></el-input>
+                </el-form-item>
+                <el-form-item label="确认新密码" prop="surepassword">
+                    <el-input type="password" v-model="pwdForm.surepassword" auto-complete="off" size="small" placeholder="请输入确认新密码"></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" @click="submitForm('pwdForm')">保存</el-button>
+                    <el-button @click="resetForm('pwdForm')">重置</el-button>
+                </el-form-item>
+            </el-form>
+        </el-dialog>
+    </div>
 </template>
 <script>
 import { updatePasswordData } from "@/app_src/api/user";
@@ -119,16 +119,18 @@ export default {
                             this.$notify({
                                 position: "bottom-right",
                                 title: this.title,
-                                message: this.message,
+                                message: response.data.message,
                                 type: this.type,
                                 duration: 2000
                             });
-                            this.isvisiblepassword=false;
+                            this.isvisiblepassword = false;
                         } else {
+                            this.title = "失败";
+                            this.type = "warning";
                             this.$notify({
                                 position: "bottom-right",
                                 title: this.title,
-                                message: this.message,
+                                message: response.data.message,
                                 type: this.type,
                                 duration: 2000
                             });
