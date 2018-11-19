@@ -72,7 +72,7 @@
                             <span>{{severInfo.MANAGE_TEL}}</span>
                         </li>
                     </ul> -->
-                    <table border-collapse="collapse" align="center" cellspacing="5" cellpadding="5" width="750px;" style="font-family:'微软雅黑';font-size:14px;line-height:25px;">
+                    <table border-collapse="collapse" align="center" cellspacing="5" cellpadding="5" width="850px;" style="font-family:'微软雅黑';font-size:14px;line-height:25px;">
                         <caption><span style="font-weight:bold;font-size:17px;">{{severInfo.SERVICE_NAME}}</span></caption>
                         <tr>
                             <td><span>服务地址：</span></td>
@@ -390,7 +390,7 @@ export default {
     }
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .componentinfo {
     margin-bottom: 5px;
     padding-left: 30px;

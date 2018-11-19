@@ -397,7 +397,7 @@ export default {
     }
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .componentinfo {
     margin-bottom: 15px;
     padding-bottom: 10px;
